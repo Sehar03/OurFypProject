@@ -5,8 +5,7 @@ const App = () => {
   return(<SafeAreaView>
   <Text style={{alignSelf:"center",color:"red",marginTop:300}}> Hello World</Text>
   <Text style={{alignSelf:"center",color:"purple",marginTop:100}}>Sehar</Text>
-  <Text style={{alignSelf:"center",color:"purple",marginTop:50}}>Malik</Text>
-  <Text style={{alignSelf:"center",color:"purple",marginTop:50}}>serry</Text>
+  <Text style={{alignSelf:"center",color:"purple",marginTop:100}}>Malik</Text>
 
   </SafeAreaView>
   )
