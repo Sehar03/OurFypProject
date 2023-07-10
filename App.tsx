@@ -1,15 +1,39 @@
-import React from 'react'
-import { SafeAreaView, Text } from 'react-native'
+// In App.js in a new project
 
-const App = () => {
-  return(<SafeAreaView>
-  <Text style={{alignSelf:"center",color:"red",marginTop:300}}> Hello World</Text>
-  <Text style={{alignSelf:"center",color:"purple",marginTop:100}}>Sehar</Text>
-  
-  <Text style={{alignSelf:"center",color:"purple",marginTop:100}}>Malik</Text>
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-  </SafeAreaView>
-  )
+
+const HomeScreen=()=>{
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
 }
 
-export default App
+const DetailsScreen=()=> {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+    </View>
+  );
+}
+
+
+const Stack = createNativeStackNavigator();
+
+const App=() =>{
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
