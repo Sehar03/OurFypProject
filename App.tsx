@@ -20,6 +20,7 @@ const DetailsScreen=()=> {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Detail Screen</Text>
+      <Text>Details Screen</Text>
     </View>
   );
 }
