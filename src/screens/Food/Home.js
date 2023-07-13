@@ -5,6 +5,7 @@ import DrawerHeader from '../../components/headers/DrawerHeader'
 const Home = ({navigation}) => {
   return (
     <SafeAreaView>
+        {/*  */}
         <DrawerHeader navigation={navigation} title="home drawer"/>
     </SafeAreaView>
   )
