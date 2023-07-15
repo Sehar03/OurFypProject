@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 const TextStyles =StyleSheet.create({
     leftHeading:{
         marginTop: 50,
-        marginLeft: 30,
+        marginLeft: 38,
         fontWeight: '600',
         fontSize: 30,
         marginBottom: 30,

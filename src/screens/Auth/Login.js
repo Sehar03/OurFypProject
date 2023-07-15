@@ -22,34 +22,28 @@ import ContainerStyles from '../../assets/styles/ContainerStyles';
 import ImageStyles from '../../assets/styles/ImageStyles';
 import TextStyles from '../../assets/styles/TextStyles';
 import IconStyles from '../../assets/styles/IconStyles';
-const Login= ({navigation}) => {
+const Login = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
-
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1,backgroundColor:"white"}}>
       {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
-      <Text
-        style={TextStyles.leftHeading}>
-        Log In
-      </Text>
+      <Text style={TextStyles.leftHeading}>Log In</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
       <View style={{alignItems: 'center'}}>
-     
-
         <Neomorph
           darkShadowColor={AppColors.primary}
-          lightShadowColor="white"
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
             <Fontisto
               name="email"
-              size={wp('10%')}
+              size={wp('5%')}
               style={[IconStyles.signupIcons]}
             />
             <TextInput
@@ -64,14 +58,14 @@ const Login= ({navigation}) => {
 
         <Neomorph
           darkShadowColor={AppColors.primary}
-          lightShadowColor="white"
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
             <SimpleLineIcons
               name="lock"
-              size={wp('10%')}
+              size={wp('5%')}
               style={IconStyles.signupIcons}
             />
             <TextInput
@@ -93,8 +87,8 @@ const Login= ({navigation}) => {
         </TouchableOpacity>
 
         <Neomorph
-          darkShadowColor="white"
-          lightShadowColor="white"
+          darkShadowColor={AppColors.primary}
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
@@ -103,27 +97,26 @@ const Login= ({navigation}) => {
               onPress={() => {
                 // navigation.navigate('Login');
               }}>
-              <Text
-                style={[TextStyles.whiteCenteredLable]}>
-                LOG IN
-              </Text>
+              <Text style={[TextStyles.whiteCenteredLable]}>LOG IN</Text>
             </TouchableOpacity>
           </View>
         </Neomorph>
-        <View style={{flexDirection:"row",marginTop:25}}>
-        <Text style={{fontWeight:"600"}}>Don't have an account ?  </Text>
-        <TouchableOpacity
-          // style={{marginLeft: 150}}
-          onPress={() => {
-            navigation.navigate('Signup');
-          }}>
-          <Text style={{color:AppColors.primary,fontWeight:"600"}}>SIGNUP</Text>
-        </TouchableOpacity>
-</View>
+        <View style={{flexDirection: 'row', marginTop: 25}}>
+          <Text style={{fontWeight: '600'}}>Don't have an account ? </Text>
+          <TouchableOpacity
+            // style={{marginLeft: 150}}
+            onPress={() => {
+              navigation.navigate('Signup');
+            }}>
+            <Text style={{color: AppColors.primary, fontWeight: '600'}}>
+              SIGNUP
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Image
-      source={require('../../assets/images/Login1.jpg')} // Specify the source of the image
-      style={[ImageStyles.loginImage]} // Set the desired width and height of the image
-    />
+          source={require('../../assets/images/Login1.jpg')} // Specify the source of the image
+          style={[ImageStyles.loginImage]} // Set the desired width and height of the image
+        />
       </View>
       {/* <Image
       source={require('../../assets/images/SignUpImage.jpg')} // Specify the source of the image

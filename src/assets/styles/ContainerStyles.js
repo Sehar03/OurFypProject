@@ -7,7 +7,7 @@ import AppColors from '../colors/AppColors';
 const ContainerStyles = StyleSheet.create({
    inputFieldNeomorphContainer:{
     width: wp('80%'),
-    height: hp('9%'),
+    height: hp('7%'),
     borderRadius: 15,
     shadowRadius: 4,
     backgroundColor: 'white',
@@ -24,8 +24,8 @@ const ContainerStyles = StyleSheet.create({
       shadowRadius: 6,
       backgroundColor:AppColors.primary,
       borderRadius:15,
-      height:hp('8%'),
-      width:wp('80%'),
+      height:hp('7%'),
+      width:wp('50%'),
       marginVertical: 10,
       shadowOpacity: 0.3,
   
