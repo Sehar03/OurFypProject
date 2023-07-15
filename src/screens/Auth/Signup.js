@@ -28,7 +28,7 @@ const Signup = ({navigation}) => {
   const [userPassword, setUserPassword] = useState('');
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1,backgroundColor:"white"}}>
       {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
       <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
@@ -36,14 +36,14 @@ const Signup = ({navigation}) => {
       <View style={{alignItems: 'center'}}>
         <Neomorph
           darkShadowColor={AppColors.primary}
-          lightShadowColor="white"
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
             <SimpleLineIcons
               name="user"
-              size={wp('10%')}
+              size={wp('5%')}
               style={IconStyles.signupIcons}
             />
             <TextInput
@@ -58,14 +58,14 @@ const Signup = ({navigation}) => {
 
         <Neomorph
           darkShadowColor={AppColors.primary}
-          lightShadowColor="white"
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
             <Fontisto
               name="email"
-              size={wp('10%')}
+              size={wp('5%')}
               style={IconStyles.signupIcons}
             />
             <TextInput
@@ -80,14 +80,14 @@ const Signup = ({navigation}) => {
 
         <Neomorph
           darkShadowColor={AppColors.primary}
-          lightShadowColor="white"
+          lightShadowColor={AppColors.background}
           inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
             <SimpleLineIcons
               name="lock"
-              size={wp('10%')}
+              size={wp('5%')}
               style={IconStyles.signupIcons}
             />
             <TextInput
@@ -126,15 +126,15 @@ const Signup = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Image
+        {/* <Image
           source={require('../../assets/images/SignUp1.png')} // Specify the source of the image
           style={[ImageStyles.signupImage]} // Set the desired width and height of the image
-        />
+        /> */}
       </View>
-      {/* <Image
-      source={require('../../assets/images/SignUpImage.jpg')} // Specify the source of the image
-      style={{ width: wp('50%'), height: hp('27%'),borderRadius:20 }} // Set the desired width and height of the image
-    /> */}
+      <Image
+      source={require('../../assets/images/signup3.png')} // Specify the source of the image
+      style={{ width: wp('65%'), height: hp('30%'),marginTop:30}} // Set the desired width and height of the image
+    />
     </SafeAreaView>
   );
 };
