@@ -1,13 +1,14 @@
+<<<<<<< Updated upstream
 import 'react-native-gesture-handler';
 import React from 'react';
 import { ViewPropTypes } from 'deprecated-react-native-prop-types';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/screens/Auth/Login';
 import Signup from './src/screens/Auth/Signup';
 import Home from './src/screens/Food/Home';
+import Splash from './src/screens/Splash/Splash';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,6 +28,7 @@ const DrawerScreens = () => {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
+        <Drawer.Screen name="Splash" component={Splash} />
     </Drawer.Navigator>
   );
 };
@@ -44,4 +46,23 @@ const App = () => {
   );
 };
 
+=======
+// In App.js in a new project
+
+import * as React from 'react';
+import { View, Text, SafeAreaView ,Image, ImageBackground} from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+const App=()=>{
+  return (
+  <SafeAreaView>
+    
+  </SafeAreaView>
+    )
+
+  }
+>>>>>>> Stashed changes
 export default App;

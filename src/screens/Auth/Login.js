@@ -18,10 +18,11 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
-import ContainerStyles from '../../assets/styles/ContainerStyles';
-import ImageStyles from '../../assets/styles/ImageStyles';
-import TextStyles from '../../assets/styles/TextStyles';
-import IconStyles from '../../assets/styles/IconStyles';
+
+import TextStyles from '../../assets/Styles/TextStyles';
+import IconStyles from '../../assets/Styles/IconStyles';
+import ContainerStyles from '../../assets/Styles/ContainerStyles';
+import ImageStyles from '../../assets/Styles/ImageStyles';
 const Login = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -113,15 +114,12 @@ const Login = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Image
-          source={require('../../assets/images/Login1.jpg')} // Specify the source of the image
-          style={[ImageStyles.loginImage]} // Set the desired width and height of the image
-        />
+        
       </View>
-      {/* <Image
-      source={require('../../assets/images/SignUpImage.jpg')} // Specify the source of the image
-      style={{ width: wp('50%'), height: hp('27%'),borderRadius:20 }} // Set the desired width and height of the image
-    /> */}
+      <Image
+      source={require('../../assets/Images/signup3.png')} // Specify the source of the image
+      style={{ width: wp('65%'), height: hp('30%'),marginTop:30}} // Set the desired width and height of the image
+    />
     </SafeAreaView>
   );
 };

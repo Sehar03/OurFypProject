@@ -43,11 +43,10 @@ public class MainApplication extends Application implements ReactApplication {
           return BuildConfig.IS_HERMES_ENABLED;
         }
       };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
+        @Override
+        public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+        }
 
   @Override
   public void onCreate() {
@@ -59,4 +58,5 @@ public class MainApplication extends Application implements ReactApplication {
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+
 }
