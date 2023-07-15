@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -35,8 +37,8 @@ const App = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Auth" component={AuthStack} />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
