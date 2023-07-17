@@ -13,8 +13,8 @@ const TextStyles =StyleSheet.create({
         color: 'white',
         fontWeight: '600',
         fontSize: 20,
-        textAlign: 'center',
-        marginTop: 15,
+        // textAlign: 'center',
+        marginTop: 11,
       }
 })
 

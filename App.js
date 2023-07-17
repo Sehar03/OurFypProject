@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import 'react-native-gesture-handler';
 import React from 'react';
 import { ViewPropTypes } from 'deprecated-react-native-prop-types';
@@ -46,23 +45,4 @@ const App = () => {
   );
 };
 
-=======
-// In App.js in a new project
-
-import * as React from 'react';
-import { View, Text, SafeAreaView ,Image, ImageBackground} from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-const App=()=>{
-  return (
-  <SafeAreaView>
-    
-  </SafeAreaView>
-    )
-
-  }
->>>>>>> Stashed changes
 export default App;
