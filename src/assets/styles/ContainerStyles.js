@@ -24,8 +24,8 @@ const ContainerStyles = StyleSheet.create({
       shadowRadius: 6,
       backgroundColor:AppColors.primary,
       borderRadius:15,
-      height:hp('7%'),
-      width:wp('50%'),
+      height:hp('6%'),
+      width:wp('80%'),
       marginVertical: 10,
       shadowOpacity: 0.3,
   

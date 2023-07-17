@@ -37,7 +37,7 @@ const Signup = ({navigation}) => {
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
-          inner // <- enable shadow inside of neomorph
+          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
@@ -59,7 +59,7 @@ const Signup = ({navigation}) => {
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
-          inner // <- enable shadow inside of neomorph
+          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
@@ -81,7 +81,7 @@ const Signup = ({navigation}) => {
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
-          inner // <- enable shadow inside of neomorph
+          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
@@ -102,7 +102,7 @@ const Signup = ({navigation}) => {
         <Neomorph
           darkShadowColor="white"
           lightShadowColor="white"
-          inner // <- enable shadow inside of neomorph
+          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>

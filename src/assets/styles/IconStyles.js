@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import AppColors from '../../assets/colors/AppColors';
+import AppColors from '../colors/AppColors';
 
 const IconStyles =StyleSheet.create({
     signupIcons:{
