@@ -3,23 +3,21 @@ import {View,TouchableOpacity,Text} from "react-native";
 import Entypo from "react-native-vector-icons/Entypo"
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-
-
-
-
-  
+import ContainerStyles from "../../assets/Styles/ContainerStyles";
+import IconStyles from "../../assets/Styles/IconStyles";
+import TextStyles from "../../assets/Styles/TextStyles";
 
 const DrawerHeader = ({navigation})=>{
     
-    return <View style={{height:hp('8%'),width:wp('100%'),backgroundColor:"darkorange",flexDirection:"row"}}>
+    return <View style={[ContainerStyles.headerViewStyle]}>
         <TouchableOpacity
                 onPress={()=>{
                     navigation.toggleDrawer()
                 }}>         
-            <Entypo name="menu" size={wp('10%')} style={{color:"white",marginTop:10}} />
+            <Entypo name="menu" size={wp('10%')} style={[IconStyles.drawerManuIcon]} />
             
         </TouchableOpacity>
-        <Text style={{color:"white",fontSize:20,marginLeft:85,marginTop:15}}>Home Screen</Text>
+        <Text style={[TextStyles.whiteMediumHeading]}>Home Screen</Text>
         
     </View>
     

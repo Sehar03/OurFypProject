@@ -18,6 +18,7 @@ const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
 
+
    } ,
    touchableOpacityNeomorphContainer:{
       marginTop:30,
@@ -29,7 +30,39 @@ const ContainerStyles = StyleSheet.create({
       marginVertical: hp('1.4%'),
       shadowOpacity: 0.3,
   
-     } 
+     } ,
+     headerViewStyle:{
+      height:hp('8%'),
+      width:wp('100%'),
+      backgroundColor:"#EB5703",
+      flexDirection:"row"
+     },
+     itemsCenter:{
+      alignItems:"center",
+      
+     },
+     largeNeomorphStyle:{
+      shadowRadius: 4,
+      shadowOpacity:0.3,
+      borderRadius: 25,
+      backgroundColor: AppColors.white,
+      width: wp('42'),
+      height: hp('43'), 
+     },
+     smallNeomorphStyle:
+     {
+      shadowRadius: 4,
+      shadowOpacity:0.3,
+      borderRadius: 25,
+      backgroundColor: AppColors.white,
+      width: wp('42.3'),
+      height: hp('21'),
+     
+    },
+    TwoitemsCenter:{
+      flexDirection: 'row',
+       alignItems: 'center'
+    }
 })
 
 export default ContainerStyles

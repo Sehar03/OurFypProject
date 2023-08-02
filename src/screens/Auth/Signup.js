@@ -14,7 +14,6 @@ import {Neomorph} from 'react-native-neomorph-shadows';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
@@ -23,6 +22,7 @@ import IconStyles from '../../assets/Styles/IconStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
+import { ScrollView } from 'react-native-gesture-handler';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import axios from "axios";
 
@@ -74,6 +74,7 @@ const Signup = ({navigation}) => {
     // },[]);
   
   return (
+    <ScrollView>
     <SafeAreaView style={{flex: 1,backgroundColor:"white"}}>
       {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
@@ -180,6 +181,7 @@ const Signup = ({navigation}) => {
       style={[ImageStyles.signupImage]} // Set the desired width and height of the image
     />
     </SafeAreaView>
+    </ScrollView>
   );
 };
 

@@ -21,7 +21,35 @@ const TextStyles =StyleSheet.create({
         fontSize: hp('2.5%'),
         // textAlign: 'center',
         marginTop: hp('1%'),
-      }
+      },
+      whiteMediumHeading:{
+        color:"white",
+        fontSize:hp('3'),
+        marginLeft:wp('25'),
+        marginTop:hp('2')
+      },
+      primaryText:{
+        color:"black",
+        fontFamily: 'Poppins-Medium',
+        fontSize:hp('3.4'),
+        textAlign:"center",
+        margin:10,
+        marginBottom:0
+       
+      },
+      smallText:{
+        color:"black",
+        fontFamily: 'Poppins-Regular',
+        fontSize:hp('1.7'),
+        marginLeft:wp('4')
+      },
+     mediumTextStyle:{
+        fontSize: hp('2.1'),
+        fontFamily: 'Poppins-Medium',
+        marginLeft: wp('6'),
+      
+     },
+     
 })
 
 export default TextStyles
