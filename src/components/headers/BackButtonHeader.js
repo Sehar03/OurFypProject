@@ -3,10 +3,10 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
-
 import AppColors from '../../assets/colors/AppColors';
 import TextStyles from '../../assets/Styles/TextStyles';
+import ContainerStyles from '../../assets/Styles/ContainerStyles';
+import IconStyles from '../../assets/Styles/IconStyles';
 
 const BackButtonHeader = ({navigation,title}) => {
  
