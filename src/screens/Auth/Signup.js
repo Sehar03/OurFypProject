@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Image,
@@ -14,68 +14,102 @@ import {Neomorph} from 'react-native-neomorph-shadows';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Feather from 'react-native-vector-icons/Feather';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
 
 import IconStyles from '../../assets/Styles/IconStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
-import { ScrollView } from 'react-native-gesture-handler';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 
 const Signup = ({navigation}) => {
-
-
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
+  const [userNameError, setUserNameError] = useState('');
+  const [userEmailError, setUserEmailError] = useState('');
+  const [userPasswordError, setUserPasswordError] = useState('');
 
+  //FUNCTIONS
 
+  const isEmailValid = userEmail => {
+    const emailPattern = /\S+@\S+\.\S+/;
+    return emailPattern.test(userEmail);
+  };
 
-    
-    // //FUNCTIONS
-    // const userRegister = ()=>{
-    //   const formData = new FormData();
-    //   formData.append("name",userName);
-    //   formData.append("email",userEmail);
-    //   formData.append("password",userPassword);
-  
-    //   axios({
-    //     method: "post",
-    //     url: "http://192.168.0.1:8888/signup",
-    //     data: formData,
-    //     headers: { "Content-Type": "multipart/form-data"},
-    //   })
-    //     .then(function (response) {
-    //       if(response.data.save == true)
-    //       {
-    //         AsyncStorage.setItem("user",JSON.stringify(response.data.newUser));
-    //         navigation.navigate('Home');
-    //       }else
-    //       {
-    //         alert("Account cannot be created");
-    //       }
-    //     })
-    //     .catch(function (response) {
-    //       //handle error
-    //       console.log(response);
-    //     });
-    // }
-  
-    // useEffect(()=>{
-    //   let currentUserStatus = AsyncStorage.getItem('user');
-    //   if(currentUserStatus){
-    //     navigation.navigate('Home');
-    //       }
-    // },[]);
-  
+  const isPasswordValid = userPassword => {
+    return userPassword.length >= 8; // Minimum password length of 8 characters
+  };
+  const userRegister = () => {
+    if (!userName) {
+      setUserNameError('Please enter your name.');
+    }
+
+    if (!userEmail) {
+      setUserEmailError('Please enter your email address.');
+    } else if (!isEmailValid(userEmail)) {
+      setUserEmailError('Please enter a valid email address.');
+    }
+    if (!userPassword) {
+      setUserPasswordError('Please enter your password.');
+    } else if (!isPasswordValid(userPassword)) {
+      setUserPasswordError('Password must be at least 8 characters long.');
+    }
+    if (
+      !userName ||
+      !userEmail ||
+      !userPassword ||
+      !isEmailValid(userEmail) ||
+      !isPasswordValid(userPassword)
+    ) {
+      return false;
+    }
+
+    // console.warn("Stop")
+    const formData = new FormData();
+    formData.append('name', userName);
+    formData.append('email', userEmail);
+    formData.append('password', userPassword);
+
+    axios({
+      method: 'post',
+      url: 'http:192.168.10.13:8888/signup',
+      data: formData,
+      headers: {'Content-Type': 'multipart/form-data'},
+    })
+      .then(function (response) {
+        if (response.data.save == true) {
+          AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
+          navigation.navigate('Home');
+        } else {
+          alert('Account cannot be created');
+        }
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+  };
+
+  useEffect(() => {
+    let currentUserStatus = AsyncStorage.getItem('user');
+    if (currentUserStatus) {
+      navigation.navigate('Home');
+    }
+  }, []);
+
   return (
     <ScrollView>
-    <SafeAreaView style={{flex: 1,backgroundColor:"white"}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
       <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
@@ -95,13 +129,20 @@ const Signup = ({navigation}) => {
             />
             <TextInput
               placeholder="Enter User Name"
+              // maxLength={20}
+              style={[TextFieldStyles.inputField]}
               // style={{fontFamily:'Poppins-Thin'}}
               value={userName}
               onChangeText={text => {
                 setUserName(text);
+                setUserNameError('');
               }}
             />
           </View>
+
+          {userNameError ? (
+            <Text style={[TextStyles.errorText]}>{userNameError}</Text>
+          ) : null}
         </Neomorph>
 
         <Neomorph
@@ -118,12 +159,18 @@ const Signup = ({navigation}) => {
             />
             <TextInput
               placeholder="Enter Email"
+              style={[TextFieldStyles.inputField]}
               value={userEmail}
+              autoCapitalize="none"
               onChangeText={text => {
                 setUserEmail(text);
+                setUserEmailError('');
               }}
             />
           </View>
+          {userEmailError ? (
+            <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
+          ) : null}
         </Neomorph>
 
         <Neomorph
@@ -140,50 +187,72 @@ const Signup = ({navigation}) => {
             />
             <TextInput
               placeholder="Enter Password"
+              style={[TextFieldStyles.inputField]}
               value={userPassword}
+              secureTextEntry={passwordVisible}
+              autoCapitalize="none"
               onChangeText={text => {
                 setUserPassword(text);
+                setUserPasswordError('');
               }}
             />
-          </View>
-        </Neomorph>
-        <Neomorph
-          darkShadowColor="white"
-          lightShadowColor="white"
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <TouchableOpacity
-              onPress={() => {
-                // userRegister();
-              }}>
-              <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
+              onPress={() => setPasswordVisible(!passwordVisible)}>
+              <Feather
+                name={passwordVisible ? 'eye' : 'eye-off'}
+                size={wp('5%')}
+                style={[IconStyles.signupIcons, {color: 'grey', opacity: 0.7}]}
+              />
             </TouchableOpacity>
           </View>
+          {userPasswordError ? (
+            <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
+          ) : null}
         </Neomorph>
+
+        <TouchableOpacity
+          onPress={() => {
+            userRegister();
+            console.log('signup is running');
+            // setUserName('');
+            // setUserEmail('');
+            // setUserPassword('');
+          }}>
+          <Neomorph
+            darkShadowColor="white"
+            lightShadowColor="white"
+            // inner // <- enable shadow inside of neomorph
+            swapShadows // <- change zIndex of each shadow color
+            style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
+            <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
+          </Neomorph>
+        </TouchableOpacity>
         <View style={{flexDirection: 'row'}}>
-          <Text style={{fontFamily:"Poppins-SemiBold"}}>Already have an account ? </Text>
+          <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+            Already have an account ?{' '}
+          </Text>
           <TouchableOpacity
             // style={{marginLeft: 150}}
             onPress={() => {
               navigation.navigate('Login');
             }}>
-            <Text style={{color: AppColors.primary, fontFamily:"Poppins-SemiBold"}}>
+            <Text
+              style={{
+                color: AppColors.primary,
+                fontFamily: 'Poppins-SemiBold',
+              }}>
               LOGIN
             </Text>
           </TouchableOpacity>
         </View>
-      
       </View>
       <Image
-      source={require('../../assets/Images/signup3.png')} // Specify the source of the image
-      style={[ImageStyles.signupImage]} // Set the desired width and height of the image
-    />
+        source={require('../../assets/Images/signup3.png')} // Specify the source of the image
+        style={[ImageStyles.signupImage]} // Set the desired width and height of the image
+      />
     </SafeAreaView>
     </ScrollView>
   );
 };
 
 export default Signup;
-// transform: [{ rotate: '45deg' }]
