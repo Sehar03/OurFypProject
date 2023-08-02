@@ -14,13 +14,13 @@ const ContainerStyles = StyleSheet.create({
     // alignSelf:"center",
     // alignItems: 'center',
     // justifyContent: 'center',
-    marginVertical: hp('1.4%'),
+    marginVertical: hp('3%'),
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
 
    } ,
    touchableOpacityNeomorphContainer:{
-      marginTop:30,
+      marginTop:hp('3%'),
       shadowRadius: 6,
       backgroundColor:AppColors.primary,
       borderRadius:wp('3%'),
@@ -29,7 +29,29 @@ const ContainerStyles = StyleSheet.create({
       marginVertical: hp('1.4%'),
       shadowOpacity: 0.3,
   
-     } 
+     } ,
+     tabScreenTextContainer:{
+      height:hp('4%'),
+     width:wp('60%'),
+     backgroundColor:AppColors.primary,
+     position:"absolute",
+     top:hp('3.5%') ,
+     borderTopRightRadius:wp('5%'),
+     borderBottomRightRadius:wp('5%'),
+     justifyContent:"center"
+   },
+   tabScreenDeliveryTextContainer:{
+      height:hp('4%'),
+   width:wp('18%'),
+   backgroundColor:AppColors.white,
+   position:"absolute",
+   top:hp('22%'),
+   left:wp('4%'),
+   borderRadius:wp('5%'),
+   justifyContent:"center",
+   alignItems:"center"
+},
+
 })
 
 export default ContainerStyles
