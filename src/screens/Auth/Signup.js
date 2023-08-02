@@ -15,7 +15,6 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -109,6 +108,7 @@ const Signup = ({navigation}) => {
   }, []);
 
   return (
+    <ScrollView>
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
@@ -251,8 +251,8 @@ const Signup = ({navigation}) => {
         style={[ImageStyles.signupImage]} // Set the desired width and height of the image
       />
     </SafeAreaView>
+    </ScrollView>
   );
 };
 
 export default Signup;
-// transform: [{ rotate: '45deg' }]

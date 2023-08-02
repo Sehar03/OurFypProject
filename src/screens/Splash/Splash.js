@@ -1,14 +1,23 @@
 import React from 'react'
-import { SafeAreaView, Text ,Image} from 'react-native'
+import { SafeAreaView, Text ,Image, View} from 'react-native'
+import AppColors from '../../assets/colors/AppColors';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Splash = ({navigation}) => {
-  return (<SafeAreaView style={{backgroundColor:"white"}}>
-   <Image source={require('../../assets/Images/image1.png')} style={{height:400,width:200}}/>
-  <Image source={require('../../assets/Images/logo.png')} style={{height:100,width:120,marginLeft:140}}/>
-  <Text style={{fontSize:20,fontWeight:"bold",textAlign:"center",color:"black"}}>Food For Each</Text>
-  <Image source={require('../../assets/Images/image2.png')} style={{height:200,width:400,marginTop:60}}/>
+  return (
+    <ScrollView>
+  <SafeAreaView style={{flex:1,backgroundColor:AppColors.white}}>
+   <Image source={require('../../assets/Images/image1.png')} style={{height:hp('56%'),width:wp('56%')}}/>
+   <View style={{alignItems:"center"}}>
+  <Image source={require('../../assets/Images/logo.png')} style={{height:hp('14%'),width:wp('32%')}}/>
+  <Text style={{fontSize:hp('3%'),fontWeight:"bold",color:"black"}}>Food For Each</Text>
+  </View>
+  <Image source={require('../../assets/Images/image2.png')} style={{height:hp('28%'),width:wp('100%'),marginTop:hp('9%')}}/>
     
   </SafeAreaView>
+  </ScrollView>
   )
 }
 

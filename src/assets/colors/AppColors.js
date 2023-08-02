@@ -6,7 +6,8 @@ const AppColors={
    logInBorder:"gray",
    charcol:"#3F3F4E",
    shopPrimary:"#D43D7C",
+   darkOrange:"#ff8c00",
+   Gray:"gray"
    black:"black",
-   Gray:"gray",
 }
 export default AppColors;
