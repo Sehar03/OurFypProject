@@ -9,11 +9,8 @@ import Login from './src/screens/Auth/Login';
 import Signup from './src/screens/Auth/Signup';
 import Home from './src/screens/Food/Home';
 import Splash from './src/screens/Splash/Splash';
-import Pizza from './src/screens/Food/TabScreens/Pizza';
-import Biryani from './src/screens/Food/TabScreens/Biryani';
-import FurtherScreens from './src/screens/Food/TabScreens/FurtherScreens';
-
-const Tab = createMaterialTopTabNavigator();
+import Cart from './src/screens/Cart/Cart';
+import Profile from './src/screens/Profile/Profile';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -51,7 +48,8 @@ const DrawerScreens = () => {
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
         <Drawer.Screen name="Splash" component={Splash} />
-        <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Drawer.Screen name="Cart" component={Cart} />
+        <Drawer.Screen name="Profile" component={Profile} />
 
     </Drawer.Navigator>
   );
