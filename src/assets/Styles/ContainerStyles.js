@@ -29,7 +29,20 @@ const ContainerStyles = StyleSheet.create({
       marginVertical: hp('1.4%'),
       shadowOpacity: 0.3,
   
+     } ,
+
+     touchableOpacityNeomorphContainer2:{
+      marginTop:40,
+      shadowRadius: 6,
+      backgroundColor:AppColors.primary,
+      borderRadius:wp('2%'),
+      height:hp('7%'),
+      width:wp('80%'),
+      marginVertical: hp('1.4%'),
+      shadowOpacity: 0.3,
+      marginHorizontal:wp('10')
      } 
+
 })
 
 export default ContainerStyles

@@ -3,8 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import DrawerHeader from '../../components/headers/DrawerHeader'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { Image, Text, View ,TouchableOpacity } from 'react-native';
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-
+import {heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const Home = ({navigation}) => {
   return (
