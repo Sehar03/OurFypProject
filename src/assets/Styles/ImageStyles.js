@@ -1,18 +1,18 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AppColors from '../colors/AppColors';
 
 const ImageStyles = StyleSheet.create({
   signupImage: {
     width: wp('65%'),
-   height: hp('30%'),
+    height: hp('30%'),
     // borderRadius: 20
-    marginTop:hp('3%'),
+    marginTop: hp('3%'),
 
-},
-loginImage:{ 
+  },
+  loginImage: {
     width: wp('65%'),
  height: hp('30%'),
 borderRadius:wp('2%') ,
@@ -30,17 +30,14 @@ logoImageStyle:{
    marginBottom: hp('2'),
    marginTop:hp('8')
   },
-  deliveryImg:{height:hp('12.5'),width:wp('25'),margin:10,borderRadius:15},
-  cartImage: {
-    width: wp('17'),
+  advertiseImageStyle: {
+    height: hp('25'),
+    width: wp('40'),
+    borderRadius: 10,
     marginLeft: wp('3'),
-    marginTop: hp('1.6'),
-    borderRadius: wp('2'),
-    height: hp('9'),
-    borderWidth: 4,
-  },
+    marginTop: hp('3')
+  }
 
- 
 });
 
 export default ImageStyles;

@@ -7,8 +7,9 @@ const AppColors={
    charcol:"#3F3F4E",
    shopPrimary:"#D43D7C",
    darkOrange:"#ff8c00",
-   Gray:"gray",
+   Gray:"gray",,
    black:"black",
    facebook:"#1877F2",
+   goldenYellow:"#FFC000"
 }
 export default AppColors;

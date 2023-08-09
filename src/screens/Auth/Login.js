@@ -8,13 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DrawerHeader from '../../components/headers/DrawerHeader';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
@@ -27,7 +24,6 @@ import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 
 const Login = ({navigation}) => {
-
   // states
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -62,15 +58,12 @@ const Login = ({navigation}) => {
       });
   };
 
-
-  const resetPassword=()=>{
-    if(userEmail!=null){
-
+  const resetPassword = () => {
+    if (userEmail != null) {
+    } else {
+      alert('Please Enter a valid email.');
     }
-    else{
-      alert("Please Enter a valid email.");
-    }
-  }
+  };
 
   useEffect(() => {
     let currentUserStatus = AsyncStorage.getItem('user');
@@ -80,7 +73,6 @@ const Login = ({navigation}) => {
   }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
       <BackButtonHeader navigation={navigation} />
       <Text style={TextStyles.leftHeading}>Log In</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
@@ -88,7 +80,6 @@ const Login = ({navigation}) => {
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
-          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
@@ -111,7 +102,6 @@ const Login = ({navigation}) => {
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
-          // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.inputFieldNeomorphContainer]}>
           <View style={{flexDirection: 'row'}}>
@@ -148,7 +138,6 @@ const Login = ({navigation}) => {
           <Neomorph
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
-            // inner // <- enable shadow inside of neomorph
             swapShadows // <- change zIndex of each shadow color
             style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
             <Text style={[TextStyles.whiteCenteredLable]}>LOG IN</Text>
@@ -159,7 +148,6 @@ const Login = ({navigation}) => {
             Don't have an account ?{' '}
           </Text>
           <TouchableOpacity
-            // style={{marginLeft: 150}}
             onPress={() => {
               navigation.navigate('Signup');
             }}>
@@ -172,10 +160,6 @@ const Login = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* <Image
-          source={require('../../assets/Images/Login1.jpg')} // Specify the source of the image
-          style={[ImageStyles.loginImage]} // Set the desired width and height of the image
-        /> */}
       </View>
       <Image
         source={require('../../assets/Images/signup3.png')} // Specify the source of the image
