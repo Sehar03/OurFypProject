@@ -16,9 +16,11 @@ import AppColors from './src/assets/colors/AppColors';
 import CustomeDrawer from './src/components/CustomeDrawer';
 import Cart from './src/screens/Cart/Cart';
 import Profile from './src/screens/Profile/Profile';
-import FurtherScreens from './src/screens/TabScreens/FurtherScreens';
 import Products from './src/screens/Products/Products';
 import SingleProductDetail from './src/screens/Products/SingleProductDetail';
+import FoodShareScreen from './src/screens/Food/FoodShareScreen';
+import SelectedFoodScreen from './src/screens/Food/SelectedFood';
+import FurtherScreens from './src/screens/Food/TabScreens/FurtherScreens';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const AuthStack = () => {
@@ -70,12 +72,12 @@ const DrawerScreens = () => {
       })}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="Signup" component={Signup} />
-      <Drawer.Screen name="Splash" component={Splash} />
-      {/* <Drawer.Screen name="Cart" component={Cart} /> */}
-      {/* <Drawer.Screen name="Profile" component={Profile} /> */}
-      <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
       <Drawer.Screen name="Products" component={Products} />
+        <Drawer.Screen name="Signup" component={Signup} />
+        <Drawer.Screen name="Splash" component={Splash} />
+        <Drawer.Screen name="Cart" component={Cart} />
+        <Drawer.Screen name="Profile" component={Profile} />
+        <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
     </Drawer.Navigator>
   );
 };
@@ -100,6 +102,11 @@ const App = () => {
         <Stack.Screen name="Products" component={Products} />
         <Stack.Screen name="SingleProductDetail" component={SingleProductDetail} />
 
+        <Stack.Screen name="FullPriceHomeScreen" component={FullPriceHomeScreen} />
+        <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
+        <Stack.Screen name="SelectedFood" component={SelectedFoodScreen} />
+        <Stack.Screen name="Food" component={FoodStack} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
