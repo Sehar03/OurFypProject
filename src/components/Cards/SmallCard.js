@@ -10,7 +10,7 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 
 
-const SmallCard = () => {
+const SmallCard = ({navigation}) => {
   const [allCategories, setAllCategories] = useState([
     {
       id: '1',
@@ -58,7 +58,9 @@ const SmallCard = () => {
 
       showsHorizontalScrollIndicator={false}
       return renderItem={({ item }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('FurtherScreens', {categoryName: item.name});
+        }}>
           <Neomorph
             darkShadowColor={AppColors.Gray}
             lightShadowColor={AppColors.background2}

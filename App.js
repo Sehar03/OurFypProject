@@ -70,7 +70,6 @@ const DrawerScreens = () => {
     
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="Products" component={Products} />
         <Drawer.Screen name="Signup" component={Signup} />
         <Drawer.Screen name="Splash" component={Splash} />
         <Drawer.Screen name="Cart" component={Cart} />
@@ -84,10 +83,12 @@ const DrawerScreens = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+ 
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="FullPriceHomeScreen"component={FullPriceHomeScreen}/>
         <Stack.Screen name="FurtherScreens" component={FurtherScreens} />
         <Stack.Screen name="EditProfle" component={EditProfile} />

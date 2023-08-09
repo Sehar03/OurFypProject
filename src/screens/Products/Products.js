@@ -83,6 +83,7 @@ const Popular = ({navigation}) => {
         }}
       />
       <Text> Deals </Text>
+      
 {/* </ScrollView> */}
     </SafeAreaView>
   );

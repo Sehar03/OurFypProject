@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FlatList} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import BiryaniCard from './BiryaniCard';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import RestaurantsCard from './RestaurantsCard';
 
 const LargeCard= ({navigation},props) => {
 const[allResturantsCards,setAllResturantsCards]=useState([
@@ -63,7 +62,7 @@ const[allResturantsCards,setAllResturantsCards]=useState([
       Vertical
       showsVerticalScrollIndicator={false}
       renderItem={({item})=>{
-        return <BiryaniCard props={props} item={item}/>
+        return <RestaurantsCard props={props} item={item}/>
     }}  />
   );
 };

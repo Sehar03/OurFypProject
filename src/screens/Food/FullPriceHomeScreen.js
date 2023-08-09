@@ -18,7 +18,7 @@ const FullPriceHomeScreen = ({ navigation }) => {
         <SearchComponent />
         <AdvertiseCard />
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>Food For You</Text>
-        <SmallCard />
+        <SmallCard  navigation={navigation}/>
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>All Restaurants</Text>
         <View style={{ marginBottom: hp('12') }} >
           <LargeCard />

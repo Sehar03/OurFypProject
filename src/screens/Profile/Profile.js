@@ -1,5 +1,13 @@
-import React,{useState} from 'react';
-import { SafeAreaView, View,Image,TextInput, StatusBar} from 'react-native';
+import React, {useState} from 'react';
+import {
+  SafeAreaView,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  _ScrollView,
+  Text,
+} from 'react-native';
 import CartHeader from '../../components/headers/CartHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
@@ -11,9 +19,9 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import CardComponent from '../../components/Cards/CardComponent';
-import ProfileCard from '../../components/Cards/ProfileCard';
-
+import IconStyles from '../../assets/Styles/IconStyles';
+import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
+import EditProfile from './EditProfile';
 const Profile = ({navigation}) => {
   const [userName, setUserName] = useState('Toqeer Fatima');
   const [userEmail, setUserEmail] = useState('toqeerfatima@gmail.com');
@@ -21,8 +29,7 @@ const Profile = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-  {/* <StatusBar backgroundColor={AppColors.white} barStyle="dark-content" /> */}
-    <CartHeader navigation={navigation} item="Profile" />
+      <CartHeader navigation={navigation} item="Profile" />
 
       <View style={{marginTop: hp('4'), alignItems: 'center'}}>
         <TouchableOpacity
@@ -100,7 +107,7 @@ const Profile = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <Text style={[TextStyles.profleSimpleText]}>Connected accounts</Text>
+      <Text style={[TextStyles.profileSimpleText]}>Connected accounts</Text>
 
       <View style={{marginTop: hp('2'), alignItems: 'center'}}>
         <Neomorph
@@ -115,7 +122,6 @@ const Profile = ({navigation}) => {
                 name="facebook"
                 size={25}
                 color={AppColors.facebook}
-                style={{}}
               />
             </TouchableOpacity>
 
