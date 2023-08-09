@@ -94,9 +94,7 @@ simpleText:{
   fontSize:hp('1.7'),
 },
 
-    marginTop: hp('3%'),
-    marginLeft: wp('4%')
-  },
+    
   fetchTextStyle:{
   fontFamily: "Poppins-Medium" ,
   marginLeft: wp('3%'), 
