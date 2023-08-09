@@ -9,6 +9,7 @@ const AppColors={
    darkOrange:"#ff8c00",
    Gray:"gray",
    black:"black",
-   facebook:"#1877F2"
+   facebook:"#1877F2",
+   Orange:"orange",
 }
 export default AppColors;
