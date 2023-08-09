@@ -12,7 +12,7 @@ import { Text } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import CardComponent from '../../components/Cards/CardComponent';
+
 import OtherStyles from '../../assets/Styles/OtherStyles';
 
 const Cart = ({navigation}) => {
@@ -40,7 +40,7 @@ const Cart = ({navigation}) => {
     <View style={{height:hp('0.8'),backgroundColor:AppColors.background,marginVertical:hp(3.7)}}></View>
     <Text style={[OtherStyles.text3]}>Popular with your order</Text>
     {/* <Text style={{left:wp('6'),letterSpacing:-1,fontFamily:"poppins-Thin"}}>Other customers also bought these</Text> */}
-    <CardComponent/>
+   
         </ScrollView>  
             <Neomorph
           darkShadowColor={AppColors.primary}

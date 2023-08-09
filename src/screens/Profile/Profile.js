@@ -12,7 +12,7 @@ import { Text } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import CardComponent from '../../components/Cards/CardComponent';
+
 import ProfileCard from '../../components/Cards/ProfileCard';
 
 const Profile = ({navigation}) => {
