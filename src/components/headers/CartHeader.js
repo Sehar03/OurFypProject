@@ -9,7 +9,7 @@ import TextStyles from '../../assets/Styles/TextStyles';
 
 const CartHeader = ({item, navigation}) => {
   return (
-    <View style={{backgroundColor:AppColors.background,height:hp('8'),width:wp('100'),flexDirection:"row"}}>
+    <View style={{backgroundColor:AppColors.white,height:hp('9'),width:wp('100'),flexDirection:"row",borderBottomWidth:0.2}}>
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();

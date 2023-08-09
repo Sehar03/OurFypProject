@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
+import Profile from '../../screens/Profile/Profile';
 
 const TextStyles = StyleSheet.create({
   leftHeading: {
@@ -67,12 +68,6 @@ const TextStyles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   marginTop:hp('3%'),
   marginLeft:wp('4%')
-},
-productsLeftText:{
-  // color: AppColors.charcol, 
-  fontFamily: 'Poppins-Regular',
-marginTop:hp('1%'),
-marginLeft:wp('4%')
 }
 ,
   leftMediumText:{
@@ -99,15 +94,15 @@ simpleText:{
   fontSize:hp('1.7'),
 },
 
-    marginTop: hp('3%'),
-    marginLeft: wp('4%')
-  },
+    
   fetchTextStyle:{
   fontFamily: "Poppins-Medium" ,
   marginLeft: wp('3%'), 
   },
  
   
+
 })
+
 
 export default TextStyles

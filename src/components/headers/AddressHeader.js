@@ -8,12 +8,12 @@ import AppColors from '../../assets/colors/AppColors';
 import TextStyles from '../../assets/Styles/TextStyles';
 import Profile from '../../screens/Profile/Profile';
 
-const ProfileHeader = ({item, navigation}) => {
+const AddressHeader = ({item, navigation}) => {
   return (
     <View style={{backgroundColor:AppColors.white,height:hp('8'),width:wp('100'),flexDirection:"row",borderBottomWidth:0.2}}>
         <TouchableOpacity
           onPress={()=>{
-              navigation.goBack('Profile');
+              navigation.navigate('Address');
           }}>         
       <AntDesign name="arrowleft" size={wp('6%')} style={{color:AppColors.primary,marginTop:hp('2.4%'),marginLeft:wp(5)}}/>
       
@@ -23,5 +23,5 @@ const ProfileHeader = ({item, navigation}) => {
     </View>
   );
 };
-export default ProfileHeader;
+export default AddressHeader;
 

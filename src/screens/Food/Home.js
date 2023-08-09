@@ -80,8 +80,7 @@ const Home = ({ navigation }) => {
 
       </SafeAreaView>
     </ScrollView>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;

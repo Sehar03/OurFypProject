@@ -14,16 +14,8 @@ const IconStyles = StyleSheet.create({
         color:"white",
         marginTop:hp('1.5')
     },
-    productsIcon:{
-        color: AppColors.primary,
-         marginLeft: wp('4%'),
-         marginVertical:hp('1%')
-    },
-    fireIcon:{
-        color: AppColors.goldenYellow,
-         marginLeft: wp('4%'),
-         marginVertical:hp('1%')
-    }
+
+
 
     drawerManuIcon: {
         color: "white",
@@ -44,8 +36,7 @@ const IconStyles = StyleSheet.create({
         marginTop: hp('4%'),
         marginLeft: wp('5'),
     },
-    size:
-    size=wp('6')
+   
 
 })
 
