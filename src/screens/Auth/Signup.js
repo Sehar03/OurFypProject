@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
