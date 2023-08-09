@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { SafeAreaView, View,Image,TextInput} from 'react-native';
+import { SafeAreaView, View,Image,TextInput, StatusBar} from 'react-native';
 import CartHeader from '../../components/headers/CartHeader';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
@@ -22,6 +22,7 @@ const Profile = ({navigation}) => {
   
   return (
     <SafeAreaView style={{flex: 1,backgroundColor:AppColors.white}}>
+{/* <StatusBar backgroundColor={AppColors.white} barStyle="dark-content" /> */}
     <CartHeader navigation={navigation} item="Profile" />
 
     <View style={{marginTop:hp('7'),alignItems: 'center'}}>

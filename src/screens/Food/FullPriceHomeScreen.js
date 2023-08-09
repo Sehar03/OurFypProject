@@ -1,5 +1,6 @@
+
 import React from 'react'
-import { SafeAreaView, ScrollView, Text } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View } from 'react-native'
 import AdvertiseCard from '../../components/Cards/AdvertiseCard';
 import TextStyles from '../../assets/Styles/TextStyles';
 import SmallCard from '../../components/Cards/SmallCard';
@@ -8,10 +9,8 @@ import MainHeader from '../../components/headers/MainHeader';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import SearchComponent from '../../components/SearchComponent';
-import { View } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 const FullPriceHomeScreen = ({ navigation }) => {
-
   return (
     <SafeAreaView style={{ backgroundColor: AppColors.white }}>
       <MainHeader navigation={navigation} item=" Full Price Food " />
@@ -26,8 +25,8 @@ const FullPriceHomeScreen = ({ navigation }) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-
   )
 }
+
 
 export default FullPriceHomeScreen;

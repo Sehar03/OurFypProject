@@ -9,19 +9,19 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const BackButtonHeader = ({navigation,title}) => {
+const ProductsBackButton = ({navigation,title}) => {
  
   return (
-    <View style={{backgroundColor:AppColors.background,height:hp('8%'),width:wp('100%'),justifyContent:"center"}}>
+    <View style={[ContainerStyles.productBackButtonContainer]}>
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
         }}>
-        <FontAwesome name="chevron-left" size={wp('6%')} style={{color:AppColors.primary,marginTop:hp('1%'),marginLeft:wp('6%')}}/>
+        <AntDesign name="arrowleft" size={wp('7%')} style={{color:AppColors.primary,alignSelf:"center"}}/>
       </TouchableOpacity>
       <Text style={[TextStyles.backButtonTitle]}>{title}</Text>
     </View>
   );
 };
 
-export default BackButtonHeader;
+export default ProductsBackButton;

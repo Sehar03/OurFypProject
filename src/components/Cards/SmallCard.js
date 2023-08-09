@@ -1,11 +1,14 @@
+
 import React, { useState } from 'react';
 import { Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp ,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import TextStyles from '../../assets/Styles/TextStyles';
+
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
+
 
 const SmallCard = () => {
   const [allCategories, setAllCategories] = useState([
@@ -52,6 +55,7 @@ const SmallCard = () => {
     <FlatList
       data={allCategories}
       horizontal
+
       showsHorizontalScrollIndicator={false}
       return renderItem={({ item }) => (
         <TouchableOpacity>
@@ -68,6 +72,7 @@ const SmallCard = () => {
           <Text style={[TextStyles.smallText, { marginTop: 7 }]}>{item.name}</Text>
         </TouchableOpacity>
       )}
+
     />
   );
 };

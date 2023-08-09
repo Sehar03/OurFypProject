@@ -1,9 +1,8 @@
 import React from 'react'
-import { SafeAreaView, Text ,Image, View} from 'react-native'
+import { SafeAreaView, Text ,Image, View, StatusBar,ScrollView} from 'react-native'
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { ScrollView } from 'react-native-gesture-handler';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 const Splash = ({navigation}) => {
   return (
