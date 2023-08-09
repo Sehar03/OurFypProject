@@ -17,9 +17,9 @@ import CustomeDrawer from './src/components/CustomeDrawer';
 import { FadeOutDown } from 'react-native-reanimated';
 import Cart from './src/screens/Cart/Cart';
 import Profile from './src/screens/Profile/Profile';
-import FurtherScreens from './src/screens/Food/TabScreens/FurtherScreens'
 import FoodShareScreen from './src/screens/Food/FoodShareScreen';
 import SelectedFoodScreen from './src/screens/Food/SelectedFood';
+import FurtherScreens from './src/screens/Food/TabScreens/FurtherScreens';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -86,8 +86,8 @@ const DrawerScreens = () => {
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
         <Drawer.Screen name="Splash" component={Splash} />
-        {/* <Drawer.Screen name="Cart" component={Cart} /> */}
-        {/* <Drawer.Screen name="Profile" component={Profile} /> */}
+        <Drawer.Screen name="Cart" component={Cart} />
+        <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
 
     </Drawer.Navigator>
