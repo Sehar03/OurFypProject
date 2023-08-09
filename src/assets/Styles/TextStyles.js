@@ -67,7 +67,37 @@ const TextStyles =StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   marginTop:hp('3%'),
   marginLeft:wp('4%')
+},
+productsLeftText:{
+  // color: AppColors.charcol, 
+  fontFamily: 'Poppins-Regular',
+marginTop:hp('1%'),
+marginLeft:wp('4%')
 }
+,
+  leftMediumText:{
+    color: AppColors.black, 
+    fontFamily: 'Poppins-SemiBold',
+    fontSize:hp('3%'),
+  marginTop:hp('1%'),
+  marginLeft:wp('4%')
+},
+leftSmallText:{
+  color:AppColors.black,
+  fontFamily:"Poppins-Regular",
+marginLeft:wp('4%')
+},
+popularFoodLabel:{
+  color:AppColors.white ,
+  fontFamily:"Poppins-SemiBold",
+  marginTop: hp('2%'),
+  marginLeft:wp('5%'),
+},
+simpleText:{
+  color: AppColors.black, 
+  fontFamily: 'Poppins-SemiBold',
+  fontSize:hp('1.7'),
+},
 })
 
 export default TextStyles

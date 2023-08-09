@@ -3,16 +3,15 @@ import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import DrawerHeader from '../../components/headers/DrawerHeader';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import {
@@ -109,148 +108,147 @@ const Signup = ({navigation}) => {
 
   return (
     <ScrollView>
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      {/* <DrawerHeader navigation={navigation} title="Choose your type"  /> */}
-      <BackButtonHeader navigation={navigation} />
-      <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
-      {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
-      <View style={{alignItems: 'center'}}>
-        <Neomorph
-          darkShadowColor={AppColors.primary}
-          lightShadowColor={AppColors.background}
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.inputFieldNeomorphContainer]}>
-          <View style={{flexDirection: 'row'}}>
-            <SimpleLineIcons
-              name="user"
-              size={wp('5%')}
-              style={IconStyles.signupIcons}
-            />
-            <TextInput
-              placeholder="Enter User Name"
-              // maxLength={20}
-              style={[TextFieldStyles.inputField]}
-              // style={{fontFamily:'Poppins-Thin'}}
-              value={userName}
-              onChangeText={text => {
-                setUserName(text);
-                setUserNameError('');
-              }}
-            />
-          </View>
-
-          {userNameError ? (
-            <Text style={[TextStyles.errorText]}>{userNameError}</Text>
-          ) : null}
-        </Neomorph>
-
-        <Neomorph
-          darkShadowColor={AppColors.primary}
-          lightShadowColor={AppColors.background}
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.inputFieldNeomorphContainer]}>
-          <View style={{flexDirection: 'row'}}>
-            <Fontisto
-              name="email"
-              size={wp('5%')}
-              style={IconStyles.signupIcons}
-            />
-            <TextInput
-              placeholder="Enter Email"
-              style={[TextFieldStyles.inputField]}
-              value={userEmail}
-              autoCapitalize="none"
-              onChangeText={text => {
-                setUserEmail(text);
-                setUserEmailError('');
-              }}
-            />
-          </View>
-          {userEmailError ? (
-            <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
-          ) : null}
-        </Neomorph>
-
-        <Neomorph
-          darkShadowColor={AppColors.primary}
-          lightShadowColor={AppColors.background}
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.inputFieldNeomorphContainer]}>
-          <View style={{flexDirection: 'row'}}>
-            <SimpleLineIcons
-              name="lock"
-              size={wp('5%')}
-              style={IconStyles.signupIcons}
-            />
-            <TextInput
-              placeholder="Enter Password"
-              style={[TextFieldStyles.inputField]}
-              value={userPassword}
-              secureTextEntry={passwordVisible}
-              autoCapitalize="none"
-              onChangeText={text => {
-                setUserPassword(text);
-                setUserPasswordError('');
-              }}
-            />
-            <TouchableOpacity
-              onPress={() => setPasswordVisible(!passwordVisible)}>
-              <Feather
-                name={passwordVisible ? 'eye' : 'eye-off'}
-                size={wp('5%')}
-                style={[IconStyles.signupIcons, {color: 'grey', opacity: 0.7}]}
-              />
-            </TouchableOpacity>
-          </View>
-          {userPasswordError ? (
-            <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
-          ) : null}
-        </Neomorph>
-
-        <TouchableOpacity
-          onPress={() => {
-            userRegister();
-            console.log('signup is running');
-            // setUserName('');
-            // setUserEmail('');
-            // setUserPassword('');
-          }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+        <BackButtonHeader navigation={navigation} />
+        <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
+        {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
+        <View style={{alignItems: 'center'}}>
           <Neomorph
-            darkShadowColor="white"
-            lightShadowColor="white"
+            darkShadowColor={AppColors.primary}
+            lightShadowColor={AppColors.background}
+            swapShadows // <- change zIndex of each shadow color
+            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            <View style={{flexDirection: 'row'}}>
+              <SimpleLineIcons
+                name="user"
+                size={wp('5%')}
+                style={IconStyles.signupIcons}
+              />
+              <TextInput
+                placeholder="Enter User Name"
+                // maxLength={20}
+                style={[TextFieldStyles.inputField]}
+                // style={{fontFamily:'Poppins-Thin'}}
+                value={userName}
+                onChangeText={text => {
+                  setUserName(text);
+                  setUserNameError('');
+                }}
+              />
+            </View>
+
+            {userNameError ? (
+              <Text style={[TextStyles.errorText]}>{userNameError}</Text>
+            ) : null}
+          </Neomorph>
+
+          <Neomorph
+            darkShadowColor={AppColors.primary}
+            lightShadowColor={AppColors.background}
+            swapShadows // <- change zIndex of each shadow color
+            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            <View style={{flexDirection: 'row'}}>
+              <Fontisto
+                name="email"
+                size={wp('5%')}
+                style={IconStyles.signupIcons}
+              />
+              <TextInput
+                placeholder="Enter Email"
+                style={[TextFieldStyles.inputField]}
+                value={userEmail}
+                autoCapitalize="none"
+                onChangeText={text => {
+                  setUserEmail(text);
+                  setUserEmailError('');
+                }}
+              />
+            </View>
+            {userEmailError ? (
+              <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
+            ) : null}
+          </Neomorph>
+
+          <Neomorph
+            darkShadowColor={AppColors.primary}
+            lightShadowColor={AppColors.background}
             // inner // <- enable shadow inside of neomorph
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
-            <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
+            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            <View style={{flexDirection: 'row'}}>
+              <SimpleLineIcons
+                name="lock"
+                size={wp('5%')}
+                style={IconStyles.signupIcons}
+              />
+              <TextInput
+                placeholder="Enter Password"
+                style={[TextFieldStyles.inputField]}
+                value={userPassword}
+                secureTextEntry={passwordVisible}
+                autoCapitalize="none"
+                onChangeText={text => {
+                  setUserPassword(text);
+                  setUserPasswordError('');
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => setPasswordVisible(!passwordVisible)}>
+                <Feather
+                  name={passwordVisible ? 'eye' : 'eye-off'}
+                  size={wp('5%')}
+                  style={[
+                    IconStyles.signupIcons,
+                    {color: 'grey', opacity: 0.7},
+                  ]}
+                />
+              </TouchableOpacity>
+            </View>
+            {userPasswordError ? (
+              <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
+            ) : null}
           </Neomorph>
-        </TouchableOpacity>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{fontFamily: 'Poppins-SemiBold'}}>
-            Already have an account ?{' '}
-          </Text>
+
           <TouchableOpacity
-            // style={{marginLeft: 150}}
             onPress={() => {
-              navigation.navigate('Login');
+              userRegister();
+              console.log('signup is running');
+              // setUserName('');
+              // setUserEmail('');
+              // setUserPassword('');
             }}>
-            <Text
-              style={{
-                color: AppColors.primary,
-                fontFamily: 'Poppins-SemiBold',
-              }}>
-              LOGIN
-            </Text>
+            <Neomorph
+              darkShadowColor="white"
+              lightShadowColor="white"
+              swapShadows // <- change zIndex of each shadow color
+              style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
+              <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
+            </Neomorph>
           </TouchableOpacity>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+              Already have an account ?{' '}
+            </Text>
+            <TouchableOpacity
+              // style={{marginLeft: 150}}
+              onPress={() => {
+                navigation.navigate('Login');
+              }}>
+              <Text
+                style={{
+                  color: AppColors.primary,
+                  fontFamily: 'Poppins-SemiBold',
+                }}>
+                LOGIN
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <Image
-        source={require('../../assets/Images/signup3.png')} // Specify the source of the image
-        style={[ImageStyles.signupImage]} // Set the desired width and height of the image
-      />
-    </SafeAreaView>
+        <Image
+          source={require('../../assets/Images/signup3.png')} // Specify the source of the image
+          style={[ImageStyles.signupImage]} // Set the desired width and height of the image
+        />
+      </SafeAreaView>
     </ScrollView>
   );
 };

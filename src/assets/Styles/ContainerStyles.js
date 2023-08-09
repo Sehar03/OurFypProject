@@ -11,14 +11,9 @@ const ContainerStyles = StyleSheet.create({
     borderRadius: wp('3%'),
     shadowRadius: 4,
     backgroundColor: AppColors.white,
-    // alignSelf:"center",
-    // alignItems: 'center',
-    // justifyContent: 'center',
     marginVertical: hp('3%'),
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
-
-
    } ,
    touchableOpacityNeomorphContainer:{
       marginTop:hp('3%'),
@@ -62,7 +57,7 @@ const ContainerStyles = StyleSheet.create({
     TwoitemsCenter:{
       flexDirection: 'row',
        alignItems: 'center'
-    }
+    },
      tabScreenTextContainer:{
       height:hp('4%'),
      width:wp('60%'),
@@ -83,6 +78,36 @@ const ContainerStyles = StyleSheet.create({
    borderRadius:wp('5%'),
    justifyContent:"center",
    alignItems:"center"
+},
+squareBoxHalfScreenContainer:{
+   width:wp('44'),
+   height:hp('22'),
+   shadowRadius: 4,
+   backgroundColor: AppColors.white,
+   marginHorizontal:wp('2'),
+   marginVertical:hp('1'),
+   borderRadius:wp('3')
+},
+popularFoodPiceTextContainer:{
+   height:hp('3%'),
+width:wp('22%'),
+backgroundColor:AppColors.white,
+position:"absolute",
+top:hp('18.5%'),
+right:wp('1%'),
+borderRadius:wp('5%'),
+justifyContent:"center",
+alignItems:"center"
+},
+productBackButtonContainer:{
+   height:hp('5%'),
+width:wp('10%'),
+justifyContent:"center",
+backgroundColor:AppColors.white,
+marginLeft:wp('4%'),
+alignItems:"center",
+marginTop:hp('3%'),
+borderRadius:hp('10%')
 },
 })
 
