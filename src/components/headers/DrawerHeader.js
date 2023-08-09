@@ -7,12 +7,13 @@ import ContainerStyles from "../../assets/Styles/ContainerStyles";
 import IconStyles from "../../assets/Styles/IconStyles";
 import TextStyles from "../../assets/Styles/TextStyles";
 
+
 const DrawerHeader = ({navigation})=>{
     
     return <View style={[ContainerStyles.headerViewStyle]}>
         <TouchableOpacity
                 onPress={()=>{
-                    navigation.toggleDrawer()
+                    navigation.toggleDrawer();
                 }}>         
             <Entypo name="menu" size={wp('10%')} style={[IconStyles.drawerManuIcon]} />
             

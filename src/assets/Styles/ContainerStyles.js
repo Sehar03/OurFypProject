@@ -17,9 +17,47 @@ const ContainerStyles = StyleSheet.create({
     marginVertical: hp('3%'),
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
-
-
    } ,
+
+   EditNameNeomorphContainer:{
+      width: wp('87%'),
+      height: hp('7%'),
+      borderRadius: wp('3%'),
+      shadowRadius: 3,
+      backgroundColor: AppColors.white,
+      // alignSelf:"center",
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      marginVertical: hp('2%'),
+      shadowOpacity: 0.2,
+      marginLeft:wp('6'),
+      marginTop: hp('1.1%'),
+
+     } ,
+  
+
+   profileInputFieldContainer:{
+      
+      shadowRadius: 4,
+      shadowOpacity: 0.2,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      width: hp('43'),
+      height: hp('12'),
+      
+
+   },
+    NeomorphContainer:{
+      shadowRadius: 4,
+      shadowOpacity: 0.3,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      width: hp('43'),
+      height: hp('10'),
+      
+
+    },
+
    touchableOpacityNeomorphContainer:{
       marginTop:hp('3%'),
       shadowRadius: 6,
@@ -62,7 +100,7 @@ const ContainerStyles = StyleSheet.create({
     TwoitemsCenter:{
       flexDirection: 'row',
        alignItems: 'center'
-    }
+    },
      tabScreenTextContainer:{
       height:hp('4%'),
      width:wp('60%'),
@@ -84,6 +122,26 @@ const ContainerStyles = StyleSheet.create({
    justifyContent:"center",
    alignItems:"center"
 },
+     touchableOpacityNeomorphContainer2:{
+      shadowRadius: 6,
+      backgroundColor:AppColors.primary,
+      borderRadius:wp('3%'),
+      height:hp('7%'),
+      width:wp('92%'),
+      marginVertical: hp('1.4%'),
+      shadowOpacity: 0.2,
+      marginLeft:wp('4')
+     } ,
+     cartNeomorph: {
+      shadowRadius: 3,
+      shadowOpacity: 0.3,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      width: hp('45'),
+      height: hp('15'),
+    },
+  
+
 })
 
 export default ContainerStyles

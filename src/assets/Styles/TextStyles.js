@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
+import Profile from '../../screens/Profile/Profile';
 
 const TextStyles =StyleSheet.create({
     leftHeading:{
@@ -67,7 +68,63 @@ const TextStyles =StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   marginTop:hp('3%'),
   marginLeft:wp('4%')
+},
+cartTextStyle:{
+  color:"black", fontSize:hp('3%'), marginLeft:wp('7%'),fontFamily:"Poppins-SemiBold",marginTop:hp('2.4%')
+
+},
+
+profileTextStyle:{
+  color:"black", fontSize:hp('2.2%'), marginLeft:wp('7%'),fontFamily:"Poppins-SemiBold",marginTop:hp('2.4%')
+
+},
+
+
+
+whiteCenteredLable2:{
+  color:AppColors.white ,
+  // fontWeight: '600',
+  fontFamily:"Poppins-SemiBold",
+  fontSize: hp('2%'),
+  // textAlign: 'center',
+  marginTop: hp('1.9%'),},
+
+
+
+
+profleSimpleText:{
+  
+    fontFamily: 'Poppins-SemiBold',
+    marginLeft: wp('8'),
+    marginTop: hp('2'),
+    fontSize: hp('2.5'),
+    marginTop: hp('4'),
+    letterSpacing: -1,
+    color:AppColors.black
+  
+},
+simpleText:{
+  marginLeft:wp(5),marginTop:hp('0.5'),color:AppColors.black
+},
+
+text3: {
+  fontFamily: 'Poppins-SemiBold',
+  color: AppColors.primary,
+  fontSize: hp('2.1'),
+  marginLeft: wp('4'),
+  letterSpacing: -1,
+  marginTop:hp('2')
+},
+
+simpleText2:{
+  marginTop: hp('3%'),
+  marginLeft: wp('6'),
+  color: AppColors.black,
+  fontFamily:"Poppins-Regular",
+  
 }
+
 })
+
 
 export default TextStyles

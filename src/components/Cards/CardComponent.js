@@ -30,7 +30,7 @@ const data = [
   },
 ];
 
-const CardComponent = () => { 
+const CartComponent = () => { 
   const renderItem = ({ item }) => (
   <TouchableOpacity>
   <Neomorph
@@ -65,4 +65,4 @@ const CardComponent = () => {
     />
   );
 };
-export default CardComponent;
+export default CartComponent;

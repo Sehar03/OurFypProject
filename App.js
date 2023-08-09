@@ -18,6 +18,10 @@ import { FadeOutDown } from 'react-native-reanimated';
 import Cart from './src/screens/Cart/Cart';
 import Profile from './src/screens/Profile/Profile';
 import FurtherScreens from './src/screens/Food/TabScreens/FurtherScreens';
+import Biryani from './src/screens/Food/TabScreens/Biryani';
+import EditProfile from './src/screens/Profile/EditProfile';
+import Address from './src/screens/Addresses/Address';
+import AddAddress from './src/screens/Addresses/AddAddress';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +39,9 @@ const AuthStack = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="FullPriceHomeScreen" component={FullPriceHomeScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="AddAddress" component={AddAddress} />
+
     </Stack.Navigator>
   );
 };
@@ -78,8 +85,8 @@ const DrawerScreens = () => {
     drawerActiveBackgroundColor:"#4832850f",
     drawerActiveTintColor:"black",
   })}
-   >
-    
+  initialRouteName="Home" >
+
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
@@ -87,6 +94,10 @@ const DrawerScreens = () => {
         <Drawer.Screen name="Cart" component={Cart} />
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Drawer.Screen name="Biryani" component={Biryani} />
+        <Drawer.Screen name="EditProfile" component={EditProfile} />
+        <Drawer.Screen name="Address" component={Address} />
+
 
     </Drawer.Navigator>
   );
@@ -96,13 +107,16 @@ const App = () => {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="FoodStack">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Auth" component={AuthStack} />
         <Stack.Screen name="FullPriceHomeScreen" component={FullPriceHomeScreen} />
         <Stack.Screen name="Food" component={FoodStack} />
         <Stack.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Stack.Screen name="EditProfle" component={EditProfile} />
+        <Stack.Screen name="AddAddress" component={AddAddress} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

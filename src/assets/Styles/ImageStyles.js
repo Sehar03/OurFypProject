@@ -30,6 +30,16 @@ logoImageStyle:{
    marginBottom: hp('2'),
    marginTop:hp('8')
   },
+  deliveryImg:{height:hp('12.5'),width:wp('25'),margin:10,borderRadius:15},
+  cartImage: {
+    width: wp('17'),
+    marginLeft: wp('3'),
+    marginTop: hp('1.6'),
+    borderRadius: wp('2'),
+    height: hp('9'),
+    borderWidth: 4,
+  },
+
  
 });
 
