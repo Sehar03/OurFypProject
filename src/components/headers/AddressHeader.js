@@ -13,7 +13,7 @@ const AddressHeader = ({item, navigation}) => {
     <View style={{backgroundColor:AppColors.white,height:hp('8'),width:wp('100'),flexDirection:"row",borderBottomWidth:0.2}}>
         <TouchableOpacity
           onPress={()=>{
-              navigation.navigate('Address');
+            navigation.goBack('Address');
           }}>         
       <AntDesign name="arrowleft" size={wp('6%')} style={{color:AppColors.primary,marginTop:hp('2.4%'),marginLeft:wp(5)}}/>
       

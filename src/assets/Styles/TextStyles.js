@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
 import Profile from '../../screens/Profile/Profile';
 
@@ -26,7 +26,7 @@ const TextStyles = StyleSheet.create({
   whiteMediumHeading: {
     color: 'white',
     fontSize: hp('3'),
-    marginLeft: wp('25'),
+    marginLeft: wp('20'),
     marginTop: hp('2'),
   },
   primaryText: {
@@ -93,7 +93,7 @@ const TextStyles = StyleSheet.create({
 
   fetchTextStyle: {
     fontFamily: 'Poppins-Medium',
-    marginLeft: wp('3%'),
+    marginLeft: wp('5%'),
   },
 
   whiteCenteredLable2: {
@@ -123,19 +123,32 @@ const TextStyles = StyleSheet.create({
     fontSize: hp('2.1'),
     marginLeft: wp('4'),
     letterSpacing: -1,
-    marginTop:hp('2')
+    marginTop: hp('2')
   },
-  profileSimpleText:{
-  
+  profileSimpleText: {
+
     fontFamily: 'Poppins-SemiBold',
     marginLeft: wp('8'),
     marginTop: hp('2'),
     fontSize: hp('2.5'),
     marginTop: hp('4'),
     letterSpacing: -1,
-    color:AppColors.black
-  
-},  
+    color: AppColors.black
+
+  },
+  profileTextStyle: {
+    color: "black", 
+    fontSize: hp('2.2%'), 
+    marginLeft: wp('7%'), 
+    fontFamily: "Poppins-SemiBold",
+     marginTop: hp('2.4%'),
+  },
+  productsLeftText:{
+    fontFamily:"Poppins-Regular",
+    marginTop:hp('1'),
+    marginLeft:wp('4'),
+    
+  }
 });
 
 export default TextStyles;

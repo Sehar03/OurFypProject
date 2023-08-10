@@ -62,7 +62,7 @@ const[allResturantsCards,setAllResturantsCards]=useState([
       Vertical
       showsVerticalScrollIndicator={false}
       renderItem={({item})=>{
-        return <RestaurantsCard props={props} item={item}/>
+        return <RestaurantsCard navigation={navigation} item={item}/>
     }}  />
   );
 };
