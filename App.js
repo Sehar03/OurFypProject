@@ -58,6 +58,12 @@ const DrawerScreens = () => {
       else if (route.name === 'Logout') {
         return <FontAwesome name="search" size={size} color={color} />;
       }
+      else if (route.name === 'Profile') {
+        return <FontAwesome name="search" size={size} color={color} />;
+      }
+      else if (route.name === 'Address') {
+        return <FontAwesome name="search" size={size} color={color} />;
+      }
     },
     headerShown:false,
     drawerLabelStyle:{
@@ -72,9 +78,8 @@ const DrawerScreens = () => {
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
         <Drawer.Screen name="Splash" component={Splash} />
-        <Drawer.Screen name="Cart" component={Cart} />
         <Drawer.Screen name="Profile" component={Profile} />
-        <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Stack.Screen name="Address" component={Address} />
 
     </Drawer.Navigator>
   );
@@ -91,12 +96,14 @@ const App = () => {
       <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="FullPriceHomeScreen"component={FullPriceHomeScreen}/>
         <Stack.Screen name="FurtherScreens" component={FurtherScreens} />
-        <Stack.Screen name="EditProfle" component={EditProfile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="AddAddress" component={AddAddress} />
+        <Stack.Screen name="Address" component={Address} />
         <Stack.Screen name="Products" component={Products} />
         <Stack.Screen name="SingleProductDetail" component={SingleProductDetail} />
         <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
         <Stack.Screen name="SelectedFood" component={SelectedFoodScreen} />
+        <Stack.Screen name="Cart" component={Cart} />
      </Stack.Navigator>
     </NavigationContainer>
   );

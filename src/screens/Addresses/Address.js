@@ -9,18 +9,15 @@ import {
 } from 'react-native';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import TextStyles from '../../assets/Styles/TextStyles';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import AddAddress from './AddAddress';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconStyles from '../../assets/Styles/IconStyles';
-import CartHeader from '../../components/headers/CartHeader';
 const Address = ({navigation}) => {
   const [userFirstName, setUserFirstName] = useState('');
   const [userLastName, setUserLastName] = useState('');
@@ -54,14 +51,16 @@ const Address = ({navigation}) => {
             {' '}
             750 B Markazi Jamia Masjid Road
           </Text>
+         
           <MaterialIcons
             name="edit"
             size={25}
             color={AppColors.primary}
             style={[IconStyles.EditIcons]}
           />
-          <AntDesign name="delete" size={25} color={AppColors.primary}
+          <FontAwesome name="trash" size={21} color={AppColors.primary}
           style={[IconStyles.Trash]} />
+
           </View>
           <Text style={{marginLeft:wp('12')}}>Gujranwala</Text>
           <Text style={{marginLeft:wp('12')}}>Note to ride: none</Text>

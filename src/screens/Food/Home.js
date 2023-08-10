@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
                 style={[ContainerStyles.largeNeomorphStyle]}>
 
                 <Text style={[TextStyles.primaryText]}>Full Price Food </Text>
-                <Text style={[TextStyles.smallText]}>Order food from your favourite resturants</Text>
+                <Text style={[TextStyles.smallText,{marginLeft:wp('3')}]}>Order food from your favourite resturants</Text>
                 <Image source={require('../../assets/Images/image5.png')} style={{ height: hp(10), width: hp(18), marginTop: hp('14'), marginLeft: wp('4') }} />
               </Neomorph>
             </TouchableOpacity>
@@ -53,8 +53,8 @@ const Home = ({ navigation }) => {
                 >
 
                   <Text style={[TextStyles.primaryText]}>Share Food</Text>
-                  <Text style={[TextStyles.smallText]}>Share with your friend</Text>
-                  <Image source={require('../../assets/Images/image8.png')} style={{ height: hp(3), width: hp(17), marginLeft: 20 }} />
+                  <Text style={[TextStyles.smallText,{marginLeft:wp('2.5')}]}>Share with your friend</Text>
+                  <Image source={require('../../assets/Images/image8.png')} style={{ height: hp(3), width: hp(17), marginLeft:wp('4') }} />
                 </Neomorph>
               </TouchableOpacity>
 

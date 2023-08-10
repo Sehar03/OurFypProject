@@ -1,16 +1,11 @@
 import React from 'react';
-import {SafeAreaView, View, Image} from 'react-native';
+import {SafeAreaView, View, Image,Text,ScrollView, TouchableOpacity} from 'react-native';
 import CartHeader from '../../components/headers/CartHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import CounterModal from '../../components/CartCard';
-import {Text} from 'react-native-elements';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import CardComponent from '../../components/Cards/CardComponent';
 import OtherStyles from '../../assets/Styles/OtherStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import CartPopularItems from '../../components/Cards/CartPopularItems';

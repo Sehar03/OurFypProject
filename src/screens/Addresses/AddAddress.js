@@ -3,8 +3,7 @@ import { SafeAreaView, ScrollView, Text, TextInput,View ,TouchableOpacity} from 
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import {Neomorph} from 'react-native-neomorph-shadows';
@@ -12,7 +11,6 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconStyles from '../../assets/Styles/IconStyles';
-
 import TextStyles from '../../assets/Styles/TextStyles';
 import AddressHeader from '../../components/headers/AddressHeader';
 const AddAddress = ({route,navigation}) => {

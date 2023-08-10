@@ -18,13 +18,13 @@ const MainHeader = ({ navigation, item }) => {
           <AntDesign name="arrowleft" size={wp('6%')} style={[IconStyles.arrowLeftIcon]} />
         </TouchableOpacity>
         <View style={{ flexDirection: "column" }}>
-          <Text style={[TextStyles.leftText,{marginTop:hp('2.5')}]}>Home</Text>
+          <Text style={[TextStyles.leftText,{marginTop:hp('2.5'),marginLeft:wp('5')}]}>Home</Text>
           <Text style={[TextStyles.fetchTextStyle]}>{item}</Text>
         </View>
-        <TouchableOpacity>
-          <AntDesign name="hearto" size={wp('6%')} style={[IconStyles.heartIcon]} />
-        </TouchableOpacity>
-        <TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>{
+          navigation.navigate('Cart')
+        }}>
           <AntDesign name="shoppingcart" size={wp('6%')} style={[IconStyles.shoppingCartIcon]} />
         </TouchableOpacity>
       </View>

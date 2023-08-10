@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,22 +9,22 @@ import {
 } from 'react-native';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp  } from 'react-native-responsive-screen';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import TextStyles from '../../assets/Styles/TextStyles';
-const EditProfile = ({route, navigation}) => {
+
+const EditProfile = ({ route, navigation }) => {
   const [userFirstName, setUserFirstName] = useState('Toqeer');
   const [userLastName, setUserLastName] = useState('Fatima');
   const [userEmail, setUserEmail] = useState('toeerfatima42@gmail.com');
   const [userMobileNumber, setUserMobileNumber] = useState('+923026675287');
 
-  const {item} = route.params;
+  const { item } = route.params;
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <ScrollView>
         {item == 'Name' ? (
           <View>
@@ -111,7 +111,7 @@ const EditProfile = ({route, navigation}) => {
               <View>
                 <ProfileHeader navigation={navigation} item="Mobile Number" />
                 <Text
-                  style={[TextStyles.simpleText2,{marginRight:wp('6')}]}>
+                  style={[TextStyles.simpleText2, { marginRight: wp('6') }]}>
                   If you change to a new number, we'll take you through a
                   verification process at checkout the next time you order
                 </Text>
@@ -144,7 +144,7 @@ const EditProfile = ({route, navigation}) => {
     // <ProfileHeader navigation={navigation} item ="Name"/>
     //   </View> */}
       </ScrollView>
-      <TouchableOpacity onPress={()=>{
+      <TouchableOpacity onPress={() => {
         navigation.navigate('Profile')
       }}>
         <Neomorph
@@ -153,7 +153,7 @@ const EditProfile = ({route, navigation}) => {
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.touchableOpacityNeomorphContainer2]}>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={[TextStyles.whiteCenteredLable2]}>Save</Text>
           </View>
         </Neomorph>
