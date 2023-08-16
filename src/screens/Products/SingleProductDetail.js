@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   ImageBackground,
@@ -6,6 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import React from 'react';
+import {ImageBackground, SafeAreaView, Text, View,StatusBar} from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
 import TextStyles from '../../assets/Styles/TextStyles';
@@ -31,6 +34,12 @@ const SingleProductDetail = ({navigation, route}) => {
   const {imageUri, imageTitle, imagePrice} = route.params;
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      <StatusBar
+    barStyle="light-content"
+    backgroundColor="transparent"
+    translucent={true}
+  />
+    
       <ImageBackground
         source={imageUri}
         style={{height: hp('30%'), width: wp('100%')}}>

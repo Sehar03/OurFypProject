@@ -104,6 +104,7 @@ const App = () => {
         backgroundColor={AppColors.white} // Background color of the status bar
         barStyle="dark-content" // Light text color for dark backgrounds
       />
+    <NavigationContainer> 
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />

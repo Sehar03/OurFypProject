@@ -10,7 +10,6 @@ import ImageStyles from '../../assets/Styles/ImageStyles';
 
 const Home = ({ navigation }) => {
   return (
-    <ScrollView>
       <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
         <DrawerHeader navigation={navigation} />
         <View style={ContainerStyles.itemsCenter}>
@@ -54,7 +53,7 @@ const Home = ({ navigation }) => {
 
                   <Text style={[TextStyles.primaryText]}>Share Food</Text>
                   <Text style={[TextStyles.smallText,{marginLeft:wp('2.5')}]}>Share with your friend</Text>
-                  <Image source={require('../../assets/Images/image8.png')} style={{ height: hp(3), width: hp(17), marginLeft:wp('4') }} />
+                  <Image source={require('../../assets/Images/image8.png')} style={{ height: hp(3), width: hp(17), marginLeft:wp('4'),marginTop:hp('1') }} />
                 </Neomorph>
               </TouchableOpacity>
 
@@ -76,9 +75,8 @@ const Home = ({ navigation }) => {
           </View>
         </View>
         <Image source={require('../../assets/Images/image10.png')} style={[ImageStyles.rightCornerImage]} />
-
       </SafeAreaView>
-    </ScrollView>
+   
   );
 };
 

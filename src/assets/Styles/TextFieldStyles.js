@@ -21,7 +21,7 @@ const TextFieldStyles = StyleSheet.create({
 
     profileInputField: {
         marginLeft: wp('4'),
-        marginTop: hp('2.5'),
+        marginTop: hp('1.5'),
         color: AppColors.black
 
     },
@@ -29,7 +29,7 @@ const TextFieldStyles = StyleSheet.create({
 
         fontFamily: 'Poppins-SemiBold',
         marginLeft: wp('4'),
-        marginTop: hp('2'),
+        marginTop: hp('1'),
         color: AppColors.black
 
     },

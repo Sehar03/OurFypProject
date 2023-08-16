@@ -16,7 +16,59 @@ const ContainerStyles = StyleSheet.create({
     marginVertical: hp('3%'),
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
-  },
+   } ,
+
+   EditNameNeomorphContainer:{
+      width: wp('87%'),
+      height: hp('7%'),
+      borderRadius: wp('3%'),
+      shadowRadius: 3,
+      backgroundColor: AppColors.white,
+      // alignSelf:"center",
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      marginVertical: hp('2%'),
+      shadowOpacity: 0.2,
+      marginLeft:wp('6'),
+      marginTop: hp('1.1%'),
+
+     } ,
+  
+
+   profileInputFieldContainer:{
+      
+      shadowRadius: 2,
+      shadowOpacity: 0.15,
+      borderRadius: 10,
+      backgroundColor: AppColors.white,
+      width: hp('43'),
+      height: hp('12'),
+      
+
+   },
+    NeomorphContainer:{
+      shadowRadius: 2,
+      shadowOpacity: 0.15,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      width: hp('43'),
+      height: hp('10'),
+      
+
+    },
+
+   inputFieldNeomorphContainer: {
+      width: wp('80%'),
+      height: hp('7%'),
+      borderRadius: wp('3%'),
+      shadowRadius: 4,
+      backgroundColor: AppColors.white,
+      // alignSelf:"center",
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      marginVertical: hp('3%'),
+      shadowOpacity: 0.3,
+      marginTop: hp('1.4%'),
 
   EditNameNeomorphContainer: {
     width: wp('87%'),
@@ -174,6 +226,7 @@ const ContainerStyles = StyleSheet.create({
     borderRadius: hp('10%'),
   },
 
+
   tabScreenTextContainer: {
     height: hp('4%'),
     width: wp('60%'),
@@ -257,6 +310,80 @@ const ContainerStyles = StyleSheet.create({
   width: wp('55%'),
   // marginVertical: hp('1.4%'),
   shadowOpacity: 0.3,
+   },
+   TwoitemsCenter: {
+      flexDirection: 'row',
+       alignItems: 'center'
+    },
+     tabScreenTextContainer:{
+      height:hp('4%'),
+     width:wp('60%'),
+     backgroundColor:AppColors.primary,
+     position:"absolute",
+     top:hp('3.5%') ,
+     borderTopRightRadius:wp('5%'),
+     borderBottomRightRadius:wp('5%'),
+     justifyContent:"center"
+   },
+   tabScreenDeliveryTextContainer:{
+      height:hp('4%'),
+   width:wp('18%'),
+   backgroundColor:AppColors.white,
+   position:"absolute",
+   top:hp('22%'),
+   left:wp('4%'),
+   borderRadius:wp('5%'),
+   justifyContent:"center",
+   alignItems:"center"
+},
+     touchableOpacityNeomorphContainer2:{
+      shadowRadius: 6,
+      backgroundColor:AppColors.primary,
+      borderRadius:wp('3%'),
+      height:hp('7%'),
+      width:wp('92%'),
+      marginVertical: hp('1.4%'),
+      shadowOpacity: 0.2,
+      marginLeft:wp('4')
+     } ,
+     cartNeomorph: {
+      shadowRadius: 3,
+      shadowOpacity: 0.1,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      width: hp('45'),
+      height: hp('15'),
+    },
+  
+squareBoxHalfScreenContainer:{
+   width:wp('44'),
+   height:hp('22'),
+   shadowRadius: 4,
+   backgroundColor: AppColors.white,
+   marginHorizontal:wp('2'),
+   marginVertical:hp('1'),
+   borderRadius:wp('3')
+},
+popularFoodPiceTextContainer:{
+   height:hp('3%'),
+width:wp('22%'),
+backgroundColor:AppColors.white,
+position:"absolute",
+top:hp('18.5%'),
+right:wp('1%'),
+borderRadius:wp('5%'),
+justifyContent:"center",
+alignItems:"center"
+},
+productBackButtonContainer:{
+   height:hp('5%'),
+width:wp('10%'),
+justifyContent:"center",
+backgroundColor:AppColors.white,
+marginLeft:wp('4%'),
+alignItems:"center",
+marginTop:hp('3%'),
+borderRadius:hp('10%')
 },
 });
 

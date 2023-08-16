@@ -32,7 +32,8 @@ const CartCard = () => {
   };
 
   return (
-    <View style={{flexDirection: 'row',borderBottomWidth:0.3,height:hp('14')}}>
+    <View style={{flexDirection: 'row',borderBottomWidth: wp('0.4'),
+    borderColor: AppColors.background,height:hp('14')}}>
   
       <Neomorph
         swapShadows // <- change zIndex of each shadow color
@@ -112,19 +113,22 @@ const CartCard = () => {
       />
       <View
         style={{
-          flexWrap: 'wrap',
-          marginHorizontal: wp('4'),
-          marginVertical: hp('3'),
+         marginTop:hp('3'),
+         marginLeft:wp('2.5')
+          
         }}>
-        <Text style={[OtherStyles.text]}>Summer Deal </Text>
+          <View style={{width:wp('47')}}>
+        <Text style={[OtherStyles.text]}>Summer Deal</Text>
+        </View>
         <Text style={{color: AppColors.black}}>Rs.330.00</Text>
       </View>
       <View>
-      <TouchableOpacity style={{marginLeft:wp('13'),marginTop:hp('3.5')}}>
-        <AntDesign name="delete" size={25} color={AppColors.primary} />
+      <TouchableOpacity style={{marginLeft:wp('2'),marginTop:hp('4.5')}}>
+        <FontAwesome name="trash" size={20} color={AppColors.primary} />
       </TouchableOpacity>
       </View>
     </View>
+    
   );
 };
 export default CartCard;

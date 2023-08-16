@@ -26,8 +26,9 @@ const TextStyles = StyleSheet.create({
   whiteMediumHeading: {
     color: 'white',
     fontSize: hp('3'),
-    marginLeft: wp('20'),
+    marginLeft: wp('19'),
     marginTop: hp('2'),
+    fontFamily:"Poppins-Medium"
   },
   primaryText: {
     color: 'black',
@@ -88,12 +89,12 @@ const TextStyles = StyleSheet.create({
   simpleText: {
     color: AppColors.black,
     fontFamily: 'Poppins-SemiBold',
-    fontSize: hp('1.7'),
+    fontSize: hp('1.9'),
   },
 
   fetchTextStyle: {
     fontFamily: 'Poppins-Medium',
-    marginLeft: wp('5%'),
+    marginLeft: wp('5'),
   },
 
   whiteCenteredLable2: {
@@ -113,7 +114,7 @@ const TextStyles = StyleSheet.create({
   cartTextStyle: {
     color: 'black',
     fontSize: hp('3%'),
-    marginLeft: wp('7%'),
+    marginLeft: wp('8%'),
     fontFamily: 'Poppins-SemiBold',
     marginTop: hp('2.4%'),
   },
@@ -123,12 +124,12 @@ const TextStyles = StyleSheet.create({
     fontSize: hp('2.1'),
     marginLeft: wp('4'),
     letterSpacing: -1,
-    marginTop: hp('2')
+    marginTop: hp('3')
   },
   profileSimpleText: {
 
     fontFamily: 'Poppins-SemiBold',
-    marginLeft: wp('8'),
+    marginLeft: wp('8'),  
     marginTop: hp('2'),
     fontSize: hp('2.5'),
     marginTop: hp('4'),
