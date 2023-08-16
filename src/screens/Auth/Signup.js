@@ -37,7 +37,7 @@ const Signup = ({navigation}) => {
   const [userNameError, setUserNameError] = useState('');
   const [userEmailError, setUserEmailError] = useState('');
   const [userPasswordError, setUserPasswordError] = useState('');
-
+const[alreadyExist,setAlreadyExist]=useState('');
   //FUNCTIONS
 
   const isEmailValid = userEmail => {
@@ -73,31 +73,42 @@ const Signup = ({navigation}) => {
       return false;
     }
 
-    // console.warn("Stop")
+   
     const formData = new FormData();
     formData.append('name', userName);
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-
+    
     axios({
+      
       method: 'post',
-      url: 'http:192.168.10.13:8888/signup',
+      url: 'http://192.168.0.1:8888/signup',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
+   
       .then(function (response) {
         if (response.data.save == true) {
-          AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
-          navigation.navigate('Home');
+          console.log('response',response.data)
+          const uId=response.data.newUser._id;
+          console.log("type of",typeof uId)
+          if(response.data.newUser=="A user With the same email already exists."){
+            setAlreadyExist(response.data.newUser)
+          }else{
+            AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
+            navigation.navigate('Home');
+          }
+         
         } else {
-          alert('Account cannot be created');
+          alert('Account cannot be created! Please try again later.');
         }
       })
       .catch(function (response) {
         //handle error
         console.log(response);
       });
-  };
+      console.warn("Stop");
+    };
 
   useEffect(() => {
     let currentUserStatus = AsyncStorage.getItem('user');
@@ -107,9 +118,10 @@ const Signup = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
+    
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <BackButtonHeader navigation={navigation} />
+        <ScrollView>
         <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
         {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
         <View style={{alignItems: 'center'}}>
@@ -135,6 +147,7 @@ const Signup = ({navigation}) => {
                   setUserNameError('');
                 }}
               />
+            
             </View>
 
             {userNameError ? (
@@ -248,8 +261,9 @@ const Signup = ({navigation}) => {
           source={require('../../assets/Images/signup3.png')} // Specify the source of the image
           style={[ImageStyles.signupImage]} // Set the desired width and height of the image
         />
+        </ScrollView>
       </SafeAreaView>
-    </ScrollView>
+    
   );
 };
 

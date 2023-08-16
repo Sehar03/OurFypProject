@@ -58,9 +58,14 @@ const IconStyles = StyleSheet.create({
         color:AppColors.primary,
         marginLeft:wp('4'),
         marginVertical:hp('1')
-    
-
-    }
+    },
+    fireIcon2:{
+        color:AppColors.goldenYellow,
+        // marginLeft:wp('1'),
+        // marginVertical:hp('1')
+        marginTop:hp('2.5%')
+    },
 })
+
 
 export default IconStyles

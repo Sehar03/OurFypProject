@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-  StatusBar,
+  StatusBar, TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -34,8 +34,18 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
+const logoutUser = () => {
+  AsyncStorage.clear();
+  navigation.navigate("/login");
+};
 
-
+const LogoutScreen = () => {
+  return (
+    <TouchableOpacity onPress={logoutUser}>
+      <FontAwesome name="sign-out" size={size} color={color} />
+    </TouchableOpacity>
+  );
+};
 const DrawerScreens = () => {
   return (
     
@@ -56,13 +66,14 @@ const DrawerScreens = () => {
         return <FontAwesome name="search" size={size} color={color} />;
       }
       else if (route.name === 'Logout') {
-        return <FontAwesome name="search" size={size} color={color} />;
-      }
-      else if (route.name === 'Profile') {
-        return <FontAwesome name="search" size={size} color={color} />;
-      }
-      else if (route.name === 'Address') {
-        return <FontAwesome name="search" size={size} color={color} />;
+        return
+        // <TouchableOpacity onPress={()=>{
+        //   logoutUser();
+        //   // AsyncStorage.removeItem('token');
+
+        // }}>
+           <FontAwesome name="search" size={size} color={color} />;
+        // </TouchableOpacity>
       }
     },
     headerShown:false,
@@ -78,9 +89,10 @@ const DrawerScreens = () => {
       <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Signup" component={Signup} />
         <Drawer.Screen name="Splash" component={Splash} />
+        <Drawer.Screen name="Cart" component={Cart} />
         <Drawer.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Address" component={Address} />
-
+        <Drawer.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Drawer.Screen name="Logout" component={LogoutScreen} />
     </Drawer.Navigator>
   );
 };
@@ -88,7 +100,10 @@ const DrawerScreens = () => {
 const App = () => {
   return (
     <NavigationContainer>
- 
+       <StatusBar
+        backgroundColor={AppColors.white} // Background color of the status bar
+        barStyle="dark-content" // Light text color for dark backgrounds
+      />
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />
@@ -96,14 +111,12 @@ const App = () => {
       <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="FullPriceHomeScreen"component={FullPriceHomeScreen}/>
         <Stack.Screen name="FurtherScreens" component={FurtherScreens} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="EditProfle" component={EditProfile} />
         <Stack.Screen name="AddAddress" component={AddAddress} />
-        <Stack.Screen name="Address" component={Address} />
         <Stack.Screen name="Products" component={Products} />
         <Stack.Screen name="SingleProductDetail" component={SingleProductDetail} />
         <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
         <Stack.Screen name="SelectedFood" component={SelectedFoodScreen} />
-        <Stack.Screen name="Cart" component={Cart} />
      </Stack.Navigator>
     </NavigationContainer>
   );
