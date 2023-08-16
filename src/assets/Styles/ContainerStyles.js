@@ -69,6 +69,7 @@ const ContainerStyles = StyleSheet.create({
       marginVertical: hp('3%'),
       shadowOpacity: 0.3,
       marginTop: hp('1.4%'),
+   },
 
   EditNameNeomorphContainer: {
     width: wp('87%'),
@@ -385,6 +386,7 @@ alignItems:"center",
 marginTop:hp('3%'),
 borderRadius:hp('10%')
 },
+   
 });
 
 export default ContainerStyles;

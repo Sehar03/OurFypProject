@@ -69,7 +69,7 @@ const Popular = ({navigation}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
 
       {/* <ScrollView> */}
-      <View style={{flexDirection: 'row', marginTop: hp('1%')}}>
+      {/* <View style={{flexDirection: 'row', marginTop: hp('1%')}}> */}
 
        {/* <ScrollView> */}
       <View style={{flexDirection: 'row'}}>
@@ -106,18 +106,6 @@ const StrongPepsiDeals = ({navigation}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <View
         style={[ContainerStyles.productsContainerSeparator]}></View>
- <StatusBar
-    barStyle="light-content"
-    backgroundColor="transparent"
-    translucent={true}
-  />
-    
-      <ImageBackground
-        source={imageUri}
-        style={{height: hp('20%'), width: wp('100%')}}>
-        <ProductsBackButton navigation={navigation} />
-      </ImageBackground>
-      <Text style={[TextStyles.leftText]}>{imageTitle}</Text>
       <View style={{flexDirection: 'row'}}>
         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
           Strong Pepsi Deals
@@ -234,7 +222,13 @@ const Products = ({navigation, route}, props) => {
   const {imageUri, imageTitle, imageDeliveryTime} = route.params;
   return (
     <ScrollView>
+
       <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      <StatusBar
+    barStyle="light-content"
+    backgroundColor="transparent"
+    translucent={true}
+  />
         <ImageBackground
           source={imageUri}
           style={{height: hp('20%'), width: wp('100%')}}>

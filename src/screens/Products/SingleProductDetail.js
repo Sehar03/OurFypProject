@@ -6,9 +6,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StatusBar
 } from 'react-native';
-import React from 'react';
-import {ImageBackground, SafeAreaView, Text, View,StatusBar} from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
 import TextStyles from '../../assets/Styles/TextStyles';
@@ -121,7 +120,7 @@ const SingleProductDetail = ({navigation, route}) => {
             style={[
               ContainerStyles.singleProductTouchableOpacityNeomorphContainer,
             ]}>
-            <Text style={TextStyles.whiteCenteredLable}>Add To Cart</Text>
+            <Text style={[TextStyles.whiteCenteredLable]}>Add To Cart</Text>
           </Neomorph>
         </TouchableOpacity>
       </View>
