@@ -69,7 +69,7 @@ const SmallCard = ({navigation}) => {
               ContainerStyles.smallCategoriesNeomorphStyle
             ]}
           >
-            <Image source={item.image} style={{ height: item.height, width: item.width, marginTop: hp('2'), marginLeft: wp('4'), }} />
+            <Image source={item.image} style={{ height: item.height, width: item.width, marginTop: hp('2'), marginLeft: wp('0'), }} />
           </Neomorph>
           <Text style={[TextStyles.smallText, { marginTop: 7 }]}>{item.name}</Text>
         </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Image, FlatList, TouchableOpacity } from 'react-native';
 import ImageStyles from '../../assets/Styles/ImageStyles';
-const AdvertiseCard = (props) => {
+const AdvertiseCard = ({navigation}) => {
   const [allAdvertisementCards, setAllAdvertisementCards] = useState([
     {
       uri: require('../../assets/Images/image25.jpg'),
@@ -25,7 +25,9 @@ const AdvertiseCard = (props) => {
       horizontal
       showsHorizontalScrollIndicator={false}
       return renderItem={({ item }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('FurtherScreens', {categoryName: item.name});
+        }}>
           <Image source={item.uri} style={[ImageStyles.advertiseImageStyle]} />
         </TouchableOpacity>
       )}

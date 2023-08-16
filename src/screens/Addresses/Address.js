@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import AppColors from '../../assets/colors/AppColors';
@@ -24,6 +25,7 @@ const Address = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      
       <ScrollView>
       {/* <CartHeader navigation={navigation} item="Address" /> */}
        <ProfileHeader navigation={navigation} item="Address" /> 
@@ -31,34 +33,37 @@ const Address = ({navigation}) => {
         <View
           style={{
             height: hp('13'),
-            borderBottomWidth: wp('0.1'),
+            borderBottomWidth: wp('0.4'),
+            borderColor: AppColors.background2
           
           }}>
-            <View style={{flexDirection:"row"}}>
-          <Octicons
-            name="location"
-            size={25}
+            <View style={{flexDirection:"row",width:wp('100%')}}>
+          <FontAwesome
+            name="home"
+            size={20}
             color={AppColors.primary}
             style={[IconStyles.LocationIcon]}
           />
+          <View style={{width:wp('70'),height:hp('5')}}>
           <Text
             style={{
               fontFamily: 'Poppins-SemiBold',
               color: AppColors.black,
               marginTop: hp('2'),
-              marginLeft: wp('2'),
+              marginLeft:wp('1.8')
+            
             }}>
             {' '}
             750 B Markazi Jamia Masjid Road
           </Text>
-         
+          </View>
           <MaterialIcons
             name="edit"
-            size={25}
+            size={20}
             color={AppColors.primary}
             style={[IconStyles.EditIcons]}
           />
-          <FontAwesome name="trash" size={21} color={AppColors.primary}
+          <FontAwesome name="trash" size={20} color={AppColors.primary}
           style={[IconStyles.Trash]} />
 
           </View>
@@ -66,6 +71,7 @@ const Address = ({navigation}) => {
           <Text style={{marginLeft:wp('12')}}>Note to ride: none</Text>
 
         </View>
+        
       </ScrollView>
       <TouchableOpacity onPress={()=>{
         navigation.navigate('AddAddress')

@@ -87,8 +87,7 @@ const DrawerScreens = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
- 
+    <NavigationContainer> 
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
         <Stack.Screen name="Drawer" component={DrawerScreens} />
         <Stack.Screen name="Home" component={Home} />

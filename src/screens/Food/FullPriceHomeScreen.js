@@ -13,10 +13,10 @@ import AppColors from '../../assets/colors/AppColors';
 const FullPriceHomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ backgroundColor: AppColors.white }}>
-      <MainHeader navigation={navigation} item=" Full Price Food " />
+      <MainHeader navigation={navigation} item="Full Price Food" />
       <ScrollView>
         <SearchComponent />
-        <AdvertiseCard />
+        <AdvertiseCard navigation={navigation} />
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>Food For You</Text>
         <SmallCard  navigation={navigation}/>
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>All Restaurants</Text>

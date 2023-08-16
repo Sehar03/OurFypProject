@@ -36,18 +36,18 @@ const ContainerStyles = StyleSheet.create({
 
    profileInputFieldContainer:{
       
-      shadowRadius: 4,
-      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      shadowOpacity: 0.15,
       borderRadius: 10,
-      backgroundColor: 'white',
+      backgroundColor: AppColors.white,
       width: hp('43'),
       height: hp('12'),
       
 
    },
     NeomorphContainer:{
-      shadowRadius: 4,
-      shadowOpacity: 0.3,
+      shadowRadius: 2,
+      shadowOpacity: 0.15,
       borderRadius: 10,
       backgroundColor: 'white',
       width: hp('43'),
@@ -148,7 +148,7 @@ const ContainerStyles = StyleSheet.create({
      } ,
      cartNeomorph: {
       shadowRadius: 3,
-      shadowOpacity: 0.3,
+      shadowOpacity: 0.1,
       borderRadius: 10,
       backgroundColor: 'white',
       width: hp('45'),

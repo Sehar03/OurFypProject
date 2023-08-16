@@ -64,8 +64,8 @@ const Popular = ({navigation}) => {
 ])
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      {/* <ScrollView> */}
-      <View style={{flexDirection: 'row', marginTop: hp('2%')}}>
+       {/* <ScrollView> */}
+      <View style={{flexDirection: 'row'}}>
         <MaterialCommunityIcons
           name="fire"
           size={wp('8%')}
@@ -92,6 +92,12 @@ const Products = ({navigation, route}, props) => {
   const {imageUri, imageTitle, imageDeliveryTime} = route.params;
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+ <StatusBar
+    barStyle="light-content"
+    backgroundColor="transparent"
+    translucent={true}
+  />
+    
       <ImageBackground
         source={imageUri}
         style={{height: hp('20%'), width: wp('100%')}}>

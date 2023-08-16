@@ -10,10 +10,6 @@ const IconStyles = StyleSheet.create({
         color: AppColors.primary,
         margin: 15,
     },
-    drawerManuIcon:{
-        color:"white",
-        marginTop:hp('1.5')
-    },
     drawerManuIcon: {
         color: "white",
         marginTop: hp('1.5'),
@@ -31,18 +27,18 @@ const IconStyles = StyleSheet.create({
     },
     shoppingCartIcon: {
         color: AppColors.primary,
-        marginTop: hp('4%'),
-        marginLeft: wp('45'),
+        marginTop: hp('1%'),
+        marginLeft: wp('28'),
     },
     editIcon:{
-        marginLeft:wp('60'),marginTop:hp('2'),color:AppColors.primary
+        marginLeft:wp('65'),marginTop:hp('1'),color:AppColors.primary
     },
     LocationIcon:{
-        marginLeft:wp('4'),marginTop:hp('2'),color:AppColors.primary
+        marginLeft:wp('4'),marginTop:hp('1.8'),color:AppColors.primary
     },
 
     EditIcons:{
-        marginLeft:wp('8'),marginTop:hp('2'),color:AppColors.primary
+        marginLeft:wp('5'),marginTop:hp('2'),color:AppColors.primary
     },
     Trash:{
         marginLeft:wp('2'),

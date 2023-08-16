@@ -1,23 +1,23 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {View, TouchableOpacity, Text,StatusBar} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-
 import TextStyles from '../../assets/Styles/TextStyles';
-import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
-
 const BackButtonHeader = ({navigation,title}) => {
- 
   return (
-    <View style={{backgroundColor:AppColors.background,height:hp('8%'),width:wp('100%'),justifyContent:"center"}}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <FontAwesome name="chevron-left" size={wp('6%')} style={{color:AppColors.primary,marginTop:hp('1%'),marginLeft:wp('6%')}}/>
+    <View style={{backgroundColor:AppColors.white,height:hp('8%'),width:wp('100%'),justifyContent:"center",marginTop:wp('3.5')}}>
+      <StatusBar
+      barStyle="dark-content"
+      backgroundColor="white"
+      translucent={true}
+  />
+<TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <AntDesign name="arrowleft" size={wp('6%')} style={[IconStyles.arrowLeftIcon]} />
       </TouchableOpacity>
       <Text style={[TextStyles.backButtonTitle]}>{title}</Text>
     </View>

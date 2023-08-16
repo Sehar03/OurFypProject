@@ -1,6 +1,7 @@
 const AppColors={
     primary:"#EB5703",
     background:"#E8E8E6", //lightGray
+    darkgray: `#a9a9a9`,
     white:"#FFFFFF",
     background2:"#F3F1EC",
    logInBorder:"gray",
