@@ -36,7 +36,7 @@ const Profile = ({ navigation }) => {
           }}>
           <Neomorph
             darkShadowColor={AppColors.Gray}
-            lightShadowColor={AppColors.background}
+            lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
             style={[ContainerStyles.profileInputFieldContainer]}>
             <View style={{ flexDirection: 'row' }}>
@@ -63,7 +63,7 @@ const Profile = ({ navigation }) => {
         }}>
           <Neomorph
             darkShadowColor={AppColors.Gray}
-            lightShadowColor={AppColors.background}
+            lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
             style={[ContainerStyles.profileInputFieldContainer]}>
             <View style={{ flexDirection: 'row' }}>
@@ -90,7 +90,7 @@ const Profile = ({ navigation }) => {
         }}>
           <Neomorph
             darkShadowColor={AppColors.Gray}
-            lightShadowColor={AppColors.background}
+            lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
             style={[ContainerStyles.profileInputFieldContainer]}>
             <View style={{ flexDirection: 'row' }}>
@@ -116,7 +116,7 @@ const Profile = ({ navigation }) => {
       <View style={{ marginTop: hp('2'), alignItems: 'center' }}>
         <Neomorph
           darkShadowColor={AppColors.Gray}
-          lightShadowColor={AppColors.background}
+          lightShadowColor={AppColors.darkgray}
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.NeomorphContainer]}>
@@ -137,7 +137,7 @@ const Profile = ({ navigation }) => {
       <View style={{ marginTop: hp('2'), alignItems: 'center' }}>
         <Neomorph
           darkShadowColor={AppColors.Gray}
-          lightShadowColor={AppColors.background}
+          lightShadowColor={AppColors.darkgray}
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={[ContainerStyles.NeomorphContainer]}>
@@ -145,9 +145,8 @@ const Profile = ({ navigation }) => {
             <TouchableOpacity style={{}}>
               <FontAwesome
                 name="google"
-                size={20}
+                size={17}
                 color={AppColors.facebook}
-                style={{}}
               />
             </TouchableOpacity>
 

@@ -63,7 +63,6 @@ const Cart = ({navigation}) => {
         </Text>
 
         <CartPopularItems />
-        {/* <SmallCard/> */}
       </ScrollView>
       <TouchableOpacity>
       <Neomorph
