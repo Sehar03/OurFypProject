@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity, Text, StatusBar} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
@@ -12,7 +12,14 @@ import IconStyles from '../../assets/Styles/IconStyles';
 const TabScreensHeader = ({navigation,title}) => {
  
   return (
+    
     <View style={{backgroundColor:AppColors.white,height:hp('8%'),width:wp('100%'),justifyContent:"center"}}>
+       {/* <View style={{marginTop:hp('4')}}> */}
+       <StatusBar
+        backgroundColor={AppColors.white} // Background color of the status bar
+        barStyle="dark-content" // Light text color for dark backgrounds
+      />
+      {/* </View> */}
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();

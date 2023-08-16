@@ -49,7 +49,7 @@ const DealCard = ({navigation, item}) => {
         <Text
           style={[
             TextStyles.whiteCenteredLable,
-            {fontSize: wp('8%'), marginTop: hp('-1%')},
+            {fontSize: wp('6%'), marginTop: hp('0%'),fontFamily:"Poppins-Regular"},
           ]}>
           +
         </Text>
