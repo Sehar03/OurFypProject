@@ -7,10 +7,10 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
 const BackButtonHeader = ({navigation,title}) => {
   return (
-    <View style={{backgroundColor:AppColors.white,height:hp('8%'),width:wp('100%'),justifyContent:"center",marginTop:wp('3.5')}}>
+    <View style={{flex:1,backgroundColor:AppColors.white,height:hp('10%'),width:wp('100%'),justifyContent:"center"}}>
       <StatusBar
       barStyle="dark-content"
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       translucent={true}
   />
 <TouchableOpacity

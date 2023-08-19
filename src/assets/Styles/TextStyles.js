@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AppColors from '../../assets/colors/AppColors';
-import Profile from '../../screens/Profile/Profile';
 
 const TextStyles = StyleSheet.create({
   leftHeading: {

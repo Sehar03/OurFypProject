@@ -12,7 +12,7 @@ import SearchComponent from '../../components/SearchComponent';
 import AppColors from '../../assets/colors/AppColors';
 const FullPriceHomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ backgroundColor: AppColors.white }}>
+    <SafeAreaView style={{ backgroundColor: AppColors.white,flex:1 }}>
       <MainHeader navigation={navigation} item="Full Price Food" />
       <ScrollView>
         <SearchComponent />
@@ -20,7 +20,7 @@ const FullPriceHomeScreen = ({ navigation }) => {
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>Food For You</Text>
         <SmallCard  navigation={navigation}/>
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>All Restaurants</Text>
-        <View style={{ marginBottom: hp('12') }} >
+        <View style={{ }} >
           <LargeCard navigation={navigation} />
         </View>
       </ScrollView>
