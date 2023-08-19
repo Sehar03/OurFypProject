@@ -68,7 +68,7 @@ const Login = ({navigation}) => {
   useEffect(() => {
     let currentUserStatus = AsyncStorage.getItem('user');
     if (currentUserStatus) {
-      navigation.navigate('Home');
+      navigation.navigate('Login');
     }
   }, []);
   return (

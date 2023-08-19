@@ -17,8 +17,8 @@ const IconStyles = StyleSheet.create({
     },
     arrowLeftIcon: {
         color: AppColors.primary,
-        marginTop: hp('4%'),
-        marginLeft: wp('3')
+        marginTop: hp('5    '),
+        marginLeft: wp('5')
     },
     heartIcon: {
         color: AppColors.primary,
