@@ -51,7 +51,11 @@ const ImageStyles = StyleSheet.create({
     height: hp('9'),
     borderWidth: 4,
   },
-
+  smallSquareBoxImage: {
+    width: wp('25%'),
+    height: hp('12%'),
+    borderRadius: wp('3%'),
+  },
 });
 
 export default ImageStyles;

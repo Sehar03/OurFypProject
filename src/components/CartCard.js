@@ -22,7 +22,9 @@ const CartCard = () => {
   };
 
   const decrementCount = () => {
+    if(count>1){
     setCount(count - 1);
+    }
   };
 
   const toggleModal = () => {

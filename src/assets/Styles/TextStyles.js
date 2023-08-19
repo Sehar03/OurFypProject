@@ -64,7 +64,7 @@ const TextStyles = StyleSheet.create({
   leftText: {
     color: AppColors.black,
     fontFamily: 'Poppins-SemiBold',
-    marginTop: hp('3%'),
+    marginTop: hp('2%'),
     marginLeft: wp('4%'),
   },
   leftMediumText: {
@@ -148,7 +148,17 @@ const TextStyles = StyleSheet.create({
     marginTop:hp('1'),
     marginLeft:wp('4'),
     
-  }
+  },
+  dealText: {
+    fontFamily: 'Poppins-Regular',
+    marginLeft: wp('4%'),
+  },
+  dealPriceText: {
+    color: AppColors.black,
+    fontFamily: 'Poppins-Regular',
+    // fontSize: hp('1.7'),
+    marginLeft:wp('4%')
+  },
 });
 
 export default TextStyles;
