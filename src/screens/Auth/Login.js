@@ -22,7 +22,6 @@ import IconStyles from '../../assets/Styles/IconStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   // states
@@ -38,7 +37,7 @@ const Login = ({navigation}) => {
 
     axios({
       method: 'post',
-      url: 'http://192.168.0.1:8888/login',
+      url: 'http://192.168.0.102:8888/login',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
@@ -69,13 +68,11 @@ const Login = ({navigation}) => {
   useEffect(() => {
     let currentUserStatus = AsyncStorage.getItem('user');
     if (currentUserStatus) {
-      navigation.navigate('Home');
+      navigation.navigate('Login');
     }
   }, []);
   return (
-    
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <ScrollView>
       <BackButtonHeader navigation={navigation} />
       <Text style={TextStyles.leftHeading}>Log In</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
@@ -95,7 +92,6 @@ const Login = ({navigation}) => {
               placeholder="Enter Email"
               style={[TextFieldStyles.inputField]}
               value={userEmail}
-              autoCapitalize="none"
               onChangeText={text => {
                 setUserEmail(text);
               }}
@@ -119,7 +115,6 @@ const Login = ({navigation}) => {
               style={[TextFieldStyles.inputField]}
               value={userPassword}
               secureTextEntry={true}
-              autoCapitalize="none"
               onChangeText={text => {
                 setUserPassword(text);
               }}
@@ -170,9 +165,7 @@ const Login = ({navigation}) => {
         source={require('../../assets/Images/signup3.png')} // Specify the source of the image
         style={[ImageStyles.loginImage]} // Set the desired width and height of the image
       />
-       </ScrollView>
     </SafeAreaView>
-   
   );
 };
 

@@ -17,8 +17,8 @@ const IconStyles = StyleSheet.create({
     },
     arrowLeftIcon: {
         color: AppColors.primary,
-        marginTop: hp('4%'),
-        marginLeft: wp('3')
+        marginTop: hp('5    '),
+        marginLeft: wp('5')
     },
     heartIcon: {
         color: AppColors.primary,
@@ -31,7 +31,7 @@ const IconStyles = StyleSheet.create({
         marginLeft: wp('28'),
     },
     editIcon:{
-        marginLeft:wp('65'),marginTop:hp('1'),color:AppColors.primary
+        marginLeft:wp('60'),marginTop:hp('1'),color:AppColors.primary
     },
     LocationIcon:{
         marginLeft:wp('4'),marginTop:hp('1.8'),color:AppColors.primary

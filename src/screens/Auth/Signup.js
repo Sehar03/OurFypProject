@@ -120,7 +120,7 @@ setAlreadyExistError('A user With the same email already exists');
   useEffect(() => {
     let currentUserStatus = AsyncStorage.getItem('user');
     if (currentUserStatus) {
-      navigation.navigate('Home');
+      navigation.navigate('Signup');
     }
   }, []);
 
