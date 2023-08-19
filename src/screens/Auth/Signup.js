@@ -38,6 +38,8 @@ const Signup = ({navigation}) => {
   const [userEmailError, setUserEmailError] = useState('');
   const [userPasswordError, setUserPasswordError] = useState('');
 const[alreadyExist,setAlreadyExist]=useState('');
+const[alreadyExistError,setAlreadyExistError]=useState(false);
+
   //FUNCTIONS
 
   const isEmailValid = userEmail => {
@@ -63,12 +65,16 @@ const[alreadyExist,setAlreadyExist]=useState('');
     } else if (!isPasswordValid(userPassword)) {
       setUserPasswordError('Password must be at least 8 characters long.');
     }
+    if(alreadyExistError){
+setAlreadyExistError('A user With the same email already exists');
+    }
     if (
       !userName ||
       !userEmail ||
       !userPassword ||
       !isEmailValid(userEmail) ||
-      !isPasswordValid(userPassword)
+      !isPasswordValid(userPassword)||
+      alreadyExistError
     ) {
       return false;
     }
@@ -82,7 +88,7 @@ const[alreadyExist,setAlreadyExist]=useState('');
     axios({
       
       method: 'post',
-      url: 'http://192.168.0.1:8888/signup',
+      url: 'http://192.168.0.101:8888/signup',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
@@ -93,7 +99,8 @@ const[alreadyExist,setAlreadyExist]=useState('');
           const uId=response.data.newUser._id;
           console.log("type of",typeof uId)
           if(response.data.newUser=="A user With the same email already exists."){
-            setAlreadyExist(response.data.newUser)
+            setAlreadyExist(response.data.newUser);
+            setAlreadyExistError(true);
           }else{
             AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
             navigation.navigate('Home');
@@ -224,11 +231,10 @@ const[alreadyExist,setAlreadyExist]=useState('');
 
           <TouchableOpacity
             onPress={() => {
-              userRegister();
+              // userRegister();
+              navigation.navigate('AfterSignup')
               console.log('signup is running');
-              // setUserName('');
-              // setUserEmail('');
-              // setUserPassword('');
+           
             }}>
             <Neomorph
               darkShadowColor="white"
@@ -237,6 +243,9 @@ const[alreadyExist,setAlreadyExist]=useState('');
               style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
               <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
             </Neomorph>
+            {alreadyExistError ? (
+              <Text style={[TextStyles.errorText]}>{alreadyExistError}</Text>
+            ) : null}
           </TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontFamily: 'Poppins-SemiBold'}}>

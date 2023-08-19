@@ -22,6 +22,7 @@ import SingleProductDetail from './src/screens/Products/SingleProductDetail';
 import FoodShareScreen from './src/screens/Food/FoodShareScreen';
 import SelectedFoodScreen from './src/screens/Food/SelectedFood';
 import Products from './src/screens/Products/Products';
+import AfterSignup from './src/screens/Auth/AfterSignup';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const AuthStack = () => {
@@ -118,6 +119,8 @@ const App = () => {
           component={SingleProductDetail}
         />
         <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
+        <Stack.Screen name="AfterSignup" component={AfterSignup} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

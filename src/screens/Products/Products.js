@@ -29,7 +29,6 @@ import { Image } from 'react-native-elements';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import DealCard from '../../components/Cards/DealCard';
 
-const Tab = createMaterialTopTabNavigator();
 
 const Popular = ({navigation}) => {
   const [allPopularCards, setAllPopularCards] = useState([
@@ -101,7 +100,14 @@ const StrongPepsiDeals = ({navigation}) => {
     title:'Pepsi Deal',
     description:"Chicken Patty Burger + 345ml Pepsi",
     price:"Rs. 349.00"
-  }])
+  },
+  {
+    uri:require('../../assets/Images/exclusiveDeal.jpg'),
+    title:'Pepsi Deal',
+    description:"Chicken Patty Burger + 345ml Pepsi",
+    price:"Rs. 349.00"
+  },
+])
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <View
@@ -221,9 +227,10 @@ const BreakfastDeals = ({navigation}) => {
 const Products = ({navigation, route}, props) => {
   const {imageUri, imageTitle, imageDeliveryTime} = route.params;
   return (
-    <ScrollView>
+    
 
       <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+        <ScrollView>
       <StatusBar
     barStyle="light-content"
     backgroundColor="transparent"
@@ -249,8 +256,25 @@ const Products = ({navigation, route}, props) => {
         <StrongPepsiDeals navigation={navigation} />
         <SummerDeals navigation={navigation} />
 <BreakfastDeals navigation={navigation}/>
+</ScrollView>
+<TouchableOpacity onPress={()=>{
+        navigation.navigate('Cart')
+      }}>
+        <Neomorph
+          // darkShadowColor={AppColors.primary}
+          lightShadowColor={AppColors.background}
+          // inner // <- enable shadow inside of neomorph
+          swapShadows // <- change zIndex of each shadow color
+          style={[ContainerStyles.touchableOpacityNeomorphContainer2]}>
+          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <Text style={[TextStyles.whiteCenteredLable2]}>
+              View Your Cart
+            </Text>
+          </View>
+        </Neomorph>
+      </TouchableOpacity>
       </SafeAreaView>
-    </ScrollView>
+    
   );
 };
 

@@ -271,12 +271,7 @@ const FurtherScreens = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-       <View style={{marginTop:hp('4')}}>
-       <StatusBar
-        backgroundColor={AppColors.white} // Background color of the status bar
-        barStyle="dark-content" // Light text color for dark backgrounds
-      />
-      </View>
+      
       <TabScreensHeader title={categoryName} navigation={navigation}/>
       {/* <MainHeader  item={categoryName} navigation={navigation} /> */}
       <Tab.Navigator

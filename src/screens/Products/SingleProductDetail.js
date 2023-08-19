@@ -105,8 +105,8 @@ const SingleProductDetail = ({navigation, route}) => {
             <Text
               style={{
                 color: AppColors.white,
-                marginBottom: hp('1%'),
-                fontSize: wp('7%'),
+                // marginTop: hp('2.2%'),
+                fontSize: wp('6%'),
               }}>
               +
             </Text>
@@ -120,7 +120,7 @@ const SingleProductDetail = ({navigation, route}) => {
             style={[
               ContainerStyles.singleProductTouchableOpacityNeomorphContainer,
             ]}>
-            <Text style={[TextStyles.whiteCenteredLable]}>Add To Cart</Text>
+            <Text style={[TextStyles.whiteCenteredLable3]}>Add To Cart</Text>
           </Neomorph>
         </TouchableOpacity>
       </View>
