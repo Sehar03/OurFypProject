@@ -13,7 +13,7 @@ import IconStyles from '../assets/Styles/IconStyles';
 import ImageStyles from '../assets/Styles/ImageStyles';
 import OtherStyles from '../assets/Styles/OtherStyles';
 
-const CartCard = () => {
+const CartCard = ({item}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1);
 
@@ -108,7 +108,7 @@ const CartCard = () => {
         </View>
       </Modal>
       <Image
-        source={require('../assets/Images/image11.png')} // Specify the source of the image
+        source={item.uri} // Specify the source of the image
         style={[ImageStyles.cartImage]} // Set the desired width and height of the image
       />
       <View
@@ -118,9 +118,9 @@ const CartCard = () => {
           
         }}>
           <View style={{width:wp('47')}}>
-        <Text style={[OtherStyles.text]}>Summer Deal</Text>
+        <Text style={[OtherStyles.text]}>{item.title}</Text>
         </View>
-        <Text style={{color: AppColors.black}}>Rs.330.00</Text>
+        <Text style={{color: AppColors.black}}>{item.Rupees}</Text>
       </View>
       <View>
       <TouchableOpacity style={{marginLeft:wp('2'),marginTop:hp('4.5')}}>

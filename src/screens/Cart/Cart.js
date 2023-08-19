@@ -1,5 +1,5 @@
-import React from 'react';
-import {SafeAreaView, View, Image,Text,ScrollView, TouchableOpacity} from 'react-native';
+import React,{useState} from 'react';
+import {SafeAreaView, View, Image,Text,ScrollView, TouchableOpacity,FlatList} from 'react-native';
 import CartHeader from '../../components/headers/CartHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
@@ -11,6 +11,26 @@ import ImageStyles from '../../assets/Styles/ImageStyles';
 import CartPopularItems from '../../components/Cards/CartPopularItems';
 import CartCard from '../../components/CartCard';
 const Cart = ({navigation}) => {
+  const [allResturantsCards, setAllResturantsCards] = useState([
+    {
+      uri: require('../../assets/Images/image38.jpg'),
+      title: 'Summer Deal',
+      Rupees: 'Rs.330',
+      // top: hp('27'), // Match the marginTop of the first Neomorph
+      // left: wp('15'),
+    },
+    {
+      uri: require('../../assets/Images/image39.jpg'),
+      title: 'Deal',
+      Rupees: 'Rs.340',
+      // top: hp('41'), // Match the marginTop of the first Neomorph
+      // left: wp('15'),
+    },
+  ]);
+
+  
+  
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <CartHeader navigation={navigation} item="Cart" />
@@ -46,7 +66,20 @@ const Cart = ({navigation}) => {
           </Neomorph>
         </View>
 
-        <CartCard />
+        {/* <CartCard /> */}
+        <FlatList
+          data={allResturantsCards}
+          Vertical
+          showsVerticalScrollIndicator={false}
+          renderItem={({item, index}) => {
+            return (
+              <CartCard
+                navigation={navigation}
+                item={item}
+              />
+            );
+          }}
+        />
 
         <TouchableOpacity>
           <Text style={[TextStyles.text3]}>Add more items</Text>
