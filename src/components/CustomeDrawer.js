@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ContainerStyles from '../assets/Styles/ContainerStyles';
 import TextStyles from '../assets/Styles/TextStyles';
 import ImageStyles from '../assets/Styles/ImageStyles';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 const CustomeDrawer = props => {
   //
@@ -23,12 +24,10 @@ const CustomeDrawer = props => {
         />
         <Text style={[TextStyles.whiteCenteredLable]}>Toqeer Fatima</Text>
       </ImageBackground>
-
+<DrawerContentScrollView>
       <View
         style={{
-          padding: 20,
-          borderTopWidth: 1,
-          borderTopColor: AppColors.background,
+          paddingLeft: 20,
         }}>
         <TouchableOpacity
           style={{paddingVertical: 15}}
@@ -71,7 +70,15 @@ const CustomeDrawer = props => {
             <Text style={[TextStyles.mediumTextStyle]}>Profile</Text>
           </View>
         </TouchableOpacity>
+        </View>
+        </DrawerContentScrollView>
 
+        <View
+        style={{
+          padding: 20,
+          borderTopWidth: 1,
+          borderTopColor: AppColors.background,
+        }}>
         <TouchableOpacity style={{paddingVertical: 15}}>
           <View style={[ContainerStyles.TwoitemsCenter]}>
             <Ionicons name="settings-outline" size={22} />
@@ -86,7 +93,8 @@ const CustomeDrawer = props => {
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
+   
   );
 };
 
