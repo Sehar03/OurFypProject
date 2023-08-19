@@ -10,6 +10,7 @@ import {
 import RestaurantsCard from '../../components/Cards/RestaurantsCard';
 import TabBarStyles from '../../assets/Styles/TabBarStyles';
 import MainHeader from '../../components/headers/MainHeader';
+import TabScreensHeader from '../../components/headers/TabScreensHeader';
 const Tab = createMaterialTopTabNavigator();
 
 // pizza screen
@@ -270,7 +271,14 @@ const FurtherScreens = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <MainHeader  item={categoryName} navigation={navigation} />
+       <View style={{marginTop:hp('4')}}>
+       <StatusBar
+        backgroundColor={AppColors.white} // Background color of the status bar
+        barStyle="dark-content" // Light text color for dark backgrounds
+      />
+      </View>
+      <TabScreensHeader title={categoryName} navigation={navigation}/>
+      {/* <MainHeader  item={categoryName} navigation={navigation} /> */}
       <Tab.Navigator
         screenOptions={TabBarStyles.customTabBar}>
         {/* {categoryName == 'Pizza' ? (
