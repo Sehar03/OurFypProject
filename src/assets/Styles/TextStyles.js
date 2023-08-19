@@ -159,6 +159,14 @@ const TextStyles = StyleSheet.create({
     // fontSize: hp('1.7'),
     marginLeft:wp('4%')
   },
+  whiteCenteredLable3: {
+    color: AppColors.white,
+    // fontWeight: '600',
+    fontFamily: 'Poppins-SemiBold',
+    // fontSize: hp('2.5%'),
+    textAlign: 'center',
+    marginTop: hp('2%'),
+  },
 });
 
 export default TextStyles;

@@ -24,6 +24,8 @@ import FoodShareScreen from './src/screens/Food/FoodShareScreen';
 import SelectedFoodScreen from './src/screens/Food/SelectedFood';
 import Products from './src/screens/Products/Products';
 
+import AfterSignup from './src/screens/Auth/AfterSignup';
+
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -74,7 +76,34 @@ const AuthStackNavigator = () => {
 const App = () => {
   return (
     <NavigationContainer>
+
+
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+        initialRouteName="Drawer">
+        <Stack.Screen name="Drawer" component={DrawerScreens} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen
+          name="FullPriceHomeScreen"
+          component={FullPriceHomeScreen}
+        />
+        <Stack.Screen name="FurtherScreens" component={FurtherScreens} />
+        <Stack.Screen name="EditProfle" component={EditProfile} />
+        <Stack.Screen name="AddAddress" component={AddAddress} />
+        <Stack.Screen name="Products" component={Products} />
+        <Stack.Screen
+          name="SingleProductDetail"
+          component={SingleProductDetail}
+        />
+        <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
+        <Stack.Screen name="AfterSignup" component={AfterSignup} />
+
+      </Stack.Navigator>
+
       <AuthStackNavigator />
+
     </NavigationContainer>
   );
 };
