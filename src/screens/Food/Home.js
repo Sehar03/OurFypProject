@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
                 lightShadowColor={AppColors.darkOrange}
                 inner // <- enable shadow inside of neomorph
                 swapShadows // <- change zIndex of each shadow color
-                style={[ContainerStyles.largeNeomorphStyle]}>
+                style={ContainerStyles.largeNeomorphStyle}>
 
                 <Text style={[TextStyles.primaryText]}>Full Price Food </Text>
                 <Text style={[TextStyles.smallText,{marginLeft:wp('3')}]}>Order food from your favourite resturants</Text>
@@ -47,7 +47,7 @@ const Home = ({ navigation }) => {
                   lightShadowColor={AppColors.darkOrange}
                   inner // <- enable shadow inside of neomorph
                   swapShadows // <- change zIndex of each shadow color
-                  style={[ContainerStyles.smallNeomorphStyle]}
+                  style={ContainerStyles.smallNeomorphStyle}
 
                 >
 

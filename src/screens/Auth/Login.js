@@ -22,12 +22,14 @@ import IconStyles from '../../assets/Styles/IconStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Login = ({navigation}) => {
   // states
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
   // functions
   const userLogin = () => {
@@ -37,7 +39,7 @@ const Login = ({navigation}) => {
 
     axios({
       method: 'post',
-      url: 'http://192.168.0.102:8888/login',
+      url: 'http://192.168.0.103:8888/login',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
@@ -65,12 +67,12 @@ const Login = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    let currentUserStatus = AsyncStorage.getItem('user');
-    if (currentUserStatus) {
-      navigation.navigate('Login');
-    }
-  }, []);
+  // useEffect(() => {
+  //   let currentUserStatus = AsyncStorage.getItem('user');
+  //   if (currentUserStatus) {
+  //     navigation.navigate('Login');
+  //   }
+  // }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <BackButtonHeader navigation={navigation} />
@@ -81,7 +83,7 @@ const Login = ({navigation}) => {
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
           swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.inputFieldNeomorphContainer]}>
+          style={ContainerStyles.inputFieldNeomorphContainer}>
           <View style={{flexDirection: 'row'}}>
             <Fontisto
               name="email"
@@ -92,6 +94,7 @@ const Login = ({navigation}) => {
               placeholder="Enter Email"
               style={[TextFieldStyles.inputField]}
               value={userEmail}
+              autoCapitalize="none"
               onChangeText={text => {
                 setUserEmail(text);
               }}
@@ -103,7 +106,7 @@ const Login = ({navigation}) => {
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
           swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.inputFieldNeomorphContainer]}>
+          style={ContainerStyles.inputFieldNeomorphContainer}>
           <View style={{flexDirection: 'row'}}>
             <SimpleLineIcons
               name="lock"
@@ -114,11 +117,23 @@ const Login = ({navigation}) => {
               placeholder="Enter Password"
               style={[TextFieldStyles.inputField]}
               value={userPassword}
-              secureTextEntry={true}
+              autoCapitalize="none"
+              secureTextEntry={passwordVisible}
               onChangeText={text => {
                 setUserPassword(text);
               }}
             />
+             <TouchableOpacity
+                onPress={() => setPasswordVisible(!passwordVisible)}>
+                <Feather
+                  name={passwordVisible ? 'eye' : 'eye-off'}
+                  size={wp('5%')}
+                  style={[
+                    IconStyles.signupIcons,
+                    {color: 'grey', opacity: 0.7},
+                  ]}
+                />
+              </TouchableOpacity>
           </View>
         </Neomorph>
 
@@ -139,7 +154,7 @@ const Login = ({navigation}) => {
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
+            style={ContainerStyles.touchableOpacityNeomorphContainer}>
             <Text style={[TextStyles.whiteCenteredLable]}>LOG IN</Text>
           </Neomorph>
         </TouchableOpacity>

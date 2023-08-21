@@ -117,9 +117,9 @@ const SingleProductDetail = ({navigation, route}) => {
             darkShadowColor="white"
             lightShadowColor="white"
             swapShadows // <- change zIndex of each shadow color
-            style={[
-              ContainerStyles.singleProductTouchableOpacityNeomorphContainer,
-            ]}>
+            style={
+              ContainerStyles.singleProductTouchableOpacityNeomorphContainer
+            }>
             <Text style={[TextStyles.whiteCenteredLable3]}>Add To Cart</Text>
           </Neomorph>
         </TouchableOpacity>
