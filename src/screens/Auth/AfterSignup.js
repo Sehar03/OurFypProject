@@ -33,7 +33,6 @@ const AfterSignup = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(true);
 
   //FUNCTIONS
 
@@ -49,7 +48,7 @@ const AfterSignup = ({navigation}) => {
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            style={ContainerStyles.inputFieldNeomorphContainer}>
             <View style={{flexDirection: 'row'}}>
               <SimpleLineIcons
                 name="user"
@@ -77,7 +76,7 @@ const AfterSignup = ({navigation}) => {
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            style={ContainerStyles.inputFieldNeomorphContainer}>
             <View style={{flexDirection: 'row'}}>
               <MaterialCommunityIcons
                 name="fruit-grapes-outline"
@@ -110,7 +109,7 @@ const AfterSignup = ({navigation}) => {
               darkShadowColor="white"
               lightShadowColor="white"
               swapShadows // <- change zIndex of each shadow color
-              style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
+              style={ContainerStyles.touchableOpacityNeomorphContainer}>
               <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
             </Neomorph>
           </TouchableOpacity>

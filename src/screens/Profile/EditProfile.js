@@ -37,7 +37,7 @@ const EditProfile = ({ route, navigation }) => {
                 lightShadowColor={AppColors.background}
                 // inner // <- enable shadow inside of neomorph
                 swapShadows // <- change zIndex of each shadow color
-                style={[ContainerStyles.EditNameNeomorphContainer]}>
+                style={ContainerStyles.EditNameNeomorphContainer}>
                 <TextInput
                   //  placeholder="Enter First name"
                   style={[TextFieldStyles.inputFieldEdit]}
@@ -59,7 +59,7 @@ const EditProfile = ({ route, navigation }) => {
               lightShadowColor={AppColors.background}
               // inner // <- enable shadow inside of neomorph
               swapShadows // <- change zIndex of each shadow color
-              style={[ContainerStyles.EditNameNeomorphContainer]}>
+              style={ContainerStyles.EditNameNeomorphContainer}>
               <TextInput
                 //   placeholder="Enter Last name"
                 style={[TextFieldStyles.inputFieldEdit]}
@@ -89,7 +89,7 @@ const EditProfile = ({ route, navigation }) => {
                   lightShadowColor={AppColors.background}
                   // inner // <- enable shadow inside of neomorph
                   swapShadows // <- change zIndex of each shadow color
-                  style={[ContainerStyles.EditNameNeomorphContainer]}>
+                  style={ContainerStyles.EditNameNeomorphContainer}>
                   <TextInput
                     //  placeholder="Enter First name"
                     style={[TextFieldStyles.inputFieldEdit]}
@@ -118,7 +118,7 @@ const EditProfile = ({ route, navigation }) => {
                   lightShadowColor={AppColors.background}
                   // inner // <- enable shadow inside of neomorph
                   swapShadows // <- change zIndex of each shadow color
-                  style={[ContainerStyles.EditNameNeomorphContainer]}>
+                  style={ContainerStyles.EditNameNeomorphContainer}>
                   <TextInput
                     //  placeholder="Enter First name"
                     style={[TextFieldStyles.inputFieldEdit]}
@@ -145,7 +145,7 @@ const EditProfile = ({ route, navigation }) => {
           lightShadowColor={AppColors.background}
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.touchableOpacityNeomorphContainer2]}>
+          style={ContainerStyles.touchableOpacityNeomorphContainer2}>
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={[TextStyles.whiteCenteredLable2]}>Save</Text>
           </View>

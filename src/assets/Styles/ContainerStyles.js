@@ -386,7 +386,15 @@ alignItems:"center",
 marginTop:hp('3%'),
 borderRadius:hp('10%')
 },
-   
+   profileNeomorph:{
+    shadowRadius: 4,
+    shadowOpacity:0.3,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    width: hp('43'),
+    height: hp('12'),
+    
+    }
 });
 
 export default ContainerStyles;

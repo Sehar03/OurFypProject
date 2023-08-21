@@ -38,7 +38,7 @@ const Profile = ({ navigation }) => {
             darkShadowColor={AppColors.Gray}
             lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.profileInputFieldContainer]}>
+            style={ContainerStyles.profileInputFieldContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[TextFieldStyles.profileInputField]}>Name</Text>
             <View style={{marginLeft:wp('1')}}>
@@ -65,7 +65,7 @@ const Profile = ({ navigation }) => {
             darkShadowColor={AppColors.Gray}
             lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.profileInputFieldContainer]}>
+            style={ContainerStyles.profileInputFieldContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[TextFieldStyles.profileInputField]}>Email</Text>
               <View style={{marginLeft:wp('2')}}>
@@ -92,7 +92,7 @@ const Profile = ({ navigation }) => {
             darkShadowColor={AppColors.Gray}
             lightShadowColor={AppColors.darkgray}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.profileInputFieldContainer]}>
+            style={ContainerStyles.profileInputFieldContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[TextFieldStyles.profileInputField]}>Mobile</Text>
               <View style={{marginLeft:wp('0')}}>
@@ -119,7 +119,7 @@ const Profile = ({ navigation }) => {
           lightShadowColor={AppColors.darkgray}
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.NeomorphContainer]}>
+          style={ContainerStyles.NeomorphContainer}>
           <View style={{ flexDirection: 'row', margin: hp('3.5') }}>
             <TouchableOpacity>
               <MaterialIcons
@@ -140,7 +140,7 @@ const Profile = ({ navigation }) => {
           lightShadowColor={AppColors.darkgray}
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
-          style={[ContainerStyles.NeomorphContainer]}>
+          style={ContainerStyles.NeomorphContainer}>
           <View style={{ flexDirection: 'row', margin: hp('3.5') }}>
             <TouchableOpacity style={{}}>
               <FontAwesome

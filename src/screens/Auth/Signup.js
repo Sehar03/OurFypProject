@@ -1,3 +1,5 @@
+import RNFetchBlob from 'rn-fetch-blob';
+
 import React, {useEffect, useState} from 'react';
 
 import {
@@ -37,8 +39,6 @@ const Signup = ({navigation}) => {
   const [userNameError, setUserNameError] = useState('');
   const [userEmailError, setUserEmailError] = useState('');
   const [userPasswordError, setUserPasswordError] = useState('');
-const[alreadyExist,setAlreadyExist]=useState('');
-const[alreadyExistError,setAlreadyExistError]=useState(false);
 
   //FUNCTIONS
 
@@ -50,7 +50,7 @@ const[alreadyExistError,setAlreadyExistError]=useState(false);
   const isPasswordValid = userPassword => {
     return userPassword.length >= 8; // Minimum password length of 8 characters
   };
-  const userRegister = () => {
+  const userRegister =  () => {
     if (!userName) {
       setUserNameError('Please enter your name.');
     }
@@ -65,47 +65,36 @@ const[alreadyExistError,setAlreadyExistError]=useState(false);
     } else if (!isPasswordValid(userPassword)) {
       setUserPasswordError('Password must be at least 8 characters long.');
     }
-    if(alreadyExistError){
-setAlreadyExistError('A user With the same email already exists');
-    }
+
     if (
       !userName ||
       !userEmail ||
       !userPassword ||
       !isEmailValid(userEmail) ||
-      !isPasswordValid(userPassword)||
-      alreadyExistError
+      !isPasswordValid(userPassword)
     ) {
       return false;
     }
 
-   
     const formData = new FormData();
     formData.append('name', userName);
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-    
+
     axios({
-      
       method: 'post',
-      url: 'http://192.168.0.101:8888/signup',
+      url: 'http://192.168.0.103:8888/signup',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
-   
       .then(function (response) {
         if (response.data.save == true) {
-          console.log('response',response.data)
-          const uId=response.data.newUser._id;
-          console.log("type of",typeof uId)
-          if(response.data.newUser=="A user With the same email already exists."){
-            setAlreadyExist(response.data.newUser);
-            setAlreadyExistError(true);
-          }else{
-            AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
-            navigation.navigate('Home');
-          }
-         
+          AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
+          navigation.navigate('Home');
+        } else if (response.data.save == false) {
+          // setUserEmailError("A user With the same email already exists.");
+          // alert('A user with this Email Address Already Exists');
+          setUserEmailError('A user with this Email Address Already Exists');
         } else {
           alert('Account cannot be created! Please try again later.');
         }
@@ -114,21 +103,20 @@ setAlreadyExistError('A user With the same email already exists');
         //handle error
         console.log(response);
       });
-      console.warn("Stop");
-    };
+    // console.warn("Stop");
+  };
 
-  useEffect(() => {
-    let currentUserStatus = AsyncStorage.getItem('user');
-    if (currentUserStatus) {
-      navigation.navigate('Signup');
-    }
-  }, []);
+  // useEffect(() => {
+  //   let currentUserStatus = AsyncStorage.getItem('user');
+  //   if (currentUserStatus) {
+  //     navigation.navigate('Signup');
+  //   }
+  // }, []);
 
   return (
-    
-      <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-        <BackButtonHeader navigation={navigation} />
-        <ScrollView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <BackButtonHeader navigation={navigation} />
+      <ScrollView>
         <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
         {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
         <View style={{alignItems: 'center'}}>
@@ -136,7 +124,7 @@ setAlreadyExistError('A user With the same email already exists');
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            style={ContainerStyles.inputFieldNeomorphContainer}>
             <View style={{flexDirection: 'row'}}>
               <SimpleLineIcons
                 name="user"
@@ -154,7 +142,6 @@ setAlreadyExistError('A user With the same email already exists');
                   setUserNameError('');
                 }}
               />
-            
             </View>
 
             {userNameError ? (
@@ -166,7 +153,7 @@ setAlreadyExistError('A user With the same email already exists');
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            style={ContainerStyles.inputFieldNeomorphContainer}>
             <View style={{flexDirection: 'row'}}>
               <Fontisto
                 name="email"
@@ -194,7 +181,7 @@ setAlreadyExistError('A user With the same email already exists');
             lightShadowColor={AppColors.background}
             // inner // <- enable shadow inside of neomorph
             swapShadows // <- change zIndex of each shadow color
-            style={[ContainerStyles.inputFieldNeomorphContainer]}>
+            style={ContainerStyles.inputFieldNeomorphContainer}>
             <View style={{flexDirection: 'row'}}>
               <SimpleLineIcons
                 name="lock"
@@ -231,21 +218,17 @@ setAlreadyExistError('A user With the same email already exists');
 
           <TouchableOpacity
             onPress={() => {
-              // userRegister();
-              navigation.navigate('AfterSignup')
+              userRegister();
+              // navigation.navigate('AfterSignup')
               console.log('signup is running');
-           
             }}>
             <Neomorph
               darkShadowColor="white"
               lightShadowColor="white"
               swapShadows // <- change zIndex of each shadow color
-              style={[ContainerStyles.touchableOpacityNeomorphContainer]}>
+              style={ContainerStyles.touchableOpacityNeomorphContainer}>
               <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
             </Neomorph>
-            {alreadyExistError ? (
-              <Text style={[TextStyles.errorText]}>{alreadyExistError}</Text>
-            ) : null}
           </TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontFamily: 'Poppins-SemiBold'}}>
@@ -270,9 +253,8 @@ setAlreadyExistError('A user With the same email already exists');
           source={require('../../assets/Images/signup3.png')} // Specify the source of the image
           style={[ImageStyles.signupImage]} // Set the desired width and height of the image
         />
-        </ScrollView>
-      </SafeAreaView>
-    
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

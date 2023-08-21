@@ -34,7 +34,7 @@ const PopularFoodCard = ({navigation, item}) => {
       }}>
       <Neomorph
         swapShadows
-        style={[ContainerStyles.squareBoxHalfScreenContainer]}>
+        style={ContainerStyles.squareBoxHalfScreenContainer}>
         <ImageBackground
           source={item.uri}
           style={{width: wp('44'), height: hp('22%')}}

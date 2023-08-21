@@ -65,9 +65,9 @@ const SmallCard = ({navigation}) => {
             darkShadowColor={AppColors.Gray}
             lightShadowColor={AppColors.background2}
             swapShadows // <- change zIndex of each shadow color
-            style={[
+            style={
               ContainerStyles.smallCategoriesNeomorphStyle
-            ]}
+            }
           >
             <Image source={item.image} style={{ height: item.height, width: item.width, marginTop: hp('2'), marginLeft: wp('0'), }} />
           </Neomorph>
