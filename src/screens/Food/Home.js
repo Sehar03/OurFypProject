@@ -57,7 +57,9 @@ const Home = ({ navigation }) => {
                 </Neomorph>
               </TouchableOpacity>
 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>{
+                navigation.navigate('DonateHome');
+              }}>
                 <Neomorph
                   darkShadowColor={AppColors.primary}
                   lightShadowColor={AppColors.darkOrange}

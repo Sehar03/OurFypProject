@@ -25,6 +25,10 @@ import SelectedFoodScreen from './src/screens/Food/SelectedFood';
 import Products from './src/screens/Products/Products';
 
 import AfterSignup from './src/screens/Auth/AfterSignup';
+import ForgetPassword from './src/screens/Auth/ForgetPassword';
+import DonateHome from './src/screens/DonateFood/DonateHome';
+import Donor from './src/screens/DonateFood/Donor';
+import Recipient from './src/screens/DonateFood/Recipient';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +63,11 @@ const MainStackNavigator = () => {
       <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
       <Stack.Screen name="SelectedFood" component={SelectedFoodScreen} />
       <Stack.Screen name="AfterSignup" component={AfterSignup} />
+      <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <Stack.Screen name="DonateHome" component={DonateHome} />
+      <Stack.Screen name="Donor" component={Donor} />
+      <Stack.Screen name="Recipient" component={Recipient} />
+
     </Stack.Navigator>
   );
 };

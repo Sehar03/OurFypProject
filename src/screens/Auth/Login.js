@@ -140,9 +140,10 @@ const Login = ({navigation}) => {
         <TouchableOpacity
           style={{marginLeft: wp('42%')}}
           onPress={() => {
-            resetPassword();
+            // resetPassword();
+            navigation.navigate('ForgetPassword')
           }}>
-          <Text style={{fontFamily: 'Poppins-SemiBold'}}>Forgot Password</Text>
+          <Text style={{fontFamily: 'Poppins-SemiBold'}}>Forgot Password ?</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

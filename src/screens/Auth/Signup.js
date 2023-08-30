@@ -116,7 +116,7 @@ const Signup = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <BackButtonHeader navigation={navigation} />
-      <ScrollView>
+   
         <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
         {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
         <View style={{alignItems: 'center'}}>
@@ -218,8 +218,8 @@ const Signup = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              userRegister();
-              // navigation.navigate('AfterSignup')
+              // userRegister();
+              navigation.navigate('AfterSignup')
               console.log('signup is running');
             }}>
             <Neomorph
@@ -253,7 +253,7 @@ const Signup = ({navigation}) => {
           source={require('../../assets/Images/signup3.png')} // Specify the source of the image
           style={[ImageStyles.signupImage]} // Set the desired width and height of the image
         />
-      </ScrollView>
+     
     </SafeAreaView>
   );
 };

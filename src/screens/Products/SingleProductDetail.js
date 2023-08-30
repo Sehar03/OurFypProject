@@ -1,13 +1,13 @@
-
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
-  StatusBar
+  StatusBar,
 } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import AppColors from '../../assets/colors/AppColors';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
 import TextStyles from '../../assets/Styles/TextStyles';
@@ -20,25 +20,27 @@ import {Neomorph} from 'react-native-neomorph-shadows';
 
 const SingleProductDetail = ({navigation, route}) => {
   const [count, setCount] = useState(1);
+  const [specialInstructions, setSpecialInstructions] = useState('');
+  
 
   const incrementCount = () => {
     setCount(count + 1);
   };
 
   const decrementCount = () => {
-    if(count > 1){
-    setCount(count - 1);
+    if (count > 1) {
+      setCount(count - 1);
     }
   };
   const {imageUri, imageTitle, imagePrice} = route.params;
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <StatusBar
-    barStyle="light-content"
-    backgroundColor="transparent"
-    translucent={true}
-  />
-    
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
+
       <ImageBackground
         source={imageUri}
         style={{height: hp('30%'), width: wp('100%')}}>
@@ -55,20 +57,73 @@ const SingleProductDetail = ({navigation, route}) => {
           {imagePrice}
         </Text>
       </View>
+      <View>
+<Text style={[TextStyles.leftMediumText,{marginTop:hp('5%')}]}>Special instructions</Text>
+<Text style={[TextStyles.dealText]}>Please let us know if you are allergic to anything or if we need to avoid anything</Text>
+<TextInput
+        label="e.g. no mayo"
+        value={specialInstructions}
+        onChangeText={text => {
+          setSpecialInstructions(text);
+        }}        mode="outlined" // You can also use "flat"
+        multiline={true} // Enable multiline
+        style={{ width: wp('80%'),alignSelf:"center", height:hp('12'),marginTop:hp('2%') }}
+        theme={{
+          colors: {
+            primary: AppColors.Gray, // Change this color to your desired outline color
+          },
+        }}
+      />
+      </View>
+      {/* another interface of Add instructions */}
+      {/* <View
+        style={{
+          flexDirection: 'row',
+          position: 'absolute',
+          width: wp('100%'),
+          height: hp('9%'),
+          bottom: hp('10%'),
+        }}>
+        <Text
+          style={{
+            color: AppColors.primary,
+            // marginTop: hp('2.2%'),
+            fontSize: wp('6%'),
+            alignSelf: 'center',
+            paddingHorizontal: wp('5%'),
+            fontFamily: 'Poppins-SemiBold',
+          }}>
+          +
+        </Text>
+        <Text
+          style={{
+            color: AppColors.primary,
+            // marginTop: hp('2.2%'),
+            fontSize: wp('5%'),
+            alignSelf: 'center',
+            fontFamily: 'Poppins-SemiBold',
+          }}>
+          Add special instructions
+        </Text>
+      </View> */}
+      
+
       <View
         style={{
           flexDirection: 'row',
-          borderTopWidth: 0.25,
-          borderColor: AppColors.Gray,
-          position: 'absolute',
+          borderTopWidth: 1,
+          borderColor: AppColors.background,
+          // position: 'absolute',
           width: wp('100%'),
           height: hp('10%'),
-          bottom: 0,
+          marginTop:hp('28'),
+          // bottom: 0,
           justifyContent: 'space-evenly',
         }}>
-        <TouchableOpacity onPress={()=>{
-          decrementCount();
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            decrementCount();
+          }}>
           <View
             style={[
               ContainerStyles.productBackButtonContainer,
@@ -92,11 +147,12 @@ const SingleProductDetail = ({navigation, route}) => {
             color: AppColors.black,
             marginLeft: wp('2%'),
           }}>
-         {count}
+          {count}
         </Text>
-        <TouchableOpacity onPress={()=>{
-          incrementCount();
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            incrementCount();
+          }}>
           <View
             style={[
               ContainerStyles.productBackButtonContainer,

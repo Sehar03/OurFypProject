@@ -30,9 +30,9 @@ import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 
 const AfterSignup = ({navigation}) => {
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  // states
+  const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
+  const [secondSecurityAnswer, setSecondSecurityAnswer] = useState('');
 
   //FUNCTIONS
 
@@ -40,29 +40,26 @@ const AfterSignup = ({navigation}) => {
     
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <BackButtonHeader navigation={navigation} />
-        <ScrollView>
-        <Text style={[TextStyles.leftHeading]}>Security Questions</Text>
+        <Text style={[TextStyles.leftHeading,{fontSize:hp('3%'),color:AppColors.primary}]}>Security Questions</Text>
         {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
         <View style={{alignItems: 'center'}}>
+        <Text style={[TextStyles.label,{marginRight:wp('32%')}]}>Q1 : What is your nick name ?</Text>
+
           <Neomorph
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={ContainerStyles.inputFieldNeomorphContainer}>
+            style={[ContainerStyles.inputFieldNeomorphContainer,{width:wp('70%')}]}>
             <View style={{flexDirection: 'row'}}>
-              <SimpleLineIcons
-                name="user"
-                size={wp('5%')}
-                style={IconStyles.signupIcons}
-              />
+              
               <TextInput
-                placeholder="Childhood Name"
+                placeholder="Answer"
                 // maxLength={20}
-                style={[TextFieldStyles.inputField]}
+                style={[TextFieldStyles.inputField, { paddingHorizontal: wp('5%'), width: wp('70%')}]}
                 // style={{fontFamily:'Poppins-Thin'}}
-                value={userName}
+                value={firstSecurityAnswer}
                 onChangeText={text => {
-                  setUserName(text);
+                  setFirstSecurityAnswer(text);
                  
                 }}
               />
@@ -71,25 +68,22 @@ const AfterSignup = ({navigation}) => {
 
           
           </Neomorph>
+          <Text style={[TextStyles.label,{marginRight:wp('25%')}]}>Q2 : What is your favourite fruit ?</Text>
 
           <Neomorph
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
-            style={ContainerStyles.inputFieldNeomorphContainer}>
+            style={[ContainerStyles.inputFieldNeomorphContainer,{width:wp('70%')}]}>
             <View style={{flexDirection: 'row'}}>
-              <MaterialCommunityIcons
-                name="fruit-grapes-outline"
-                size={wp('6%')}
-                style={IconStyles.signupIcons}
-              />
+            
               <TextInput
-                placeholder="Favourite Fruit"
-                style={[TextFieldStyles.inputField]}
-                value={userEmail}
+                placeholder="Answer"
+                style={[TextFieldStyles.inputField,{ paddingHorizontal: wp('5%'), width: wp('70%') }]}
+                value={secondSecurityAnswer}
                 autoCapitalize="none"
                 onChangeText={text => {
-                  setUserEmail(text);
+                  setSecondSecurityAnswer(text);
             
                 }}
               />
@@ -101,25 +95,24 @@ const AfterSignup = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              userRegister();
-              console.log('signup is running');
+              // userRegister();
+            navigation.navigate('Home')
     
             }}>
             <Neomorph
               darkShadowColor="white"
               lightShadowColor="white"
               swapShadows // <- change zIndex of each shadow color
-              style={ContainerStyles.touchableOpacityNeomorphContainer}>
-              <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
+              style={[ContainerStyles.touchableOpacityNeomorphContainer,{width:wp('70%')}]}>
+              <Text style={TextStyles.whiteCenteredLable}>Next</Text>
             </Neomorph>
           </TouchableOpacity>
        
         </View>
         <Image
           source={require('../../assets/Images/signup3.png')} // Specify the source of the image
-          style={[ImageStyles.signupImage]} // Set the desired width and height of the image
+          style={[ImageStyles.signupImage,{marginTop:hp('11%')}]} // Set the desired width and height of the image
         />
-        </ScrollView>
       </SafeAreaView>
     
   );
