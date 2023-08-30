@@ -71,7 +71,7 @@ const CustomeDrawer = props => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
             navigation.navigate('ScheduleScreen');
@@ -80,7 +80,7 @@ const CustomeDrawer = props => {
             <Ionicons name="settings-outline" size={22} />
             <Text style={[TextStyles.mediumTextStyle]}>ScheduleScreen</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         </View>
         </DrawerContentScrollView>
 

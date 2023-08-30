@@ -223,7 +223,7 @@ const ContainerStyles = StyleSheet.create({
     backgroundColor: AppColors.white,
     marginLeft: wp('4%'),
     alignItems: 'center',
-    marginTop: hp('3%'),
+    marginTop: hp('5%'),
     borderRadius: hp('10%'),
   },
 
