@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -10,8 +9,6 @@ import Signup from './src/screens/Auth/Signup';
 import Home from './src/screens/Food/Home';
 import Splash from './src/screens/Splash/Splash';
 import FullPriceHomeScreen from './src/screens/Food/FullPriceHomeScreen';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AppColors from './src/assets/colors/AppColors';
 import CustomeDrawer from './src/components/CustomeDrawer';
 import Cart from './src/screens/Cart/Cart';
 import Profile from './src/screens/Profile/Profile';
@@ -21,10 +18,10 @@ import Address from './src/screens/Addresses/Address';
 import AddAddress from './src/screens/Addresses/AddAddress';
 import SingleProductDetail from './src/screens/Products/SingleProductDetail';
 import FoodShareScreen from './src/screens/Food/FoodShareScreen';
-import SelectedFoodScreen from './src/screens/Food/SelectedFood';
 import Products from './src/screens/Products/Products';
-
 import AfterSignup from './src/screens/Auth/AfterSignup';
+import { AppProvider } from './src/Context/AppContext';
+import ScheduleScreen from './src/screens/Food/ScheduleScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,9 +53,11 @@ const MainStackNavigator = () => {
       <Stack.Screen name="AddAddress" component={AddAddress} />
       <Stack.Screen name="Products" component={Products} />
       <Stack.Screen name="SingleProductDetail" component={SingleProductDetail} />
-      <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
-      <Stack.Screen name="SelectedFood" component={SelectedFoodScreen} />
       <Stack.Screen name="AfterSignup" component={AfterSignup} />
+      <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
+      <Stack.Screen name="ScheduleScreen" component={ScheduleScreen} />
+
+
     </Stack.Navigator>
   );
 };
@@ -76,11 +75,13 @@ const AuthStackNavigator = () => {
 
 const App = () => {
   return (
+    <AppProvider>
     <NavigationContainer> 
 
       <AuthStackNavigator />
 
     </NavigationContainer>
+    </AppProvider>
   );
 };
 

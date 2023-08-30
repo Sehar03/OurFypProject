@@ -1,16 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
 import { widthPercentageToDP as wp ,heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
 import TextStyles from '../../assets/Styles/TextStyles';
-
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
+import AppContext from '../../Context/AppContext';
 
 
 const SmallCard = ({navigation}) => {
+  const {storeSelectedSubCategoryFeature} = useContext(AppContext);
   const [allCategories, setAllCategories] = useState([
     {
       id: '1',
@@ -59,6 +59,7 @@ const SmallCard = ({navigation}) => {
       showsHorizontalScrollIndicator={false}
       return renderItem={({ item }) => (
         <TouchableOpacity onPress={() => {
+          storeSelectedSubCategoryFeature('SubCategory')
           navigation.navigate('FurtherScreens', {categoryName: item.name});
         }}>
           <Neomorph
