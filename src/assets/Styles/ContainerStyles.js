@@ -88,7 +88,7 @@ const ContainerStyles = StyleSheet.create({
 
   profileInputFieldContainer: {
     shadowRadius: 4,
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.15,
     borderRadius: 10,
     backgroundColor: 'white',
     width: hp('43'),
@@ -96,7 +96,7 @@ const ContainerStyles = StyleSheet.create({
   },
   NeomorphContainer: {
     shadowRadius: 4,
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.15,
     borderRadius: 10,
     backgroundColor: 'white',
     width: hp('43'),
@@ -394,7 +394,18 @@ borderRadius:hp('10%')
     width: hp('43'),
     height: hp('12'),
     
-    }
+    },
+    smallCircleNeomorph: {
+      width: wp('15'), // Adjust card width as per your requirement
+      height: hp('7'),
+      borderRadius: 70,
+      shadowRadius: 2,
+      backgroundColor: AppColors.white,
+      shadowOpacity: 0.3,
+      marginTop: hp('2'),
+      alignItems: 'center',
+    },
+  
 });
 
 export default ContainerStyles;
