@@ -20,9 +20,7 @@ const FullPriceHomeScreen = ({ navigation }) => {
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>Food For You</Text>
         <SmallCard  navigation={navigation}/>
         <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>All Restaurants</Text>
-        <View style={{ }} >
           <LargeCard navigation={navigation} />
-        </View>
       </ScrollView>
     </SafeAreaView>
   )

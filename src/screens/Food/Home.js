@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import DrawerHeader from '../../components/headers/DrawerHeader'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { Image, Text, View, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
@@ -7,8 +7,10 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from 'react-nati
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
+import AppContext from '../../Context/AppContext';
 
 const Home = ({ navigation }) => {
+  const {storeSelectedFoodFeature} = useContext(AppContext);
   return (
       <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
         <DrawerHeader navigation={navigation} />
@@ -19,6 +21,7 @@ const Home = ({ navigation }) => {
             alignItems: "center"
           }}>
             <TouchableOpacity onPress={() => {
+              storeSelectedFoodFeature('Full Price Food')
               navigation.navigate('FullPriceHomeScreen'
               )
 
@@ -38,6 +41,7 @@ const Home = ({ navigation }) => {
 
             <View style={{ flexDirection: "column", marginLeft: 10 }}>
             <TouchableOpacity onPress={() => {
+                 storeSelectedFoodFeature('ShareFood')
               navigation.navigate('FoodShareScreen'
               )
 
