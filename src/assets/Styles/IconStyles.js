@@ -31,7 +31,7 @@ const IconStyles = StyleSheet.create({
         marginLeft: wp('28'),
     },
     editIcon:{
-        marginLeft:wp('60'),marginTop:hp('1'),color:AppColors.primary
+        marginLeft:wp('64'),marginTop:hp('1'),color:AppColors.primary
     },
     LocationIcon:{
         marginLeft:wp('4'),marginTop:hp('1.8'),color:AppColors.primary
@@ -61,6 +61,10 @@ const IconStyles = StyleSheet.create({
         // marginVertical:hp('1')
         marginTop:hp('2.5%')
     },
+    smallNeomorphIcon:{
+     marginTop:hp('2.2'),color:AppColors.primary
+    },
+
 })
 
 
