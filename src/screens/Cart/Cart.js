@@ -69,6 +69,7 @@ const Cart = ({navigation}) => {
         {/* <CartCard /> */}
         <FlatList
           data={allResturantsCards}
+          scrollEnabled={false} // Disable the scroll behavior
           Vertical
           showsVerticalScrollIndicator={false}
           renderItem={({item, index}) => {

@@ -1,7 +1,4 @@
-import RNFetchBlob from 'rn-fetch-blob';
-
 import React, {useEffect, useState} from 'react';
-
 import {
   Image,
   SafeAreaView,

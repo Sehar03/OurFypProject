@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {
     Text,
     SafeAreaView,
@@ -11,17 +11,21 @@ import {
 import AppColors from '../../assets/colors/AppColors';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
+import AppContext from '../../Context/AppContext';
 const RestaurantsCard = ({item,navigation},props) => {
+  const { storeSelectedRestaurants} = useContext(AppContext);
   return (
     <SafeAreaView
     style={{flex: 1, backgroundColor: AppColors.white,}}>
     <TouchableOpacity style={{alignItems:"center"}} onPress={()=>{
+      storeSelectedRestaurants('Restaurants')
     navigation.navigate('Products',{
       imageUri:item.uri,
       imageTitle:item.title,
       imageDeliveryTime:item.deliveryTime
     });
     }}>
+
       <ImageBackground
         source={item.uri}
         style={{height: hp('26%'), width: wp('92%')}}

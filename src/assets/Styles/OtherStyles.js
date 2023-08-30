@@ -6,7 +6,7 @@ import AppColors from '../../assets/colors/AppColors';
 
 const OtherStyles = StyleSheet.create({
   text: {
-    fontFamily: 'poppins-Regular',
+    fontFamily: 'Poppins-Medium',
     color: AppColors.primary,
     fontSize: hp('2'),
     resizeMode: 'cover',

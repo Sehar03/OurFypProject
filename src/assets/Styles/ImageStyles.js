@@ -51,6 +51,14 @@ const ImageStyles = StyleSheet.create({
     height: hp('9'),
     borderWidth: 4,
   },
+  scheduleImage: {
+    width: wp('32'),
+    height:hp('15'),
+    marginLeft: wp('10'),
+    marginTop: hp('1.6'),
+    borderRadius: wp('2'),
+    borderWidth: 4,
+  },
   smallSquareBoxImage: {
     width: wp('25%'),
     height: hp('12%'),
