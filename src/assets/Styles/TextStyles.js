@@ -45,7 +45,7 @@ const TextStyles = StyleSheet.create({
   },
   mediumTextStyle: {
     fontSize: hp('2.1'),
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-SemiBold',
     marginLeft: wp('6'),
   },
   errorText: {

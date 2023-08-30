@@ -19,13 +19,7 @@ const Cart = ({navigation}) => {
       // top: hp('27'), // Match the marginTop of the first Neomorph
       // left: wp('15'),
     },
-    {
-      uri: require('../../assets/Images/image39.jpg'),
-      title: 'Deal',
-      Rupees: 'Rs.340',
-      // top: hp('41'), // Match the marginTop of the first Neomorph
-      // left: wp('15'),
-    },
+   
   ]);
 
   

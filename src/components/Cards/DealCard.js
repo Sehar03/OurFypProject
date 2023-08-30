@@ -30,6 +30,7 @@ const DealCard = ({navigation, item}) => {
   ) {
     navigateToScreen = 'Cart'; // Navigate to CartScreen
     DesiredText = ' ';
+    AddItem ='Add To Cart'
   } else if (
     selectedFoodFeature === 'ShareFood' &&
     selectedSubCategoryFeature === 'SubCategory' &&
@@ -37,6 +38,7 @@ const DealCard = ({navigation, item}) => {
   ) {
     navigateToScreen = 'ScheduleScreen'; // Navigate to ScheduleScreen
     DesiredText = 'First Set Date And Time';
+    AddItem ='Add To Schedule'
   }
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -119,7 +121,8 @@ const DealCard = ({navigation, item}) => {
               alignItems: 'center',
               marginTop: 200,
               borderRadius:15
-            }}>
+            }}
+            >
             <TouchableOpacity
               style={{alignSelf: 'flex-end', marginRight: 15}}
               onPress={() => {
@@ -149,7 +152,7 @@ const DealCard = ({navigation, item}) => {
                 storeInSchedule(DetailObject);
                 setIsAddedIntoSchedule(!isAddedIntoSchedule);
               }}>
-              <Text>Add To Schedule</Text>
+              <Text>{AddItem}</Text>
             </TouchableOpacity>
             <DateTimePickerModal
               isVisible={isModalVisible}

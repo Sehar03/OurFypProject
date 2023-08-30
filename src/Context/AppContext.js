@@ -7,7 +7,9 @@ export const AppProvider =({children})=>{
     const[selectedSubCategoryFeature,setSelectedSubCategoryFoodFeature]=useState([]);
     const[selectedRestaurants,setSelectedRestaurants]=useState([]);
     const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
+    const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
     const [mySchedule, setMySchedule] = useState([]);
+    const [myCart, setMyCart] = useState([]);
 
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
@@ -25,6 +27,12 @@ export const AppProvider =({children})=>{
     const storeInSchedule = item => {
         setMySchedule(oldSchedule => [...oldSchedule, item]);
       };
+      const storeIsAddedIntoCart = val => {
+        setIsAddedIntoCart(val);
+      };
+    const storeInCart= item => {
+        setMyCart(oldSchedule => [...oldSchedule, item]);
+      };
       const ScheduleEmpty = item => {
         setMySchedule([]);
       };     
@@ -34,11 +42,15 @@ export const AppProvider =({children})=>{
         selectedRestaurants,
         mySchedule,
         isAddedIntoSchedule,
+        myCart,
+        isAddedIntoCart,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,  
         storeSelectedRestaurants,
         storeIsAddedIntoSchedule,
         storeInSchedule,
+        storeIsAddedIntoCart,
+        storeInCart,
         ScheduleEmpty,
 
 
