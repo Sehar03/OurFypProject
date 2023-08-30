@@ -15,7 +15,7 @@ const ImageStyles = StyleSheet.create({
     width: wp('65%'),
     height: hp('30%'),
     borderRadius: wp('2%'),
-    marginTop: hp('6%'),
+    marginTop: hp('7%'),
   },
   rightCornerImage: {
     height: hp(40),
@@ -63,6 +63,13 @@ const ImageStyles = StyleSheet.create({
     width: wp('25%'),
     height: hp('12%'),
     borderRadius: wp('3%'),
+  },
+  donationImage: {
+    height: hp('8'),
+    width: wp('35%'),
+    alignSelf: 'center',
+    marginTop: hp('1'),
+    borderRadius: hp('1%'),
   },
 });
 

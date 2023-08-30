@@ -167,6 +167,12 @@ const TextStyles = StyleSheet.create({
     textAlign: 'center',
     marginTop: hp('2%'),
   },
+  label: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: wp('3%'),
+    color: 'black', // Customize the label color as needed
+    marginBottom: hp('1%'), // Add margin below the label
+  },
 });
 
 export default TextStyles;
