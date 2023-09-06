@@ -48,7 +48,7 @@ const SmallCard = ({navigation}) => {
       image: require('../../assets/Images/image21.png'),
       width: wp(20),
       height: hp(10),
-      name: "Chinees"
+      name: "Chinese"
     },
   ])
   return (

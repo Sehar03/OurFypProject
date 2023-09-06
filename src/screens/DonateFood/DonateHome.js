@@ -35,7 +35,9 @@ const DonateHome = ({navigation}) => {
 
           </Neomorph>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>{
+            navigation.navigate('Recipient',{imageUri:require('../../assets/Images/donate2.jpg')})
+          }}>
           <Neomorph
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.darkOrange}

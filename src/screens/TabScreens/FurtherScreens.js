@@ -20,26 +20,31 @@ const Pizza = ({navigation, title}, props) => {
       uri: require('../../assets/Images/pizza.jpg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Pizza"
     },
     {
       uri: require('../../assets/Images/pizza6.jpg'),
       title: 'Organic Chef',
       deliveryTime: '25 min',
+      category:"Pizza"
     },
     {
       uri: require('../../assets/Images/pizza3.jpeg'),
       title: 'Cheese It',
       deliveryTime: '30 min',
+      category:"Pizza"
     },
     {
       uri: require('../../assets/Images/pizza8.webp'),
       title: "The AI Baik - Pizza's Factory",
       deliveryTime: '40 min',
+      category:"Pizza"
     },
     {
       uri: require('../../assets/Images/pizza5.jpeg'),
       title: 'Chiken Cuisine',
       deliveryTime: '45 min',
+      category:"Pizza"
     },
   ]);
   return (
@@ -62,26 +67,35 @@ const Burger = ({navigation}, props) => {
       uri: require('../../assets/Images/burger1.jpg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Burger"
     },
     {
       uri: require('../../assets/Images/burger2.webp'),
       title: 'Organic Chef',
       deliveryTime: '35 min',
+      category:"Burger"
+
     },
     {
       uri: require('../../assets/Images/burger3.jpg'),
       title: 'Cheese It',
       deliveryTime: '50 min',
+      category:"Burger"
+
     },
     {
       uri: require('../../assets/Images/burger4.jpeg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Burger"
+
     },
     {
       uri: require('../../assets/Images/burger5.jpg'),
       title: 'Chiken Cuisine',
       deliveryTime: '25 min',
+      category:"Burger"
+
     },
   ]);
   return (
@@ -104,6 +118,8 @@ const Shawarma = ({navigation}, props) => {
       uri: require('../../assets/Images/shawarma.jpeg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Shawarma"
+
     },
     {
       uri: require('../../assets/Images/shawarma1.jpg'),
@@ -114,16 +130,22 @@ const Shawarma = ({navigation}, props) => {
       uri: require('../../assets/Images/shawarma2.webp'),
       title: 'Cheese It',
       deliveryTime: '25 min',
+      category:"Shawarma"
+
     },
     {
       uri: require('../../assets/Images/shawarma3.jpg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Shawarma"
+
     },
     {
       uri: require('../../assets/Images/shawarma4.jpg'),
       title: 'Chiken Cuisine',
       deliveryTime: '40 min',
+      category:"Shawarma"
+
     },
   ]);
   return (
@@ -147,26 +169,32 @@ const Biryani = ({navigation}, props) => {
       uri: require('../../assets/Images/biryani6.jpeg'),
       title: 'Biryani King - Sialkoti Gate',
       deliveryTime: '45 min',
+      category:"Biryani"
+
     },
     {
       uri: require('../../assets/Images/biryani2.jpeg'),
       title: 'Biryani King - Nikka Chowk',
       deliveryTime: '25 min',
+      category:"Biryani"
     },
     {
       uri: require('../../assets/Images/biryani3.jpeg'),
       title: 'Biryani King - Sialkoti Gate',
       deliveryTime: '40 min',
+      category:"Biryani"
     },
     {
       uri: require('../../assets/Images/biryani4.jpeg'),
       title: 'Biryani King - Sialkoti Gate',
       deliveryTime: '35 min',
+      category:"Biryani"
     },
     {
       uri: require('../../assets/Images/biryani5.jpeg'),
       title: 'Biryani King - Sialkoti Gate',
       deliveryTime: '25 min',
+      category:"Biryani"
     },
   ]);
   return (
@@ -188,26 +216,35 @@ const Chinese = ({navigation}, props) => {
       uri: require('../../assets/Images/chinese.jpeg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '35 min',
+      category:"Chinese"
     },
     {
       uri: require('../../assets/Images/chinese2.jpeg'),
       title: 'Organic Chef',
       deliveryTime: '45 min',
+      category:"Chinese"
+
     },
     {
       uri: require('../../assets/Images/chinese5.jpg'),
       title: 'Cheese It',
       deliveryTime: '25 min',
+      category:"Chinese"
+
     },
     {
       uri: require('../../assets/Images/chinese3.jpeg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '30 min',
+      category:"Chinese"
+
     },
     {
       uri: require('../../assets/Images/chinese4.jpeg'),
       title: 'Chiken Cuisine',
       deliveryTime: '40 min',
+      category:"Chinese"
+
     },
   ]);
   return (
@@ -228,26 +265,35 @@ const Pasta = ({navigation}, props) => {
       uri: require('../../assets/Images/pasta.jpg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '45 min',
+      category:"Pasta"
+
     },
     {
       uri: require('../../assets/Images/pasta1.jpg'),
       title: 'Organic Chef',
       deliveryTime: '55 min',
+      category:"Pasta"
+
     },
     {
       uri: require('../../assets/Images/pasta4.jpeg'),
       title: 'Cheese It',
       deliveryTime: '35 min',
+      category:"Pasta"
+
     },
     {
       uri: require('../../assets/Images/pasta3.jpeg'),
       title: "Mama's Cooking Hub",
       deliveryTime: '40 min',
+      category:'Pasta'
     },
     {
       uri: require('../../assets/Images/pasta2.jpg'),
       title: 'Chiken Cuisine',
       deliveryTime: '45 min',
+      category:'Pasta'
+
     },
   ]);
   return (
@@ -271,42 +317,11 @@ const FurtherScreens = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      
-      <TabScreensHeader title={categoryName} navigation={navigation}/>
+      <TabScreensHeader title={categoryName} navigation={navigation} />
       {/* <MainHeader  item={categoryName} navigation={navigation} /> */}
       <Tab.Navigator
+        initialRouteName={categoryName} // Set the initial route based on categoryName
         screenOptions={TabBarStyles.customTabBar}>
-        {/* {categoryName == 'Pizza' ? (
-          <Tab.Screen name="Pizza" component={Pizza} />
-        ) : (
-          null
-        )}
-
-        {categoryName == 'Burger' ? (
-          <Tab.Screen name="Burger" component={Burger} />
-        ) : (
-          null
-        )}
-           {categoryName == 'Shawarma' ? (
-          <Tab.Screen name="Shawarma" component={Shawarma} />
-        ) : (
-          null
-        )}
-           {categoryName == 'Biryani' ? (
-          <Tab.Screen name="Biryani" component={Biryani} />
-        ) : (
-          null
-        )}
-           {categoryName == 'Pasta' ? (
-          <Tab.Screen name="Pasta" component={Pasta} />
-        ) : (
-          null
-        )}
-           {categoryName == 'Chinese' ? (
-          <Tab.Screen name="Chinese" component={Chinese} />
-        ) : (
-          null
-        )} */}
         <Tab.Screen name="Pizza" component={Pizza} />
         <Tab.Screen name="Burger" component={Burger} />
         <Tab.Screen name="Shawarma" component={Shawarma} />

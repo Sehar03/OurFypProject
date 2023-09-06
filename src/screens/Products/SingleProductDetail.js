@@ -17,6 +17,7 @@ import {
 } from 'react-native-responsive-screen';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import {Neomorph} from 'react-native-neomorph-shadows';
+import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 
 const SingleProductDetail = ({navigation, route}) => {
   const [count, setCount] = useState(1);
@@ -67,7 +68,7 @@ const SingleProductDetail = ({navigation, route}) => {
           setSpecialInstructions(text);
         }}        mode="outlined" // You can also use "flat"
         multiline={true} // Enable multiline
-        style={{ width: wp('80%'),alignSelf:"center", height:hp('12'),marginTop:hp('2%') }}
+        style={[TextFieldStyles.instructionInputField]}
         theme={{
           colors: {
             primary: AppColors.Gray, // Change this color to your desired outline color
@@ -75,78 +76,27 @@ const SingleProductDetail = ({navigation, route}) => {
         }}
       />
       </View>
-      {/* another interface of Add instructions */}
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          position: 'absolute',
-          width: wp('100%'),
-          height: hp('9%'),
-          bottom: hp('10%'),
-        }}>
-        <Text
-          style={{
-            color: AppColors.primary,
-            // marginTop: hp('2.2%'),
-            fontSize: wp('6%'),
-            alignSelf: 'center',
-            paddingHorizontal: wp('5%'),
-            fontFamily: 'Poppins-SemiBold',
-          }}>
-          +
-        </Text>
-        <Text
-          style={{
-            color: AppColors.primary,
-            // marginTop: hp('2.2%'),
-            fontSize: wp('5%'),
-            alignSelf: 'center',
-            fontFamily: 'Poppins-SemiBold',
-          }}>
-          Add special instructions
-        </Text>
-      </View> */}
+   
       
 
       <View
-        style={{
-          flexDirection: 'row',
-          borderTopWidth: 1,
-          borderColor: AppColors.background,
-          // position: 'absolute',
-          width: wp('100%'),
-          height: hp('10%'),
-          marginTop:hp('28'),
-          // bottom: 0,
-          justifyContent: 'space-evenly',
-        }}>
+        style={[ContainerStyles.cartButtonContainer]}>
         <TouchableOpacity
           onPress={() => {
             decrementCount();
           }}>
           <View
             style={[
-              ContainerStyles.productBackButtonContainer,
-              {backgroundColor: AppColors.primary, marginLeft: wp('1%')},
+              ContainerStyles.smallRoundContainer
             ]}>
             <Text
-              style={{
-                color: AppColors.white,
-                marginBottom: hp('2%'),
-                fontSize: wp('5%'),
-              }}>
+              style={[TextStyles.decrementText]}>
               _
             </Text>
           </View>
         </TouchableOpacity>
         <Text
-          style={{
-            marginTop: hp('4%'),
-            fontSize: wp('5%'),
-            fontFamily: 'Poppins-Regular',
-            color: AppColors.black,
-            marginLeft: wp('2%'),
-          }}>
+          style={[TextStyles.countText]}>
           {count}
         </Text>
         <TouchableOpacity
@@ -155,15 +105,10 @@ const SingleProductDetail = ({navigation, route}) => {
           }}>
           <View
             style={[
-              ContainerStyles.productBackButtonContainer,
-              {backgroundColor: AppColors.primary, marginRight: wp('3%')},
+              ContainerStyles.smallRoundContainer
             ]}>
             <Text
-              style={{
-                color: AppColors.white,
-                // marginTop: hp('2.2%'),
-                fontSize: wp('6%'),
-              }}>
+              style={[TextStyles.incrementText]}>
               +
             </Text>
           </View>
