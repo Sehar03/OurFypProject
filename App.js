@@ -26,7 +26,9 @@ import Donor from './src/screens/DonateFood/Donor';
 import Recipient from './src/screens/DonateFood/Recipient';
 import { AppProvider } from './src/Context/AppContext';
 import ScheduleScreen from './src/screens/Food/ScheduleScreen';
-
+import Notification from './src/screens/Notification/Notification';
+import Orders from './src/screens/Orders/Orders';
+import OngoingOrder from './src/screens/Orders/OngoingOrder';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,9 +65,11 @@ const MainStackNavigator = () => {
       <Stack.Screen name="DonateHome" component={DonateHome} />
       <Stack.Screen name="Donor" component={Donor} />
       <Stack.Screen name="Recipient" component={Recipient} />
-
       <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
       <Stack.Screen name="ScheduleScreen" component={ScheduleScreen} />
+      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Orders" component={Orders} />
+      <Stack.Screen name="OngoingOrder" component={OngoingOrder} />
 
 
 

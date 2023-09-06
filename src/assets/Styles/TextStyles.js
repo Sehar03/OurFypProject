@@ -37,6 +37,15 @@ const TextStyles = StyleSheet.create({
     margin: 10,
     marginBottom: 0,
   },
+
+  primaryText2: {
+    color: AppColors.white,
+    fontFamily: 'Poppins-Medium',
+    fontSize: hp('3.4'),
+    textAlign: 'center',
+    marginTop:hp('5'),
+  },
+
   smallText: {
     color: AppColors.black,
     fontFamily: 'Poppins-Regular',

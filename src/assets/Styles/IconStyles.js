@@ -33,6 +33,12 @@ const IconStyles = StyleSheet.create({
     editIcon:{
         marginLeft:wp('64'),marginTop:hp('1'),color:AppColors.primary
     },
+
+
+    bellIcon:{
+        color:AppColors.primary,marginTop:hp('1.5'),marginLeft:wp('3')
+    },
+
     LocationIcon:{
         marginLeft:wp('4'),marginTop:hp('1.8'),color:AppColors.primary
     },
