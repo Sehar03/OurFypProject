@@ -33,9 +33,7 @@ export const AppProvider =({children})=>{
       };
     const storeInCart = item => {
         setMyCart(oldCart => [...oldCart, item]);
-    const storeInCart= item => {
-        setMyCart(oldSchedule => [...oldSchedule, item]);
-      };
+    };
       const ScheduleEmpty = item => {
         setMySchedule([]);
       };  
