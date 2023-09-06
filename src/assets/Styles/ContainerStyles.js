@@ -434,6 +434,7 @@ OrdersContainer2: {
       marginVertical: hp('3%'),
       shadowOpacity: 0.3,
       marginTop: hp('1.4%'),
+      paddingBottom: hp('3'),
       // elevation:8
      } ,
      smallRoundContainer: {

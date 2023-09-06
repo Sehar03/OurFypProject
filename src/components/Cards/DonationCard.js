@@ -23,7 +23,7 @@ const DonationCard = ({navigation, item}) => {
           <Text
             style={[
               TextStyles.label,
-              {marginTop: hp('2.3%'), marginLeft: wp('2')},
+              {marginTop: hp('2.3%'), marginLeft: wp('2'), width: wp('42%')},
             ]}>
             {item.name}
           </Text>
@@ -89,9 +89,9 @@ const DonationCard = ({navigation, item}) => {
           <Text
             style={[
               TextStyles.label,
-              {marginTop: hp('0.5%'), marginLeft: wp('2')},
+              {marginTop: hp('0.5%'), marginLeft: wp('2') ,width: wp('42%')},
             ]}>
-            {item.dateTime}
+            {item.dateTime.toString()}
           </Text>
         </View>
       </Neomorph>

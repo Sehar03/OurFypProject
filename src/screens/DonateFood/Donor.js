@@ -27,7 +27,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppContext from '../../Context/AppContext';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-const [selectedDate, setSelectedDate] = useState(null);
 
 const Donor = ({navigation, route}) => {
   // states
@@ -44,7 +43,7 @@ const Donor = ({navigation, route}) => {
   const showDateTimePicker = () => setModalVisible(true);
   const hideDateTimePicker = () => setModalVisible(false);
   const handleDateConfirm = date => {
-    setSelectedDate(date);
+    setDistributionDateTime(date);
     hideDateTimePicker();
   };
   // // Set the data
@@ -215,7 +214,7 @@ const Donor = ({navigation, route}) => {
                 // maxLength={20}
                 style={[TextFieldStyles.donorInputField, {width: wp('50%')}]}
                 // style={{fontFamily:'Poppins-Thin'}}
-                value={distributionDateTime}
+                value={`${distributionDateTime}`}
                 onChangeText={text => {
                   setDistributionDateTime(text);
                 }}
@@ -246,7 +245,7 @@ const Donor = ({navigation, route}) => {
               phone: donorPhoneNumber,
               details: foodDetails,
               location: distributionLocation,
-              dateTime: selectedDate ? selectedDate.toString() : null,
+              dateTime: distributionDateTime ? distributionDateTime.toString() : null,
             };
             storeInDonatedData(donationDetailObject);
             console.log(donationDetailObject);
