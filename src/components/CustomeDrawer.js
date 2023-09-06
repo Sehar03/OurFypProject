@@ -10,7 +10,7 @@ import ImageStyles from '../assets/Styles/ImageStyles';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 const CustomeDrawer = props => {
-  //
+  
   const navigation = useNavigation();
 
   return (
@@ -71,7 +71,7 @@ const CustomeDrawer = props => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
             navigation.navigate('ScheduleScreen');
@@ -104,6 +104,8 @@ const CustomeDrawer = props => {
           </View>
         </TouchableOpacity>
 
+
+        </TouchableOpacity> */}
 
         </View>
         </DrawerContentScrollView>

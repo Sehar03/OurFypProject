@@ -31,7 +31,7 @@ const IconStyles = StyleSheet.create({
         marginLeft: wp('28'),
     },
     editIcon:{
-        marginLeft:wp('64'),marginTop:hp('1'),color:AppColors.primary
+        marginLeft:wp('60'),marginTop:hp('1'),color:AppColors.primary
     },
 
 

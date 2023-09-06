@@ -18,6 +18,16 @@ const Cart = ({navigation}) => {
   const {myCart} = useContext(AppContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [count, setCount] = useState(1);
+  const [allResturantsCards, setAllResturantsCards] = useState([
+    {
+      uri: require('../../assets/Images/image38.jpg'),
+      title: 'Summer Deal',
+      Rupees: 'Rs.330',
+      // top: hp('27'), // Match the marginTop of the first Neomorph
+      // left: wp('15'),
+    },
+   
+  ]);
 
   const incrementCount = () => {
     setCount(count + 1);

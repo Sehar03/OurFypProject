@@ -57,19 +57,6 @@ const ContainerStyles = StyleSheet.create({
 
     },
 
-   inputFieldNeomorphContainer: {
-      width: wp('80%'),
-      height: hp('7%'),
-      borderRadius: wp('3%'),
-      shadowRadius: 4,
-      backgroundColor: AppColors.white,
-      // alignSelf:"center",
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      marginVertical: hp('3%'),
-      shadowOpacity: 0.3,
-      marginTop: hp('1.4%'),
-   },
 
   EditNameNeomorphContainer: {
     width: wp('87%'),
@@ -103,19 +90,7 @@ const ContainerStyles = StyleSheet.create({
     height: hp('10'),
   },
 
-  inputFieldNeomorphContainer: {
-    width: wp('80%'),
-    height: hp('7%'),
-    borderRadius: wp('3%'),
-    shadowRadius: 4,
-    backgroundColor: AppColors.white,
-    // alignSelf:"center",
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    marginVertical: hp('3%'),
-    shadowOpacity: 0.3,
-    marginTop: hp('1.4%'),
-  },
+
   touchableOpacityNeomorphContainer: {
     marginTop: hp('3%'),
 
@@ -223,7 +198,7 @@ const ContainerStyles = StyleSheet.create({
     backgroundColor: AppColors.white,
     marginLeft: wp('4%'),
     alignItems: 'center',
-    marginTop: hp('3%'),
+    marginTop: hp('5%'),
     borderRadius: hp('10%'),
   },
 
@@ -356,15 +331,7 @@ const ContainerStyles = StyleSheet.create({
       height: hp('15'),
     },
   
-squareBoxHalfScreenContainer:{
-   width:wp('44'),
-   height:hp('22'),
-   shadowRadius: 4,
-   backgroundColor: AppColors.white,
-   marginHorizontal:wp('2'),
-   marginVertical:hp('1'),
-   borderRadius:wp('3')
-},
+
 popularFoodPiceTextContainer:{
    height:hp('3%'),
 width:wp('22%'),
@@ -376,16 +343,7 @@ borderRadius:wp('5%'),
 justifyContent:"center",
 alignItems:"center"
 },
-productBackButtonContainer:{
-   height:hp('5%'),
-width:wp('10%'),
-justifyContent:"center",
-backgroundColor:AppColors.white,
-marginLeft:wp('4%'),
-alignItems:"center",
-marginTop:hp('3%'),
-borderRadius:hp('10%')
-},
+
    profileNeomorph:{
     shadowRadius: 4,
     shadowOpacity:0.3,
@@ -456,6 +414,48 @@ OrdersContainer2: {
   justifyContent:'center'
 },
 
+
+  donorInputFieldNeomorphContainer: {
+      width: wp('72%'),
+      height: hp('7%'),
+      borderRadius: wp('3%'),
+      shadowRadius: 4,
+      backgroundColor: AppColors.white,
+      marginVertical: hp('2%'),
+      shadowOpacity: 0.3,
+      // marginTop: hp('1.4%'),
+     } ,
+     recipientNeomorphContainer: {
+      width: wp('90%'),
+      height: hp('28%'),
+      borderRadius: wp('3%'),
+      shadowRadius: 4,
+      backgroundColor: AppColors.white,
+      marginVertical: hp('3%'),
+      shadowOpacity: 0.3,
+      marginTop: hp('1.4%'),
+      // elevation:8
+     } ,
+     smallRoundContainer: {
+      height: hp('5%'),
+      width: wp('10%'),
+      justifyContent: 'center',
+      // marginLeft: wp('4%'),
+      alignItems: 'center',
+      borderRadius: hp('10%'),
+      backgroundColor: AppColors.primary,
+      //  marginRight: wp('2/%'),
+       marginTop:hp('3%')
+    },
+    cartButtonContainer:{
+      flexDirection: 'row',
+      borderTopWidth: 1,
+      borderColor: AppColors.background,
+      width: wp('100%'),
+      height: hp('10%'),
+      marginTop:hp('28'),
+      justifyContent: 'space-evenly',
+    }
   
 });
 

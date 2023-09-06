@@ -40,6 +40,10 @@ const AfterSignup = ({navigation}) => {
     
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <BackButtonHeader navigation={navigation} />
+        <Image
+            source={require('../../assets/Images/forgetPassword.jpg')} // Specify the source of the image
+            style={[ImageStyles.loginImage, {marginTop: hp('0'),alignSelf:"center"}]} // Set the desired width and height of the image
+          />
         <Text style={[TextStyles.leftHeading,{fontSize:hp('3%'),color:AppColors.primary}]}>Security Questions</Text>
         {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
         <View style={{alignItems: 'center'}}>
@@ -109,10 +113,10 @@ const AfterSignup = ({navigation}) => {
           </TouchableOpacity>
        
         </View>
-        <Image
+        {/* <Image
           source={require('../../assets/Images/signup3.png')} // Specify the source of the image
           style={[ImageStyles.signupImage,{marginTop:hp('11%')}]} // Set the desired width and height of the image
-        />
+        /> */}
       </SafeAreaView>
     
   );

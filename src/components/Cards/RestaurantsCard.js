@@ -12,7 +12,7 @@ import AppColors from '../../assets/colors/AppColors';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import AppContext from '../../Context/AppContext';
-const RestaurantsCard = ({item,navigation},props) => {
+const RestaurantsCard = ({item,navigation,route},props) => {
   const { storeSelectedRestaurants} = useContext(AppContext);
   return (
     <SafeAreaView
@@ -47,7 +47,7 @@ const RestaurantsCard = ({item,navigation},props) => {
       </ImageBackground>
     </TouchableOpacity>
     <Text style={[TextStyles.leftText]}>{item.title}</Text>
-    <Text style={{marginLeft:wp('4%'),fontFamily:"Poppins-Regular"}}>$ . Pizza</Text>
+    <Text style={{marginLeft:wp('4%'),fontFamily:"Poppins-Regular"}}>$ . {item.category}</Text>
     <View style={{flexDirection:"row"}}>
     <MaterialCommunityIcons
             name="bike"

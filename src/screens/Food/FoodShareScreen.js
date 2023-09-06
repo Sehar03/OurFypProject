@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -19,6 +19,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import SmallCard from '../../components/Cards/SmallCard';
 import LargeCard from '../../components/Cards/LargeCard';
 const FoodShareScreen = ({navigation}) => {
+  const [isVisible, setIsVisible] = useState(true);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible((prev) => !prev);
+    }, 400); // Adjust the interval duration as needed (milliseconds)
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
       <MainHeader navigation={navigation} item="Share Food" />
@@ -54,7 +62,7 @@ const FoodShareScreen = ({navigation}) => {
                 size={wp('6%')}
                 style={{color: AppColors.primary, marginTop: hp('1.6')}}
               /> */}
-                <Text style={[TextStyles.mediumTextStyle]}>
+                <Text style={[TextStyles.mediumTextStyle,{display: isVisible ? 'flex' : 'none',color:"purple"}]}>
                   First check Schedule
                 </Text>
               </View>
