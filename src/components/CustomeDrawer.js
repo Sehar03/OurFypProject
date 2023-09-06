@@ -10,7 +10,7 @@ import ImageStyles from '../assets/Styles/ImageStyles';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 const CustomeDrawer = props => {
-  //
+  
   const navigation = useNavigation();
 
   return (
@@ -80,7 +80,33 @@ const CustomeDrawer = props => {
             <Ionicons name="settings-outline" size={22} />
             <Text style={[TextStyles.mediumTextStyle]}>ScheduleScreen</Text>
           </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{paddingVertical: 15}}
+          onPress={() => {
+            navigation.navigate('Notification');
+          }}>
+          <View style={[ContainerStyles.TwoitemsCenter]}>
+            <Ionicons name="settings-outline" size={22} />
+            <Text style={[TextStyles.mediumTextStyle]}>Notify</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{paddingVertical: 15}}
+          onPress={() => {
+            navigation.navigate('Orders');
+          }}>
+          <View style={[ContainerStyles.TwoitemsCenter]}>
+            <Ionicons name="settings-outline" size={22} />
+            <Text style={[TextStyles.mediumTextStyle]}>Orders</Text>
+          </View>
+        </TouchableOpacity>
+
+
         </TouchableOpacity> */}
+
         </View>
         </DrawerContentScrollView>
 

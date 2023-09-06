@@ -16,7 +16,6 @@ export const AppProvider =({children})=>{
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
     }
-
     const storeSelectedSubCategoryFeature= (val)=>{
         setSelectedSubCategoryFoodFeature(val);  
     }
@@ -32,6 +31,8 @@ export const AppProvider =({children})=>{
       const storeIsAddedIntoCart = val => {
         setIsAddedIntoCart(val);
       };
+    const storeInCart = item => {
+        setMyCart(oldCart => [...oldCart, item]);
     const storeInCart= item => {
         setMyCart(oldSchedule => [...oldSchedule, item]);
       };

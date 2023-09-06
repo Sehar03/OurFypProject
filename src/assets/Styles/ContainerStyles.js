@@ -363,6 +363,58 @@ alignItems:"center"
       marginTop: hp('2'),
       alignItems: 'center',
     },
+
+    notificationInputFieldContainer:{
+      marginTop:hp('2.5'),
+      shadowRadius: 2,
+      shadowOpacity: 0.2,
+      borderRadius: 10,
+      backgroundColor: AppColors.white,
+      width: hp('43'),
+      height: hp('12'),
+      marginBottom:hp('0.3'),
+      elevation: 5,
+      shadowOffset: { width: 2, height: 2 },     
+
+   },
+   orderContainer:{
+    marginTop:hp('2.5'),
+    shadowRadius: 2,
+    shadowOpacity: 0.2,
+    borderRadius: 10,
+    backgroundColor: AppColors.white,
+    width: hp('43'),
+    height: hp('20'),
+    marginBottom:hp('0.3'),
+    elevation: 5,
+    shadowOffset: { width: 2, height: 2 },     
+
+ },
+ OrdersContainer: {
+  shadowRadius: 4,
+  shadowOpacity: 0.4,
+  borderRadius: 25,
+  backgroundColor: AppColors.white,
+  width: wp('90'),
+  height: hp('21'),
+  marginTop:hp('4'),
+  elevation: 5,
+  shadowOffset: { width: 2, height: 2 },     
+
+},
+OrdersContainer2: {
+  shadowRadius: 4,
+  shadowOpacity: 0.4,
+  borderRadius: 25,
+  backgroundColor: AppColors.white,
+  width: wp('90'),
+  height: hp('15'),
+  marginTop:hp('4'),
+  // shadowOffset: { width: 2, height: 2 },     
+  justifyContent:'center'
+},
+
+
   donorInputFieldNeomorphContainer: {
       width: wp('72%'),
       height: hp('7%'),

@@ -20,9 +20,12 @@ const DealCard = ({navigation, item}) => {
     selectedFoodFeature,
     selectedRestaurants,
     storeInSchedule,
+    storeInCart,
   } = useContext(AppContext);
 
   const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
+  const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
+
   if (
     selectedFoodFeature === 'Full Price Food' &&
     selectedSubCategoryFeature === 'SubCategory' &&
@@ -92,6 +95,7 @@ const DealCard = ({navigation, item}) => {
           // };
           // storeInSchedule(DetailObject);
           setIsAddedIntoSchedule(!isAddedIntoSchedule);
+          setIsAddedIntoCart(!isAddedIntoCart);
         }}>
         <View style={[ContainerStyles.productsCartButtonContainer]}>
           <Text
@@ -109,7 +113,7 @@ const DealCard = ({navigation, item}) => {
       </TouchableOpacity>
       <View style={{flex: 1}}>
         <Modal
-          visible={isAddedIntoSchedule}
+          visible={isAddedIntoCart}
           transparent={true}
           animationType="slide">
           <View
@@ -126,7 +130,7 @@ const DealCard = ({navigation, item}) => {
             <TouchableOpacity
               style={{alignSelf: 'flex-end', marginRight: 15}}
               onPress={() => {
-                setIsAddedIntoSchedule(!isAddedIntoSchedule);
+                setIsAddedIntoCart(!isAddedIntoCart);
               }}>
               <FontAwesome name="close" size={24} />
             </TouchableOpacity>
@@ -150,7 +154,9 @@ const DealCard = ({navigation, item}) => {
                   pricePerPerson: item.price / 2,
                 };
                 storeInSchedule(DetailObject);
+                storeInCart(DetailObject);
                 setIsAddedIntoSchedule(!isAddedIntoSchedule);
+                setIsAddedIntoCart(!isAddedIntoCart);
               }}>
               <Text>{AddItem}</Text>
             </TouchableOpacity>
