@@ -71,7 +71,7 @@ const CustomeDrawer = props => {
           </View>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
             navigation.navigate('ScheduleScreen');
@@ -105,7 +105,6 @@ const CustomeDrawer = props => {
         </TouchableOpacity>
 
 
-        </TouchableOpacity> */}
 
         </View>
         </DrawerContentScrollView>

@@ -27,7 +27,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppContext from '../../Context/AppContext';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-const [selectedDate, setSelectedDate] = useState(null);
 
 const Donor = ({navigation, route}) => {
   // states
