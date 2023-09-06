@@ -10,6 +10,8 @@ export const AppProvider =({children})=>{
     const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
     const [mySchedule, setMySchedule] = useState([]);
     const [myCart, setMyCart] = useState([]);
+    const [donatedData, setDonatedData] = useState([]);
+    const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
 
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
@@ -35,7 +37,13 @@ export const AppProvider =({children})=>{
       };
       const ScheduleEmpty = item => {
         setMySchedule([]);
-      };     
+      };  
+      const storeInDonatedData = item => {
+        setDonatedData(oldDonatedData => [...oldDonatedData, item]);
+      }; 
+      const storeIsAddedIntoDonatedData = val => {
+        setIsAddedIntoDonatedData(val);
+      };  
     return <AppContext.Provider value={{
         selectedFoodFeature,
         selectedSubCategoryFeature,
@@ -44,6 +52,8 @@ export const AppProvider =({children})=>{
         isAddedIntoSchedule,
         myCart,
         isAddedIntoCart,
+        donatedData,
+        isAddedIntoDonatedData,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,  
         storeSelectedRestaurants,
@@ -52,7 +62,8 @@ export const AppProvider =({children})=>{
         storeIsAddedIntoCart,
         storeInCart,
         ScheduleEmpty,
-
+        storeInDonatedData,
+        storeIsAddedIntoDonatedData
 
     }} >
         {children}

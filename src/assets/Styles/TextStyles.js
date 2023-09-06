@@ -173,6 +173,29 @@ const TextStyles = StyleSheet.create({
     color: 'black', // Customize the label color as needed
     marginBottom: hp('1%'), // Add margin below the label
   },
+  donorLabel: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: wp('3%'),
+    color: 'black', // Customize the label color as needed
+    // marginBottom: hp('1%'), // Add margin below the label
+    // marginRight: wp('58%'),
+    marginLeft:wp('15%')
+  },
+  decrementText:{
+    color: AppColors.white,
+    marginBottom: hp('2%'),
+    fontSize: wp('5%'),
+  },
+  countText:{
+    marginTop: hp('4%'),
+    fontSize: wp('5%'),
+    fontFamily: 'Poppins-Regular',
+    color: AppColors.black,
+  },
+  incrementText:{
+    color: AppColors.white,
+    fontSize: wp('6%'),
+  }
 });
 
 export default TextStyles;
