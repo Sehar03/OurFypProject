@@ -63,7 +63,7 @@ const FoodShareScreen = ({navigation}) => {
                 style={{color: AppColors.primary, marginTop: hp('1.6')}}
               /> */}
                 <Text style={[TextStyles.mediumTextStyle,{display: isVisible ? 'flex' : 'none',color:"purple"}]}>
-                  First check Schedule
+                  First check Shared Food
                 </Text>
               </View>
             </View>

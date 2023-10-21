@@ -25,8 +25,8 @@ const TextStyles = StyleSheet.create({
   whiteMediumHeading: {
     color: 'white',
     fontSize: hp('3'),
-    marginLeft: wp('19'),
-    marginTop: hp('2'),
+    marginLeft: wp('17'),
+    // marginTop: hp('2'),
     fontFamily:"Poppins-Medium"
   },
   primaryText: {
@@ -148,7 +148,7 @@ const TextStyles = StyleSheet.create({
   profileTextStyle: {
     color: "black", 
     fontSize: hp('2.2%'), 
-    marginLeft: wp('7%'), 
+    marginLeft: wp('27%'), 
     fontFamily: "Poppins-SemiBold",
      marginTop: hp('2.4%'),
   },

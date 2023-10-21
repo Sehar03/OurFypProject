@@ -80,7 +80,7 @@ const Signup = ({navigation}) => {
 
     axios({
       method: 'post',
-      url: 'http://192.168.0.103:8888/signup',
+      url: 'http://192.168.0.166:8888/signup',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
@@ -215,8 +215,8 @@ const Signup = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              // userRegister();
-              navigation.navigate('AfterSignup')
+              userRegister();
+              // navigation.navigate('AfterSignup')
               console.log('signup is running');
             }}>
             <Neomorph
