@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
 
                 <Text style={[TextStyles.primaryText]}>Full Price Food </Text>
                 <Text style={[TextStyles.smallText,{marginLeft:wp('3')}]}>Order food from your favourite resturants</Text>
-                <Image source={require('../../assets/Images/image5.png')} style={{ height: hp(10), width: hp(18), marginTop: hp('14'), marginLeft: wp('4') }} />
+                <Image source={require('../../assets/Images/image5.png')} style={{ height: hp(10), width: hp(18), marginTop: hp('14'), marginLeft: wp('2.5') }} />
               </Neomorph>
             </TouchableOpacity>
 

@@ -103,13 +103,14 @@ const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.3,
   },
   headerViewStyle: {
-    height: hp('8%'),
-    width: wp('100%'),
+    height: hp('0%'),
+    width: wp('10%'),
     backgroundColor: AppColors.primary,
     flexDirection: 'row',
   },
   itemsCenter: {
     alignItems: 'center',
+    marginTop:hp('3')
   },
   largeNeomorphStyle: {
     shadowRadius: 4,
@@ -231,11 +232,11 @@ const ContainerStyles = StyleSheet.create({
   },
   searchNeomorphStyle: {
     width: wp('80%'),
-    height: hp('7%'),
+    height: hp('6.3%'),
     borderRadius: wp('10%'),
     shadowRadius: 3,
     backgroundColor: AppColors.white,
-    shadowOpacity: 0.13,
+    shadowOpacity: 0.2,
     marginTop: hp('1.4%'),
     marginLeft: wp('10'),
     marginBottom: hp('3'),

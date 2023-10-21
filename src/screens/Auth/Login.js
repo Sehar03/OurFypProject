@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
 
     axios({
       method: 'post',
-      url: 'http://192.168.0.103:8888/login',
+      url: 'http://192.168.0.166:8888/login',
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })

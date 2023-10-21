@@ -16,10 +16,10 @@ const FullPriceHomeScreen = ({ navigation }) => {
       <MainHeader navigation={navigation} item="Full Price Food" />
       <ScrollView>
         <SearchComponent />
-        <AdvertiseCard navigation={navigation} />
-        <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>Food For You</Text>
+        {/* <AdvertiseCard navigation={navigation} /> */}
+        <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3'),fontSize:wp('6') }]}>Food For You</Text>
         <SmallCard  navigation={navigation}/>
-        <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3') }]}>All Restaurants</Text>
+        <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3'),fontSize:wp('6')  }]}>All Restaurants</Text>
           <LargeCard navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
