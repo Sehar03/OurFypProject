@@ -184,7 +184,9 @@ const Donor = ({navigation, route}) => {
             </View>
           </Neomorph>
           <TouchableOpacity onPress={()=>{
+
             navigation.navigate('AddAddress')
+
           }} >
 
             <Ionicons

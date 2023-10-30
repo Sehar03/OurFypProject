@@ -80,14 +80,16 @@ const Signup = ({navigation}) => {
 
     axios({
       method: 'post',
-      url: 'http://192.168.0.166:8888/signup',
+
+      url: 'http://192.168.1.10:8888/signup',
+
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
         if (response.data.save == true) {
           AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
-          navigation.navigate('Home');
+          navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {
           // setUserEmailError("A user With the same email already exists.");
           // alert('A user with this Email Address Already Exists');
