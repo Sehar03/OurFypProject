@@ -81,7 +81,7 @@ const Signup = ({navigation}) => {
     axios({
       method: 'post',
 
-      url: 'http://192.168.1.10:8888/signup',
+      url: 'http://192.168.1.11:8888/signup',
 
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
