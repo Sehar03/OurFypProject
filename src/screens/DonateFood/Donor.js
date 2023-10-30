@@ -183,7 +183,9 @@ const Donor = ({navigation, route}) => {
               />
             </View>
           </Neomorph>
-          <TouchableOpacity >
+          <TouchableOpacity onPress={()=>{
+            
+          }} >
 
             <Ionicons
               name="location"
