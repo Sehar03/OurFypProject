@@ -12,7 +12,8 @@ export const AppProvider =({children})=>{
     const [myCart, setMyCart] = useState([]);
     const [donatedData, setDonatedData] = useState([]);
     const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
-
+const[baseUrl,setBaseUrl]=useState("http://192.168.1.14:8888");
+const [currentUser,setCurrentUser] =useState({});
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
     }
@@ -43,7 +44,12 @@ export const AppProvider =({children})=>{
       const storeIsAddedIntoDonatedData = val => {
         setIsAddedIntoDonatedData(val);
       };  
+      const updateCurrentUser = obj => {
+setCurrentUser(obj);   
+   };  
     return <AppContext.Provider value={{
+      baseUrl,
+      currentUser,
         selectedFoodFeature,
         selectedSubCategoryFeature,
         selectedRestaurants,
@@ -62,8 +68,8 @@ export const AppProvider =({children})=>{
         storeInCart,
         ScheduleEmpty,
         storeInDonatedData,
-        storeIsAddedIntoDonatedData
-
+        storeIsAddedIntoDonatedData,
+        updateCurrentUser
     }} >
         {children}
     </AppContext.Provider>
