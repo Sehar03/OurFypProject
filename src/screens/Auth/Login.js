@@ -53,9 +53,9 @@ const Login = ({navigation}) => {
             'user',
             JSON.stringify(response.data.loggedInUser),
           );
-          navigation.navigate('Home');
+          navigation.navigate('Home'); 
         } else {
-          alert('No User found with this email and password');
+          alert('No User found with this email and password'); 
         }
       })
       .catch(function (response) {

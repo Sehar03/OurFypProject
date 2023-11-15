@@ -12,7 +12,7 @@ export const AppProvider =({children})=>{
     const [myCart, setMyCart] = useState([]);
     const [donatedData, setDonatedData] = useState([]);
     const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
-const[baseUrl,setBaseUrl]=useState("http://192.168.1.14:8888");
+const[baseUrl,setBaseUrl]=useState("http://192.168.0.101:8888");
 const [currentUser,setCurrentUser] =useState({});
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
