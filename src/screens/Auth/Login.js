@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {
   Image,
@@ -23,9 +23,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import Feather from 'react-native-vector-icons/Feather';
+import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
+  const {baseUrl}=useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -40,7 +42,7 @@ const Login = ({navigation}) => {
     axios({
       method: 'post',
 
-      url: 'http://192.168.1.10:8888/login',
+      url: `${baseUrl}/login`,
 
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
