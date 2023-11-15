@@ -29,7 +29,6 @@ import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import AppContext from '../../Context/AppContext';
 
 const Signup = ({navigation}) => {
-  // states
   const {baseUrl,updateCurrentUser}=useContext(AppContext)
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
