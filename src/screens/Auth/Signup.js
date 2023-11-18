@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -26,8 +25,10 @@ import ImageStyles from '../../assets/Styles/ImageStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
+import AppContext from '../../Context/AppContext';
 
 const Signup = ({navigation}) => {
+  const {apiUrl} = useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -81,7 +82,7 @@ const Signup = ({navigation}) => {
     axios({
       method: 'post',
 
-      url: 'http://192.168.1.11:8888/signup',
+      url: `${apiUrl}/signup`,
 
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},

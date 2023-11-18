@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {
   Image,
@@ -23,9 +23,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import Feather from 'react-native-vector-icons/Feather';
+import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
+  const { apiUrl} = useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -36,22 +38,24 @@ const Login = ({navigation}) => {
     const formData = new FormData();
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-
+  
     axios({
       method: 'post',
-
-      url: 'http://192.168.1.10:8888/login',
-
+      url: `${apiUrl}/login`,
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
         if (response.data.match == true) {
-          AsyncStorage.setItem(
-            'user',
-            JSON.stringify(response.data.loggedInUser),
-          );
-          navigation.navigate('Home');
+          const loggedInUser = response.data.loggedInUser;
+  
+          // Check user status before allowing login
+          if (loggedInUser.status === 1) {
+            AsyncStorage.setItem('user', JSON.stringify(loggedInUser));
+            navigation.navigate('Home');
+          } else {
+            alert('User is deactivated. Please contact support.');
+          }
         } else {
           alert('No User found with this email and password');
         }
@@ -61,6 +65,7 @@ const Login = ({navigation}) => {
         console.log(response);
       });
   };
+  
 
   const resetPassword = () => {
     if (userEmail != null) {

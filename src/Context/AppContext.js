@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 const AppContext = React.createContext();
 
 export const AppProvider =({children})=>{
-
+     const [apiUrl] = useState('http://192.168.0.107:8888');
     const[selectedFoodFeature,setSelectedFoodFeature]=useState([]);
     const[selectedSubCategoryFeature,setSelectedSubCategoryFoodFeature]=useState([]);
     const[selectedRestaurants,setSelectedRestaurants]=useState([]);
@@ -43,6 +43,7 @@ export const AppProvider =({children})=>{
       const storeIsAddedIntoDonatedData = val => {
         setIsAddedIntoDonatedData(val);
       };  
+     
     return <AppContext.Provider value={{
         selectedFoodFeature,
         selectedSubCategoryFeature,
@@ -53,6 +54,7 @@ export const AppProvider =({children})=>{
         isAddedIntoCart,
         donatedData,
         isAddedIntoDonatedData,
+        apiUrl,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,  
         storeSelectedRestaurants,
@@ -62,8 +64,7 @@ export const AppProvider =({children})=>{
         storeInCart,
         ScheduleEmpty,
         storeInDonatedData,
-        storeIsAddedIntoDonatedData
-
+        storeIsAddedIntoDonatedData,
     }} >
         {children}
     </AppContext.Provider>
