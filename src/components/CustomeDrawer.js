@@ -78,8 +78,19 @@ const CustomeDrawer = props => {
             <Text style={[TextStyles.mediumTextStyle]}>Profile</Text>
           </View>
         </TouchableOpacity>
+        {/* ye baad main remove kr du gi */}
 
-      
+        <TouchableOpacity
+          style={{paddingVertical: 15}}
+          onPress={() => {
+            navigation.navigate('AfterSignup');
+          }}>
+          <View style={[ContainerStyles.TwoitemsCenter]}>
+            <Ionicons name="settings-outline" size={22} />
+            <Text style={[TextStyles.mediumTextStyle]}>AfterSignUp</Text>
+          </View>
+        </TouchableOpacity>
+      {/* yahan tak */}
 
         <TouchableOpacity
           style={{paddingVertical: 15}}
@@ -145,7 +156,7 @@ const CustomeDrawer = props => {
                       Logging out?
                     </Text>
                     <Text style={{marginTop:hp('2'),fontFamily:"Poppins-Regular"}}>
-                     Thanks for stopping by. See you again soon!
+                     Thanks for shopping by. See you again soon!
                     </Text>
                     <View
                       style={{

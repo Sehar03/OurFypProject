@@ -28,7 +28,7 @@ import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import AppContext from '../../Context/AppContext';
 
 const Signup = ({navigation}) => {
-  const {apiUrl} = useContext(AppContext);
+  const {baseUrl,updateCurrentUser}=useContext(AppContext)
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -78,18 +78,19 @@ const Signup = ({navigation}) => {
     formData.append('name', userName);
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-
+   
     axios({
       method: 'post',
-
-      url: `${apiUrl}/signup`,
-
+      url: `${baseUrl}/signup`,
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
         if (response.data.save == true) {
+          // const userId=response.data.newUser._id;
+          // console.log('userid',userId);
           AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
+          updateCurrentUser({userId:response.data.newUser._id,email:response.data.email,password:response.data.password})
           navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {
           // setUserEmailError("A user With the same email already exists.");

@@ -27,7 +27,7 @@ import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
-  const { apiUrl} = useContext(AppContext);
+  const {baseUrl}=useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -41,12 +41,13 @@ const Login = ({navigation}) => {
   
     axios({
       method: 'post',
-      url: `${apiUrl}/login`,
+      url: `${baseUrl}/login`,
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
         if (response.data.match == true) {
+
           const loggedInUser = response.data.loggedInUser;
   
           // Check user status before allowing login
@@ -56,8 +57,13 @@ const Login = ({navigation}) => {
           } else {
             alert('User is deactivated. Please contact support.');
           }
+          AsyncStorage.setItem(
+            'user',
+            JSON.stringify(response.data.loggedInUser),
+          );
+          navigation.navigate('Home'); 
         } else {
-          alert('No User found with this email and password');
+          alert('No User found with this email and password'); 
         }
       })
       .catch(function (response) {
