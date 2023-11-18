@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 const AppContext = React.createContext();
 
 export const AppProvider =({children})=>{
-
+     
     const[selectedFoodFeature,setSelectedFoodFeature]=useState([]);
     const[selectedSubCategoryFeature,setSelectedSubCategoryFoodFeature]=useState([]);
     const[selectedRestaurants,setSelectedRestaurants]=useState([]);
@@ -12,8 +12,8 @@ export const AppProvider =({children})=>{
     const [myCart, setMyCart] = useState([]);
     const [donatedData, setDonatedData] = useState([]);
     const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
-const[baseUrl,setBaseUrl]=useState("http://192.168.0.101:8888");
-const [currentUser,setCurrentUser] =useState({});
+    const[baseUrl,setBaseUrl]=useState("http://192.168.0.101:8888");
+    const [currentUser,setCurrentUser] =useState({});
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
     }
@@ -44,9 +44,13 @@ const [currentUser,setCurrentUser] =useState({});
       const storeIsAddedIntoDonatedData = val => {
         setIsAddedIntoDonatedData(val);
       };  
+
+     
+
       const updateCurrentUser = obj => {
 setCurrentUser(obj);   
    };  
+
     return <AppContext.Provider value={{
       baseUrl,
       currentUser,
@@ -70,6 +74,7 @@ setCurrentUser(obj);
         storeInDonatedData,
         storeIsAddedIntoDonatedData,
         updateCurrentUser
+
     }} >
         {children}
     </AppContext.Provider>
