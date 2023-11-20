@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -12,23 +12,71 @@ import CartHeader from '../../components/headers/CartHeader';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
 import { widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {  } from 'react-native-responsive-screen';
 import TextStyles from '../../assets/Styles/TextStyles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import AppContext from '../../Context/AppContext';
 
 const Profile = ({ navigation }) => {
-  const [userName, setUserName] = useState('Toqeer Fatima');
-  const [userEmail, setUserEmail] = useState('toqeerfatima@gmail.com');
+  const {storeSelectedImageUri,selectedImageUri,currentUser}=useContext(AppContext);
+  // const [userName, setUserName] = useState('Toqeer Fatima');
+  // const [userEmail, setUserEmail] = useState('toqeerfatima@gmail.com');
   const [userMobileNumber, setMobileNumber] = useState('+923003785966');
+  // const [selectedImageUri, setSelectedImageUri] = useState('');
+const userName=currentUser.name;
+const userEmail=currentUser.email;
+console.log('name',userName);
+console.log('email',userEmail);
+  //functions
+  
+  const openGallery = async () => {
+    const options = {
+      title: 'Select Image',
+      type: 'library',
+      options: {
+        maxHeight: 200,
+        maxWidth: 200,
+        selectionLimit: 1,
+        mediaType: 'photo',
+        includeBase64: false,
+      },
+    };
+
+    const images = await launchImageLibrary(options);
+    storeSelectedImageUri(images.assets[0].uri);
+    // setCustomerProfileImage(images.assets[0]);
+    // console.log(images.assets[0])
+    console.log('i am serry');
+    return images;
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <CartHeader navigation={navigation} item="Profile" />
 <View style={{justifyContent:"center"}}>
+<TouchableOpacity onPress={openGallery}>
+          <Image
+            source={
+              selectedImageUri === ''
+                ? require('../../assets/Images/defaultProfile.jpg')
+                : {uri: selectedImageUri}
+            }
+            style={{
+              height: hp('17%'),
+              width: wp('35%'),
+              borderRadius: 100,
+              alignSelf: 'center',
+              // marginBottom: 7,
+            }}
+          />
+          <View style={[ContainerStyles.cameraIconView]}>
+            <MaterialIcons name="camera-alt" size={23} color="white" />
+          </View>
+        </TouchableOpacity>
       <View style={{ marginTop: hp('4'), alignItems: 'center' }}>
         <TouchableOpacity
           onPress={() => {
@@ -51,7 +99,8 @@ const Profile = ({ navigation }) => {
               </View>
             </View>
             <Text style={[TextFieldStyles.profileInputFieldText]}>
-              {userName}
+              {/* {console.log('name',currentUser.name,'email',currentUser.email)} */}
+              {currentUser.name}
             </Text>
           </Neomorph>
         </TouchableOpacity>
@@ -78,7 +127,7 @@ const Profile = ({ navigation }) => {
               </View>
               </View>
             <Text style={[TextFieldStyles.profileInputFieldText]}>
-              {userEmail}
+              {currentUser.email}
             </Text>
           </Neomorph>
         </TouchableOpacity>
@@ -104,7 +153,7 @@ const Profile = ({ navigation }) => {
             
             </View>
             <Text style={[TextFieldStyles.profileInputFieldText]}>
-              {userMobileNumber}
+              {currentUser.phoneNumber}
             </Text>
           </Neomorph>
         </TouchableOpacity>

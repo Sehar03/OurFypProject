@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import AppColors from '../../assets/colors/AppColors';
@@ -7,8 +7,10 @@ import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import TextStyles from '../../assets/Styles/TextStyles';
+import AppContext from '../../Context/AppContext';
 
 const EditProfile = ({ route, navigation }) => {
+  const {currentUser}=useContext(AppContext);
   const [userFirstName, setUserFirstName] = useState('Toqeer');
   const [userLastName, setUserLastName] = useState('Fatima');
   const [userEmail, setUserEmail] = useState('toeerfatima42@gmail.com');
@@ -41,7 +43,7 @@ const EditProfile = ({ route, navigation }) => {
                 <TextInput
                   //  placeholder="Enter First name"
                   style={[TextFieldStyles.inputFieldEdit]}
-                  value={userFirstName}
+                  value={currentUser.name}
                   onChangeText={text => {
                     setUserFirstName(text);
                   }}
@@ -93,7 +95,7 @@ const EditProfile = ({ route, navigation }) => {
                   <TextInput
                     //  placeholder="Enter First name"
                     style={[TextFieldStyles.inputFieldEdit]}
-                    value={userEmail}
+                    value={currentUser.email}
                     onChangeText={text => {
                       setUserEmail(text);
                     }}
@@ -122,7 +124,7 @@ const EditProfile = ({ route, navigation }) => {
                   <TextInput
                     //  placeholder="Enter First name"
                     style={[TextFieldStyles.inputFieldEdit]}
-                    value={userMobileNumber}
+                    value={currentUser.phoneNumber}
                     onChangeText={text => {
                       setUserMobileNumber(text);
                     }}

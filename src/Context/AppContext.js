@@ -12,8 +12,10 @@ export const AppProvider =({children})=>{
     const [myCart, setMyCart] = useState([]);
     const [donatedData, setDonatedData] = useState([]);
     const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
+    const [loggedInUser,setLoggedInUser]=useState({});
 const[baseUrl,setBaseUrl]=useState("http://192.168.0.101:8888");
 const [currentUser,setCurrentUser] =useState({});
+const [selectedImageUri,setSelectedImageUri]=useState('');
     const storeSelectedFoodFeature= (val)=>{
         setSelectedFoodFeature(val);  
     }
@@ -46,10 +48,47 @@ const [currentUser,setCurrentUser] =useState({});
       };  
       const updateCurrentUser = obj => {
 setCurrentUser(obj);   
-   };  
+   }; 
+   const storeLoggedInUser = obj => {
+    setLoggedInUser(obj);   
+       }; 
+
+       // Load selectedImageUri from AsyncStorage on app startup
+  // useEffect(() => {
+  //   const loadSelectedImage = async () => {
+  //     try {
+  //       const storedImageUri = await AsyncStorage.getItem('selectedImageUri');
+  //       if (storedImageUri) {
+  //         setSelectedImageUri(storedImageUri);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error loading selected image from AsyncStorage:', error);
+  //     }
+  //   };
+
+  //   loadSelectedImage();
+  // }, []);
+
+  // Update the state and AsyncStorage whenever selectedImageUri changes
+  // useEffect(() => {
+  //   const saveSelectedImage = async () => {
+  //     try {
+  //       await AsyncStorage.setItem('selectedImageUri', selectedImageUri);
+  //     } catch (error) {
+  //       console.error('Error saving selected image to AsyncStorage:', error);
+  //     }
+  //   };
+
+  //   saveSelectedImage();
+  // }, [selectedImageUri]);
+
+       const storeSelectedImageUri=(val)=>{
+setSelectedImageUri(val);
+       }; 
     return <AppContext.Provider value={{
       baseUrl,
       currentUser,
+      loggedInUser,
         selectedFoodFeature,
         selectedSubCategoryFeature,
         selectedRestaurants,
@@ -59,6 +98,7 @@ setCurrentUser(obj);
         isAddedIntoCart,
         donatedData,
         isAddedIntoDonatedData,
+        selectedImageUri,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,  
         storeSelectedRestaurants,
@@ -69,7 +109,9 @@ setCurrentUser(obj);
         ScheduleEmpty,
         storeInDonatedData,
         storeIsAddedIntoDonatedData,
-        updateCurrentUser
+        updateCurrentUser,
+        storeLoggedInUser,
+        storeSelectedImageUri
     }} >
         {children}
     </AppContext.Provider>
