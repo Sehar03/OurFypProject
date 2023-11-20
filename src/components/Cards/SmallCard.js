@@ -17,38 +17,38 @@ const SmallCard = ({navigation}) => {
       image: require('../../assets/Images/image16.png'),
       width: wp(25),
       height: hp(9),
-      name: "Pizza"
+      title: "Pizza"
     },
     {
       id: '2',
       image: require('../../assets/Images/image17.png'),
       width: wp(25),
       height: hp(9),
-      name: "Burger"
+      title: "Burger"
     }, {
       id: '3',
       image: require('../../assets/Images/image18.jpg'),
       width: wp(30),
       height: hp(10),
-      name: "Shawarma"
+      title: "Shawarma"
     }, {
       id: '4',
       image: require('../../assets/Images/image19.png'),
       width: wp(25),
       height: hp(10),
-      name: "Biryani"
+      title: "Biryani"
     }, {
       id: '5',
       image: require('../../assets/Images/image20.png'),
       width: wp(25),
       height: hp(11),
-      name: "Pasta"
+      title: "Pasta"
     }, {
       id: '6',
       image: require('../../assets/Images/image21.png'),
       width: wp(20),
       height: hp(10),
-      name: "Chinese"
+      title: "Chinese"
     },
   ])
   return (
@@ -60,7 +60,7 @@ const SmallCard = ({navigation}) => {
       return renderItem={({ item }) => (
         <TouchableOpacity onPress={() => {
           storeSelectedSubCategoryFeature('SubCategory')
-          navigation.navigate('FurtherScreens', {categoryName: item.name});
+          navigation.navigate('FurtherScreens', {categoryName: item.title});
         }}>
           <Neomorph
             darkShadowColor={AppColors.Gray}
