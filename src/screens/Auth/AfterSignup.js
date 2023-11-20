@@ -35,12 +35,18 @@ import AppContext from '../../Context/AppContext';
 
 const AfterSignup = ({navigation}) => {
   // states
+  const {
+    baseUrl,
+    currentUser,
+    storeSelectedImageUri,
+    selectedImageUri,
+    updateCurrentUser,
+  } = useContext(AppContext);
   const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
   const [secondSecurityAnswer, setSecondSecurityAnswer] = useState('');
-  const [selectedImageUri, setSelectedImageUri] = useState('');
+  // const [selectedImageUri, setSelectedImageUri] = useState('');
   const [customerProfileImage, setCustomerProfileImage] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNummber] = useState('');
-  const {baseUrl, currentUser} = useContext(AppContext);
   const [phoneNoError, setPhoneNoError] = useState('');
   const [firstSecurityAnswerError, setFirstSecurityAnswerError] = useState('');
   const [secondSecurityAnswerError, setSecondSecurityAnswerError] =
@@ -65,7 +71,7 @@ const AfterSignup = ({navigation}) => {
     };
 
     const images = await launchImageLibrary(options);
-    setSelectedImageUri(images.assets[0].uri);
+    storeSelectedImageUri(images.assets[0].uri);
     setCustomerProfileImage(images.assets[0]);
     // console.log(images.assets[0])
     console.log('i am serry');
@@ -80,10 +86,10 @@ const AfterSignup = ({navigation}) => {
         setPhoneNoError('Invalid Phone Number');
       }
       if (!firstSecurityAnswer) {
-        setFirstSecurityAnswerError('Required');
+        setFirstSecurityAnswerError('*Required field');
       }
       if (!secondSecurityAnswer) {
-        setSecondSecurityAnswerError('Required');
+        setSecondSecurityAnswerError('*Required field');
       }
       if (
         !customerPhoneNumber ||
@@ -129,7 +135,16 @@ const AfterSignup = ({navigation}) => {
 
       const data = await response.json();
       if (data.message === 'Data saved successfully') {
-        await AsyncStorage.setItem('profileData', JSON.stringify(data));
+        updateCurrentUser({
+          userId: data.registeredUser._id,
+          email: data.registeredUser.email,
+          password: data.registeredUser.password,
+          name: data.registeredUser.name,
+          profileImage: data.registeredUser.profileImage,
+          phoneNumber: data.registeredUser.phoneNumber,
+        });
+
+        await AsyncStorage.setItem('user', JSON.stringify(data));
         navigation.navigate('Home');
       } else {
         console.log('Error in response: ', data);

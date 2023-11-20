@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {
   Image,
@@ -28,10 +28,11 @@ import ImageStyles from '../../assets/Styles/ImageStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
+import AppContext from '../../Context/AppContext';
 
 const ForgetPassword = ({navigation}) => {
   // states
-
+const {baseUrl}=useContext(AppContext);
   const [userEmail, setUserEmail] = useState('');
 
   const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
@@ -42,6 +43,80 @@ const ForgetPassword = ({navigation}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(true);
 
+  const [userEmailError, setUserEmailError] = useState('');
+  const [firstSecurityAnswerError, setFirstSecurityAnswerError] = useState('');
+  const [secondSecurityAnswerError, setSecondSecurityAnswerError] =
+    useState('');
+
+//functions
+const isEmailValid = userEmail => {
+  const emailPattern = /\S+@\S+\.\S+/;
+  return emailPattern.test(userEmail);
+};
+
+const handleForgetPassword = async () => {
+  try {
+    // Validate inputs
+    if (!userEmail || !isEmailValid(userEmail)) {
+      setUserEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!firstSecurityAnswer) {
+      setFirstSecurityAnswerError("*Required field");
+      return;
+    }
+
+    if (!secondSecurityAnswer) {
+      setSecondSecurityAnswerError("*Required field");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('email', userEmail);
+
+    const securityQuestions = [
+           {question: 'what is your nickname?', answer: firstSecurityAnswer},
+           {
+             question: 'What is your favourite fruit?',
+             answer: secondSecurityAnswer,
+           },
+         ];
+   
+         formData.append('securityQuestions', JSON.stringify(securityQuestions));
+
+    // Make a request to the forget password endpoint
+    
+    const response = await fetch(`${baseUrl}/forgetPassword`, {
+      method: 'post',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log('response of fetch request',response)
+    // const response = await axios.post(
+    //   `${baseUrl}/forgetPassword`,
+    //   {
+    //     userEmail,
+    //     firstSecurityAnswer,
+    //     secondSecurityAnswer,
+    //   }
+    // );
+
+    // Check the response
+    if (response.data.success) {
+      // Security answers matched, proceed to change password
+      setToggleState(0); // Update toggleState to show the change password view
+    } else {
+      // Security answers did not match, show an error message
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+    // Handle other errors if needed
+  }
+};
 
 
   return (
@@ -76,9 +151,13 @@ const ForgetPassword = ({navigation}) => {
                 value={userEmail}
                 onChangeText={text => {
                   setUserEmail(text);
+                  setUserEmailError('');
                 }}
               />
             </View>
+            {userEmailError ? (
+              <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
+            ) : null}
           </Neomorph>
         </View>
         <Text
@@ -114,9 +193,15 @@ const ForgetPassword = ({navigation}) => {
                 value={firstSecurityAnswer}
                 onChangeText={text => {
                   setFirstSecurityAnswer(text);
+                  setFirstSecurityAnswerError('');
                 }}
               />
             </View>
+            {firstSecurityAnswerError ? (
+              <Text style={[TextStyles.errorText]}>
+                {firstSecurityAnswerError}
+              </Text>
+            ) : null}
           </Neomorph>
           <Text style={[TextStyles.label, {marginRight: wp('25%')}]}>
             Q2 : What is your favourite fruit ?
@@ -141,16 +226,23 @@ const ForgetPassword = ({navigation}) => {
                 autoCapitalize="none"
                 onChangeText={text => {
                   setSecondSecurityAnswer(text);
+                  setSecondSecurityAnswerError('');
                 }}
               />
             </View>
+            {secondSecurityAnswerError ? (
+              <Text style={[TextStyles.errorText]}>
+                {secondSecurityAnswerError}
+              </Text>
+            ) : null}
           </Neomorph>
 
           <TouchableOpacity
             onPress={() => {
+              handleForgetPassword();
               // userRegister();
               // navigation.navigate('Home');
-              setToggleState(0);
+              // setToggleState(0);
             }}>
             <Neomorph
               darkShadowColor="white"
