@@ -51,6 +51,7 @@ const AfterSignup = ({navigation}) => {
   const [firstSecurityAnswerError, setFirstSecurityAnswerError] = useState('');
   const [secondSecurityAnswerError, setSecondSecurityAnswerError] =
     useState('');
+    const [profileImageError,setProfuleImageError]=useState('')
   //FUNCTIONS
   const isValidPhoneNumber = customerPhoneNumber => {
     const regex = /^(\+92|0)(3[0-9]{9})$/;
@@ -81,7 +82,7 @@ const AfterSignup = ({navigation}) => {
   const uploadProfileImage = async () => {
     try {
       if (!customerPhoneNumber) {
-        setPhoneNoError('Required');
+        setPhoneNoError('*Required field');
       } else if (!isValidPhoneNumber(customerPhoneNumber)) {
         setPhoneNoError('Invalid Phone Number');
       }
@@ -144,14 +145,21 @@ const AfterSignup = ({navigation}) => {
           phoneNumber: data.registeredUser.phoneNumber,
         });
 
-        await AsyncStorage.setItem('user', JSON.stringify(data));
+        await AsyncStorage.setItem('user', JSON.stringify({
+          userId: data.registeredUser._id,
+          email: data.registeredUser.email,
+          password: data.registeredUser.password,
+          name: data.registeredUser.name,
+          profileImage: data.registeredUser.profileImage,
+          phoneNumber: data.registeredUser.phoneNumber,
+        }));
         navigation.navigate('Home');
       } else {
         console.log('Error in response: ', data);
       }
     } catch (error) {
       console.log('Error:', error);
-    }
+    } z
   };
 
   return (

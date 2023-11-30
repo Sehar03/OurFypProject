@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import {ImageBackground,Text,View,Image,TouchableOpacity, Modal,StyleSheet} from 'react-native';
 import AppColors from '../assets/colors/AppColors';
 import {useNavigation} from '@react-navigation/native';
@@ -8,10 +8,11 @@ import ContainerStyles from '../assets/Styles/ContainerStyles';
 import TextStyles from '../assets/Styles/TextStyles';
 import ImageStyles from '../assets/Styles/ImageStyles';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import AppContext from '../Context/AppContext';
 
 const CustomeDrawer = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+const {baseUrl,currentUser,updateCurrentUser}=useContext(AppContext)
   const OpenModal = () => {
     setIsModalVisible(true);
   };
@@ -20,17 +21,34 @@ const CustomeDrawer = props => {
   };
 
   const navigation = useNavigation();
+// {console.log('current user hai k nai',currentUser)}
 
+useEffect(() => {
+  // Check for existing user data
+  
+        updateCurrentUser({
+          userId: currentUser.userId,
+          email: currentUser.email,
+          password: currentUser.password,
+          name: currentUser.name,
+          profileImage: currentUser.profileImage,
+          phoneNumber: currentUser.phoneNumber,
+        });
+  
+ 
+}, []);
   return (
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../assets/Images/image36.jpg')}
         style={{alignItems: 'center', height: hp('30')}}>
         <Image
-          source={require('../assets/Images/image13.png')}
+          source={{uri: baseUrl+currentUser.profileImage}}
+                  // source={require('../assets/Images/image13.png')}
+
           style={[ImageStyles.logoImageStyle]}
         />
-        <Text style={[TextStyles.whiteCenteredLable]}>Toqeer Fatima</Text>
+        <Text style={[TextStyles.whiteCenteredLable]}>{currentUser.name}</Text>
       </ImageBackground>
 <DrawerContentScrollView>
       <View

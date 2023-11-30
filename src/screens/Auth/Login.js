@@ -27,43 +27,43 @@ import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
-  const {baseUrl,updateCurrentUser}=useContext(AppContext);
+  const {baseUrl,updateCurrentUser,storeSelected}=useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [loginCheckDone, setLoginCheckDone] = useState(false);
 // auto login
-  useEffect(() => {
-    // Check for existing user data
-    const checkForUser = async () => {
-      try {
-        const userData = await AsyncStorage.getItem('user');
-        console.log('user stored in asyncStorage',userData)
-        if (userData) {
-          // Parse the stored data and update the user context
-          const parsedData = JSON.parse(userData);
-          updateCurrentUser({
-            userId: parsedData._id,
-            email: parsedData.email,
-            password: parsedData.password,
-            name: parsedData.name,
-            profileImage: parsedData.profileImage,
-            phoneNumber: parsedData.phoneNumber,
-          });
-          // Navigate to the home screen
-          navigation.navigate('Home');
-          console.log('parsed data',parsedData)
+  // useEffect(() => {
+  //   // Check for existing user data
+  //   const checkForUser = async () => {
+  //     try {
+  //       const userData = await AsyncStorage.getItem('user');
+  //       console.log('user stored in asyncStorage',userData)
+  //       if (userData) {
+  //         // Parse the stored data and update the user context
+  //         const parsedData = JSON.parse(userData);
+  //         updateCurrentUser({
+  //           userId: parsedData._id,
+  //           email: parsedData.email,
+  //           password: parsedData.password,
+  //           name: parsedData.name,
+  //           profileImage: parsedData.profileImage,
+  //           phoneNumber: parsedData.phoneNumber,
+  //         });
+  //         // Navigate to the home screen
+  //         navigation.navigate('Home');
+  //         console.log('parsed data',parsedData)
 
-        }
-      } catch (error) {
-        console.error('Error checking for user data:', error);
-      }
-    };
+  //       }
+  //     } catch (error) {
+  //       console.error('Error checking for user data:', error);
+  //     }
+  //   };
 
-    checkForUser();
-    updateCurrentUser();
-  }, []);
+  //   checkForUser();
+  //   updateCurrentUser();
+  // }, []);
 
   // functions
   const userLogin = () => {
@@ -83,7 +83,7 @@ const Login = ({navigation}) => {
         if (response.data.match == true) {
           AsyncStorage.setItem(
             'user',
-            JSON.stringify(response.data.loggedInUser),
+            JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber}),
           );
           updateCurrentUser({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber})
 
