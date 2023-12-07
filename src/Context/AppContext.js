@@ -13,7 +13,7 @@ export const AppProvider =({children})=>{
     const [donatedData, setDonatedData] = useState([]);
     const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
     const [loggedInUser,setLoggedInUser]=useState({});
-    const[baseUrl,setBaseUrl]=useState("http://192.168.1.25:8888");
+    const[baseUrl,setBaseUrl]=useState("http://192.168.0.106:8888");
     const [currentUser,setCurrentUser] =useState({});
     const [selectedImageUri,setSelectedImageUri]=useState('');
 
