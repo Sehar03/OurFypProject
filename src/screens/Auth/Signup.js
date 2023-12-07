@@ -90,7 +90,11 @@ const Signup = ({navigation}) => {
           // const userId=response.data.newUser._id;
           // console.log('userid',userId);
           AsyncStorage.setItem('user', JSON.stringify(response.data.newUser));
-          updateCurrentUser({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name})
+          updateCurrentUser({
+            userId:response.data.newUser._id,
+            email:response.data.newUser.email,
+            password:response.data.newUser.password,
+            name:response.data.newUser.name})
           navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {
           // setUserEmailError("A user With the same email already exists.");
