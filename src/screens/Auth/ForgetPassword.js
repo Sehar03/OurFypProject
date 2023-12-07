@@ -32,7 +32,7 @@ import AppContext from '../../Context/AppContext';
 
 const ForgetPassword = ({navigation}) => {
   // states
-const {baseUrl}=useContext(AppContext);
+const {baseUrl,updateCurrentUser}=useContext(AppContext);
   const [userEmail, setUserEmail] = useState('');
 
   const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
@@ -54,69 +54,112 @@ const isEmailValid = userEmail => {
   return emailPattern.test(userEmail);
 };
 
-const handleForgetPassword = async () => {
-  try {
-    // Validate inputs
-    if (!userEmail || !isEmailValid(userEmail)) {
-      setUserEmailError("Please enter a valid email address.");
-      return;
-    }
-
-    if (!firstSecurityAnswer) {
-      setFirstSecurityAnswerError("*Required field");
-      return;
-    }
-
-    if (!secondSecurityAnswer) {
-      setSecondSecurityAnswerError("*Required field");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('email', userEmail);
-
-    const securityQuestions = [
-           {question: 'what is your nickname?', answer: firstSecurityAnswer},
-           {
-             question: 'What is your favourite fruit?',
-             answer: secondSecurityAnswer,
-           },
-         ];
-   
-         formData.append('securityQuestions', JSON.stringify(securityQuestions));
-
-    // Make a request to the forget password endpoint
-    
-    const response = await fetch(`${baseUrl}/forgetPassword`, {
-      method: 'post',
-      body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    console.log('response of fetch request',response)
-    // const response = await axios.post(
-    //   `${baseUrl}/forgetPassword`,
-    //   {
-    //     userEmail,
-    //     firstSecurityAnswer,
-    //     secondSecurityAnswer,
-    //   }
-    // );
-
-    // Check the response
-    if (response.data.success) {
-      // Security answers matched, proceed to change password
-      setToggleState(0); // Update toggleState to show the change password view
-    } else {
-      // Security answers did not match, show an error message
-      alert(response.data.message);
-    }
-  } catch (error) {
-    console.log("Error:", error);
-    // Handle other errors if needed
+const handleForgetPassword=()=>{
+  // Validate inputs
+  if (!userEmail || !isEmailValid(userEmail)) {
+    setUserEmailError("Please enter a valid email address.");
+ 
   }
-};
+
+  if (!firstSecurityAnswer) {
+    setFirstSecurityAnswerError("*Required field");
+  
+  }
+
+  if (!secondSecurityAnswer) {
+    setSecondSecurityAnswerError("*Required field");
+ 
+  }
+  if(!userEmail || !isEmailValid(userEmail)||!firstSecurityAnswer||!secondSecurityAnswer){
+    return false;
+  }  const formData = new FormData();
+  formData.append('email', userEmail);
+  const securityQuestions = [
+    {question: 'what is your nickname?', answer: firstSecurityAnswer},
+    {
+      question: 'What is your favourite fruit?',
+      answer: secondSecurityAnswer,
+    },
+  ];
+  formData.append('securityQuestions', JSON.stringify(securityQuestions));
+
+   fetch(`${baseUrl}/forgetPassword`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for form data
+    },
+  })
+  .then((response) => response.json())
+  .then(data => {
+      console.log('res aya after matching',data)
+      if(data.matched===true){
+        setToggleState(0);
+      }else{
+        alert("Please enter the right answers")
+      }
+    })
+    .catch(error => console.log("res error",error));
+
+}
+
+  const handleResetPassword = async () => {   
+    const formdata = new FormData();
+    formdata.append('email',userEmail );
+    formdata.append('password', newPassword);
+    try {
+      fetch(`${baseUrl}/resetPassword`, {
+        method: 'POST',
+        body: formdata,
+        headers: {
+          'Content-Type': 'multipart/form-data', // Use 'multipart/form-data' for form data
+        },
+      })
+      .then((response) => response.json())
+      .then(data => {
+          console.log('res aya after changing',data)
+          if(data.login===true){
+            let res=data.updated
+            AsyncStorage.setItem(
+              'user',
+              JSON.stringify({userId:res._id,email:res.email,password:res.password,name:res.name,profileImage:res.profileImage,phoneNumber:res.phoneNumber}),
+            );
+            updateCurrentUser({
+              userId:res._id,
+              email:res.email,
+              password:res.password,
+              name:res.name,
+              profileImage:res.profileImage,
+              phoneNumber:res.phoneNumber
+            })  
+            navigation.replace('Home');
+          }else{
+            alert("There was an issue in logging in,try again")
+          }
+        })
+        .catch(error => console.log("res error",error));
+  
+      const data = await response.json();
+      console.log('res after updating', data);
+      if(data.message==="This user name is not available."){
+      setErrorMessage(true)
+      setAlreadyExist(data.message)
+    }
+    else{
+    AsyncStorage.getItem("user").then((userData) => {
+      if (userData) {
+        const existingData = JSON.parse(userData);
+        const updatedData = { ...existingData, email: data.updated.email };
+        console.log("update async",updatedData)
+        AsyncStorage.setItem("user", JSON.stringify(updatedData));
+      }
+      navigation.navigate('Home');
+    });
+  }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
 
 
   return (
@@ -153,6 +196,7 @@ const handleForgetPassword = async () => {
                   setUserEmail(text);
                   setUserEmailError('');
                 }}
+                autoCapitalize='none'
               />
             </View>
             {userEmailError ? (
@@ -179,7 +223,7 @@ const handleForgetPassword = async () => {
             swapShadows // <- change zIndex of each shadow color
             style={[
               ContainerStyles.inputFieldNeomorphContainer,
-              {width: wp('70%')},
+              {width: wp('70%')}
             ]}>
             <View style={{flexDirection: 'row'}}>
               <TextInput
@@ -195,6 +239,7 @@ const handleForgetPassword = async () => {
                   setFirstSecurityAnswer(text);
                   setFirstSecurityAnswerError('');
                 }}
+                autoCapitalize='none'
               />
             </View>
             {firstSecurityAnswerError ? (
@@ -218,6 +263,7 @@ const handleForgetPassword = async () => {
             <View style={{flexDirection: 'row'}}>
               <TextInput
                 placeholder="Answer"
+              
                 style={[
                   TextFieldStyles.inputField,
                   {paddingHorizontal: wp('5%'), width: wp('70%')},
@@ -228,6 +274,7 @@ const handleForgetPassword = async () => {
                   setSecondSecurityAnswer(text);
                   setSecondSecurityAnswerError('');
                 }}
+               
               />
             </View>
             {secondSecurityAnswerError ? (
@@ -342,7 +389,8 @@ const handleForgetPassword = async () => {
           <TouchableOpacity
             onPress={() => {
               // userRegister();
-            navigation.navigate('Home')
+              handleResetPassword();
+            // navigation.navigate('Home')
     
             }}>
             <Neomorph

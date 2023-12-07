@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import {ImageBackground,Text,View,Image,TouchableOpacity, Modal,StyleSheet} from 'react-native';
 import AppColors from '../assets/colors/AppColors';
 import {useNavigation} from '@react-navigation/native';
@@ -8,10 +8,12 @@ import ContainerStyles from '../assets/Styles/ContainerStyles';
 import TextStyles from '../assets/Styles/TextStyles';
 import ImageStyles from '../assets/Styles/ImageStyles';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import AppContext from '../Context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomeDrawer = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+const {baseUrl,currentUser,updateCurrentUser}=useContext(AppContext)
   const OpenModal = () => {
     setIsModalVisible(true);
   };
@@ -20,23 +22,54 @@ const CustomeDrawer = props => {
   };
 
   const navigation = useNavigation();
+// {console.log('current user hai k nai',currentUser)}
 
+useEffect(() => {
+  // Check for existing user data
+  
+        updateCurrentUser({
+          userId: currentUser.userId,
+          email: currentUser.email,
+          password: currentUser.password,
+          name: currentUser.name,
+          profileImage: currentUser.profileImage,
+          phoneNumber: currentUser.phoneNumber,
+        });
+  
+ 
+}, []);
+
+const handleLogout = async () => {
+  try {
+    // Clear user data from AsyncStorage
+    await AsyncStorage.removeItem('user');
+
+    // Navigate to the login screen
+    navigation.navigate('Login');
+    closeModal();
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+};
   return (
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../assets/Images/image36.jpg')}
         style={{alignItems: 'center', height: hp('30')}}>
         <Image
-          source={require('../assets/Images/image13.png')}
+          source={{uri: baseUrl+currentUser.profileImage}}
+                  // source={require('../assets/Images/image13.png')}
+
           style={[ImageStyles.logoImageStyle]}
         />
-        <Text style={[TextStyles.whiteCenteredLable]}>Toqeer Fatima</Text>
+        <Text style={[TextStyles.whiteCenteredLable]}>{currentUser.name}</Text>
       </ImageBackground>
 <DrawerContentScrollView>
       <View
         style={{
           paddingLeft: 20,
         }}>
+        
         <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
@@ -47,7 +80,7 @@ const CustomeDrawer = props => {
             <Text style={[TextStyles.mediumTextStyle]}>Login</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
             navigation.navigate('Signup');
@@ -56,7 +89,7 @@ const CustomeDrawer = props => {
             <Ionicons name="settings-outline" size={22} />
             <Text style={[TextStyles.mediumTextStyle]}>Signup</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>  */}
         <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
@@ -164,7 +197,8 @@ const CustomeDrawer = props => {
                         justifyContent: 'space-between',
                       }}>
                       <TouchableOpacity onPress={() => {
-          navigation.goBack('Home');
+                        closeModal();
+          // navigation.goBack('Home');
         }}>
                         <View
                           style={{
@@ -182,7 +216,9 @@ const CustomeDrawer = props => {
 
                         </View>
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={()=>{
+                        handleLogout();
+                      }}>
                         <View
                           style={{
                             borderWidth: 1.5,
@@ -224,3 +260,4 @@ const styles = StyleSheet.create({
 });
 
 export default CustomeDrawer;
+8

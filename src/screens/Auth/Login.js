@@ -27,46 +27,77 @@ import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
-  const {baseUrl,updateCurrentUser}=useContext(AppContext);
+  const {baseUrl,updateCurrentUser,storeSelected}=useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [loginCheckDone, setLoginCheckDone] = useState(false);
+  const [userEmailError, setUserEmailError] = useState('');
+  const [userPasswordError, setUserPasswordError] = useState('');
+
 // auto login
-  useEffect(() => {
-    // Check for existing user data
-    const checkForUser = async () => {
-      try {
-        const userData = await AsyncStorage.getItem('user');
-        console.log('user stored in asyncStorage',userData)
-        if (userData) {
-          // Parse the stored data and update the user context
-          const parsedData = JSON.parse(userData);
-          updateCurrentUser({
-            userId: parsedData._id,
-            email: parsedData.email,
-            password: parsedData.password,
-            name: parsedData.name,
-            profileImage: parsedData.profileImage,
-            phoneNumber: parsedData.phoneNumber,
-          });
-          // Navigate to the home screen
-          navigation.navigate('Home');
-          console.log('parsed data',parsedData)
+  // useEffect(() => {
+  //   // Check for existing user data
+  //   const checkForUser = async () => {
+  //     try {
+  //       const userData = await AsyncStorage.getItem('user');
+  //       console.log('user stored in asyncStorage',userData)
+  //       if (userData) {
+  //         // Parse the stored data and update the user context
+  //         const parsedData = JSON.parse(userData);
+  //         updateCurrentUser({
+  //           userId: parsedData._id,
+  //           email: parsedData.email,
+  //           password: parsedData.password,
+  //           name: parsedData.name,
+  //           profileImage: parsedData.profileImage,
+  //           phoneNumber: parsedData.phoneNumber,
+  //         });
+  //         // Navigate to the home screen
+  //         navigation.navigate('Home');
+  //         console.log('parsed data',parsedData)
 
-        }
-      } catch (error) {
-        console.error('Error checking for user data:', error);
-      }
-    };
+  //       }
+  //     } catch (error) {
+  //       console.error('Error checking for user data:', error);
+  //     }
+  //   };
 
-    checkForUser();
-    updateCurrentUser();
-  }, []);
+  //   checkForUser();
+  //   updateCurrentUser();
+  // }, []);
 
   // functions
+  const isEmailValid = userEmail => {
+    const emailPattern = /\S+@\S+\.\S+/;
+    return emailPattern.test(userEmail);
+  };
+
+  const isPasswordValid = userPassword => {
+    return userPassword.length >= 8; // Minimum password length of 8 characters
+  };
+
   const userLogin = () => {
+    if (!userEmail) {
+      setUserEmailError('Please enter your email address.');
+    } else if (!isEmailValid(userEmail)) {
+      setUserEmailError('Please enter a valid email address.');
+    }
+    if (!userPassword) {
+      setUserPasswordError('Please enter your password.');
+    } else if (!isPasswordValid(userPassword)) {
+      setUserPasswordError('Password must be at least 8 characters long.');
+    }
+
+    if (
+      !userEmail ||
+      !userPassword ||
+      !isEmailValid(userEmail) ||
+      !isPasswordValid(userPassword)
+    ) {
+      return false;
+    }
     const formData = new FormData();
     formData.append('email', userEmail);
     formData.append('password', userPassword);
@@ -91,9 +122,16 @@ const Login = ({navigation}) => {
           }
           AsyncStorage.setItem(
             'user',
-            JSON.stringify(response.data.loggedInUser),
+            JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber}),
           );
-          updateCurrentUser({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber})
+          updateCurrentUser({
+            userId:response.data.loggedInUser._id,
+            email:response.data.loggedInUser.email,
+            password:response.data.loggedInUser.password,
+            name:response.data.loggedInUser.name,
+            profileImage:response.data.loggedInUser.profileImage,
+            phoneNumber:response.data.loggedInUser.phoneNumber
+          })
 
 
           navigation.navigate('Home'); 
@@ -108,19 +146,6 @@ const Login = ({navigation}) => {
   };
   
 
-  const resetPassword = () => {
-    if (userEmail != null) {
-    } else {
-      alert('Please Enter a valid email.');
-    }
-  };
-
-  // useEffect(() => {
-  //   let currentUserStatus = AsyncStorage.getItem('user');
-  //   if (currentUserStatus) {
-  //     navigation.navigate('Login');
-  //   }
-  // }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <BackButtonHeader navigation={navigation} />
@@ -145,9 +170,13 @@ const Login = ({navigation}) => {
               autoCapitalize="none"
               onChangeText={text => {
                 setUserEmail(text);
+                setUserEmailError('');
               }}
             />
           </View>
+          {userEmailError ? (
+              <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
+            ) : null}
         </Neomorph>
 
         <Neomorph
@@ -169,6 +198,7 @@ const Login = ({navigation}) => {
               secureTextEntry={passwordVisible}
               onChangeText={text => {
                 setUserPassword(text);
+                setUserPasswordError('');
               }}
             />
              <TouchableOpacity
@@ -183,6 +213,9 @@ const Login = ({navigation}) => {
                 />
               </TouchableOpacity>
           </View>
+          {userPasswordError ? (
+              <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
+            ) : null}
         </Neomorph>
 
         <TouchableOpacity
