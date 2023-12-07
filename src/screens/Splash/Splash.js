@@ -36,9 +36,12 @@ const Splash = ({navigation}) => {
             phoneNumber: parsedData.phoneNumber,
           });
           // Navigate to the home screen
-          navigation.navigate('Home');
+          navigation.navigate('Home'); 
           console.log('parsed data',parsedData)
 
+        }
+        else{
+          navigation.navigate('Login');
         }
       } catch (error) {
         console.error('Error checking for user data:', error);

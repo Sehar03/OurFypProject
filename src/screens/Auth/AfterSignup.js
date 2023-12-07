@@ -255,6 +255,7 @@ const AfterSignup = ({navigation}) => {
                   setFirstSecurityAnswer(text);
                   setFirstSecurityAnswerError('');
                 }}
+                autoCapitalize='none'
               />
             </View>
             {firstSecurityAnswerError ? (
@@ -287,6 +288,7 @@ const AfterSignup = ({navigation}) => {
                   setSecondSecurityAnswer(text);
                   setSecondSecurityAnswerError('');
                 }}
+                
               />
             </View>
             {secondSecurityAnswerError ? (

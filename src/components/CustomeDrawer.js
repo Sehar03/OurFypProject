@@ -9,6 +9,7 @@ import TextStyles from '../assets/Styles/TextStyles';
 import ImageStyles from '../assets/Styles/ImageStyles';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import AppContext from '../Context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomeDrawer = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -37,6 +38,19 @@ useEffect(() => {
   
  
 }, []);
+
+const handleLogout = async () => {
+  try {
+    // Clear user data from AsyncStorage
+    await AsyncStorage.removeItem('user');
+
+    // Navigate to the login screen
+    navigation.navigate('Login');
+    closeModal();
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+};
   return (
     <View style={{flex: 1}}>
       <ImageBackground
@@ -55,6 +69,7 @@ useEffect(() => {
         style={{
           paddingLeft: 20,
         }}>
+        
         <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
@@ -65,7 +80,7 @@ useEffect(() => {
             <Text style={[TextStyles.mediumTextStyle]}>Login</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
             navigation.navigate('Signup');
@@ -74,7 +89,7 @@ useEffect(() => {
             <Ionicons name="settings-outline" size={22} />
             <Text style={[TextStyles.mediumTextStyle]}>Signup</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>  */}
         <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
@@ -182,7 +197,8 @@ useEffect(() => {
                         justifyContent: 'space-between',
                       }}>
                       <TouchableOpacity onPress={() => {
-          navigation.goBack('Home');
+                        closeModal();
+          // navigation.goBack('Home');
         }}>
                         <View
                           style={{
@@ -200,7 +216,9 @@ useEffect(() => {
 
                         </View>
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={()=>{
+                        handleLogout();
+                      }}>
                         <View
                           style={{
                             borderWidth: 1.5,
@@ -242,3 +260,4 @@ const styles = StyleSheet.create({
 });
 
 export default CustomeDrawer;
+8
