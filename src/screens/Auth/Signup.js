@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -82,9 +81,7 @@ const Signup = ({navigation}) => {
    
     axios({
       method: 'post',
-
       url: `${baseUrl}/signup`,
-
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })

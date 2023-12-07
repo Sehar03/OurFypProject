@@ -101,17 +101,25 @@ const Login = ({navigation}) => {
     const formData = new FormData();
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-
+  
     axios({
       method: 'post',
-
       url: `${baseUrl}/login`,
-
       data: formData,
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
         if (response.data.match == true) {
+
+          const loggedInUser = response.data.loggedInUser;
+  
+          // Check user status before allowing login
+          if (loggedInUser.status === 1) {
+            AsyncStorage.setItem('user', JSON.stringify(loggedInUser));
+            navigation.navigate('Home');
+          } else {
+            alert('User is deactivated. Please contact support.');
+          }
           AsyncStorage.setItem(
             'user',
             JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber}),
@@ -136,6 +144,7 @@ const Login = ({navigation}) => {
         console.log(response);
       });
   };
+  
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
