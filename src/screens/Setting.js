@@ -24,6 +24,7 @@ import ProfileHeader from '../components/headers/ProfileHeader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconStyles from '../assets/Styles/IconStyles';
 import TextStyles from '../assets/Styles/TextStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Setting = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -33,6 +34,19 @@ const Setting = ({navigation}) => {
   };
   const closeModal = () => {
     setIsModalVisible(false);
+  };
+//// functions
+  const handleLogout = async () => {
+    try {
+      // Clear user data from AsyncStorage
+      await AsyncStorage.removeItem('user');
+  
+      // Navigate to the login screen
+      navigation.navigate('Login');
+      closeModal();
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
@@ -237,7 +251,9 @@ const Setting = ({navigation}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={()=>{
+                        closeModal();
+                      }}>
                         <View
                           style={{
                             borderWidth: 1.5,
@@ -253,7 +269,9 @@ const Setting = ({navigation}) => {
                           <Text style={{color:AppColors.primary,fontFamily:"Poppins-SemiBold"}}>Cancel</Text>
                         </View>
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={()=>{
+                        handleLogout();
+                      }}>
                         <View
                           style={{
                             borderWidth: 1.5,

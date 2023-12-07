@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useContext} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -12,14 +12,51 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import AppContext from '../../Context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
-  //
+  const {updateCurrentUser}=useContext(AppContext)
+  //auto login
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('Login');
-    }, 2000);
+    // Check for existing user data
+    const checkForUser = async () => {
+      try {
+        const userData = await AsyncStorage.getItem('user');
+        console.log('user stored in asyncStorage',userData)
+        if (userData) {
+          // Parse the stored data and update the user context
+          const parsedData = JSON.parse(userData);
+          updateCurrentUser({
+            userId: parsedData._id,
+            email: parsedData.email,
+            password: parsedData.password,
+            name: parsedData.name,
+            profileImage: parsedData.profileImage,
+            phoneNumber: parsedData.phoneNumber,
+          });
+          // Navigate to the home screen
+          navigation.navigate('Home'); 
+          console.log('parsed data',parsedData)
+
+        }
+        else{
+          navigation.navigate('Login');
+        }
+      } catch (error) {
+        console.error('Error checking for user data:', error);
+      }
+    };
+
+    checkForUser();
+    // updateCurrentUser();
+   
   }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     navigation.navigate('Login');
+  //   }, 2000);
+  // }, []);
 
   return (
     <SafeAreaView

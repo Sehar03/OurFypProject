@@ -22,11 +22,9 @@ const SmallCard = ({ navigation }) => {
         console.error('Error fetching categories:', error);
       }
     };
-
-    // Call the function when the component mounts
     fetchCategories();
-  }, []); // Empty dependency array means this effect runs once when the component mounts
-
+  }, []);
+  
   return (
     <FlatList
       data={allCategories}
