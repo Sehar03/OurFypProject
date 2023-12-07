@@ -51,6 +51,7 @@ const AfterSignup = ({navigation}) => {
   const [firstSecurityAnswerError, setFirstSecurityAnswerError] = useState('');
   const [secondSecurityAnswerError, setSecondSecurityAnswerError] =
     useState('');
+
   //FUNCTIONS
   const isValidPhoneNumber = customerPhoneNumber => {
     const regex = /^(\+92|0)(3[0-9]{9})$/;

@@ -16,17 +16,15 @@ const SmallCard = ({ navigation }) => {
     // Function to fetch categories from the backend
     const fetchCategories = async () => {
       try {
-        const response = await axios.post('http://192.168.1.25:8888/viewAllCategories');
+        const response = await axios.post(`${baseUrl}/viewAllCategories`);
         setAllCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
-
-    // Call the function when the component mounts
     fetchCategories();
-  }, []); // Empty dependency array means this effect runs once when the component mounts
-
+  }, []);
+  
   return (
     <FlatList
       data={allCategories}
