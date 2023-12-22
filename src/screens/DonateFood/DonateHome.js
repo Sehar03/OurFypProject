@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaView, View ,TouchableOpacity, Text} from 'react-native'
 import MainHeader from '../../components/headers/MainHeader'
 import { Image } from 'react-native'
@@ -8,8 +8,10 @@ import AppColors from '../../assets/colors/AppColors'
 import { Neomorph } from 'react-native-neomorph-shadows'
 import ContainerStyles from '../../assets/Styles/ContainerStyles'
 import TextStyles from '../../assets/Styles/TextStyles'
+import AppContext from '../../Context/AppContext'
 
 const DonateHome = ({navigation}) => {
+  const {storeSelectedDonationState}=useContext(AppContext);
   return (
 <SafeAreaView style={{backgroundColor:AppColors.white,flex:1}}>
   <MainHeader navigation={navigation} item="Donate Food"/> 
@@ -19,10 +21,15 @@ const DonateHome = ({navigation}) => {
           />
           <View style={{alignItems:"center",flexDirection:"row",justifyContent:"space-evenly"}}>
             <TouchableOpacity onPress={()=>{
-              navigation.navigate('Donor',{
+              storeSelectedDonationState({
                 imageUri:require('../../assets/Images/donate2.jpg'),
-                name:'Donor',
+                name:'Donor', 
               })
+              navigation.navigate('Donor');
+              // navigation.navigate('Donor',{
+              //   imageUri:require('../../assets/Images/donate2.jpg'),
+              //   name:'Donor',
+              // })
             }}>
           <Neomorph
             darkShadowColor={AppColors.primary}
@@ -36,7 +43,12 @@ const DonateHome = ({navigation}) => {
           </Neomorph>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>{
-            navigation.navigate('Recipient',{imageUri:require('../../assets/Images/donate2.jpg')})
+                   storeSelectedDonationState({
+                    imageUri:require('../../assets/Images/donate4.webp'),
+                    name:'Recipient', 
+                  })
+                  navigation.navigate('Recipient');
+            // navigation.navigate('Recipient',{imageUri:require('../../assets/Images/donate2.jpg')})
           }}>
           <Neomorph
             darkShadowColor={AppColors.primary}

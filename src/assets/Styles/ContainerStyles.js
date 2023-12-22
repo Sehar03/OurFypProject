@@ -303,16 +303,7 @@ const ContainerStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  touchableOpacityNeomorphContainer2: {
-    shadowRadius: 6,
-    backgroundColor: AppColors.primary,
-    borderRadius: wp('3%'),
-    height: hp('7%'),
-    width: wp('92%'),
-    marginVertical: hp('1.4%'),
-    shadowOpacity: 0.2,
-    marginLeft: wp('4'),
-  },
+
   cartNeomorph: {
     shadowRadius: 3,
     shadowOpacity: 0.1,

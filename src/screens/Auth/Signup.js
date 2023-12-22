@@ -90,8 +90,8 @@ const Signup = ({navigation}) => {
           // const userId=response.data.newUser._id;
           // console.log('userid',userId);
 
-          AsyncStorage.setItem('user', JSON.stringify({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name}));
-          updateCurrentUser({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name})
+          AsyncStorage.setItem('user', JSON.stringify({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name,addresses:response.data.newUser.addresses}));
+          updateCurrentUser({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name,addresses:response.data.newUser.addresses})
 
           navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {

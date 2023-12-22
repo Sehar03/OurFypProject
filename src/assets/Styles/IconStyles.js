@@ -44,7 +44,7 @@ const IconStyles = StyleSheet.create({
     },
 
     EditIcons:{
-        marginLeft:wp('5'),marginTop:hp('2'),color:AppColors.primary
+        marginLeft:wp('2'),marginTop:hp('2'),color:AppColors.primary
     },
     Trash:{
         marginLeft:wp('2'),
