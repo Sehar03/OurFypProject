@@ -11,8 +11,8 @@ import {
 import AppContext from '../../Context/AppContext';
 import DonationCard from '../../components/Cards/DonationCard';
 const Recipient = ({route,navigation}) => {
-  const{imageUri}= route.params
-  const {donatedData} = useContext(AppContext);
+  // const{imageUri}= route.params
+  const {donatedData,selectedDonationState} = useContext(AppContext);
   return (
    <SafeAreaView style={{flex:1,backgroundColor:AppColors.white}}>
     <StatusBar
@@ -22,7 +22,7 @@ const Recipient = ({route,navigation}) => {
       />
 
       <ImageBackground
-        source={imageUri}
+        source={selectedDonationState.imageUri}
         style={{height: hp('28%'), width: wp('100%')}}>
         <View
           style={{
@@ -41,7 +41,7 @@ const Recipient = ({route,navigation}) => {
           TextStyles.leftMediumText,
           {fontSize: hp('4%'), color: AppColors.primary, marginLeft: wp('10%')},
         ]}>
-        Recipient
+      {selectedDonationState.name}
       </Text>
       <Text style={[TextStyles.whiteCenteredLable,{color:"black"}]}>Donated Food Details</Text>
       <FlatList

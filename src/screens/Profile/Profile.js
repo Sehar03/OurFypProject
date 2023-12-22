@@ -99,9 +99,16 @@ const Profile = ({navigation}) => {
         name: data.updatedUser.name,
         profileImage: data.updatedUser.profileImage,
         phoneNumber: data.updatedUser.phoneNumber,
+        addresses: data.updatedUser.addresses,
       });
      
-      await AsyncStorage.setItem('user', JSON.stringify(data));
+      await AsyncStorage.setItem('user', JSON.stringify( {userId: data.updatedUser._id,
+        email: data.updatedUser.email,
+        password: data.updatedUser.password,
+        name: data.updatedUser.name,
+        profileImage: data.updatedUser.profileImage,
+        phoneNumber: data.updatedUser.phoneNumber,
+        addresses: data.updatedUser.addresses,}));
       navigation.navigate('Profile');
     } else {
       console.log('Error in response: ', data);
@@ -222,49 +229,6 @@ const Profile = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        {/* <Text style={[TextStyles.profileSimpleText]}>Connected accounts</Text>
-
-      <View style={{ marginTop: hp('2'), alignItems: 'center' }}>
-        <Neomorph
-          darkShadowColor={AppColors.Gray}
-          lightShadowColor={AppColors.darkgray}
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={ContainerStyles.NeomorphContainer}>
-          <View style={{ flexDirection: 'row', margin: hp('3.5') }}>
-            <TouchableOpacity>
-              <MaterialIcons
-                name="facebook"
-                size={20}
-                color={AppColors.facebook}
-              />
-            </TouchableOpacity>
-
-            <Text style={[TextStyles.simpleText,{marginLeft:wp('3')}]}>Facebook</Text>
-          </View>
-        </Neomorph>
-      </View>
-
-      <View style={{ marginTop: hp('2'), alignItems: 'center' }}>
-        <Neomorph
-          darkShadowColor={AppColors.Gray}
-          lightShadowColor={AppColors.darkgray}
-          // inner // <- enable shadow inside of neomorph
-          swapShadows // <- change zIndex of each shadow color
-          style={ContainerStyles.NeomorphContainer}>
-          <View style={{ flexDirection: 'row', margin: hp('3.5') }}>
-            <TouchableOpacity style={{}}>
-              <FontAwesome
-                name="google"
-                size={17}
-                color={AppColors.facebook}
-              />
-            </TouchableOpacity>
-
-            <Text style={[TextStyles.simpleText,{marginLeft:wp('5')}]}>Google</Text>
-          </View>
-        </Neomorph>
-      </View> */}
       </View>
     </SafeAreaView>
   );

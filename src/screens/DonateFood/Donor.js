@@ -17,7 +17,6 @@ import {
 import TextStyles from '../../assets/Styles/TextStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import FloatingLabelInput from '../../components/FloatingLabelInput';
-import {TouchableHighlight} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
@@ -30,28 +29,73 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Donor = ({navigation, route}) => {
   // states
-  const {imageUri, name} = route.params;
+  const {storeInDonatedData, baseUrl,storeSelectedScreenForAddress,selectedDonationState,donorAddress} = useContext(AppContext);
+  // const {imageUri, name} = route.params;
   const [donorName, setDonorName] = useState('');
   const [foodDetails, setFoodDetails] = useState('');
   const [distributionLocation, setDistributionLocation] = useState('');
   const [distributionDateTime, setDistributionDateTime] = useState('');
   const [donorPhoneNumber, setDonorPhoneNumber] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
-
-  const {storeInDonatedData} = useContext(AppContext);
-
+console.log('donorAddress',donorAddress)
+if(donorAddress){
+  setDistributionLocation(donorAddress);
+}
+console.log(distributionLocation)
   const showDateTimePicker = () => setModalVisible(true);
   const hideDateTimePicker = () => setModalVisible(false);
   const handleDateConfirm = date => {
     setDistributionDateTime(date);
     hideDateTimePicker();
   };
-  // // Set the data
-  // const dataToDonate = {
-  //   name: donorName,
-  //   // Other data fields
-  // };
-  // setDonatedData(dataToDonate);
+
+  
+  const saveDonationDetails = async () => {
+    try {
+      const formData = new FormData();
+
+      formData.append('donorName', donorName);
+      formData.append('foodDetails', foodDetails);
+      formData.append('distributionLocation', distributionLocation);
+      formData.append('distributionDateTime', distributionDateTime.toString());
+      formData.append('donorPhoneNumber', donorPhoneNumber);
+      // console.log('id from context', currentUser.userId);
+      // formData.append('_id', currentUser.userId);
+
+      const response = await fetch(`${baseUrl}/saveDonationDetails`, {
+        method: 'post',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`HTTP error! Status: ${response.status}`);
+        console.log(await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      if (data.message === 'Data Donation details saved successfully') {
+        storeInDonatedData({
+          donorName: donorName,
+          donorPhoneNumber: donorPhoneNumber,
+          foodDetails: foodDetails,
+          distributionLocation: distributionLocation,
+          distributionDateTime: distributionDateTime
+            ? distributionDateTime.toString()
+            : null,
+        });
+
+        navigation.navigate('DonateHome');
+      } else {
+        console.log('Error in response: ', data);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
 
   return (
     <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
@@ -62,7 +106,7 @@ const Donor = ({navigation, route}) => {
       />
 
       <ImageBackground
-        source={imageUri}
+        source={selectedDonationState.imageUri}
         style={{height: hp('28%'), width: wp('100%')}}>
         <View
           style={{
@@ -81,7 +125,7 @@ const Donor = ({navigation, route}) => {
           TextStyles.leftMediumText,
           {fontSize: hp('4%'), color: AppColors.primary, marginLeft: wp('10%')},
         ]}>
-        {name}
+        {selectedDonationState.name}
       </Text>
       <ScrollView>
         <Text style={[TextStyles.donorLabel]}>Donor Name :</Text>
@@ -183,12 +227,11 @@ const Donor = ({navigation, route}) => {
               />
             </View>
           </Neomorph>
-          <TouchableOpacity onPress={()=>{
-
-            navigation.navigate('AddAddress')
-
-          }} >
-
+          <TouchableOpacity
+            onPress={() => {
+            storeSelectedScreenForAddress('Donor');
+            navigation.navigate('AddAddress');
+            }}>
             <Ionicons
               name="location"
               size={wp('10%')}
@@ -226,7 +269,7 @@ const Donor = ({navigation, route}) => {
               />
             </View>
           </Neomorph>
-          <TouchableOpacity  onPress={showDateTimePicker}>
+          <TouchableOpacity onPress={showDateTimePicker}>
             <MaterialIcons
               name="access-time"
               size={wp('10%')}
@@ -234,26 +277,30 @@ const Donor = ({navigation, route}) => {
             />
           </TouchableOpacity>
           <DateTimePickerModal
-              isVisible={isModalVisible}
-              mode="datetime"
-              onConfirm={handleDateConfirm}
-              onCancel={hideDateTimePicker}
-            />
+            isVisible={isModalVisible}
+            mode="datetime"
+            onConfirm={handleDateConfirm}
+            onCancel={hideDateTimePicker}
+          />
         </View>
       </ScrollView>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <TouchableOpacity
           onPress={() => {
-            let donationDetailObject = {
-              name: donorName,
-              phone: donorPhoneNumber,
-              details: foodDetails,
-              location: distributionLocation,
-              dateTime: distributionDateTime ? distributionDateTime.toString() : null,
-            };
-            storeInDonatedData(donationDetailObject);
-            console.log(donationDetailObject);
-          }}>
+            saveDonationDetails();
+          }}
+          // onPress={() => {
+          //   let donationDetailObject = {
+          //     name: donorName,
+          //     phone: donorPhoneNumber,
+          //     details: foodDetails,
+          //     location: distributionLocation,
+          //     dateTime: distributionDateTime ? distributionDateTime.toString() : null,
+          //   };
+          //   storeInDonatedData(donationDetailObject);
+          //   console.log(donationDetailObject);
+          // }}
+        >
           <Neomorph
             darkShadowColor="white"
             lightShadowColor="white"
