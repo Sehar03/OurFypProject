@@ -161,7 +161,7 @@ const AfterSignup = ({navigation}) => {
       }
     } catch (error) {
       console.log('Error:', error);
-    } z
+    } 
   };
 
   return (

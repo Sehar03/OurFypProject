@@ -64,7 +64,7 @@ const handleLogout = async () => {
         />
         <Text style={[TextStyles.whiteCenteredLable]}>{currentUser.name}</Text>
       </ImageBackground>
-<DrawerContentScrollView>
+      <DrawerContentScrollView>
       <View
         style={{
           paddingLeft: 20,
@@ -123,7 +123,6 @@ const handleLogout = async () => {
             <Text style={[TextStyles.mediumTextStyle]}>AfterSignUp</Text>
           </View>
         </TouchableOpacity>
-      {/* yahan tak */}
 
         <TouchableOpacity
           style={{paddingVertical: 15}}
@@ -198,7 +197,7 @@ const handleLogout = async () => {
                       }}>
                       <TouchableOpacity onPress={() => {
                         closeModal();
-          // navigation.goBack('Home');
+       
         }}>
                         <View
                           style={{
@@ -260,4 +259,3 @@ const styles = StyleSheet.create({
 });
 
 export default CustomeDrawer;
-8

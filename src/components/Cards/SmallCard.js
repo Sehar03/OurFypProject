@@ -8,13 +8,11 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 
 const SmallCard = ({ navigation }) => {
-
-  const { storeSelectedSubCategoryFeature,baseUrl } = useContext(AppContext);
+  const { storeSelectedSubCategoryFeature, baseUrl, storeUpdateCategoryName } = useContext(AppContext);
   const [allCategories, setAllCategories] = useState([]);
 
   useEffect(() => {
-    // Function to fetch categories from the backend
-    const fetchCategories = async () => {
+    const viewAllCategories = async () => {
       try {
         const response = await axios.post(`${baseUrl}/viewAllCategories`);
         setAllCategories(response.data);
@@ -22,9 +20,9 @@ const SmallCard = ({ navigation }) => {
         console.error('Error fetching categories:', error);
       }
     };
-    fetchCategories();
+    viewAllCategories();
   }, []);
-  
+
   return (
     <FlatList
       data={allCategories}
@@ -33,7 +31,13 @@ const SmallCard = ({ navigation }) => {
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => {
           storeSelectedSubCategoryFeature('SubCategory');
-          navigation.navigate('FurtherScreens', { categoryName: item.title });
+          storeUpdateCategoryName({
+          categoryName: item.title,
+          })
+          navigation.navigate('FurtherScreens', {
+            categoryName: item.title
+          });
+
         }}>
           <Neomorph
             darkShadowColor="#A9B7C0"
@@ -41,7 +45,7 @@ const SmallCard = ({ navigation }) => {
             swapShadows
             style={ContainerStyles.smallCategoriesNeomorphStyle}
           >
-            <Image source={{ uri: baseUrl+item.categoryImage }} style={{ height: hp('10'), width: wp('30'), marginTop: hp('2'), marginLeft: wp('0') }} />
+            <Image source={{ uri: baseUrl + item.categoryImage }} style={{ height: hp('10'), width: wp('30'), marginTop: hp('2'), marginLeft: wp('0') }} />
           </Neomorph>
           <Text style={[TextStyles.smallText, { marginTop: 7 }]}>{item.title}</Text>
         </TouchableOpacity>

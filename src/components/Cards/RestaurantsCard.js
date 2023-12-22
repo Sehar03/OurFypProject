@@ -13,7 +13,7 @@ import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import AppContext from '../../Context/AppContext';
 const RestaurantsCard = ({item,navigation,route},props) => {
-  const { storeSelectedRestaurants} = useContext(AppContext);
+  const { storeSelectedRestaurants,baseUrl} = useContext(AppContext);
   return (
     <SafeAreaView
     style={{flex: 1, backgroundColor: AppColors.white,}}>
@@ -27,7 +27,7 @@ const RestaurantsCard = ({item,navigation,route},props) => {
     }}>
 
       <ImageBackground
-        source={item.uri}
+        source={{ uri: baseUrl+ item.restaurantImage}}
         style={{height: hp('26%'), width: wp('92%')}}
         imageStyle={{borderRadius: hp('2%'), marginVertical: hp('2%')}}>
         <View style={[ContainerStyles.tabScreenTextContainer]}>
@@ -46,7 +46,7 @@ const RestaurantsCard = ({item,navigation,route},props) => {
         </View>
       </ImageBackground>
     </TouchableOpacity>
-    <Text style={[TextStyles.leftText]}>{item.title}</Text>
+    <Text style={[TextStyles.leftText]}>{item.restaurantName}</Text>
     <Text style={{marginLeft:wp('4%'),fontFamily:"Poppins-Regular"}}>$ . {item.category}</Text>
     <View style={{flexDirection:"row"}}>
     <MaterialCommunityIcons
