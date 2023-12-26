@@ -46,7 +46,7 @@ const AddAddress = ({navigation}) => {
   }, []);
 
   // renders
-  const {baseUrl,updateCurrentUser,currentUser,selectedScreenForAddress,storeDonorAddress}=useContext(AppContext);
+  const {baseUrl,updateCurrentUser,currentUser,selectedScreenForAddress,}=useContext(AppContext);
   const [streetName, setStreetName] = useState('');
   const [elaqa, setElaqa] = useState('');
   const [mLat, setMLat] = useState(0);
@@ -93,7 +93,7 @@ const AddAddress = ({navigation}) => {
 
       const formattedAddress = addresses[0]?.formattedAddress || '';
       setAddress(formattedAddress);
-      storeDonorAddress(address);
+      // storeDonorAddress(address);
       if (formattedAddress.length > 0) {
         setLoading(false); // Assuming the loading is done on the first successful attempt
       }
@@ -449,7 +449,7 @@ navigation.navigate('Address')
                   onPress={() => {
                     // Check if onSaveAddress exists in navigation params
     if (selectedScreenForAddress=='Donor') {
-      navigation.navigate('Donor', { address: address });
+      navigation.navigate('Donor',{address:address});
     } else {
       saveAddress();
     }

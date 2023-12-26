@@ -15,7 +15,7 @@ const DonationCard = ({navigation, item}) => {
         darkShadowColor={AppColors.primary}
         lightShadowColor={AppColors.darkgray}
         swapShadows // <- change zIndex of each shadow color
-        style={ContainerStyles.recipientNeomorphContainer}>
+        style={[ContainerStyles.recipientNeomorphContainer,{ height: hp('32%')}]}>
         <View style={{flexDirection: 'row'}}>
           <Text style={[TextStyles.leftText, {color: 'purple'}]}>
             Donor Name :{' '}
@@ -25,7 +25,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('2.3%'), marginLeft: wp('2'), width: wp('42%')},
             ]}>
-            {item.name}
+            {item.donorName}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -41,7 +41,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('0.5%'), marginLeft: wp('2')},
             ]}>
-            {item.phone}
+            {item.donorPhoneNumber}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -58,7 +58,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('0.5%'), marginLeft: wp('2'), width: wp('54%')},
             ]}>
-            {item.details}
+            {item.foodDetails}
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -74,7 +74,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('0.5%'), marginLeft: wp('2'), width: wp('42%')},
             ]}>
-            {item.location}
+            {item.distributionLocation}
           </Text>
         </View>
 
@@ -91,7 +91,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('0.5%'), marginLeft: wp('2') ,width: wp('42%')},
             ]}>
-            {item.dateTime.toString()}
+            {item.distributionDateTime}
           </Text>
         </View>
       </Neomorph>
