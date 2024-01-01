@@ -9,12 +9,20 @@ import { Neomorph } from 'react-native-neomorph-shadows'
 import ContainerStyles from '../../assets/Styles/ContainerStyles'
 import TextStyles from '../../assets/Styles/TextStyles'
 import AppContext from '../../Context/AppContext'
+import LottieView from 'lottie-react-native'
+import DonateHomeHeader from '../../components/headers/DonateHomeHeader'
 
 const DonateHome = ({navigation}) => {
   const {storeSelectedDonationState}=useContext(AppContext);
   return (
 <SafeAreaView style={{backgroundColor:AppColors.white,flex:1}}>
-  <MainHeader navigation={navigation} item="Donate Food"/> 
+  <DonateHomeHeader navigation={navigation} item="Donate Food"/> 
+  {/* <LottieView
+              source={require('../../assets/animations/thanks.json')}
+              autoPlay
+              loop
+              style={{width: 200, height: 200}}
+            /> */}
   <Image
             source={require('../../assets/Images/donate.jpg')} // Specify the source of the image
             style={[ImageStyles.loginImage, {alignSelf:"center"}]} // Set the desired width and height of the image

@@ -1,4 +1,4 @@
-import React,  {useState} from 'react';;
+import React, {useState} from 'react';
 const AppContext = React.createContext();
 
 export const AppProvider = ({children}) => {
@@ -19,7 +19,10 @@ export const AppProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
-
+  
+  const storeSelectedFoodFeature = val => {
+    setSelectedFoodFeature(val);
+  };
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
   };
@@ -27,6 +30,40 @@ export const AppProvider = ({children}) => {
   const storeSelectedFoodFeature = val => {
     setSelectedFoodFeature(val);
   };
+  const storeSelectedSubCategoryFeature = val => {
+    setSelectedSubCategoryFoodFeature(val);
+  };
+  const storeSelectedRestaurants = val => {
+    setSelectedRestaurants(val);
+  };
+  const storeIsAddedIntoSchedule = val => {
+    setIsAddedIntoSchedule(val);
+  };
+  const storeInSchedule = item => {
+    setMySchedule(oldSchedule => [...oldSchedule, item]);
+  };
+  const storeIsAddedIntoCart = val => {
+    setIsAddedIntoCart(val);
+  };
+  const storeInCart = item => {
+    setMyCart(oldCart => [...oldCart, item]);
+  };
+  const ScheduleEmpty = item => {
+    setMySchedule([]);
+  };
+  const storeInDonatedData = item => {
+    setDonatedData(oldDonatedData => [...oldDonatedData, item]);
+  };
+  const storeIsAddedIntoDonatedData = val => {
+    setIsAddedIntoDonatedData(val);
+  };
+  const updateCurrentUser = obj => {
+    setCurrentUser(obj);
+  };
+  const storeLoggedInUser = obj => {
+    setLoggedInUser(obj);
+  };
+  
   const storeSelectedSubCategoryFeature = val => {
     setSelectedSubCategoryFoodFeature(val);
   };
@@ -110,6 +147,8 @@ setDonorAddress(val);
         storeSelectedScreenForAddress,
         storeSelectedDonationState,
         storeDonorAddress,
+        storeSelectedScreenForAddress,
+        storeSelectedDonationState,
       }}>
       {children}
     </AppContext.Provider>

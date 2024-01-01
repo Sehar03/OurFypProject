@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
-import { FlatList, ImageBackground, StatusBar, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native'
+import React, {useContext, useEffect, useState} from 'react';
+import {FlatList, ImageBackground, StatusBar, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
 import TextStyles from '../../assets/Styles/TextStyles';
@@ -10,12 +10,46 @@ import {
 } from 'react-native-responsive-screen';
 import AppContext from '../../Context/AppContext';
 import DonationCard from '../../components/Cards/DonationCard';
-const Recipient = ({route,navigation}) => {
+const Recipient = ({route, navigation}) => {
   // const{imageUri}= route.params
-  const {donatedData,selectedDonationState} = useContext(AppContext);
+  const {donatedData, selectedDonationState, baseUrl, currentUser} =
+    useContext(AppContext);
+  const [donationData, setDonationData] = useState([]);
+
+  useEffect(() => {
+    // Fetch donation data for the current user from MongoDB
+    const fetchDonationData = async () => {
+      try {
+        const formData = new FormData();
+        console.log('id from context', currentUser.userId);
+        formData.append('userId', currentUser.userId);
+        const response = await fetch(`${baseUrl}/getDonationData`, {
+          method: 'post',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          console.error(`HTTP error! Status: ${response.status}`);
+          console.log(await response.text());
+          return;
+        }
+
+        const data = await response.json();
+        setDonationData(data.donationData);
+      } catch (error) {
+        console.error('Error fetching donation data:', error);
+      }
+    };
+
+    fetchDonationData();
+  }, [currentUser]);
+
   return (
-   <SafeAreaView style={{flex:1,backgroundColor:AppColors.white}}>
-    <StatusBar
+    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent={true}
@@ -41,18 +75,20 @@ const Recipient = ({route,navigation}) => {
           TextStyles.leftMediumText,
           {fontSize: hp('4%'), color: AppColors.primary, marginLeft: wp('10%')},
         ]}>
-      {selectedDonationState.name}
+        {selectedDonationState.name}
       </Text>
-      <Text style={[TextStyles.whiteCenteredLable,{color:"black"}]}>Donated Food Details</Text>
+      <Text style={[TextStyles.whiteCenteredLable, {color: 'black'}]}>
+        Donated Food Details
+      </Text>
       <FlatList
-        data={donatedData}
+        data={donationData}
         renderItem={({item}) => {
-          return <DonationCard navigation={navigation} item={item} />
+          return <DonationCard navigation={navigation} item={item} />;
         }}
-      /> 
-{/* <Text>{name} </Text> */}
-   </SafeAreaView>
-  )
-}
+      />
+      {/* <Text>{name} </Text> */}
+    </SafeAreaView>
+  );
+};
 
-export default Recipient
+export default Recipient;
