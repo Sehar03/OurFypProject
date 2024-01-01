@@ -15,14 +15,12 @@ export const AppProvider = ({children}) => {
   const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
   const [donorAddress,setDonorAddress]=useState('');
-  const [baseUrl, setBaseUrl] = useState('http://192.168.0.127:8888');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.104:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
   
-  const storeSelectedFoodFeature = val => {
-    setSelectedFoodFeature(val);
-  };
+  
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
   };
@@ -33,70 +31,44 @@ export const AppProvider = ({children}) => {
   const storeSelectedSubCategoryFeature = val => {
     setSelectedSubCategoryFoodFeature(val);
   };
-  const storeSelectedRestaurants = val => {
-    setSelectedRestaurants(val);
-  };
+ 
   const storeIsAddedIntoSchedule = val => {
     setIsAddedIntoSchedule(val);
-  };
-  const storeInSchedule = item => {
-    setMySchedule(oldSchedule => [...oldSchedule, item]);
   };
   const storeIsAddedIntoCart = val => {
     setIsAddedIntoCart(val);
   };
-  const storeInCart = item => {
-    setMyCart(oldCart => [...oldCart, item]);
-  };
+ 
   const ScheduleEmpty = item => {
     setMySchedule([]);
-  };
-  const storeInDonatedData = item => {
-    setDonatedData(oldDonatedData => [...oldDonatedData, item]);
   };
   const storeIsAddedIntoDonatedData = val => {
     setIsAddedIntoDonatedData(val);
   };
-  const updateCurrentUser = obj => {
-    setCurrentUser(obj);
-  };
+  
   const storeLoggedInUser = obj => {
     setLoggedInUser(obj);
   };
   
-  const storeSelectedSubCategoryFeature = val => {
-    setSelectedSubCategoryFoodFeature(val);
-  };
+
   const storeSelectedRestaurants = val => {
     setSelectedRestaurants(val);
   };
-  const storeIsAddedIntoSchedule = val => {
-    setIsAddedIntoSchedule(val);
-  };
+ 
   const storeInSchedule = item => {
     setMySchedule(oldSchedule => [...oldSchedule, item]);
-  };
-  const storeIsAddedIntoCart = val => {
-    setIsAddedIntoCart(val);
   };
   const storeInCart = item => {
     setMyCart(oldCart => [...oldCart, item]);
   };
-  const ScheduleEmpty = item => {
-    setMySchedule([]);
-  };
+ 
   const storeInDonatedData = item => {
     setDonatedData(oldDonatedData => [...oldDonatedData, item]);
-  };
-  const storeIsAddedIntoDonatedData = val => {
-    setIsAddedIntoDonatedData(val);
   };
   const updateCurrentUser = obj => {
     setCurrentUser(obj);
   };
-  const storeLoggedInUser = obj => {
-    setLoggedInUser(obj);
-  };
+
 
   const storeSelectedImageUri = val => {
     setSelectedImageUri(val);
