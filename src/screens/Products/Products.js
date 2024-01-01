@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState,useEffect} from 'react';
 import {
   Text,
   SafeAreaView,
@@ -29,41 +29,27 @@ import {Image} from 'react-native-elements';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import DealCard from '../../components/Cards/DealCard';
 import AppContext from '../../Context/AppContext';
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
 
-const Popular = ({navigation}) => {
-  const [allPopularCards, setAllPopularCards] = useState([
-    {
-      uri: require('../../assets/Images/exclusiveDeal2.jpg'),
-      title: 'Exclusive Deal 2',
-      price: '350.00',
-    },
-    {
-      uri: require('../../assets/Images/burger2.webp'),
-      title: 'Chicken Zinger Burger',
-      price: '350.00',
-    },
-    {
-      uri: require('../../assets/Images/shawarma4.jpg'),
-      title: 'Chicken Zinger Paratha Roll',
-      price: '260.00',
-    },
-    {
-      uri: require('../../assets/Images/exclusiveDeal.jpg'),
-      title: 'Exclusive Deal 1',
-      price: '410.00',
-    },
-    {
-      uri: require('../../assets/Images/plainFries2.jpeg'),
-      title: 'Plain Fries',
-      price: '180.00',
-    },
-    {
-      uri: require('../../assets/Images/masalaFries.jpg'),
-      title: 'Masala Fries',
-      price: '180.00',
-    },
-  ]);
-
+const Popular = ({navigation,restaurant_id}) => {
+  const {baseUrl} = useContext(AppContext)
+  const [allPopularCards, setAllPopularCards] = useState([]);
+  const viewAllProducts = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/viewAll/${restaurant_id}`,
+      );
+      setAllPopularCards(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      viewAllProducts();
+    },[restaurant_id]),
+  );
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       {/* <ScrollView> */}
@@ -76,7 +62,7 @@ const Popular = ({navigation}) => {
           size={wp('8%')}
           style={IconStyles.fireIcon}
         />
-        <Text style={[TextStyles.leftMediumText]}>Popular</Text>
+        <Text style={[TextStyles.leftMediumText]}>Products</Text>
       </View>
       <Text style={[TextStyles.leftSmallText]}>Most ordered right now. </Text>
       <FlatList
@@ -92,38 +78,34 @@ const Popular = ({navigation}) => {
   );
 };
 // Strong pepsi deals
-const StrongPepsiDeals = ({navigation}) => {
-  const [allPepsiDealCards, setAllPepsiDealCards] = useState([
-    {
-      uri: require('../../assets/Images/exclusiveDeal.jpg'),
-      title: 'Pepsi Deal 1',
-      description: 'Chicken Patty Burger + 345ml Pepsi',
-      price: '850.00',
-    },
-    {
-      uri: require('../../assets/Images/exclusiveDeal2.jpg'),
-      title: 'Pepsi Deal',
-      description: 'Noddles+ Regular Fries + 345ml Pepsi',
-      price: '900.00',
-    },
-  ]);
+const StrongPepsiDeals = ({navigation,restaurant_id}) => {
+  const {baseUrl} = useContext(AppContext)
+  const [allPepsiDealCards, setAllPepsiDealCards] = useState([]);
+  const viewAllProducts = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/viewAllFoodDeals/${restaurant_id}`,
+      );
+      setAllPepsiDealCards(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      viewAllProducts();
+    },[restaurant_id]),
+  );  
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <View style={[ContainerStyles.productsContainerSeparator]}></View>
       <View style={{flexDirection: 'row'}}>
         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
-          Strong Pepsi Deals
+          Special Deals
         </Text>
-        {/* mai ne iss ko imort b saii kiya hai name b saii diya hai phr b invalid name prop ka error de rha` */}
-        {/* <Ionicons
-          name="sparkles" 
-          size={wp('6%')}                            
-          style={IconStyles.productsIcon}
-        /> */}
       </View>
       <FlatList
         data={allPepsiDealCards}
-        // scrollEnabled={false} // Disable the scroll behavior
         renderItem={({item}) => {
           return <DealCard navigation={navigation} item={item} />;
         }}
@@ -132,121 +114,121 @@ const StrongPepsiDeals = ({navigation}) => {
   );
 };
 
-const SummerDeals = ({navigation}) => {
-  const [allSummerDealCards, setAllSummerDealCards] = useState([
-    {
-      uri: require('../../assets/Images/paratha.jpeg'),
-      title: 'Summer Deal 7',
-      description: '2 parathay, 1 omelette, 1 sweet egg',
-      price: '780.00',
-    },
-    {
-      uri: require('../../assets/Images/paratha2.jpeg'),
-      title: 'Summer Deal 6',
-      description: '2 parathay , 1 omelette,2 Shami kabab',
-      price: '890.00',
-    },
-    {
-      uri: require('../../assets/Images/paratha3.webp'),
-      title: 'Summer Deal 8',
-      description: '2 parathay, 1 omelette, 1 sweet egg',
-      price: '1030.00',
-    },
-  ]);
-  return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <View style={[ContainerStyles.productsContainerSeparator]}></View>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
-          Summer Deals
-        </Text>
-        <MaterialCommunityIcons
-          name="fire"
-          size={wp('8%')}
-          style={IconStyles.fireIcon2}
-        />
-      </View>
-      <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
-        Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
-      </Text>
+// const SummerDeals = ({navigation}) => {
+//   const [allSummerDealCards, setAllSummerDealCards] = useState([
+//     {
+//       uri: require('../../assets/Images/paratha.jpeg'),
+//       title: 'Summer Deal 7',
+//       description: '2 parathay, 1 omelette, 1 sweet egg',
+//       price: '780.00',
+//     },
+//     {
+//       uri: require('../../assets/Images/paratha2.jpeg'),
+//       title: 'Summer Deal 6',
+//       description: '2 parathay , 1 omelette,2 Shami kabab',
+//       price: '890.00',
+//     },
+//     {
+//       uri: require('../../assets/Images/paratha3.webp'),
+//       title: 'Summer Deal 8',
+//       description: '2 parathay, 1 omelette, 1 sweet egg',
+//       price: '1030.00',
+//     },
+//   ]);
+//   return (
+//     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+//       <View style={[ContainerStyles.productsContainerSeparator]}></View>
+//       <View style={{flexDirection: 'row'}}>
+//         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
+//           Summer Deals
+//         </Text>
+//         <MaterialCommunityIcons
+//           name="fire"
+//           size={wp('8%')}
+//           style={IconStyles.fireIcon2}
+//         />
+//       </View>
+//       <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
+//         Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
+//       </Text>
 
-      <FlatList
-        data={allSummerDealCards}
-        // scrollEnabled={false} // Disable the scroll behavior
-        renderItem={({item}) => {
-          return <DealCard navigation={navigation} item={item} />;
-        }}
-      />
-    </SafeAreaView>
-  );
-};
+//       <FlatList
+//         data={allSummerDealCards}
+//         // scrollEnabled={false} // Disable the scroll behavior
+//         renderItem={({item}) => {
+//           return <DealCard navigation={navigation} item={item} />;
+//         }}
+//       />
+//     </SafeAreaView>
+//   );
+// };
 
-const BreakfastDeals = ({navigation}) => {
-  const [allBreakfastDealCards, setAllBreakfastDealCards] = useState([
-    {
-      uri: require('../../assets/Images/paratha.jpeg'),
-      title: 'Breakfat Deal 1',
-      description: '2 parathay, 1 omelette, 1 sweet egg',
-      price: '530.00',
-    },
-    {
-      uri: require('../../assets/Images/paratha2.jpeg'),
-      title: 'Breakfast Deal 2',
-      description: '2 parathay , 1 omelette,2 Shami kabab',
-      price: '690.00',
-    },
-    {
-      uri: require('../../assets/Images/paratha3.webp'),
-      title: 'Breakfast deal 3',
-      description: '2 parathay, 1 omelette, 1 sweet egg',
-      price: '780.00',
-    },
-  ]);
-  return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <View style={[ContainerStyles.productsContainerSeparator]}></View>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
-          Breakfast Deals
-        </Text>
-      </View>
-      <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
-        Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
-      </Text>
+// const BreakfastDeals = ({navigation}) => {
+//   const [allBreakfastDealCards, setAllBreakfastDealCards] = useState([
+//     {
+//       uri: require('../../assets/Images/paratha.jpeg'),
+//       title: 'Breakfat Deal 1',
+//       description: '2 parathay, 1 omelette, 1 sweet egg',
+//       price: '530.00',
+//     },
+//     {
+//       uri: require('../../assets/Images/paratha2.jpeg'),
+//       title: 'Breakfast Deal 2',
+//       description: '2 parathay , 1 omelette,2 Shami kabab',
+//       price: '690.00',
+//     },
+//     {
+//       uri: require('../../assets/Images/paratha3.webp'),
+//       title: 'Breakfast deal 3',
+//       description: '2 parathay, 1 omelette, 1 sweet egg',
+//       price: '780.00',
+//     },
+//   ]);
+//   return (
+//     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+//       <View style={[ContainerStyles.productsContainerSeparator]}></View>
+//       <View style={{flexDirection: 'row'}}>
+//         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
+//           Breakfast Deals
+//         </Text>
+//       </View>
+//       <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
+//         Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
+//       </Text>
 
-      <FlatList
-        data={allBreakfastDealCards}
-        // scrollEnabled={false} // Disable the scroll behavior
-        renderItem={({item}) => {
-          return <DealCard navigation={navigation} item={item} />;
-        }}
-      />
-    </SafeAreaView>
-  );
-};
+//       <FlatList
+//         data={allBreakfastDealCards}
+//         // scrollEnabled={false} // Disable the scroll behavior
+//         renderItem={({item}) => {
+//           return <DealCard navigation={navigation} item={item} />;
+//         }}
+//       />
+//     </SafeAreaView>
+//   );
+// };
 const Products = ({navigation, route}, props) => {
   const {
-    selectedSubCategoryFeature,
     selectedFoodFeature,
     selectedRestaurants,
     storeInSchedule,
   } = useContext(AppContext);
   if (
     selectedFoodFeature === 'Full Price Food' &&
-    selectedSubCategoryFeature === 'SubCategory' &&
     selectedRestaurants == 'Restaurants'
   ) {
     navigateToScreen = 'Cart';
     DesiredText = 'View Your Cart'; // Navigate to CartScreen
   } else if (
     selectedFoodFeature === 'ShareFood' &&
-    selectedSubCategoryFeature === 'SubCategory' &&
     selectedRestaurants == 'Restaurants'
   ) {
     navigateToScreen = 'ScheduleScreen';
     DesiredText = 'View Your Schedule'; // Navigate to ScheduleScreen
   }
-  const {imageUri, imageTitle, imageDeliveryTime} = route.params;
+  const {restaurantImage, restaurantName, imageDeliveryTime,restaurant_id} = route.params;
+  useEffect(() => {
+    console.log(restaurant_id);
+  }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <ScrollView>
@@ -256,11 +238,11 @@ const Products = ({navigation, route}, props) => {
           translucent={true}
         />
         <ImageBackground
-          source={imageUri}
+          source={{uri:restaurantImage}}
           style={{height: hp('20%'), width: wp('100%')}}>
           <ProductsBackButton navigation={navigation} />
         </ImageBackground>
-        <Text style={[TextStyles.leftText]}>{imageTitle}</Text>
+        <Text style={[TextStyles.leftText]}>{restaurantName}</Text>
         <View style={{flexDirection: 'row'}}>
           <MaterialIcons
             name="access-time"
@@ -271,10 +253,10 @@ const Products = ({navigation, route}, props) => {
             Delivery : {imageDeliveryTime}{' '}
           </Text>
         </View>
-        <Popular navigation={navigation} />
-        <StrongPepsiDeals navigation={navigation} />
-        <SummerDeals navigation={navigation} />
-        <BreakfastDeals navigation={navigation} />
+        <Popular navigation={navigation} restaurant_id={restaurant_id} />
+        <StrongPepsiDeals navigation={navigation} restaurant_id={restaurant_id}/>
+        {/* <SummerDeals navigation={navigation} />
+        <BreakfastDeals navigation={navigation} /> */}
       </ScrollView>
       <TouchableOpacity
         onPress={() => {

@@ -39,7 +39,7 @@ const TextFieldStyles = StyleSheet.create({
   instructionInputField: {
     width: wp('80%'),
     alignSelf: 'center',
-    height: hp('12'),
+    height: hp('8'),
     marginTop: hp('2%'),
   },
 });

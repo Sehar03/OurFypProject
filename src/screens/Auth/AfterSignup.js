@@ -52,7 +52,7 @@ const AfterSignup = ({navigation}) => {
   const [secondSecurityAnswerError, setSecondSecurityAnswerError] =
     useState('');
 
-    const [profileImageError,setProfuleImageError]=useState('')
+    const [profileImageError,setProfileImageError]=useState('')
 
   //FUNCTIONS
   const isValidPhoneNumber = customerPhoneNumber => {
@@ -83,6 +83,10 @@ const AfterSignup = ({navigation}) => {
 
   const uploadProfileImage = async () => {
     try {
+      if (!selectedImageUri) {
+        setProfileImageError('Please select a profile image.');
+      
+      }
       if (!customerPhoneNumber) {
         setPhoneNoError('*Required field');
       } else if (!isValidPhoneNumber(customerPhoneNumber)) {
@@ -94,7 +98,7 @@ const AfterSignup = ({navigation}) => {
       if (!secondSecurityAnswer) {
         setSecondSecurityAnswerError('*Required field');
       }
-      if (
+      if (!selectedImageUri||
         !customerPhoneNumber ||
         !isValidPhoneNumber(customerPhoneNumber) ||
         !firstSecurityAnswer ||
@@ -145,6 +149,8 @@ const AfterSignup = ({navigation}) => {
           name: data.registeredUser.name,
           profileImage: data.registeredUser.profileImage,
           phoneNumber: data.registeredUser.phoneNumber,
+          addresses:data.registeredUser.addresses,
+
         });
 
         await AsyncStorage.setItem('user', JSON.stringify({
@@ -154,6 +160,7 @@ const AfterSignup = ({navigation}) => {
           name: data.registeredUser.name,
           profileImage: data.registeredUser.profileImage,
           phoneNumber: data.registeredUser.phoneNumber,
+          addresses:data.registeredUser.addresses,
         }));
         navigation.navigate('Home');
       } else {
@@ -186,6 +193,9 @@ const AfterSignup = ({navigation}) => {
           <View style={[ContainerStyles.cameraIconView]}>
             <MaterialIcons name="camera-alt" size={23} color="white" />
           </View>
+          {profileImageError ? (
+              <Text style={[TextStyles.errorText,{marginLeft:wp('15')}]}>{profileImageError}</Text>
+            ) : null}
         </TouchableOpacity>
         <View style={{alignItems: 'center', marginTop: hp('5')}}>
           <Text style={[TextStyles.label, {marginRight: wp('32%')}]}>

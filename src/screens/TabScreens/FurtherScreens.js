@@ -7,6 +7,8 @@ import TabBarStyles from '../../assets/Styles/TabBarStyles';
 import TabScreensHeader from '../../components/headers/TabScreensHeader';
 import axios from 'axios';
 import AppContext from '../../Context/AppContext';
+import LottieView from 'lottie-react-native';
+import ContainerStyles from '../../assets/Styles/ContainerStyles';
 const Tab = createMaterialTopTabNavigator();
 
 const Pizza = ({ navigation, categoryName }) => {
@@ -19,7 +21,9 @@ const Pizza = ({ navigation, categoryName }) => {
       try {
         const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
         setAllPizzaCards(response.data);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error('Error fetching Products:', error);
         setLoading(false);
@@ -32,8 +36,13 @@ const Pizza = ({ navigation, categoryName }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       {loading ? (
-        <View>
-          <Text>Loading...</Text>
+        <View style={{}}>
+          <LottieView
+            source={require('../../assets/animations/Loading.json')}
+            autoPlay
+            loop
+            speed={1.8}
+            style={[ContainerStyles.LottieStyle]} />
         </View>
       ) : (
         <FlatList
@@ -60,7 +69,9 @@ const Burger = ({ navigation, categoryName }) => {
       try {
         const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
         setAllBurgerCards(response.data);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error('Error fetching Products:', error);
         setLoading(false);
@@ -73,9 +84,12 @@ const Burger = ({ navigation, categoryName }) => {
 
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       {loading ? (
-        <View>
-          <Text>Loading...</Text>
-        </View>
+        <LottieView
+          source={require('../../assets/animations/Loading.json')}
+          autoPlay
+          loop
+          speed={1.5}
+          style={[ContainerStyles.LottieStyle]} />
       ) : (
         <FlatList
           data={allBurgerCards.filter((restaurant) =>
@@ -102,7 +116,9 @@ const Shawarma = ({ navigation, categoryName }, props) => {
       try {
         const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
         setAlShawarmaCards(response.data);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       } catch (error) {
         console.error('Error fetching Products:', error);
         setLoading(false);
@@ -114,9 +130,13 @@ const Shawarma = ({ navigation, categoryName }, props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       {loading ? (
-        <View>
-          <Text>Loading...</Text>
-        </View>
+        <LottieView
+          source={require('../../assets/animations/Loading.json')}
+          autoPlay
+          loop
+          speed={1.5}
+          style={[ContainerStyles.LottieStyle]}
+        />
       ) : (
         <FlatList
           data={allShawarmaCards.filter((restaurant) =>
@@ -132,147 +152,136 @@ const Shawarma = ({ navigation, categoryName }, props) => {
 };
 
 // Biryani screen
-const Biryani = ({ navigation }, props) => {
-  const [allBiryaniCards, setAllBiryaniCards] = useState([
-    {
-      uri: require('../../assets/Images/biryani6.jpeg'),
-      title: 'Biryani King - Sialkoti Gate',
-      deliveryTime: '45 min',
-      category: "Biryani"
+const Biryani = ({ navigation, categoryName }) => {
+  const [allBiryaniCards, setAllBiryaniCards] = useState([]);
+  const { baseUrl } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
-    },
-    {
-      uri: require('../../assets/Images/biryani2.jpeg'),
-      title: 'Biryani King - Nikka Chowk',
-      deliveryTime: '25 min',
-      category: "Biryani"
-    },
-    {
-      uri: require('../../assets/Images/biryani3.jpeg'),
-      title: 'Biryani King - Sialkoti Gate',
-      deliveryTime: '40 min',
-      category: "Biryani"
-    },
-    {
-      uri: require('../../assets/Images/biryani4.jpeg'),
-      title: 'Biryani King - Sialkoti Gate',
-      deliveryTime: '35 min',
-      category: "Biryani"
-    },
-    {
-      uri: require('../../assets/Images/biryani5.jpeg'),
-      title: 'Biryani King - Sialkoti Gate',
-      deliveryTime: '25 min',
-      category: "Biryani"
-    },
-  ]);
+  useEffect(() => {
+    const viewAllRestaurants = async () => {
+      try {
+        const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
+        setAllBiryaniCards(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error('Error fetching Products:', error);
+        setLoading(false);
+      }
+    };
+    viewAllRestaurants();
+  }, [baseUrl]);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <FlatList
-        data={allBiryaniCards}
-        renderItem={({ item }) => {
-          return <RestaurantsCard navigation={navigation} item={item} />;
-        }}
-      />
+      {loading ? (
+        <LottieView
+          source={require('../../assets/animations/Loading.json')}
+          autoPlay
+          loop
+          speed={1.5}
+          style={[ContainerStyles.LottieStyle]}
+        />
+      ) : (
+        <FlatList
+          data={allBiryaniCards.filter((restaurant) =>
+            restaurant.restaurantCategories.includes(categoryName)
+          )}
+          renderItem={({ item }) => {
+            return <RestaurantsCard navigation={navigation} item={item} />;
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 };
 
 // Chinese screen
-const Chinese = ({ navigation }, props) => {
-  const [allChineseCards, setAllChineseCards] = useState([
-    {
-      uri: require('../../assets/Images/chinese.jpeg'),
-      title: "Mama's Cooking Hub",
-      deliveryTime: '35 min',
-      category: "Chinese"
-    },
-    {
-      uri: require('../../assets/Images/chinese2.jpeg'),
-      title: 'Organic Chef',
-      deliveryTime: '45 min',
-      category: "Chinese"
+const Chinese = ({ navigation, categoryName }) => {
+  const { baseUrl } = useContext(AppContext);
+  const [allChineseCards, setAllChineseCards] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    },
-    {
-      uri: require('../../assets/Images/chinese5.jpg'),
-      title: 'Cheese It',
-      deliveryTime: '25 min',
-      category: "Chinese"
-
-    },
-    {
-      uri: require('../../assets/Images/chinese3.jpeg'),
-      title: "Mama's Cooking Hub",
-      deliveryTime: '30 min',
-      category: "Chinese"
-
-    },
-    {
-      uri: require('../../assets/Images/chinese4.jpeg'),
-      title: 'Chiken Cuisine',
-      deliveryTime: '40 min',
-      category: "Chinese"
-
-    },
-  ]);
+  useEffect(() => {
+    const viewAllRestaurants = async () => {
+      try {
+        const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
+        setAllChineseCards(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error('Error fetching Products:', error);
+        setLoading(false);
+      }
+    };
+    viewAllRestaurants();
+  }, [baseUrl]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <FlatList
-        data={allChineseCards}
-        renderItem={({ item }) => {
-          return <RestaurantsCard navigation={navigation} item={item} />;
-        }}
-      />
+      {loading ? (
+        <LottieView
+          source={require('../../assets/animations/Loading.json')}
+          autoPlay
+          loop
+          speed={1.5}
+          style={[ContainerStyles.LottieStyle]}
+        />
+      ) : (
+        <FlatList
+          data={allChineseCards.filter((restaurant) =>
+            restaurant.restaurantCategories.includes(categoryName)
+          )}
+          renderItem={({ item }) => {
+            return <RestaurantsCard navigation={navigation} item={item} />;
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 };
 // Pasta screen
-const Pasta = ({ navigation }, props) => {
-  const [allPastaCards, setAllPastaCards] = useState([
-    {
-      uri: require('../../assets/Images/pasta.jpg'),
-      title: "Mama's Cooking Hub",
-      deliveryTime: '45 min',
-      category: "Pasta"
+const Pasta = ({ navigation, categoryName }, props) => {
+  const [allPastaCards, setAllPastaCards] = useState([])
+  const { baseUrl } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
-    },
-    {
-      uri: require('../../assets/Images/pasta1.jpg'),
-      title: 'Organic Chef',
-      deliveryTime: '55 min',
-      category: "Pasta"
-
-    },
-    {
-      uri: require('../../assets/Images/pasta4.jpeg'),
-      title: 'Cheese It',
-      deliveryTime: '35 min',
-      category: "Pasta"
-
-    },
-    {
-      uri: require('../../assets/Images/pasta3.jpeg'),
-      title: "Mama's Cooking Hub",
-      deliveryTime: '40 min',
-      category: 'Pasta'
-    },
-    {
-      uri: require('../../assets/Images/pasta2.jpg'),
-      title: 'Chiken Cuisine',
-      deliveryTime: '45 min',
-      category: 'Pasta'
-
-    },
-  ]);
+  useEffect(() => {
+    const viewAllRestaurants = async () => {
+      try {
+        const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
+        setAllPastaCards(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error('Error fetching Products:', error);
+        setLoading(false);
+      }
+    };
+    viewAllRestaurants();
+  }, [baseUrl]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <FlatList
-        data={allPastaCards}
-        renderItem={({ item }) => {
-          return <RestaurantsCard navigation={navigation} item={item} />;
-        }}
-      />
+      {loading ? (
+        <LottieView
+          source={require('../../assets/animations/Loading.json')}
+          autoPlay
+          loop
+          speed={1.5}
+          style={[ContainerStyles.LottieStyle]}
+        />
+      ) : (
+        <FlatList
+          data={allPastaCards.filter((restaurant) =>
+            restaurant.restaurantCategories.includes(categoryName)
+          )}
+          renderItem={({ item }) => {
+            return <RestaurantsCard navigation={navigation} item={item} />;
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -299,26 +308,58 @@ const FurtherScreens = ({ navigation, route }) => {
       <TabScreensHeader title={categoryName} navigation={navigation} />
       <Tab.Navigator
         initialRouteName={categoryName}
+        scrollEnabled={true}
         screenOptions={TabBarStyles.customTabBar}
       >
         <Tab.Screen
           name="Pizza"
-          component={(props) => <Pizza {...props} categoryName={categoryName} />}
           listeners={{
             tabPress: () => handleTabPress('Pizza'),
           }}
-        />
+        >
+          {(props) => <Pizza {...props} categoryName={categoryName} />}
+        </Tab.Screen>
         <Tab.Screen
           name="Burger"
-          component={(props) => <Burger {...props} categoryName={categoryName} />}
           listeners={{
             tabPress: () => handleTabPress('Burger'),
           }}
-        />
-        <Tab.Screen name="Shawarma" component={(props) => <Shawarma {...props} categoryName={categoryName} />} />
-        <Tab.Screen name="Biryani" component={Biryani} />
-        <Tab.Screen name="Pasta" component={Pasta} />
-        <Tab.Screen name="Chinese" component={Chinese} />
+        >
+          {(props) => <Burger {...props} categoryName={categoryName} />}
+        </Tab.Screen>
+
+        <Tab.Screen
+          name="Shawarma"
+          listeners={{
+            tabPress: () => handleTabPress('Shawarma'),
+          }}
+        >
+          {(props) => <Shawarma {...props} categoryName={categoryName} />}
+        </Tab.Screen>
+        <Tab.Screen
+          name="Biryani"
+          listeners={{
+            tabPress: () => handleTabPress('Biryani'),
+          }}
+        >
+          {(props) => <Biryani {...props} categoryName={categoryName} />}
+        </Tab.Screen>
+        <Tab.Screen
+          name="Pasta"
+          listeners={{
+            tabPress: () => handleTabPress('Pasta'),
+          }}
+        >
+          {(props) => <Pasta {...props} categoryName={categoryName} />}
+        </Tab.Screen>
+        <Tab.Screen
+          name="Chinese"
+          listeners={{
+            tabPress: () => handleTabPress('Chinese'),
+          }}
+        >
+          {(props) => <Chinese {...props} categoryName={categoryName} />}
+        </Tab.Screen>
       </Tab.Navigator>
     </SafeAreaView>
   );

@@ -18,11 +18,13 @@ const RestaurantsCard = ({item,navigation,route},props) => {
     <SafeAreaView
     style={{flex: 1, backgroundColor: AppColors.white,}}>
     <TouchableOpacity style={{alignItems:"center"}} onPress={()=>{
-      storeSelectedRestaurants('Restaurants')
-    navigation.navigate('Products',{
-      imageUri:item.uri,
-      imageTitle:item.title,
-      imageDeliveryTime:item.deliveryTime
+      storeSelectedRestaurants('Restaurants'),
+      
+      navigation.navigate('Products',{
+      restaurantImage: baseUrl+ item.restaurantImage,
+      restaurantName:item.restaurantName,
+      restaurant_id:item._id,
+      // imageDeliveryTime:item.deliveryTime,
     });
     }}>
 
@@ -37,13 +39,13 @@ const RestaurantsCard = ({item,navigation,route},props) => {
             Welcome gift : free delivery
           </Text>
         </View>
-        <View style={[ContainerStyles.tabScreenDeliveryTextContainer]}>
+        {/* <View style={[ContainerStyles.tabScreenDeliveryTextContainer]}>
           <Text
             style={[TextStyles.simpleText]}>
             {' '}
             {item.deliveryTime}{' '}
           </Text>
-        </View>
+        </View> */}
       </ImageBackground>
     </TouchableOpacity>
     <Text style={[TextStyles.leftText]}>{item.restaurantName}</Text>

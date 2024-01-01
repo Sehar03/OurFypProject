@@ -13,42 +13,40 @@ import AppColors from '../../assets/colors/AppColors';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import axios from 'axios';
+import LottieView from 'lottie-react-native';
 
 const LargeCard = ({ navigation }, props) => {
   const { baseUrl, storeSelectedRestaurants, currentUser } = useContext(AppContext);
-  const [allResturantsCards, setAllResturantsCards] = useState([])
+  const [allResturantsCards, setAllResturantsCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const viewAllRestaurants = async () => {
       try {
         const response = await axios.post(`${baseUrl}/viewAllRestaurants`);
-        console.log("Response from server:", response.data);
-  
-        const restaurantsData = response.data.map(item => {
-          // Check if restaurantCategories is defined before using it
-          const categoriesArray = item.restaurantCategories || [];
-  
-          // Log the item and categoriesArray for debugging
-          console.log("Item:", item);
-          console.log("Categories Array:", categoriesArray);
-  
-          // Add the categories array to the item
-          return { ...item, categoriesArray };
-        });
-  
-        setAllResturantsCards(restaurantsData);
-        console.log("++++++++++&&&&&&&&&&", response);
-      } catch (error) {
-        console.error('Error fetching Products:', error);
+        setAllResturantsCards(response.data);
+     } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+        setLoading(false); // Set loading to false whether successful or not
       }
     };
-  
+
     viewAllRestaurants();
   }, []);
-  
-  
-  
 
   return (
+    <View>
+    {loading ? (
+     <View style={ { padding: 20,alignSelf:"center"}}>
+     <LottieView
+       source={require('../../assets/animations/Loading.json')}
+       autoPlay
+       loop
+       style={{ width: 100, height: 100,marginTop:hp('10') }}
+     />
+   </View>
+    ) : (
     <FlatList
       data={allResturantsCards}
       Vertical
@@ -56,19 +54,12 @@ const LargeCard = ({ navigation }, props) => {
       renderItem={({ item }) => (
         <View
           style={{ flex: 1, backgroundColor: AppColors.white, }}>
-          {/* <TouchableOpacity style={{alignItems:"center"}} onPress={()=>{
-          storeSelectedRestaurants('Restaurants')
-          navigation.navigate('Products',{
-          imageUri:item.uri,
-          imageTitle:item.title,
-          imageDeliveryTime:item.deliveryTime
-        });
-        }}> */}
-          <TouchableOpacity onPress={() => {
-            navigation.navigate
-            navigation.navigate('FurtherScreens', {
-              categoryName: item.categoriesArray,
-              restaurant_id: item._id
+          <TouchableOpacity style={{ alignItems: "center" }} onPress={() => {
+            storeSelectedRestaurants('Restaurants'),
+            navigation.navigate('Products', {
+              restaurant_id: item._id,
+              restaurantImage:baseUrl+item.restaurantImage,
+              restaurantName:item.restaurantName   
             });
           }}>
             <ImageBackground
@@ -80,13 +71,6 @@ const LargeCard = ({ navigation }, props) => {
                   style={{ color: AppColors.white, fontFamily: 'Poppins-SemiBold' }}>
                   {' '}
                   Welcome gift : free delivery
-                </Text>
-              </View>
-              <View style={[ContainerStyles.tabScreenDeliveryTextContainer]}>
-                <Text
-                  style={[TextStyles.simpleText]}>
-                  {' '}
-                  {item.deliveryTime}{' '}
                 </Text>
               </View>
             </ImageBackground>
@@ -105,6 +89,8 @@ const LargeCard = ({ navigation }, props) => {
 
       )}
     />
+    )}
+    </View>
   );
 };
 export default LargeCard;

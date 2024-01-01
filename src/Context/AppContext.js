@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React,  {useState} from 'react';;
 const AppContext = React.createContext();
 
 export const AppProvider = ({children}) => {
   const [selectedFoodFeature, setSelectedFoodFeature] = useState([]);
-  const [selectedSubCategoryFeature, setSelectedSubCategoryFoodFeature] =useState([]);
+  const [selectedSubCategoryFeature, setSelectedSubCategoryFoodFeature] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
   const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
@@ -11,11 +11,18 @@ export const AppProvider = ({children}) => {
   const [myCart, setMyCart] = useState([]);
   const [donatedData, setDonatedData] = useState([]);
   const [isAddedIntoDonatedData, setIsAddedIntoDonatedData] = useState('');
+  const [selectedScreenForAddress, setSelectedScreenForAddress] = useState('');
+  const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
-  const [baseUrl] = useState('http://192.168.0.109:8888');
+  const [donorAddress,setDonorAddress]=useState('');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.127:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
+
+  const storeUpdateCategoryName = (newCategoryName) => {
+    setCategoryName(newCategoryName);
+  };
 
   const storeSelectedFoodFeature = val => {
     setSelectedFoodFeature(val);
@@ -57,9 +64,15 @@ export const AppProvider = ({children}) => {
   const storeSelectedImageUri = val => {
     setSelectedImageUri(val);
   };
-  const storeUpdateCategoryName = (newCategoryName) => {
-    setCategoryName(newCategoryName);
+  const storeSelectedScreenForAddress = val => {
+    setSelectedScreenForAddress(val);
   };
+  const storeSelectedDonationState = obj => {
+    setSelectedDonationState(obj);
+  };
+  const storeDonorAddress=(val)=>{
+setDonorAddress(val);
+  }
   return (
     <AppContext.Provider
       value={{
@@ -77,6 +90,9 @@ export const AppProvider = ({children}) => {
         donatedData,
         isAddedIntoDonatedData,
         selectedImageUri,
+        selectedScreenForAddress,
+        selectedDonationState,
+        donorAddress,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,
         storeSelectedRestaurants,
@@ -91,7 +107,9 @@ export const AppProvider = ({children}) => {
         storeLoggedInUser,
         storeSelectedImageUri,
         storeUpdateCategoryName,
-
+        storeSelectedScreenForAddress,
+        storeSelectedDonationState,
+        storeDonorAddress,
       }}>
       {children}
     </AppContext.Provider>

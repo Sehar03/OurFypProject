@@ -13,40 +13,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 
-const ScheduleScreenCard = ({item,setMySchedule}) => {
- const {baseUrl,currentUser} = useContext(AppContext)
+const SharedFoodCard = ({item,setMySchedule}) => {
+ const {baseUrl} = useContext(AppContext)
 
-const viewAllShareFoodProducts = async () => {
-  try {
-    const response = await axios.post(
 
-      `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
-    );
-    setMySchedule(response.data);
-  } catch (error) {
-    console.error('Error fetching products:', error);
-  }
-};
-useFocusEffect(
-  React.useCallback(() => {
-    viewAllShareFoodProducts();
-  }, [currentUser.userId]),
-);
-
-  const deleteShareFoodProduct = async delId => {
-    try {
-      const response = await axios.delete(`${baseUrl}/deleteShareFoodProduct/${delId}`);
-      console.log('Delete Product Response:', response.data);
-
-      if (response.data.success) {
-        viewAllShareFoodProducts();
-      } else {
-        alert('Something went wrong');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '..';
@@ -76,13 +46,12 @@ useFocusEffect(
                   <View style={{flexDirection:'row'}}>
                     <View style={{width:wp('47')}}>
                     <Text style={[OtherStyles.text]}>{item.productName}</Text>
-                    <Text style={[OtherStyles.text]}>{item.name}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => {
+                    {/* <TouchableOpacity onPress={() => {
                     deleteShareFoodProduct(item._id)
                   }} style={{ marginLeft: wp('1'), marginLeft: hp('0') }}>
                     <FontAwesome name="trash" size={20} color={AppColors.primary} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                   </View>
                   <View style={{width: wp('45')}}>
                     <Text
@@ -114,11 +83,11 @@ useFocusEffect(
               <Text style={[TextStyles.simpleText2, {marginLeft: wp('10'),marginRight:wp('5')}]}>
                 Date And Time: {item.productSelectedDateAndTime.toString()}
               </Text>
-              {/* <TouchableOpacity>
-          <Text style={[TextStyles.text3,{marginLeft:wp('35'),color:"blue"}]}>Confirm Order</Text>
-        </TouchableOpacity> */}
+              <TouchableOpacity>
+          <Text style={[TextStyles.text3,{marginLeft:wp('35'),color:"green"}]}>Confirm Order</Text>
+        </TouchableOpacity>
             </View>
   )
 }
 
-export default ScheduleScreenCard;
+export default SharedFoodCard;

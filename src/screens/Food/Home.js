@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import DrawerHeader from '../../components/headers/DrawerHeader'
 import { Neomorph } from 'react-native-neomorph-shadows';
 import { Image, Text, View, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
@@ -10,7 +10,8 @@ import ImageStyles from '../../assets/Styles/ImageStyles';
 import AppContext from '../../Context/AppContext';
 
 const Home = ({ navigation }) => {
-  const {storeSelectedFoodFeature} = useContext(AppContext);
+  const {storeSelectedFoodFeature,currentUser,updateCurrentUser} = useContext(AppContext);
+
   return (
       <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
         <DrawerHeader navigation={navigation} />

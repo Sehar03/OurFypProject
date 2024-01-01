@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import {
@@ -10,8 +10,10 @@ import AppColors from '../../assets/colors/AppColors';
 import TextStyles from '../../assets/Styles/TextStyles';
 import Modal from 'react-native-modal';
 import SingleProductDetail from '../../screens/Products/SingleProductDetail';
+import AppContext from '../../Context/AppContext';
 
 const PopularFoodCard = ({navigation, item}) => {
+  const{baseUrl} = useContext(AppContext)
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -27,25 +29,26 @@ const PopularFoodCard = ({navigation, item}) => {
       onPress={() => {
         // openModal();
         navigation.navigate('SingleProductDetail', {
-          imageUri: item.uri,
-          imageTitle: item.title,
-          imagePrice: item.price,
+          productImage: baseUrl+item.productImage,
+          productName: item.productName,
+          productPrice: item.productPrice,
+          productDescription:item.productDescription
         });
       }}>
       <Neomorph
         swapShadows
         style={ContainerStyles.squareBoxHalfScreenContainer}>
         <ImageBackground
-          source={item.uri}
+          source={{uri:baseUrl+item.productImage}}
           style={{width: wp('44'), height: hp('22%')}}
           imageStyle={{
             borderRadius: wp('3%'),
             marginVertical: hp('1%'),
             marginHorizontal: wp('2%'),
           }}>
-          <Text style={[TextStyles.popularFoodLabel]}>{item.title}</Text>
+          <Text style={[TextStyles.popularFoodLabel]}>{item.productName}</Text>
           <View style={[ContainerStyles.popularFoodPiceTextContainer]}>
-            <Text style={[TextStyles.simpleText]}>{item.price}</Text>
+            <Text style={[TextStyles.simpleText]}>Rs.{item.productPrice}</Text>
           </View>
         </ImageBackground>
       </Neomorph>

@@ -44,11 +44,11 @@ const ImageStyles = StyleSheet.create({
     borderRadius: 15,
   },
   cartImage: {
-    width: wp('17'),
+    width: wp('22'),
     marginLeft: wp('3'),
     marginTop: hp('1.6'),
     borderRadius: wp('2'),
-    height: hp('9'),
+    height: hp('11'),
     borderWidth: 4,
   },
   scheduleImage: {

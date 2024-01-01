@@ -16,47 +16,44 @@ import AppContext from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
-  const {updateCurrentUser}=useContext(AppContext)
-  //auto login
+  const { updateCurrentUser, currentUser } = useContext(AppContext);
+
+  // auto login and navigate to the home screen
   useEffect(() => {
-    // Check for existing user data
-    const checkForUser = async () => {
+    const checkForUserAndNavigate = async () => {
       try {
+        // Check for existing user data
         const userData = await AsyncStorage.getItem('user');
-        console.log('user stored in asyncStorage',userData)
+        console.log('user stored in AsyncStorage', userData);
+  
         if (userData) {
           // Parse the stored data and update the user context
           const parsedData = JSON.parse(userData);
           updateCurrentUser({
-            userId: parsedData._id,
+            userId: parsedData.userId,
             email: parsedData.email,
             password: parsedData.password,
             name: parsedData.name,
             profileImage: parsedData.profileImage,
             phoneNumber: parsedData.phoneNumber,
+            addresses: parsedData.addresses,
           });
           // Navigate to the home screen
-          navigation.navigate('Home'); 
-          console.log('parsed data',parsedData)
+          navigation.navigate('Home');
+         
 
-        }
-        else{
+        } else {
           navigation.navigate('Login');
         }
       } catch (error) {
         console.error('Error checking for user data:', error);
       }
     };
-
-    checkForUser();
-    // updateCurrentUser();
    
-  }, []);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     navigation.navigate('Login');
-  //   }, 2000);
-  // }, []);
+    checkForUserAndNavigate();
+   
+  }, []); // empty dependency array means it runs once when the component mounts
+  console.log("user in splash",currentUser);
 
   return (
     <SafeAreaView

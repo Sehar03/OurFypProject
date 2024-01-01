@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -303,16 +303,7 @@ const ContainerStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  touchableOpacityNeomorphContainer2: {
-    shadowRadius: 6,
-    backgroundColor: AppColors.primary,
-    borderRadius: wp('3%'),
-    height: hp('7%'),
-    width: wp('92%'),
-    marginVertical: hp('1.4%'),
-    shadowOpacity: 0.2,
-    marginLeft: wp('4'),
-  },
+
   cartNeomorph: {
     shadowRadius: 3,
     shadowOpacity: 0.1,
@@ -342,6 +333,15 @@ const ContainerStyles = StyleSheet.create({
     width: hp('43'),
     height: hp('12'),
   },
+  foldedViewStyle: {
+    flexDirection: 'row',
+    width: wp('100%'),
+    borderTopLeftRadius: 70,
+    borderTopRightRadius: 70,
+    marginTop: hp('22'),
+    height: hp('8'),
+    backgroundColor: 'white',
+  },
   smallCircleNeomorph: {
     width: wp('15'), // Adjust card width as per your requirement
     height: hp('7'),
@@ -363,7 +363,7 @@ const ContainerStyles = StyleSheet.create({
     height: hp('12'),
     marginBottom: hp('0.3'),
     elevation: 5,
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: { width: 2, height: 2 },
   },
   orderContainer: {
     marginTop: hp('2.5'),
@@ -375,7 +375,7 @@ const ContainerStyles = StyleSheet.create({
     height: hp('20'),
     marginBottom: hp('0.3'),
     elevation: 5,
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: { width: 2, height: 2 },
   },
   OrdersContainer: {
     shadowRadius: 4,
@@ -386,7 +386,7 @@ const ContainerStyles = StyleSheet.create({
     height: hp('21'),
     marginTop: hp('4'),
     elevation: 5,
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: { width: 2, height: 2 },
   },
   OrdersContainer2: {
     shadowRadius: 4,
@@ -439,7 +439,7 @@ const ContainerStyles = StyleSheet.create({
     borderColor: AppColors.background,
     width: wp('100%'),
     height: hp('10%'),
-    marginTop: hp('28'),
+    marginTop: hp('1.5'),
     justifyContent: 'space-evenly',
   },
   cameraIconView: {
@@ -452,6 +452,35 @@ const ContainerStyles = StyleSheet.create({
     marginLeft: wp('58'),
     marginTop: hp('-6'),
   },
+  LottieStyle: {
+    width: wp('50'),
+    height: hp('25'),
+    alignSelf: "center",
+    marginTop: hp('25')
+  },
+  incrementDecrementNeomorph:{
+    borderWidth: 0.5,
+    borderColor: 'lightgray',
+    backgroundColor: 'white',
+    width: wp('12'),
+    height: hp('11'),
+    marginLeft: wp('4'),
+    marginTop: hp('1.8'),
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  smallConfirmButtonNeomorph:{
+    marginTop: hp('3%'),
+    shadowRadius: 6,
+    backgroundColor: AppColors.primary,
+    borderRadius: wp('3%'),
+    height: hp('6%'),
+    width: wp('40%'),
+    marginVertical: hp('1.4%'),
+    shadowOpacity: 0.3,
+    marginLeft: wp('15'),
+  },
+  
 });
 
 export default ContainerStyles;
