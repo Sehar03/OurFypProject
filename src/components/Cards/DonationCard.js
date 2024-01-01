@@ -91,7 +91,7 @@ const DonationCard = ({navigation, item}) => {
               TextStyles.label,
               {marginTop: hp('0.5%'), marginLeft: wp('2') ,width: wp('42%')},
             ]}>
-            {item.distributionDateTime}
+            {item.distributionDateTime.toLocaleString()}
           </Text>
         </View>
       </Neomorph>

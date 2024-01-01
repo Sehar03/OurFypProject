@@ -1,4 +1,11 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   View,
   Text,
@@ -46,7 +53,8 @@ const AddAddress = ({navigation}) => {
   }, []);
 
   // renders
-  const {baseUrl,updateCurrentUser,currentUser,selectedScreenForAddress,}=useContext(AppContext);
+  const {baseUrl, updateCurrentUser, currentUser, selectedScreenForAddress} =
+    useContext(AppContext);
   const [streetName, setStreetName] = useState('');
   const [elaqa, setElaqa] = useState('');
   const [mLat, setMLat] = useState(0);
@@ -54,7 +62,7 @@ const AddAddress = ({navigation}) => {
   const [address, setAddress] = useState('');
   const [locality, setLocality] = useState('');
   const [loading, setLoading] = useState(true);
-  const[label,setLabel]=useState('');
+  const [label, setLabel] = useState('');
 
   const [markerCoordinate, setMarkerCoordinate] = useState({
     latitude: mLat,
@@ -83,7 +91,7 @@ const AddAddress = ({navigation}) => {
     );
   };
   const getAddressFromCoordinates = async (latitude, longitude) => {
-    console.log('hey')
+    console.log('hey');
     try {
       const addresses = await Geocoder.geocodePosition({
         lat: latitude,
@@ -134,16 +142,24 @@ const AddAddress = ({navigation}) => {
             console.log(error.code, error.message);
 
             // Retry on timeout
-            if (error.code === 3 && retryCount < 2) {
+            if (error.code === 3 && retryCount < 1) {
               console.log('Retrying geolocation...');
               getLocation(retryCount + 1);
+            } else if (error.code === 2) {
+              Alert.alert('Please turn GPS On');
+              setLoading(false);
+              if (selectedScreenForAddress == 'Donor') {
+                navigation.navigate('Donor');
+              } else {
+                navigation.navigate('Address');
+              }
             } else {
               setLoading(false);
               Alert.alert('Network Error,Please try again later');
-              if(selectedScreenForAddress=='Donor'){
-                navigation.navigate('Donor')
-              }else{
-navigation.navigate('Address')
+              if (selectedScreenForAddress == 'Donor') {
+                navigation.navigate('Donor');
+              } else {
+                navigation.navigate('Address');
               }
             }
           },
@@ -162,16 +178,18 @@ navigation.navigate('Address')
     getLocation();
   }, []);
 
-
   const saveAddress = async () => {
     try {
-      
       const formData = new FormData();
-    
 
       const customerAddress = [
-        {formattedAddress:address,locality:locality ,elaqa:elaqa,streetName:streetName,label:label },
-  
+        {
+          formattedAddress: address,
+          locality: locality,
+          elaqa: elaqa,
+          streetName: streetName,
+          label: label,
+        },
       ];
 
       formData.append('address', JSON.stringify(customerAddress));
@@ -204,22 +222,25 @@ navigation.navigate('Address')
           addresses: data.registeredUser.addresses,
         });
 
-        await AsyncStorage.setItem('user', JSON.stringify({
-          userId: data.registeredUser._id,
-          email: data.registeredUser.email,
-          password: data.registeredUser.password,
-          name: data.registeredUser.name,
-          profileImage: data.registeredUser.profileImage,
-          phoneNumber: data.registeredUser.phoneNumber,
-          addresses: data.registeredUser.addresses,
-        }));
+        await AsyncStorage.setItem(
+          'user',
+          JSON.stringify({
+            userId: data.registeredUser._id,
+            email: data.registeredUser.email,
+            password: data.registeredUser.password,
+            name: data.registeredUser.name,
+            profileImage: data.registeredUser.profileImage,
+            phoneNumber: data.registeredUser.phoneNumber,
+            addresses: data.registeredUser.addresses,
+          }),
+        );
         navigation.navigate('Address');
       } else {
         console.log('Error in response: ', data);
       }
     } catch (error) {
       console.log('Error:', error);
-    } 
+    }
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
@@ -362,7 +383,10 @@ navigation.navigate('Address')
                   </Text>
 
                   <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity onPress={() => {setLabel('Home')}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setLabel('Home');
+                      }}>
                       <Neomorph
                         darkShadowColor={AppColors.Gray}
                         lightShadowColor={AppColors.background2}
@@ -388,7 +412,10 @@ navigation.navigate('Address')
                       </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {setLabel('Work')}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setLabel('Work');
+                      }}>
                       <Neomorph
                         darkShadowColor={AppColors.Gray}
                         lightShadowColor={AppColors.background2}
@@ -414,7 +441,10 @@ navigation.navigate('Address')
                       </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {setLabel('Partner')}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setLabel('Partner');
+                      }}>
                       <Neomorph
                         darkShadowColor={AppColors.Gray}
                         lightShadowColor={AppColors.background2}
@@ -439,7 +469,6 @@ navigation.navigate('Address')
                         Partner
                       </Text>
                     </TouchableOpacity>
-
                   </View>
                 </View>
               </ScrollView>
@@ -448,11 +477,11 @@ navigation.navigate('Address')
                 <TouchableOpacity
                   onPress={() => {
                     // Check if onSaveAddress exists in navigation params
-    if (selectedScreenForAddress=='Donor') {
-      navigation.navigate('Donor',{address:address});
-    } else {
-      saveAddress();
-    }
+                    if (selectedScreenForAddress == 'Donor') {
+                      navigation.navigate('Donor', {address: address});
+                    } else {
+                      saveAddress();
+                    }
                     // navigation.navigate('Address');
                   }}>
                   <Neomorph
