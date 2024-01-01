@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {
   ImageBackground,
+  Modal,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -30,6 +31,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import LottieView from 'lottie-react-native';
 
 const Donor = ({navigation, route}) => {
   // states
@@ -47,7 +50,7 @@ const Donor = ({navigation, route}) => {
   const [distributionDateTime, setDistributionDateTime] = useState('');
   const [donorPhoneNumber, setDonorPhoneNumber] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const [donorNameError, setDonorNameError] = useState('');
   const [addressError, setAddressError] = useState('');
   const [foodDetailsError, setFoodDetailsError] = useState('');
@@ -104,35 +107,31 @@ const Donor = ({navigation, route}) => {
       formData.append('donorName', donorName);
       formData.append('foodDetails', foodDetails);
       formData.append('distributionLocation', address);
-      formData.append('distributionDateTime', distributionDateTime.toString());
+      formData.append(
+        'distributionDateTime',
+        distributionDateTime.toLocaleString(),
+      );
       formData.append('donorPhoneNumber', donorPhoneNumber);
       console.log('id from context', currentUser.userId);
       formData.append('userId', currentUser.userId);
-    
-      const response = await fetch(`${baseUrl}/saveDonationDetails`, {
+
+      const response = await axios({
         method: 'post',
-        body: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        url: `${baseUrl}/saveDonationDetails`,
+        data: formData,
+        headers: {'Content-Type': 'multipart/form-data'},
       });
 
-      if (!response.ok) {
-        console.error(`HTTP error! Status: ${response.status}`);
-        console.log(await response.text());
-        return;
-      }
+      if (response.data.message === 'Donation details saved successfully.') {
+        setShowModal(true);
 
-      const data = await response.json();
-      if (data.message === 'Donation details saved successfully.') {
-        navigation.navigate('DonateHome');
+        // navigation.navigate('DonateHome');
       } else {
         console.log('Error in response: ', data);
       }
     } catch (error) {
       console.log('Error:', error);
     }
-    console.log('dontaedDataInAsyncStorage', dontaedDataInAsyncStorage);
   };
   return (
     <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
@@ -184,7 +183,7 @@ const Donor = ({navigation, route}) => {
                 value={donorName}
                 onChangeText={text => {
                   setDonorName(text);
-                  // setDonorName('');
+                  setDonorNameError('');
                 }}
               />
             </View>
@@ -214,7 +213,7 @@ const Donor = ({navigation, route}) => {
                 keyboardType="numeric"
                 onChangeText={text => {
                   setDonorPhoneNumber(text);
-                  // setDonorPhoneNumber('');
+                  setDonorPhoneNumberError('');
                 }}
               />
             </View>
@@ -246,7 +245,7 @@ const Donor = ({navigation, route}) => {
                 value={foodDetails}
                 onChangeText={text => {
                   setFoodDetails(text);
-                  // setFoodDetails('');
+                  setFoodDetailsError('');
                 }}
               />
             </View>
@@ -388,6 +387,61 @@ const Donor = ({navigation, route}) => {
             <Text style={TextStyles.whiteCenteredLable}>Save</Text>
           </Neomorph>
         </TouchableOpacity>
+        {/* Modal for success animation */}
+        {/* <Modal isVisible={showModal}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <LottieView
+            source={require('../../assets/animations/thanks.json')}
+            autoPlay
+            loop
+            style={{width: 200, height: 200}}
+            // onAnimationFinish={closeModal}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              closeModal();
+            }}>
+            <Text>close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal> */}
+      </View>
+      <View style={{flex: 1}}>
+        <Modal visible={showModal} transparent={true} animationType="slide">
+          <View
+            style={{
+              borderBlockColor: AppColors.primary,
+              justifyContent: 'center',
+              // height: hp('35'),
+              backgroundColor: 'rgba(0, 0, 0, 0.4)', // Adjust the alpha (0.7) for transparency
+              alignItems: 'center',
+              // marginTop: 200,
+              borderRadius: 15,
+              flex:1
+            }}>
+            <TouchableOpacity
+              style={{alignSelf: 'flex-end', marginRight: 15}}
+              onPress={() => {
+                setShowModal(!showModal);
+              }}>
+              <FontAwesome name="close" size={24} />
+            </TouchableOpacity>
+            <LottieView
+              source={require('../../assets/animations/thanks.json')}
+              autoPlay
+              loop
+              style={{height: 200, width: 200}}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Recipient');
+              }}>
+              <Text style={[TextStyles.simpleText2, {color: 'red'}]}>
+                View Donation Details
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );

@@ -75,6 +75,21 @@ const TextStyles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     marginTop: hp('2%'),
     marginLeft: wp('4%'),
+    // fontSize:hp('2.8')
+  },
+  ProductNameText:{
+    color: AppColors.black,
+    fontFamily: 'Poppins-SemiBold',
+    marginTop: hp('0'),
+    marginLeft: wp('4'), 
+    fontSize: hp('2.8') 
+  },
+  productDescription:{
+    fontFamily: 'Poppins-Regular',
+    marginTop: hp('1'),
+    textAlign: 'justify',
+    paddingRight: 16, 
+    paddingLeft: 16,
   },
   leftMediumText: {
     color: AppColors.black,
@@ -133,6 +148,12 @@ const TextStyles = StyleSheet.create({
     marginLeft: wp('4'),
     letterSpacing: -1,
     marginTop: hp('3')
+  },
+  foodPrices:{
+    fontSize: hp('2.5'),
+    fontFamily: 'Poppins-Bold',
+    marginLeft: wp('4'),
+    marginTop:hp('1')
   },
   profileSimpleText: {
 
@@ -204,7 +225,29 @@ const TextStyles = StyleSheet.create({
   incrementText:{
     color: AppColors.white,
     fontSize: wp('6%'),
-  }
+  },
+  cartEmptyText:{
+    marginTop: 20, 
+    fontFamily: 'Poppins-SemiBold', 
+    fontSize: 18 
+  },
+  productQuantityText:{ 
+    textAlign: 'center', 
+    marginTop: hp('0.5'), 
+    fontSize: hp('2') 
+  },
+  cartRupeesText:{ 
+    fontFamily: "Poppins-SemiBold", 
+    color: AppColors.black, 
+    marginRight: wp('4') 
+  },
+  smallButtonText:{
+    color: AppColors.white,
+    fontFamily: 'Poppins-Regular',
+    fontSize: hp('2%'),
+    alignSelf:"center",
+   marginTop: hp('1.5%'),
+  },
 });
 
 export default TextStyles;

@@ -1,238 +1,290 @@
-import React,{useState,useContext} from 'react';
-import {SafeAreaView, View, Image,Text,ScrollView, TouchableOpacity,FlatList} from 'react-native';
+import React, { useState, useContext } from 'react';
+import { SafeAreaView, View, Image, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import CartHeader from '../../components/headers/CartHeader';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
-import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import OtherStyles from '../../assets/Styles/OtherStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
-import CartPopularItems from '../../components/Cards/CartPopularItems';
-import CartCard from '../../components/CartCard';
 import AppContext from '../../Context/AppContext';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Modal from 'react-native-modal';
-const Cart = ({navigation}) => {
-  const {myCart} = useContext(AppContext);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [count, setCount] = useState(1);
-  const [allResturantsCards, setAllResturantsCards] = useState([
-    {
-      uri: require('../../assets/Images/image38.jpg'),
-      title: 'Summer Deal',
-      Rupees: 'Rs.330',
-      // top: hp('27'), // Match the marginTop of the first Neomorph
-      // left: wp('15'),
-    },
-   
-  ]);
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
+import LottieView from 'lottie-react-native';
+const Cart = ({ navigation }) => {
+  const { baseUrl, currentUser } = useContext(AppContext);
+  const [myCart, setMyCart] = useState([]);
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
 
-  const incrementCount = () => {
-    setCount(count + 1);
+  const viewAllCartProducts = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/viewAllCartsProduct/${currentUser.userId}`,
+      );
+      setMyCart(response.data);
+      setIsCartEmpty(response.data.length === 0);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
+  useFocusEffect(
+    React.useCallback(() => {
+      viewAllCartProducts();
+    }, [currentUser.userId]),
+  );
+  const deleteProduct = async delId => {
+    try {
+      const response = await axios.delete(`${baseUrl}/deleteCartProduct/${delId}`);
+      console.log('Delete Product Response:', response.data);
 
-  const decrementCount = () => {
-    if(count>1){
-    setCount(count - 1);
+      if (response.data.success) {
+        viewAllCartProducts();
+      } else {
+        alert('Something went wrong');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
+
+  const [productQuantities, setProductQuantities] = useState({});
+
+  const incrementCount = async (productId) => {
+    try {
+      await axios.post(`${baseUrl}/incrementCartProduct/${productId}`);
+      viewAllCartProducts();
+
+    } catch (error) {
+      console.error("Error incrementing product quantity:", error);
+    }
   };
 
+  const decrementCount = async (productId) => {
+    try {
+      await axios.post(`${baseUrl}/decrementCartProduct/${productId}`);
+
+      viewAllCartProducts();
+
+    } catch (error) {
+      console.error("Error decrementing product quantity:", error);
+    }
+  };
+
+
+
+
+
+  const subtotal = myCart.reduce((acc, item) => {
+    const quantity = productQuantities[item._id] || 1;
+    const updatedProductPrice = parseFloat(item.productPrice) * quantity;
+    return acc + updatedProductPrice;
+  }, 0);
+
+  const deliveryFee = 20; // Set your delivery fee
+  const total = subtotal + deliveryFee;
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <CartHeader navigation={navigation} item="Cart" />
       <ScrollView>
-        <View style={{margin: hp('2'), alignItems: 'center'}}>
+        {isCartEmpty ? (
+          <View style={{
+            marginTop: hp('20'),
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center"
+          }}>
+            <LottieView
+              source={require('../../assets/animations/productEmpty.json')}
+              autoPlay
+              loop
+              style={{ width: 200, height: 200 }}
+            />
+            <Text style={[TextStyles.cartEmptyText]}>Your cart is empty!</Text>
+          </View>
+        ) : (
+          <View>
+            <View style={{ margin: hp('2'), alignItems: 'center' }}>
+              <Neomorph
+                darkShadowColor={AppColors.primary}
+                lightShadowColor={AppColors.background}
+                swapShadows
+                style={ContainerStyles.cartNeomorph}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image
+                    source={require('../../assets/Images/deliveryboy.jpg')}
+                    style={[ImageStyles.deliveryImg]}
+                  />
+                  <View style={{ flexWrap: 'wrap' }}>
+                    <Text
+                      style={{ marginTop: hp('4'), fontFamily: 'Poppins-SemiBold' }}>
+                      Estimated delivery
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold',
+                        fontSize: hp('2.5%'),
+                        fontWeight: 'bold',
+                        color: AppColors.black,
+                      }}>
+                      Now (30 min)
+                    </Text>
+                  </View>
+                </View>
+              </Neomorph>
+            </View>
+
+
+            <FlatList
+              data={myCart}
+              scrollEnabled={false} // Disable the scroll behavior
+              Vertical
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => {
+                return (
+                  <View style={{
+                    flexDirection: 'row',
+                    borderBottomWidth: wp('0.4'),
+                    borderColor: AppColors.background,
+                    height: hp('16')
+                  }}>
+
+                    <Neomorph
+                      darkShadowColor={AppColors.primary}
+                      lightShadowColor={AppColors.background}
+                      swapShadows // <- change zIndex of each shadow color
+                      style={ContainerStyles.incrementDecrementNeomorph}>
+                      <TouchableOpacity onPress={() => {
+                        incrementCount(item._id)
+                      }}
+                      >
+                        <Text style={{ textAlign: 'center', fontSize: hp('2.5') }}>
+                          +
+                        </Text>
+                      </TouchableOpacity>
+
+                      <Text style={[TextStyles.productQuantityText]}>
+                        {item.qty}
+                      </Text>
+
+                      <TouchableOpacity onPress={() => {
+                        decrementCount(item._id);
+                      }}
+
+                      >
+                        <Text style={{ textAlign: 'center', fontSize: hp('3.5') }}>
+                          -
+                        </Text>
+                      </TouchableOpacity>
+                    </Neomorph>
+                    <Image
+                      source={{ uri: baseUrl + item.productImage }}
+                      style={[ImageStyles.cartImage]}
+                    />
+                    <View
+                      style={{
+                        marginTop: hp('3'),
+                        marginLeft: wp('2.5')
+
+                      }}>
+                      <View style={{ width: wp('47') }}>
+                        <Text style={[OtherStyles.text]}>{item.productName}</Text>
+                      </View>
+                      <Text style={{ color: AppColors.black }}>{item.productPrice}</Text>
+                    </View>
+                    <View>
+                      <TouchableOpacity onPress={() => {
+                        deleteProduct(item._id)
+                      }} style={{ marginLeft: wp('1'), marginTop: hp('4.5') }}>
+                        <FontAwesome name="trash" size={20} color={AppColors.primary} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                );
+              }}
+            />
+
+            <View style={{
+              borderColor: AppColors.background, marginTop: hp('2')
+            }}>
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: "space-between",
+                marginLeft: wp('4')
+              }}>
+                <Text style={{ fontFamily: "Poppins-SemiBold" }}>
+                  SubTotal
+                </Text>
+                <Text style={[TextStyles.cartRupeesText]}>
+                  Rs. {subtotal}
+                </Text>
+              </View>
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: "space-between",
+                marginLeft: wp('4'),
+                marginTop: hp('1')
+              }}>
+                <Text style={{ fontFamily: "Poppins-SemiBold" }}>
+                  Delivery Fee
+                </Text>
+                <Text style={[TextStyles.cartRupeesText]}>
+                  Rs. 20
+                </Text>
+
+
+              </View>
+              <Text style={{ marginLeft: wp('4'), color: AppColors.background, fontSize: wp('10') }}>
+                ---------------------------------
+              </Text>
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: "space-between",
+                marginLeft: wp('4'),
+                marginTop: hp('1')
+              }}>
+                <Text style={{ fontFamily: "Poppins-SemiBold" }}>
+                  Total
+                </Text>
+                <Text style={[TextStyles.cartRupeesText]}>
+                  Rs.{total}
+                </Text>
+              </View>
+
+            </View>
+          </View>
+        )}
+      </ScrollView>
+      {isCartEmpty ? (
+        <Text></Text>
+      ) : (
+        <TouchableOpacity onPress={()=>{
+          navigation.navigate('Checkout',{
+            subtotal:subtotal,
+            deliveryFee:deliveryFee,
+            total:total,
+          })
+        }}>
           <Neomorph
-            darkShadowColor={AppColors.primary}
+            // darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.background}
             // inner // <- enable shadow inside of neomorph
             swapShadows // <- change zIndex of each shadow color
-            style={ContainerStyles.cartNeomorph}>
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={require('../../assets/Images/deliveryboy.jpg')}
-                style={[ImageStyles.deliveryImg]}
-              />
-              <View style={{flexWrap: 'wrap'}}>
-                <Text
-                  style={{marginTop: hp('4'), fontFamily: 'Poppins-SemiBold'}}>
-                  Estimated delivery
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-SemiBold',
-                    fontSize: hp('2.5%'),
-                    fontWeight: 'bold',
-                    color: AppColors.black,
-                  }}>
-                  Now (30 min)
-                </Text>
-              </View>
+            style={ContainerStyles.touchableOpacityNeomorphContainer2}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={[TextStyles.whiteCenteredLable2]}>
+                Confirm payment and address
+              </Text>
             </View>
           </Neomorph>
-        </View>
-
-        {/* <CartCard /> */}
-        <FlatList
-          data={myCart}
-          scrollEnabled={false} // Disable the scroll behavior
-          Vertical
-          showsVerticalScrollIndicator={false}
-          renderItem={({item}) => {
-            return (
-              <View style={{flexDirection: 'row',borderBottomWidth: wp('0.4'),
-    borderColor: AppColors.background,height:hp('14')}}>
-  
-      <Neomorph
-        swapShadows // <- change zIndex of each shadow color
-        style={{
-          // borderRadius: 10,
-          borderWidth: 0.5,
-          borderColor: 'lightgray',
-          backgroundColor: 'white',
-          width: wp('13'),
-          height: hp('5'),
-          marginLeft: wp('4'),
-          marginTop: hp('3'),
-          shadowOpacity: 0.2,
-          shadowRadius: 3,
-        }}>
-        <TouchableOpacity
-          style={{flexDirection: 'row', justifyContent: 'space-evenly'}}
-          onPress={toggleModal}>
-          <Text style={{textAlign: 'center', marginTop: hp('1.3')}}>
-            {count}
-          </Text>
-          <AntDesign
-            name="down"
-            size={wp('3.5%')}
-            style={{color: AppColors.primary, marginTop: hp('1.6')}}
-          />
         </TouchableOpacity>
-      </Neomorph>
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        presentationStyle="overFullScreen"
-        onRequestClose={toggleModal}>
-        <View
-          style={{
-            position: 'absolute',
-            top: hp('27.5'), // Match the marginTop of the first Neomorph
-            left: wp('15'), // Adjust the marginLeft to move the modal to the right
-          }}>
-          <Neomorph
-            style={{
-              flexDirection: 'row',
-              backgroundColor: AppColors.white,
-              height: hp('7'),
-              width: wp('30'),
-              justifyContent: 'space-evenly',
-              borderColor: 'lightgray',
-              borderWidth: wp('0.2'),
-              alignItems: 'center',
-              
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                decrementCount();
-                toggleModal();
-              }}>
-              <Text style={{color: AppColors.primary, fontSize: wp('6')}}>
-                -
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                incrementCount();
-                toggleModal();
-              }}>
-              <Text style={{color: AppColors.primary, fontSize: wp('5')}}>
-                +
-              </Text>
-            </TouchableOpacity>
-          </Neomorph>
-        </View>
-      </Modal>
-      <Image
-        source={item.imageUri} // Specify the source of the image
-        style={[ImageStyles.cartImage]} // Set the desired width and height of the image
-      />
-      <View
-        style={{
-         marginTop:hp('3'),
-         marginLeft:wp('2.5')
-          
-        }}>
-          <View style={{width:wp('47')}}>
-        <Text style={[OtherStyles.text]}>{item.imageTitle}</Text>
-        </View>
-        <Text style={{color: AppColors.black}}>{item.imagePrice}</Text>
-      </View>
-      <View>
-      <TouchableOpacity style={{marginLeft:wp('2'),marginTop:hp('4.5')}}>
-        <FontAwesome name="trash" size={20} color={AppColors.primary} />
-      </TouchableOpacity>
-      </View>
-    </View>
-            );
-          }}
-        />
 
-        <TouchableOpacity>
-          <Text style={[TextStyles.text3]}>Add more items</Text>
-        </TouchableOpacity>
-        <View
-          style={{
-            height: hp('0.8'),
-            backgroundColor: AppColors.background,
-            marginVertical: hp(3.7),
-          }}></View>
-        <Text style={[OtherStyles.text4]}>Popular with your order</Text>
-        <Text style={{marginLeft: wp('4')}}>
-          Other customer also bought these
-        </Text>
 
-        <CartPopularItems />
-      </ScrollView>
-      <TouchableOpacity>
-      <Neomorph
-        // darkShadowColor={AppColors.primary}
-        lightShadowColor={AppColors.background}
-        // inner // <- enable shadow inside of neomorph
-        swapShadows // <- change zIndex of each shadow color
-        style={ContainerStyles.touchableOpacityNeomorphContainer2}>
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <Text style={[TextStyles.whiteCenteredLable2]}>
-              Confirm payment and address
-            </Text>
-        </View>
-      </Neomorph>
-      </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 };
 export default Cart;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
