@@ -16,7 +16,8 @@ import AppColors from '../../assets/colors/AppColors';
 import axios from 'axios';
 import { Neomorph } from 'react-native-neomorph-shadows';
 
-const DealCard = ({ navigation, item }) => {
+const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,restaurant_id,storeRestaurantId}) => {
+
   const {
     selectedFoodFeature,
     selectedRestaurants,
@@ -27,8 +28,18 @@ const DealCard = ({ navigation, item }) => {
 
 
   const addCartProducts = () => {
+
+    // Check if the restaurant_id matches the stored storeRestaurant_id
+    if (storeRestaurantId && storeRestaurantId !== restaurant_id) {
+      alert("Cannot add products from different restaurants to the cart. Please complete the current order first.");
+      return;
+    }
+
+
     const formData = new FormData();
-    formData.append("customer_id", currentUser.userId)
+    formData.append("customer_id", currentUser.userId);
+    formData.append("productId", item._id);
+    formData.append("restaurant_id",restaurant_id)
     formData.append("productName", item.foodDealTitle);
     formData.append("productPrice", item.foodDealPrice);
     formData.append("pricePerProduct", item.foodDealPrice);
@@ -48,6 +59,10 @@ const DealCard = ({ navigation, item }) => {
       .then((response) => {
         if (response.data.added) {
           alert("Product is added into Cart");
+          storeRestaurantId(restaurant_id);
+          updateTotalQuantity();
+          updateTotalAmount();
+
         } else {
 
           alert("Some thing went wrong");
@@ -57,6 +72,7 @@ const DealCard = ({ navigation, item }) => {
         console.log(error);
       });
   };
+  
   const addShareFoodProducts = () => {
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId)
@@ -129,11 +145,13 @@ const DealCard = ({ navigation, item }) => {
     }
     return text;
   };
+
   return (
     <View>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
+            productId:item._id,
             productImage: baseUrl+ item.foodDealImage,
             productName: item.foodDealTitle,
             productPrice: item.foodDealPrice,
@@ -155,6 +173,7 @@ const DealCard = ({ navigation, item }) => {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
+            productId:item._id,
             productImage:baseUrl+ item.foodDealImage,
             productName: item.foodDealTitle,
             productPrice: item.foodDealPrice,
@@ -171,8 +190,16 @@ const DealCard = ({ navigation, item }) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          setIsAddedIntoSchedule(!isAddedIntoSchedule);
-          setIsAddedIntoCart(!isAddedIntoCart);
+          if(selectedFoodFeature === 'Full Price Food' &&
+          selectedRestaurants == 'Restaurants'){
+            addCartProducts();
+          }
+          else{
+            addShareFoodProducts();
+          }                
+          // setIsAddedIntoSchedule(!isAddedIntoSchedule);
+          // setIsAddedIntoCart(!isAddedIntoCart);
+
         }}>
         <View style={[ContainerStyles.productsCartButtonContainer]}>
           <Text

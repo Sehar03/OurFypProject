@@ -29,6 +29,7 @@ const PopularFoodCard = ({navigation, item}) => {
       onPress={() => {
         // openModal();
         navigation.navigate('SingleProductDetail', {
+          productId:item._id,
           productImage: baseUrl+item.productImage,
           productName: item.productName,
           productPrice: item.productPrice,
