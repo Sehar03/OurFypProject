@@ -35,7 +35,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoder';
+import Geocoder from 'react-native-geocoding';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../../Context/AppContext';
@@ -163,7 +163,7 @@ const AddAddress = ({navigation}) => {
               }
             }
           },
-          {enableHighAccuracy: true, timeout: 60000, maximumAge: 10000},
+          {enableHighAccuracy: true, timeout: 50000, maximumAge: 10000},
         );
       } else {
         console.warn('Location permission denied');
@@ -242,6 +242,7 @@ const AddAddress = ({navigation}) => {
       console.log('Error:', error);
     }
   };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <View style={{flex: 1}}>

@@ -13,7 +13,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
-const Cart = ({ navigation }) => {
+const Cart = ({ navigation,route }) => {
+  const{restaurant_id} = route.params
+  console.log(restaurant_id)
   const { baseUrl, currentUser } = useContext(AppContext);
   const [myCart, setMyCart] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
@@ -72,9 +74,6 @@ const Cart = ({ navigation }) => {
       console.error("Error decrementing product quantity:", error);
     }
   };
-
-
-
 
 
   const subtotal = myCart.reduce((acc, item) => {
@@ -266,6 +265,7 @@ const Cart = ({ navigation }) => {
             subtotal:subtotal,
             deliveryFee:deliveryFee,
             total:total,
+            restaurant_id:restaurant_id
           })
         }}>
           <Neomorph

@@ -29,8 +29,43 @@ const{currentUser,baseUrl} = useContext(AppContext);
   const [MobileNumber, setMobileNumber] = useState('+923026675287');
   const [cartProducts, setCartProducts] = useState([]);
   const [orderSummaryHeight, setOrderSummaryHeight] = useState(0);
-  const {subtotal,deliveryFee,total} = route.params;
+  const {subtotal,deliveryFee,total,restaurant_id} = route.params;
   console.log(subtotal,deliveryFee)
+
+  const addOrder = () => {
+    const formData = new FormData();
+   formData.append("customer_id", currentUser.userId);
+    formData.append("restaurant_id", restaurant_id);
+    formData.append("totalAmount", total);
+    formData.append("deliveryFee", deliveryFee);
+
+  ;
+
+    console.log(formData);
+    axios({
+      method: "post",
+      url: `${baseUrl}/addOrder`,
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData,
+    })
+      .then((response) => {
+        if (response.data.added) {
+          alert("Order is placed");
+        } else {
+
+          alert("Some thing went wrong");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
+
+
+
   const viewAllCartProducts = async () => {
     try {
       const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
@@ -156,7 +191,7 @@ const{currentUser,baseUrl} = useContext(AppContext);
             <TextInput
               //  placeholder="Enter First name"
               style={{marginLeft: wp('3'), marginTop: hp('0.5')}}
-              value={MobileNumber}
+              value={currentUser.phoneNumber}
               onChangeText={text => {
                 setMobileNumber(text);
               }}
@@ -418,7 +453,9 @@ const{currentUser,baseUrl} = useContext(AppContext);
           </Text>
         </View>
       
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => {
+        addOrder()
+      }}>
         <Neomorph
           // darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}

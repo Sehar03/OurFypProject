@@ -27,7 +27,7 @@ const IconStyles = StyleSheet.create({
     },
     shoppingCartIcon: {
         color: AppColors.primary,
-        marginTop: hp('1%'),
+        marginTop: hp('3%'),
         marginLeft: wp('28'),
     },
     editIcon:{
