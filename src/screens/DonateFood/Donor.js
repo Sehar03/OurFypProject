@@ -124,7 +124,7 @@ const Donor = ({navigation, route}) => {
 
       if (response.data.message === 'Donation details saved successfully.') {
         setShowModal(true);
-
+        storeSelectedScreenForAddress('');
         // navigation.navigate('DonateHome');
       } else {
         console.log('Error in response: ', data);
@@ -406,18 +406,90 @@ const Donor = ({navigation, route}) => {
         </View>
       </Modal> */}
       </View>
-      <View style={{flex: 1}}>
+      
+      <Modal
+       visible={showModal}
+        transparent={true}
+        animationType="slide"
+
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              padding: 10,
+              borderRadius: 10,
+              width: wp('80'),
+            }}
+          >
+            <Neomorph
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.darkgray}
+              swapShadows // <- change zIndex of each shadow color
+              style={{
+                shadowRadius: 2,
+                backgroundColor: AppColors.white,
+                borderRadius: wp('1%'),
+                height: hp('4%'),
+                width: wp('8%'),
+                shadowOpacity: 0.3,
+                marginLeft: wp('65'),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setShowModal(!showModal);
+                }}>
+                <FontAwesome
+                  name="close"
+                  size={wp('4%')}
+                  style={{ color: AppColors.primary }}
+                />
+              </TouchableOpacity>
+            </Neomorph>
+            <LottieView
+              source={require('../../assets/animations/donationBox.json')}
+              autoPlay
+              loop
+              style={{ width: wp('80'), height: hp('25') }}
+              speed={1}
+            />
+         <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Recipient');
+              }}>
+              <Text style={[TextStyles.simpleText2, {color: 'red'}]}>
+                View Donation Details
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* <View style={{}}>
         <Modal visible={showModal} transparent={true} animationType="slide">
           <View
             style={{
               borderBlockColor: AppColors.primary,
               justifyContent: 'center',
               // height: hp('35'),
-              backgroundColor: 'rgba(0, 0, 0, 0.4)', // Adjust the alpha (0.7) for transparency
+              backgroundColor:AppColors.white,
+              // backgroundColor: 'rgba(0, 0, 0, 0.4)', // Adjust the alpha (0.7) for transparency
               alignItems: 'center',
               // marginTop: 200,
               borderRadius: 15,
-              flex:1
+              height:hp('20'),width:wp('100')
+              // flex:1
             }}>
             <TouchableOpacity
               style={{alignSelf: 'flex-end', marginRight: 15}}
@@ -427,7 +499,7 @@ const Donor = ({navigation, route}) => {
               <FontAwesome name="close" size={24} />
             </TouchableOpacity>
             <LottieView
-              source={require('../../assets/animations/thanks.json')}
+              source={require('../../assets/animations/donationBox.json')}
               autoPlay
               loop
               style={{height: 200, width: 200}}
@@ -442,7 +514,7 @@ const Donor = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

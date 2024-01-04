@@ -27,6 +27,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 
+const Address = ({navigation}) => {
+  const {currentUser, updateCurrentUser, baseUrl,storeSelectedScreenForAddress} = useContext(AppContext);
+
 const Address = ({ navigation }) => {
   //
   const { currentUser, updateCurrentUser, baseUrl } = useContext(AppContext);
@@ -116,32 +119,6 @@ const Address = ({ navigation }) => {
           // const pkg = DeviceInfo.getBundleId();
           Alert.alert(
             'Denied!'
-          //   'We are displaying deals available in your area. To show available deals near you, please enable location by\n1. Goto settings\n2. Scroll down to LINCS_APP\n3. Select LINCS_APP and allow Location.\n4. To keep yourself up-to-date  with new deals, Please turn on notification too.',
-          //   [
-          //     {
-          //       text: 'Cancel',
-          //       onPress: () => {
-          //         setIsSignInError('');
-          //         setIsLoading(false);
-          //       },
-          //       style: 'cancel',
-          //     },
-          //     {
-          //       text: 'Settings',
-          //       onPress: () => {
-          //         setIsSignInError('');
-          //         setIsLoading(false);
-          //         if (Platform.OS === 'ios') {
-          //           Linking.openURL(`App-Prefs:LOCATION&path=${pkg}`);
-          //         } else {
-          //           IntentLauncher.startActivity({
-          //             action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
-          //             data: 'package:' + pkg,
-          //           });
-          //         }
-          //       },
-          //     },
-          //   ],
           );
         }
       },
@@ -230,6 +207,7 @@ const Address = ({ navigation }) => {
       </ScrollView>
       <TouchableOpacity
         onPress={() => {
+          storeSelectedScreenForAddress('AddAddress')
           navigation.navigate('AddAddress');
         }}>
         <Neomorph
@@ -246,5 +224,5 @@ const Address = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
+}
 export default Address;
