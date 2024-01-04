@@ -31,7 +31,7 @@ const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,resta
 
     // Check if the restaurant_id matches the stored storeRestaurant_id
     if (storeRestaurantId && storeRestaurantId !== restaurant_id) {
-      alert("Cannot add products from different restaurants to the cart. Please complete the current order first.");
+      alert("Cannot Add products from different restaurants to the cart. Please complete the current order first.");
       return;
     }
 
