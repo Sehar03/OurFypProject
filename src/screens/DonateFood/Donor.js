@@ -406,7 +406,77 @@ const Donor = ({navigation, route}) => {
         </View>
       </Modal> */}
       </View>
-      <View style={{}}>
+      
+      <Modal
+       visible={showModal}
+        transparent={true}
+        animationType="slide"
+
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              padding: 10,
+              borderRadius: 10,
+              width: wp('80'),
+            }}
+          >
+            <Neomorph
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.darkgray}
+              swapShadows // <- change zIndex of each shadow color
+              style={{
+                shadowRadius: 2,
+                backgroundColor: AppColors.white,
+                borderRadius: wp('1%'),
+                height: hp('4%'),
+                width: wp('8%'),
+                shadowOpacity: 0.3,
+                marginLeft: wp('65'),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setShowModal(!showModal);
+                }}>
+                <FontAwesome
+                  name="close"
+                  size={wp('4%')}
+                  style={{ color: AppColors.primary }}
+                />
+              </TouchableOpacity>
+            </Neomorph>
+            <LottieView
+              source={require('../../assets/animations/donationBox.json')}
+              autoPlay
+              loop
+              style={{ width: wp('80'), height: hp('25') }}
+              speed={1}
+            />
+         <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Recipient');
+              }}>
+              <Text style={[TextStyles.simpleText2, {color: 'red'}]}>
+                View Donation Details
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* <View style={{}}>
         <Modal visible={showModal} transparent={true} animationType="slide">
           <View
             style={{
@@ -444,7 +514,7 @@ const Donor = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
         </Modal>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

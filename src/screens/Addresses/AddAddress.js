@@ -35,10 +35,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geolocation from '@react-native-community/geolocation';
-import Geocoder from 'react-native-geocoding';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../../Context/AppContext';
+import Geocoder from 'react-native-geocoder';
 
 const AddAddress = ({navigation}) => {
   // ref
@@ -116,7 +116,7 @@ const AddAddress = ({navigation}) => {
     }
   };
 
-  const getLocation = async (retryCount = 0) => {
+  const getLocation = async () => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -140,20 +140,10 @@ const AddAddress = ({navigation}) => {
           },
           error => {
             console.log(error.code, error.message);
-
-            // Retry on timeout
-            if (error.code === 3 && retryCount < 1) {
-              console.log('Retrying geolocation...');
-              getLocation(retryCount + 1);
-            } else if (error.code === 2) {
+            if (error.code === 2) {
               Alert.alert('Please turn GPS On');
               setLoading(false);
-              if (selectedScreenForAddress == 'Donor') {
-                navigation.navigate('Donor');
-              } else {
-                navigation.navigate('Address');
-              }
-            } else {
+            } else if(error.code === 3) {
               setLoading(false);
               Alert.alert('Network Error,Please try again later');
               if (selectedScreenForAddress == 'Donor') {
@@ -163,7 +153,6 @@ const AddAddress = ({navigation}) => {
               }
             }
           },
-          {enableHighAccuracy: true, timeout: 50000, maximumAge: 10000},
         );
       } else {
         console.warn('Location permission denied');
