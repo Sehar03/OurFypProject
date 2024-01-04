@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -31,7 +31,8 @@ import Orders from './src/screens/Orders/Orders';
 import OngoingOrder from './src/screens/Orders/OngoingOrder';
 import Setting from './src/screens/Setting';
 import Checkout from './src/screens/Orders/Checkout';
-
+import messaging from '@react-native-firebase/messaging';
+import { Alert } from 'react-native';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -92,6 +93,19 @@ const AuthStackNavigator = () => {
 };
 
 const App = () => {
+  useEffect(()=>{
+    getDeviceToken();
+  },[]);
+  const getDeviceToken= async ()=>{
+  let token = await messaging().getToken();
+  console.log("This is FCM Token:",token);
+  }
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
   return (
     <AppProvider>
     <NavigationContainer> 
