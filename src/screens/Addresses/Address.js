@@ -25,7 +25,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const Address = ({navigation}) => {
-  const {currentUser, updateCurrentUser, baseUrl} = useContext(AppContext);
+  const {currentUser, updateCurrentUser, baseUrl,storeSelectedScreenForAddress} = useContext(AppContext);
   const handleDeleteAddress = async (index) => {
     try {
       const updatedUser = { ...currentUser };
@@ -168,6 +168,7 @@ const Address = ({navigation}) => {
       </ScrollView>
       <TouchableOpacity
         onPress={() => {
+          storeSelectedScreenForAddress('AddAddress')
           navigation.navigate('AddAddress');
         }}>
         <Neomorph
