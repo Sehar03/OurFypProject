@@ -1,4 +1,4 @@
-import React, {useEffect,useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -16,7 +16,7 @@ import AppContext from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
-  const { updateCurrentUser, currentUser } = useContext(AppContext);
+  const {updateCurrentUser, currentUser} = useContext(AppContext);
 
   // auto login and navigate to the home screen
   useEffect(() => {
@@ -25,7 +25,7 @@ const Splash = ({navigation}) => {
         // Check for existing user data
         const userData = await AsyncStorage.getItem('user');
         console.log('user stored in AsyncStorage', userData);
-  
+
         if (userData) {
           // Parse the stored data and update the user context
           const parsedData = JSON.parse(userData);
@@ -40,8 +40,6 @@ const Splash = ({navigation}) => {
           });
           // Navigate to the home screen
           navigation.navigate('Home');
-         
-
         } else {
           navigation.navigate('Login');
         }
@@ -49,11 +47,10 @@ const Splash = ({navigation}) => {
         console.error('Error checking for user data:', error);
       }
     };
-   
+
     checkForUserAndNavigate();
-   
   }, []); // empty dependency array means it runs once when the component mounts
-  console.log("user in splash",currentUser);
+  console.log('user in splash', currentUser);
 
   return (
     <SafeAreaView
