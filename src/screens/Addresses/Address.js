@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import IconStyles from '../../assets/Styles/IconStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import TextStyles from '../../assets/Styles/TextStyles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -26,16 +26,26 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const Address = ({navigation}) => {
   const {currentUser, updateCurrentUser, baseUrl,storeSelectedScreenForAddress} = useContext(AppContext);
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
+
+const Address = ({ navigation }) => {
+  //
+  const { currentUser, updateCurrentUser, baseUrl } = useContext(AppContext);
+
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+
   const handleDeleteAddress = async (index) => {
     try {
       const updatedUser = { ...currentUser };
       const deletedAddressId = currentUser.addresses[index]._id.toString();
       updatedUser.addresses.splice(index, 1);
-  
+
       const formData = new FormData();
       formData.append('deletedAddressId', deletedAddressId);
       formData.append('_id', currentUser.userId);
-  
+
       const response = await fetch(`${baseUrl}/deleteAddress`, {
         method: 'DELETE',
         headers: {
@@ -43,10 +53,10 @@ const Address = ({navigation}) => {
         },
         body: formData,
       });
-  
+
       if (response.ok) {
         console.log('Address deleted successfully on the backend.');
-  
+
         // Remove from AsyncStorage
         try {
           const storedUser = await AsyncStorage.getItem('user');
@@ -55,16 +65,16 @@ const Address = ({navigation}) => {
             const updatedAddresses = parsedUser.addresses.filter(
               (address) => address._id !== deletedAddressId
             );
-  
+
             // Update the user data in AsyncStorage
             await AsyncStorage.setItem('user', JSON.stringify({
               ...parsedUser,
               addresses: updatedAddresses,
             }));
-  
+
             console.log('Address deleted successfully in AsyncStorage.');
             Alert.alert('Address has been deleted');
-  
+
             // Update the context only when both backend and AsyncStorage are updated
             updateCurrentUser(updatedUser);
           } else {
@@ -83,11 +93,65 @@ const Address = ({navigation}) => {
       Alert.alert('Error', 'Failed to delete address. Please try again.');
     }
   };
-  
-  
-  
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      info => {
+        // storeDriverLatitude(info.coords.latitude);
+        // storeDriverLongitude(info.coords.longitude);
+
+        setLatitude(info.coords.latitude);
+        setLongitude(info.coords.longitude);
+
+        Geocoder.init('AIzaSyB1BMfNjd-6DlS7RUWSzfokIF0XeSMzHzY');
+        Geocoder.from(info.coords.latitude, info.coords.longitude)
+          .then(json => {
+            console.log(json.results[0].formatted_address);
+            console.log(json.results[0].address_components[6].long_name);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+      error => {
+        if (error.PERMISSION_DENIED) {
+          // const pkg = DeviceInfo.getBundleId();
+          Alert.alert(
+            'Denied!'
+          //   'We are displaying deals available in your area. To show available deals near you, please enable location by\n1. Goto settings\n2. Scroll down to LINCS_APP\n3. Select LINCS_APP and allow Location.\n4. To keep yourself up-to-date  with new deals, Please turn on notification too.',
+          //   [
+          //     {
+          //       text: 'Cancel',
+          //       onPress: () => {
+          //         setIsSignInError('');
+          //         setIsLoading(false);
+          //       },
+          //       style: 'cancel',
+          //     },
+          //     {
+          //       text: 'Settings',
+          //       onPress: () => {
+          //         setIsSignInError('');
+          //         setIsLoading(false);
+          //         if (Platform.OS === 'ios') {
+          //           Linking.openURL(`App-Prefs:LOCATION&path=${pkg}`);
+          //         } else {
+          //           IntentLauncher.startActivity({
+          //             action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
+          //             data: 'package:' + pkg,
+          //           });
+          //         }
+          //       },
+          //     },
+          //   ],
+          );
+        }
+      },
+    );
+  }, [])
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <ScrollView>
         <ProfileHeader navigation={navigation} item="Address" />
 
@@ -99,26 +163,26 @@ const Address = ({navigation}) => {
                 borderBottomWidth: wp('0.4'),
                 borderColor: AppColors.background2,
               }}>
-              <View style={{flexDirection: 'row', width: wp('100%')}}>
+              <View style={{ flexDirection: 'row', width: wp('100%') }}>
                 {/* <View style={{marginLeft:wp('3'),marginRight:wp('3')}}> */}
-                {address.label==="Work" ?( <Fontisto
-                name="laptop"
-                size={20}
-                color={AppColors.primary}
-                style={[IconStyles.LocationIcon]}
-              />):address.label==="Partner"?  (<AntDesign
-              name="hearto"
-              size={20}
-              color={AppColors.primary}
-              style={[IconStyles.LocationIcon]}
-            />):<FontAwesome
-            name="home"
-            size={20}
-            color={AppColors.primary}
-            style={[IconStyles.LocationIcon]}
-          />}
-               {/* </View> */}
-                <View style={{width: wp('77'), alignItems: 'flex-start'}}>
+                {address.label === "Work" ? (<Fontisto
+                  name="laptop"
+                  size={20}
+                  color={AppColors.primary}
+                  style={[IconStyles.LocationIcon]}
+                />) : address.label === "Partner" ? (<AntDesign
+                  name="hearto"
+                  size={20}
+                  color={AppColors.primary}
+                  style={[IconStyles.LocationIcon]}
+                />) : <FontAwesome
+                  name="home"
+                  size={20}
+                  color={AppColors.primary}
+                  style={[IconStyles.LocationIcon]}
+                />}
+                {/* </View> */}
+                <View style={{ width: wp('77'), alignItems: 'flex-start' }}>
                   <Text
                     numberOfLines={5}
                     style={{
@@ -131,7 +195,7 @@ const Address = ({navigation}) => {
                   </Text>
                 </View>
                 <TouchableOpacity>
-                {/* <MaterialIcons
+                  {/* <MaterialIcons
                   name="edit"
                   size={20}
                   color={AppColors.primary}
@@ -147,7 +211,7 @@ const Address = ({navigation}) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text style={{marginLeft: wp('12')}}>{address.locality} </Text>
+              <Text style={{ marginLeft: wp('12') }}>{address.locality} </Text>
               {/*  */}
             </View>
           ))
@@ -160,7 +224,7 @@ const Address = ({navigation}) => {
               paddingVertical: hp('2'),
             }}>
             <Text
-              style={{fontFamily: 'Poppins-SemiBold', color: AppColors.black}}>
+              style={{ fontFamily: 'Poppins-SemiBold', color: AppColors.black }}>
               No addresses found.
             </Text>
           </View>
@@ -175,7 +239,7 @@ const Address = ({navigation}) => {
           lightShadowColor={AppColors.background}
           swapShadows
           style={ContainerStyles.touchableOpacityNeomorphContainer2}>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Text style={[TextStyles.whiteCenteredLable2]}>
               Add new Address
             </Text>

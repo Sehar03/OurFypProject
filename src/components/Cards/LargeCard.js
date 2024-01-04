@@ -15,7 +15,7 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 
-const LargeCard = ({ navigation }, props) => {
+const LargeCard = ({ navigation,searchText }, props) => {
   const { baseUrl, storeSelectedRestaurants, currentUser } = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +35,12 @@ const LargeCard = ({ navigation }, props) => {
     viewAllRestaurants();
   }, []);
 
+
+  
+  const filteredRestaurants = allResturantsCards.filter((item) =>
+    item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <View>
     {loading ? (
@@ -45,10 +51,14 @@ const LargeCard = ({ navigation }, props) => {
        loop
        style={{ width: 100, height: 100,marginTop:hp('10') }}
      />
+     <Text>Loading Restaurants</Text>
    </View>
     ) : (
+      <View>
+                <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3'),fontSize:wp('6')  }]}>All Restaurants</Text>
+
     <FlatList
-      data={allResturantsCards}
+      data={filteredRestaurants}
       Vertical
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
@@ -89,6 +99,12 @@ const LargeCard = ({ navigation }, props) => {
 
       )}
     />
+     {filteredRestaurants.length === 0 && !loading && (
+        <Text style={{ textAlign: 'center', marginTop: 90 }}>
+          No Restaurants available.
+        </Text>
+      )}
+    </View>
     )}
     </View>
   );

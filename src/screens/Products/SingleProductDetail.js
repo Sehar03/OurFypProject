@@ -28,7 +28,7 @@ import axios from 'axios';
 
 const SingleProductDetail = ({ navigation, route }) => {
   const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants } = useContext(AppContext)
-  const { productImage, productName, productPrice, productDescription} = route.params;
+  const { productImage, productName, productPrice, productDescription,productId} = route.params;
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [isShareModalVisible, setShareModalVisible] = useState(false);
@@ -56,6 +56,7 @@ const SingleProductDetail = ({ navigation, route }) => {
   const addCartProducts = () => {
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId)
+    formData.append("productId",productId)
     formData.append("productName", productName);
     formData.append("productPrice", productPrice);
     formData.append("pricePerProduct", productPrice);
@@ -73,7 +74,7 @@ const SingleProductDetail = ({ navigation, route }) => {
     })
       .then((response) => {
         if (response.data.added) {
-          openModal();
+          alert('Product is Added into Cart')
         } else {
 
           alert("Some thing went wrong");
@@ -87,6 +88,7 @@ const SingleProductDetail = ({ navigation, route }) => {
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId)
     formData.append("productName", productName);
+    formData.append("productId",productId)
     formData.append("productPrice", productPrice);
     formData.append("productPricePerPerson", productPrice / 2);
     formData.append("productDescription", productDescription);
@@ -219,8 +221,8 @@ const SingleProductDetail = ({ navigation, route }) => {
 
 
 
-        <View
-          style={[ContainerStyles.cartButtonContainer]}>
+
+        <View style={[ContainerStyles.cartButtonContainer]}>
 
           <TouchableOpacity onPress={() => {
           //  setIsAddedIntoSchedule(!isAddedIntoSchedule);
@@ -245,6 +247,19 @@ const SingleProductDetail = ({ navigation, route }) => {
               <Text style={[TextStyles.whiteCenteredLable3]}>{AddItem}</Text>
             </Neomorph>
           </TouchableOpacity>
+          
+          
+          </View>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           <Modal
             animationType="slide"
             transparent={true}
@@ -325,6 +340,7 @@ const SingleProductDetail = ({ navigation, route }) => {
             </View>
           </Modal>
 
+         
           <Modal
             animationType="slide"
             transparent={true}
@@ -376,10 +392,10 @@ const SingleProductDetail = ({ navigation, route }) => {
                   </TouchableOpacity>
                 </Neomorph>
                 
-                <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <TouchableOpacity>
                   <Text style={[TextStyles.simpleText2, { color: "red" }]}>{DesiredText}</Text>
                 </TouchableOpacity>
-               {showDatePicker && (
+  {showDatePicker && (
 
           <TouchableOpacity
             onPress={() => {
@@ -405,7 +421,7 @@ const SingleProductDetail = ({ navigation, route }) => {
               </View>
             </View>
           </Modal>
-        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
