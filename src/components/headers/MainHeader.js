@@ -11,10 +11,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 
 const MainHeader = ({ navigation, item }) => {
-  const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants } = useContext(AppContext)
+  const { currentUser, baseUrl, selectedFoodFeature,restaurant_id, selectedRestaurants } = useContext(AppContext)
   const [cartProducts, setCartProducts] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
-
+  console.log("restaurant_id",restaurant_id)
   const updateTotalQuantity = async () => {
     try {
       const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
@@ -53,7 +53,10 @@ const MainHeader = ({ navigation, item }) => {
         <View style={{ marginTop: 0, flexDirection: "row" }}>
 
           {selectedFoodFeature === 'Full Price Food' && (
-            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <TouchableOpacity onPress={() => 
+              navigation.navigate('Cart',{
+              restaurant_id:restaurant_id
+            })}>
               <View style={{ position: 'relative', marginRight: wp('3') }}>
                 <AntDesign name="shoppingcart" size={wp('6.2')} style={[IconStyles.shoppingCartIcon]} />
                 {totalQuantity > 0 && (
