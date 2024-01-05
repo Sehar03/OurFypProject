@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import TabScreensHeader from '../../components/headers/TabScreensHeader';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,24 +22,44 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AppContext from '../../Context/AppContext';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import BackButtonHeader from '../../components/headers/BackButtonHeader';
 
 
-const Checkout = ({navigation,route}) => {
-const{currentUser,baseUrl} = useContext(AppContext);
-  const [MobileNumber, setMobileNumber] = useState('+923026675287');
+const Checkout = ({ navigation, route }) => {
+  const { currentUser, baseUrl } = useContext(AppContext);
+  const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
+  const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState(currentUser.addresses);
   const [cartProducts, setCartProducts] = useState([]);
   const [orderSummaryHeight, setOrderSummaryHeight] = useState(0);
-  const {subtotal,deliveryFee,total,restaurant_id} = route.params;
-  console.log(subtotal,deliveryFee)
+  const { subtotal, deliveryFee, total, restaurant_id } = route.params;
+
 
   const addOrder = () => {
     const formData = new FormData();
-   formData.append("customer_id", currentUser.userId);
-    formData.append("restaurant_id", restaurant_id);
-    formData.append("totalAmount", total);
-    formData.append("deliveryFee", deliveryFee);
+    formData.append("customer_id", currentUser.userId);
+    formData.append("customerName", currentUser.name);
+    formData.append("customerPhoneNumber", mobileNumber);
+    formData.append("customerEmail", currentUser.email);
+    if (deliveryAddress && deliveryAddress.length > 0) {
+      const firstAddress = deliveryAddress[0];
+      formData.append("deliveryAddress", firstAddress.formattedAddress);
+    }
+    const productsArray = cartProducts.map((product) => ({
+      productName: product.productName,
+      qty: product.qty,
+      productPrice: product.productPrice,
+    }));
+    formData.append("products", JSON.stringify(productsArray));
 
-  ;
+    formData.append("deliveryFee", deliveryFee);
+    formData.append("totalAmount", total);
+    formData.append("restaurant_id", restaurant_id);
+
+
+    ;
 
     console.log(formData);
     axios({
@@ -89,7 +109,7 @@ const{currentUser,baseUrl} = useContext(AppContext);
 
     // Calculate the total height required for the Neomorph
     const totalHeight = productsHeight + otherComponentsHeight;
-    
+
     setOrderSummaryHeight(totalHeight);
   };
 
@@ -99,64 +119,261 @@ const{currentUser,baseUrl} = useContext(AppContext);
     }
     return text;
   };
+  const handleDeliveryAddressChange = (text) => {
+    // Update the deliveryAddress state when it's being edited
+    setDeliveryAddress([{ formattedAddress: text }]);
+  };
 
   return (
-    <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
-      <TabScreensHeader navigation={navigation} item=" CheckOut" />
+    <SafeAreaView style={{ backgroundColor: AppColors.white, flex: 1 }}>
+      <BackButtonHeader navigation={navigation} title="CheckOut" />
       <ScrollView>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Neomorph
             darkShadowColor={AppColors.primary}
-            lightShadowColor={AppColors.darkgray}
-            swapShadows // <- change zIndex of each shadow color
+            lightShadowColor={AppColors.background}
+            swapShadows
             style={{
-              height: hp('36'),
+              height: hp('16'),
               width: wp('94'),
               borderRadius: wp('1.3%'),
               shadowRadius: 2,
               backgroundColor: AppColors.white,
               marginVertical: hp('1%'),
-              shadowOpacity: 0.3,
+              shadowOpacity: 0.2,
               marginTop: hp('1.4%'),
               paddingBottom: hp('3'),
               flex: 1,
             }}>
-            <View style={{flexDirection: 'row', marginTop: hp('2.5')}}>
-              <TouchableOpacity>
-                <Octicons
-                  name="location"
-                  size={24}
-                  color={AppColors.primary}
-                  style={{marginLeft: wp('4')}}
-                />
-              </TouchableOpacity>
-
-              <Text
-                style={{
-                  fontFamily: 'Poppins-SemiBold',
-                  color: AppColors.black,
-                  marginLeft: wp('4'),
-                  fontSize: hp('2.2'),
-                }}>
-                Deleivery Address
-              </Text>
-
-              <TouchableOpacity>
-                <MaterialIcons
-                  name="edit"
-                  size={24}
-                  color={AppColors.primary}
-                  style={{marginLeft: wp('30')}}
-                />
-              </TouchableOpacity>
-            </View>
+            {isEditingDeliveryAddress ? (
+              <View>
+                <View style={{ flexDirection: "row" }}>
+                  <TouchableOpacity>
+                    <Octicons
+                      name="location"
+                      size={wp('4.5')}
+                      style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      marginLeft: wp('3.5'),
+                      marginTop: hp('2'),
+                      color: AppColors.black,
+                      fontFamily: 'Poppins-SemiBold',
+                    }}>
+                    Delivery Address
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    marginTop: hp('0.5'),
+                    width: wp('94'),
+                    borderBottomWidth: hp('0.2'),
+                    borderColor: AppColors.background2,
+                  }}></View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                  <View style={{ width: wp('85'), height: hp('20') }}>
+                    <TextInput
+                       style={{
+                        height: 40,
+                        marginLeft:wp(3.2),
+                        marginBottom: 10,
+                        padding: 8,
+                        fontSize: 16,
+                      }}
+                      autoFocus  // Auto focus the TextInput when editing starts
+                    selectionColor={AppColors.primary}
+                      value={deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
+                      onChangeText={(text) => handleDeliveryAddressChange(text)}
+                    />
+                  </View>
+                  <TouchableOpacity onPress={() => setIsEditingDeliveryAddress(!isEditingDeliveryAddress)}>
+                    {/* Add a button to confirm the changes */}
+                    <MaterialIcons
+                      name={isEditingDeliveryAddress ? 'done' : 'edit'}
+                      size={20} color={AppColors.primary}
+                      style={{ marginRight: wp('2'), marginTop: hp('1.4') }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <View style={{ flexDirection: "row" }}>
+                  <TouchableOpacity>
+                    <Octicons
+                      name="location"
+                      size={wp('4.5')}
+                      style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      marginLeft: wp('3.5'),
+                      marginTop: hp('2'),
+                      color: AppColors.black,
+                      fontFamily: 'Poppins-SemiBold',
+                    }}>
+                    Delivery Address
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    marginTop: hp('0.5'),
+                    width: wp('94'),
+                    borderBottomWidth: hp('0.2'),
+                    marginBottom: hp('1'),
+                    borderColor: AppColors.background2,
+                  }}></View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                  <View style={{ width: wp('85') }}>
+                    <Text style={{
+                      marginLeft: wp('3.5'),
+                    }}>
+                      {deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
+                    </Text>
+                  </View>
+                  <TouchableOpacity onPress={() => setIsEditingDeliveryAddress(!isEditingDeliveryAddress)}>
+                    <MaterialIcons
+                      name={isEditingDeliveryAddress ? 'done' : 'edit'}
+                      size={20} color={AppColors.primary}
+                      style={{ marginRight: wp('2') }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
           </Neomorph>
         </View>
 
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Neomorph
             darkShadowColor={AppColors.primary}
-            lightShadowColor={AppColors.darkgray}
+            lightShadowColor={AppColors.background}
+            swapShadows
+            style={{
+              height: hp('13'),
+              width: wp('94'),
+              borderRadius: wp('1.3%'),
+              shadowRadius: 2,
+              backgroundColor: AppColors.white,
+              marginVertical: hp('1%'),
+              shadowOpacity: 0.2,
+              marginTop: hp('1.4%'),
+              paddingBottom: hp('3'),
+              flex: 1,
+            }}>
+            {isEditingMobileNumber ? (
+              <View>
+                <View style={{ flexDirection: "row" }}>
+                  <TouchableOpacity>
+                    <FontAwesome
+                      name="phone"
+                      size={wp('4.5')}
+                      style={{ marginTop: hp('2.3'), color: AppColors.primary, marginLeft: wp('3.5') }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      marginLeft: wp('3.5'),
+                      marginTop: hp('2'),
+                      color: AppColors.black,
+                      fontFamily: 'Poppins-SemiBold',
+                    }}>
+                    Mobile number
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    marginTop: hp('0.5'),
+                    width: wp('94'),
+                    borderBottomWidth: hp('0.2'),
+                    borderColor: AppColors.background2,
+                  }}></View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
+                  <TextInput
+                    style={{
+                      height: 40,
+                      marginLeft:wp(3.2),
+                      marginBottom: 10,
+                      padding: 8,
+                      fontSize: 16,
+                    }}
+                    autoFocus  // Auto focus the TextInput when editing starts
+                    selectionColor={AppColors.primary}
+                    value={mobileNumber}
+                    onChangeText={text => setMobileNumber(text)}
+                  />
+                  <TouchableOpacity onPress={() => setIsEditingMobileNumber(!isEditingMobileNumber)}>
+                    <MaterialIcons
+                      name={isEditingMobileNumber ? 'done' : 'edit'}
+                      size={20}
+                      color={AppColors.primary}
+                      style={{ marginRight: wp('2'), marginTop: hp('1.4') }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <View style={{ flexDirection: "row" }}>
+                  <TouchableOpacity>
+                    <FontAwesome
+                      name="phone"
+                      size={wp('4.5')}
+                      style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      marginLeft: wp('3.5'),
+                      marginTop: hp('2'),
+                      color: AppColors.black,
+                      fontFamily: 'Poppins-SemiBold',
+                    }}>
+                    Mobile number
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    marginTop: hp('0.5'),
+                    width: wp('94'),
+                    borderBottomWidth: hp('0.2'),
+                    marginBottom: hp('1'),
+                    borderColor: AppColors.background2,
+                  }}></View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                  <Text style={{
+                    marginLeft: wp('3.5'),
+                  }}>{mobileNumber}</Text>
+                  <TouchableOpacity onPress={() => setIsEditingMobileNumber(!isEditingMobileNumber)}>
+                    <MaterialIcons
+                      name={isEditingMobileNumber ? 'done' : 'edit'}
+                      size={20}
+                      color={AppColors.primary}
+                      style={{ marginRight: wp('2'), marginTop: hp('0') }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
+            {/* Add a button to toggle between editing and displaying mode */}
+
+          </Neomorph>
+        </View>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Neomorph
+            darkShadowColor={AppColors.primary}
+            lightShadowColor={AppColors.background}
             swapShadows // <- change zIndex of each shadow color
             style={{
               height: hp('13'),
@@ -165,63 +382,17 @@ const{currentUser,baseUrl} = useContext(AppContext);
               shadowRadius: 2,
               backgroundColor: AppColors.white,
               marginVertical: hp('1%'),
-              shadowOpacity: 0.3,
+              shadowOpacity: 0.2,
               marginTop: hp('1.4%'),
               paddingBottom: hp('3'),
               flex: 1,
             }}>
-            <Text
-              style={{
-                marginLeft: wp('3.5'),
-                marginTop: hp('2'),
-                color: AppColors.black,
-                fontFamily: 'Poppins-SemiBold',
-              }}>
-              {' '}
-              Mobile number{' '}
-            </Text>
-            <View
-              style={{
-                flex: 1,
-                marginTop: hp('0.5'),
-                width: wp('94'),
-                borderBottomWidth: hp('0.2'),
-                borderColor: AppColors.background2,
-              }}></View>
-            <TextInput
-              //  placeholder="Enter First name"
-              style={{marginLeft: wp('3'), marginTop: hp('0.5')}}
-              value={currentUser.phoneNumber}
-              onChangeText={text => {
-                setMobileNumber(text);
-              }}
-            />
-          </Neomorph>
-        </View>
-
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Neomorph
-            darkShadowColor={AppColors.primary}
-            lightShadowColor={AppColors.darkgray}
-            swapShadows // <- change zIndex of each shadow color
-            style={{
-              height: hp('13'),
-              width: wp('94'),
-              borderRadius: wp('1.3%'),
-              shadowRadius: 2,
-              backgroundColor: AppColors.white,
-              marginVertical: hp('1%'),
-              shadowOpacity: 0.3,
-              marginTop: hp('1.4%'),
-              paddingBottom: hp('3'),
-              flex: 1,
-            }}>
-            <View style={{flexDirection: 'row', width: wp('100%')}}>
+            <View style={{ flexDirection: 'row', width: wp('100%') }}>
               <MaterialIcons
                 name="payment"
                 size={24}
                 color={AppColors.primary}
-                style={{marginLeft: wp('4'), marginTop: hp('3')}}
+                style={{ marginLeft: wp('4'), marginTop: hp('3') }}
               />
               <Text
                 style={{
@@ -237,20 +408,21 @@ const{currentUser,baseUrl} = useContext(AppContext);
             <View
               style={{
                 flexDirection: 'row',
-                width: wp('100%'),
+                width: wp('90%'),
                 marginTop: hp('1.5'),
+                justifyContent: 'space-between'
               }}>
               <MaterialCommunityIcons
                 name="cash"
                 size={24}
                 color={AppColors.Gray}
-                style={{marginLeft: wp('4')}}
+                style={{ marginLeft: wp('4') }}
               />
               <Text
                 style={{
                   fontFamily: 'Poppins-SemiBold',
                   color: AppColors.black,
-                  marginLeft: wp('4'),
+                  marginRight: wp('53'),
                   fontSize: hp('2'),
                 }}>
                 Cash
@@ -259,17 +431,16 @@ const{currentUser,baseUrl} = useContext(AppContext);
                 style={{
                   fontFamily: 'Poppins-SemiBold',
                   color: AppColors.black,
-                  marginLeft: wp('50'),
                   fontSize: hp('2'),
                 }}>
-                Rs. 650
+                {total}
               </Text>
             </View>
           </Neomorph>
         </View>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-         
-        
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+
+
           <Neomorph
             darkShadowColor={AppColors.primary}
             lightShadowColor={AppColors.darkgray}
@@ -287,13 +458,13 @@ const{currentUser,baseUrl} = useContext(AppContext);
               flex: 1,
             }}
             onLayout={() => calculateOrderSummaryHeight()}
-            >
-            <View style={{flexDirection: 'row', width: wp('100%')}}>
+          >
+            <View style={{ flexDirection: 'row', width: wp('100%') }}>
               <Entypo
                 name="text-document"
                 size={24}
                 color={AppColors.primary}
-                style={{marginLeft: wp('4'), marginTop: hp('3')}}
+                style={{ marginLeft: wp('4'), marginTop: hp('3') }}
               />
 
               <Text
@@ -308,37 +479,37 @@ const{currentUser,baseUrl} = useContext(AppContext);
               </Text>
             </View>
             <FlatList
-            data={cartProducts}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: hp('1.5'),
-                  justifyContent: 'space-between',
-                  marginLeft: wp('4.8'),
-                  marginRight: wp('3'),
-                }}>
-                <Text
+              data={cartProducts}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View
                   style={{
-                    fontFamily: 'Poppins-Regular',
-                    color: AppColors.black,
-                    fontSize: hp('1.8'),
+                    flexDirection: 'row',
+                    marginTop: hp('1.5'),
+                    justifyContent: 'space-between',
+                    marginLeft: wp('4.8'),
+                    marginRight: wp('3'),
                   }}>
-                  {truncateText(`${item.qty} x ${item.productName}`, 30)}
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Regular',
-                    color: AppColors.black,
-                    fontSize: hp('1.7'),
-                  }}>
-                  Rs. {item.productPrice}
-                </Text>
-              </View>
-            )}
-          />
-            
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-Regular',
+                      color: AppColors.black,
+                      fontSize: hp('1.8'),
+                    }}>
+                    {truncateText(`${item.qty} x ${item.productName}`, 30)}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-Regular',
+                      color: AppColors.black,
+                      fontSize: hp('1.7'),
+                    }}>
+                    Rs. {item.productPrice}
+                  </Text>
+                </View>
+              )}
+            />
+
             <View
               style={{
                 marginTop: hp('2'),
@@ -347,7 +518,7 @@ const{currentUser,baseUrl} = useContext(AppContext);
                 borderColor: AppColors.background2,
               }}>
 
-              </View>
+            </View>
 
             <View
               style={{
@@ -419,40 +590,40 @@ const{currentUser,baseUrl} = useContext(AppContext);
               </Text>
             </View> */}
           </Neomorph>
-          
-        </View>
-        <View style={{height:hp('4')}}>
 
-</View>
-        </ScrollView>
-       
-        <View
+        </View>
+        <View style={{ height: hp('4') }}>
+
+        </View>
+      </ScrollView>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: hp('1'),
+          justifyContent: 'space-between',
+          marginLeft: wp('5'),
+          marginRight: wp('4'),
+        }}>
+        <Text
           style={{
-            flexDirection: 'row',
-            marginTop: hp('1'),
-            justifyContent: 'space-between',
-            marginLeft: wp('5'),
-            marginRight: wp('4'),
-          }}>
-          <Text
-            style={{
-              fontFamily: 'Poppins-SemiBold',
-              color: AppColors.black,
+            fontFamily: 'Poppins-SemiBold',
+            color: AppColors.black,
 
-              fontSize: hp('2.5'),
-            }}>
-            Total
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Poppins-SemiBold',
-              color: AppColors.black,
-              fontSize: hp('2.2'),
-            }}>
-            {total}
-          </Text>
-        </View>
-      
+            fontSize: hp('2.5'),
+          }}>
+          Total
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'Poppins-SemiBold',
+            color: AppColors.black,
+            fontSize: hp('2.2'),
+          }}>
+          {total}
+        </Text>
+      </View>
+
       <TouchableOpacity onPress={() => {
         addOrder()
       }}>

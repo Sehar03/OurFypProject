@@ -65,8 +65,8 @@ const TextStyles = StyleSheet.create({
   },
   backButtonTitle: {
     position: 'absolute',
-    left: wp('15%'),
-    top: hp('3%'),
+    left: wp('38%'),
+    top: hp('4.4'),
     fontFamily: 'Poppins-SemiBold',
     color: 'black',
   },

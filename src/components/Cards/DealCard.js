@@ -16,62 +16,73 @@ import AppColors from '../../assets/colors/AppColors';
 import axios from 'axios';
 import { Neomorph } from 'react-native-neomorph-shadows';
 
-const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,restaurant_id,storeRestaurantId}) => {
-
+const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,restaurant_id}) => {
   const {
     selectedFoodFeature,
     selectedRestaurants,
     baseUrl,
-    currentUser
-
+    currentUser,
+    storeRestaurantId,
   } = useContext(AppContext);
 
 
-  const addCartProducts = () => {
-
-    // Check if the restaurant_id matches the stored storeRestaurant_id
-    if (storeRestaurantId && storeRestaurantId !== restaurant_id) {
-      alert("Cannot add products from different restaurants to the cart. Please complete the current order first.");
-      return;
-    }
-
-
-    const formData = new FormData();
-    formData.append("customer_id", currentUser.userId);
-    formData.append("productId", item._id);
-    formData.append("restaurant_id",restaurant_id)
-    formData.append("productName", item.foodDealTitle);
-    formData.append("productPrice", item.foodDealPrice);
-    formData.append("pricePerProduct", item.foodDealPrice);
-    formData.append("productImage", {
-      uri: baseUrl + item.foodDealImage,
-      name: "foodDealImage.jpg",
-      type: "image/jpg",
-    });
-
-    console.log(formData);
-    axios({
-      method: "post",
-      url: `${baseUrl}/addCartProducts`,
-      headers: { "Content-Type": "multipart/form-data" },
-      data: formData,
-    })
+  const addCartProducts = async () => {
+    // Fetch the current cart details to check if it already contains items
+    try {
+      const cartResponse = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
+      const existingCartItems = cartResponse.data;
+  
+      // Check if the cart is not empty
+      if (existingCartItems.length > 0) {
+        // Check if the restaurant_id of the existing items matches the current product's restaurant_id
+        const isMatchingRestaurant = existingCartItems.every(item => item.restaurant_id === restaurant_id);
+  
+        if (!isMatchingRestaurant) {
+          // Show an alert if the restaurant_id does not match
+          alert("Clear your cart before adding this item, as items from another restaurant are already in your cart.");
+          return;
+        }
+      }
+  
+      // Proceed to add the product to the cart
+      const formData = new FormData();
+      formData.append("customer_id", currentUser.userId);
+      formData.append("productId", item._id);
+      formData.append("restaurant_id", restaurant_id);
+      formData.append("productName", item.foodDealTitle);
+      formData.append("productPrice", item.foodDealPrice);
+      formData.append("pricePerProduct", item.foodDealPrice);
+      formData.append("productImage", {
+        uri: baseUrl + item.foodDealImage,
+        name: "foodDealImage.jpg",
+        type: "image/jpg",
+      });
+  
+      axios({
+        method: "post",
+        url: `${baseUrl}/addCartProducts`,
+        headers: { "Content-Type": "multipart/form-data" },
+        data: formData,
+      })
       .then((response) => {
         if (response.data.added) {
+          storeRestaurantId(restaurant_id)
           alert("Product is added into Cart");
-          storeRestaurantId(restaurant_id);
           updateTotalQuantity();
           updateTotalAmount();
-
         } else {
-
-          alert("Some thing went wrong");
+          alert("Something went wrong");
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  
+    } catch (error) {
+      console.error('Error fetching cart details:', error);
+    }
   };
+  
   
   const addShareFoodProducts = () => {
     const formData = new FormData();
