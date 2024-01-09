@@ -65,8 +65,9 @@ const TextStyles = StyleSheet.create({
   },
   backButtonTitle: {
     position: 'absolute',
-    left: wp('15%'),
-    top: hp('3%'),
+    fontSize:wp('4.5'),
+    left: wp('38%'),
+    top: hp('4.4'),
     fontFamily: 'Poppins-SemiBold',
     color: 'black',
   },
@@ -136,7 +137,7 @@ const TextStyles = StyleSheet.create({
   },
   cartTextStyle: {
     color: 'black',
-    fontSize: hp('3%'),
+    fontSize: hp('2.5%'),
     marginLeft: wp('8%'),
     fontFamily: 'Poppins-SemiBold',
     marginTop: hp('2.4%'),

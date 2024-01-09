@@ -33,6 +33,8 @@ import Setting from './src/screens/Setting';
 import Checkout from './src/screens/Orders/Checkout';
 import messaging from '@react-native-firebase/messaging';
 import { Alert } from 'react-native';
+import YourOrder from './src/screens/Orders/YourOrder';
+import OrderDetail from './src/screens/Orders/OrderDetail';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -78,7 +80,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="OngoingOrder" component={OngoingOrder} />
       <Stack.Screen name="Setting" component={Setting} />
       <Stack.Screen name="Checkout" component={Checkout} />
-
+      <Stack.Screen name="YourOrder" component={YourOrder} />
+      <Stack.Screen name='OrderDetail' component={OrderDetail}/>
     </Stack.Navigator>
   );
 };

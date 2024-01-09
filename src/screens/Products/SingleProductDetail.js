@@ -27,8 +27,8 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 
 const SingleProductDetail = ({ navigation, route }) => {
-  const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants } = useContext(AppContext)
-  const { productImage, productName, productPrice, productDescription,productId} = route.params;
+  const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants,storeRestaurantId,storeRestaurantName } = useContext(AppContext)
+  const { productImage, productName, productPrice, productDescription,productId,restaurant_id,restaurantName} = route.params;
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [isShareModalVisible, setShareModalVisible] = useState(false);
@@ -36,7 +36,6 @@ const SingleProductDetail = ({ navigation, route }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
   const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
-
   const openModal = () => {
     setModalVisible(true);
   };
@@ -53,10 +52,26 @@ const SingleProductDetail = ({ navigation, route }) => {
     setShareModalVisible(false);
   };
 
-  const addCartProducts = () => {
+  const addCartProducts = async() => {
+    try {
+      const cartResponse = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
+      const existingCartItems = cartResponse.data;
+  
+      // Check if the cart is not empty
+      if (existingCartItems.length > 0) {
+        // Check if the restaurant_id of the existing items matches the current product's restaurant_id
+        const isMatchingRestaurant = existingCartItems.every(item => item.restaurant_id === restaurant_id);
+  
+        if (!isMatchingRestaurant) {
+          // Show an alert if the restaurant_id does not match
+          alert("Clear your cart before adding this item, as items from another restaurant are already in your cart.");
+          return;
+        }
+      }
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId)
     formData.append("productId",productId)
+    formData.append("restaurant_id", restaurant_id);
     formData.append("productName", productName);
     formData.append("productPrice", productPrice);
     formData.append("pricePerProduct", productPrice);
@@ -72,18 +87,25 @@ const SingleProductDetail = ({ navigation, route }) => {
       headers: { "Content-Type": "multipart/form-data" },
       data: formData,
     })
-      .then((response) => {
-        if (response.data.added) {
-          alert('Product is Added into Cart')
-        } else {
+    .then((response) => {
+      if (response.data.added) {
+        storeRestaurantId(restaurant_id);
+        storeRestaurantName(restaurantName)
+        alert("Product is added into Cart");
+        updateTotalQuantity();
+        updateTotalAmount();
+      } else {
+        alert("Something went wrong");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-          alert("Some thing went wrong");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  } catch (error) {
+    console.error('Error fetching cart details:', error);
+  }
+};
   const addShareFoodProducts = () => {
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId)
