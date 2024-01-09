@@ -12,7 +12,7 @@ import Modal from 'react-native-modal';
 import SingleProductDetail from '../../screens/Products/SingleProductDetail';
 import AppContext from '../../Context/AppContext';
 
-const PopularFoodCard = ({navigation, item,restaurant_id}) => {
+const PopularFoodCard = ({navigation, item,restaurant_id,restaurantName}) => {
 
   const{baseUrl} = useContext(AppContext);
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,6 +32,7 @@ const PopularFoodCard = ({navigation, item,restaurant_id}) => {
         navigation.navigate('SingleProductDetail', {
           productId:item._id,
           restaurant_id:restaurant_id,
+          restaurantName:restaurantName,
           productImage: baseUrl+item.productImage,
           productName: item.productName,
           productPrice: item.productPrice,

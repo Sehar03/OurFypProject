@@ -15,7 +15,6 @@ import axios from 'axios';
 import LottieView from 'lottie-react-native';
 const Cart = ({ navigation,route }) => {
   const{restaurant_id} = route.params
-  console.log(restaurant_id)
   const { baseUrl, currentUser } = useContext(AppContext);
   const [myCart, setMyCart] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
@@ -97,10 +96,10 @@ const Cart = ({ navigation,route }) => {
             alignSelf: "center"
           }}>
             <LottieView
-              source={require('../../assets/animations/productEmpty.json')}
+              source={require('../../assets/animations/cartEmpty.json')}
               autoPlay
               loop
-              style={{ width: 200, height: 200 }}
+              style={{ width: wp(90), height: hp(30) }}
             />
             <Text style={[TextStyles.cartEmptyText]}>Your cart is empty!</Text>
           </View>

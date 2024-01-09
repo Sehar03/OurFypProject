@@ -16,14 +16,16 @@ import AppColors from '../../assets/colors/AppColors';
 import axios from 'axios';
 import { Neomorph } from 'react-native-neomorph-shadows';
 
-const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,restaurant_id}) => {
+const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,restaurant_id,restaurantName}) => {
   const {
     selectedFoodFeature,
     selectedRestaurants,
     baseUrl,
     currentUser,
     storeRestaurantId,
+    storeRestaurantName
   } = useContext(AppContext);
+
 
 
   const addCartProducts = async () => {
@@ -67,6 +69,7 @@ const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,resta
       .then((response) => {
         if (response.data.added) {
           storeRestaurantId(restaurant_id)
+          storeRestaurantName(restaurantName)
           alert("Product is added into Cart");
           updateTotalQuantity();
           updateTotalAmount();
@@ -163,6 +166,7 @@ const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,resta
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
             productId:item._id,
+            restaurant_id:restaurant_id,
             productImage: baseUrl+ item.foodDealImage,
             productName: item.foodDealTitle,
             productPrice: item.foodDealPrice,
@@ -185,6 +189,7 @@ const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,resta
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
             productId:item._id,
+            restaurant_id:restaurant_id,
             productImage:baseUrl+ item.foodDealImage,
             productName: item.foodDealTitle,
             productPrice: item.foodDealPrice,
