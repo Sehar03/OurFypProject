@@ -32,9 +32,10 @@ import AppContext from '../../Context/AppContext';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 
-const Popular = ({ navigation, restaurant_id }) => {
+const Popular = ({ navigation, restaurant_id ,restaurantName}) => {
   const { baseUrl } = useContext(AppContext)
   const [allPopularCards, setAllPopularCards] = useState([]);
+
   const viewAllProducts = async () => {
     try {
       const response = await axios.post(
@@ -71,7 +72,7 @@ const Popular = ({ navigation, restaurant_id }) => {
         data={allPopularCards}
         // scrollEnabled={false} // Disable the scroll behavior
         renderItem={({ item }) => {
-          return <PopularFoodCard navigation={navigation} item={item} restaurant_id={restaurant_id}/>;
+          return <PopularFoodCard navigation={navigation} restaurantName={restaurantName} item={item} restaurant_id={restaurant_id}/>;
         }}
       />
       {/* </ScrollView> */}
@@ -79,7 +80,7 @@ const Popular = ({ navigation, restaurant_id }) => {
   );
 };
 // Strong pepsi deals
-const SpecialDeals = ({ navigation, restaurant_id, updateTotalQuantity, updateTotalAmount }) => {
+const SpecialDeals = ({ navigation, restaurant_id, updateTotalQuantity, updateTotalAmount,restaurantName }) => {
   const {baseUrl} = useContext(AppContext)
   const [myCart, setMyCart] = useState([]);
 
@@ -109,7 +110,7 @@ const SpecialDeals = ({ navigation, restaurant_id, updateTotalQuantity, updateTo
       <FlatList
         data={myCart}
         renderItem={({ item }) => {
-          return <DealCard navigation={navigation} myCart={myCart} item={item} updateTotalQuantity={updateTotalQuantity} updateTotalAmount={updateTotalAmount} restaurant_id={restaurant_id}/>;
+          return <DealCard navigation={navigation} myCart={myCart} item={item} updateTotalQuantity={updateTotalQuantity} updateTotalAmount={updateTotalAmount} restaurantName={restaurantName} restaurant_id={restaurant_id}/>;
         }}
       />
     </SafeAreaView>
@@ -285,8 +286,8 @@ const Products = ({ navigation, route }) => {
             Delivery : {imageDeliveryTime}{' '}
           </Text>
         </View>
-        <Popular navigation={navigation} restaurant_id={restaurant_id} />
-        <SpecialDeals navigation={navigation} restaurant_id={restaurant_id} updateTotalQuantity={updateTotalQuantity} updateTotalAmount={updateTotalAmount} />
+        <Popular navigation={navigation} restaurant_id={restaurant_id} restaurantName={restaurantName} />
+        <SpecialDeals navigation={navigation} restaurant_id={restaurant_id} restaurantName={restaurantName} updateTotalQuantity={updateTotalQuantity} updateTotalAmount={updateTotalAmount} />
         {/* <SummerDeals navigation={navigation} />
         <BreakfastDeals navigation={navigation} /> */}
       </ScrollView>

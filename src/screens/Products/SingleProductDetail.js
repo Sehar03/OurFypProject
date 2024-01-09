@@ -27,8 +27,8 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 
 const SingleProductDetail = ({ navigation, route }) => {
-  const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants,storeRestaurantId, } = useContext(AppContext)
-  const { productImage, productName, productPrice, productDescription,productId,restaurant_id} = route.params;
+  const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants,storeRestaurantId,storeRestaurantName } = useContext(AppContext)
+  const { productImage, productName, productPrice, productDescription,productId,restaurant_id,restaurantName} = route.params;
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [isShareModalVisible, setShareModalVisible] = useState(false);
@@ -36,7 +36,6 @@ const SingleProductDetail = ({ navigation, route }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
   const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
-
   const openModal = () => {
     setModalVisible(true);
   };
@@ -90,7 +89,8 @@ const SingleProductDetail = ({ navigation, route }) => {
     })
     .then((response) => {
       if (response.data.added) {
-        storeRestaurantId(restaurant_id)
+        storeRestaurantId(restaurant_id);
+        storeRestaurantName(restaurantName)
         alert("Product is added into Cart");
         updateTotalQuantity();
         updateTotalAmount();

@@ -24,7 +24,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
-
+import randomstring from 'randomstring';
+import moment from 'moment';
 
 const Checkout = ({ navigation, route }) => {
   const { currentUser, baseUrl } = useContext(AppContext);
@@ -36,13 +37,19 @@ const Checkout = ({ navigation, route }) => {
   const [orderSummaryHeight, setOrderSummaryHeight] = useState(0);
   const { subtotal, deliveryFee, total, restaurant_id } = route.params;
 
-
+  
   const addOrder = () => {
+
+    const orderId = randomstring.generate(8);
+    // const orderDateTime = moment().format('DD MMM hh:mm A');
+    const orderDateTime = moment().format('DD MMM HH:mm'); 
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId);
     formData.append("customerName", currentUser.name);
     formData.append("customerPhoneNumber", mobileNumber);
     formData.append("customerEmail", currentUser.email);
+    formData.append("orderId",orderId);
+    formData.append("orderDateTime", orderDateTime);
     if (deliveryAddress && deliveryAddress.length > 0) {
       const firstAddress = deliveryAddress[0];
       formData.append("deliveryAddress", firstAddress.formattedAddress);
@@ -53,15 +60,10 @@ const Checkout = ({ navigation, route }) => {
       productPrice: product.productPrice,
     }));
     formData.append("products", JSON.stringify(productsArray));
-
     formData.append("deliveryFee", deliveryFee);
     formData.append("totalAmount", total);
     formData.append("restaurant_id", restaurant_id);
 
-
-    ;
-
-    console.log(formData);
     axios({
       method: "post",
       url: `${baseUrl}/addOrder`,
@@ -71,6 +73,15 @@ const Checkout = ({ navigation, route }) => {
       .then((response) => {
         if (response.data.added) {
           alert("Order is placed");
+          navigation.navigate('YourOrder',{
+            deliveryAddress:deliveryAddress,
+            productsArray:productsArray,
+            subtotal:subtotal,
+            deliveryFee:deliveryFee,
+            total:total,
+            orderId:orderId
+
+          })
         } else {
 
           alert("Some thing went wrong");
@@ -81,16 +92,10 @@ const Checkout = ({ navigation, route }) => {
       });
   };
 
-
-
-
-
-
   const viewAllCartProducts = async () => {
     try {
       const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
       setCartProducts(response.data);
-      console.log(response.data)
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -145,6 +150,7 @@ const Checkout = ({ navigation, route }) => {
               paddingBottom: hp('3'),
               flex: 1,
             }}>
+             
             {isEditingDeliveryAddress ? (
               <View>
                 <View style={{ flexDirection: "row" }}>
@@ -219,6 +225,7 @@ const Checkout = ({ navigation, route }) => {
                     Delivery Address
                   </Text>
                 </View>
+                
                 <View
                   style={{
                     flex: 1,
@@ -229,13 +236,15 @@ const Checkout = ({ navigation, route }) => {
                     borderColor: AppColors.background2,
                   }}></View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <View style={{ width: wp('85') }}>
+                  <View style={{ width: wp('83'),height:hp('6.5') }}>
                     <Text style={{
                       marginLeft: wp('3.5'),
                     }}>
                       {deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
                     </Text>
+                   
                   </View>
+                  
                   <TouchableOpacity onPress={() => setIsEditingDeliveryAddress(!isEditingDeliveryAddress)}>
                     <MaterialIcons
                       name={isEditingDeliveryAddress ? 'done' : 'edit'}
@@ -244,6 +253,7 @@ const Checkout = ({ navigation, route }) => {
                     />
                   </TouchableOpacity>
                 </View>
+              
               </View>
             )}
           </Neomorph>
