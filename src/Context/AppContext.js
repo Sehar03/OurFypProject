@@ -20,7 +20,8 @@ export const AppProvider = ({children}) => {
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
   const [restaurant_id, setRestaurantId] = useState(''); 
-  
+  const [restaurantName, setRestaurantName] = useState(''); 
+ 
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
   };
@@ -85,6 +86,9 @@ setDonorAddress(val);
   const storeRestaurantId = (val) => {
     setRestaurantId(val);
   };
+  const storeRestaurantName = (val) => {
+    setRestaurantName(val);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -106,6 +110,7 @@ setDonorAddress(val);
         selectedDonationState,
         donorAddress,
         restaurant_id,
+        restaurantName,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,
         storeSelectedRestaurants,
@@ -125,7 +130,8 @@ setDonorAddress(val);
         storeDonorAddress,
         storeSelectedScreenForAddress,
         storeSelectedDonationState,
-        storeRestaurantId
+        storeRestaurantId,
+        storeRestaurantName
       }}>
       {children}
     </AppContext.Provider>
