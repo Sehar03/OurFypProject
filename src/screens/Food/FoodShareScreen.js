@@ -27,11 +27,16 @@ const FoodShareScreen = ({navigation}) => {
 
     return () => clearInterval(interval);
   }, []);
+  const [searchText, setSearchText] = useState('');
+  
+    const handleSearch = (text) => {
+      setSearchText(text);
+    };
   return (
     <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
       <MainHeader navigation={navigation} item="Share Food" />
       <ScrollView>
-        <SearchComponent />
+        <SearchComponent onSearch={handleSearch}/>
 
         <TouchableOpacity
           onPress={() => {
@@ -69,8 +74,8 @@ const FoodShareScreen = ({navigation}) => {
             </View>
           </ImageBackground>
         </TouchableOpacity>
-        <SmallCard navigation={navigation} />
-        <LargeCard navigation={navigation} />
+        <SmallCard  navigation={navigation} searchText={searchText} />
+          <LargeCard navigation={navigation} searchText={searchText} />
       </ScrollView>
     </SafeAreaView>
   );
