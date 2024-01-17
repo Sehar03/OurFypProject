@@ -38,6 +38,22 @@ const Checkout = ({ navigation, route }) => {
   const { subtotal, deliveryFee, total, restaurant_id } = route.params;
 
   
+
+
+  const updateCartStatus = () => {
+    axios.post(`${baseUrl}/updateCartStatus/${currentUser.userId}`)
+      .then((response) => {
+        if (response.data.success) {
+          console.log('Cart status updated successfully');
+        } else {
+          console.error('Failed to update cart status');
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating cart status:', error);
+      });
+  };
+
   const addOrder = () => {
 
     const orderId = randomstring.generate(8);
@@ -72,6 +88,7 @@ const Checkout = ({ navigation, route }) => {
     })
       .then((response) => {
         if (response.data.added) {
+           updateCartStatus();
           alert("Order is placed");
           navigation.navigate('YourOrder',{
             deliveryAddress:deliveryAddress,
@@ -94,8 +111,9 @@ const Checkout = ({ navigation, route }) => {
 
   const viewAllCartProducts = async () => {
     try {
-      const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      setCartProducts(response.data);
+      const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+      const filteredCart = response.data.filter(product => product.isPurchased === 0);
+      setCartProducts(filteredCart);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -107,16 +125,7 @@ const Checkout = ({ navigation, route }) => {
     }, [currentUser.userId]),
   );
 
-  const calculateOrderSummaryHeight = () => {
-    // Calculate the height based on the number of products and other components
-    const productsHeight = cartProducts.length * hp('3.5'); // Adjust the value based on your UI
-    const otherComponentsHeight = hp('25'); // Adjust the value based on your UI
 
-    // Calculate the total height required for the Neomorph
-    const totalHeight = productsHeight + otherComponentsHeight;
-
-    setOrderSummaryHeight(totalHeight);
-  };
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -451,24 +460,14 @@ const Checkout = ({ navigation, route }) => {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
 
-          <Neomorph
-            darkShadowColor={AppColors.primary}
-            lightShadowColor={AppColors.darkgray}
-            swapShadows // <- change zIndex of each shadow color
-            style={{
-              height: orderSummaryHeight,
-              width: wp('94'),
-              borderRadius: wp('1.3%'),
-              shadowRadius: 2,
-              backgroundColor: AppColors.white,
-              marginVertical: hp('1%'),
-              shadowOpacity: 0.3,
-              marginTop: hp('1.4%'),
-              paddingBottom: hp('3'),
-              flex: 1,
-            }}
-            onLayout={() => calculateOrderSummaryHeight()}
-          >
+         <View style={{
+          width: wp(95),
+          marginBottom: hp('1.5'),
+          borderWidth: 2,
+          borderColor: AppColors.background2,
+          borderRadius: 5,
+          marginTop: hp('1.4%'),
+         }}>
             <View style={{ flexDirection: 'row', width: wp('100%') }}>
               <Entypo
                 name="text-document"
@@ -599,7 +598,7 @@ const Checkout = ({ navigation, route }) => {
                 Rs. 10
               </Text>
             </View> */}
-          </Neomorph>
+          </View>
 
         </View>
         <View style={{ height: hp('4') }}>

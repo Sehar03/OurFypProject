@@ -117,98 +117,6 @@ const SpecialDeals = ({ navigation, restaurant_id, updateTotalQuantity, updateTo
   );
 };
 
-// const SummerDeals = ({navigation}) => {
-//   const [allSummerDealCards, setAllSummerDealCards] = useState([
-//     {
-//       uri: require('../../assets/Images/paratha.jpeg'),
-//       title: 'Summer Deal 7',
-//       description: '2 parathay, 1 omelette, 1 sweet egg',
-//       price: '780.00',
-//     },
-//     {
-//       uri: require('../../assets/Images/paratha2.jpeg'),
-//       title: 'Summer Deal 6',
-//       description: '2 parathay , 1 omelette,2 Shami kabab',
-//       price: '890.00',
-//     },
-//     {
-//       uri: require('../../assets/Images/paratha3.webp'),
-//       title: 'Summer Deal 8',
-//       description: '2 parathay, 1 omelette, 1 sweet egg',
-//       price: '1030.00',
-//     },
-//   ]);
-//   return (
-//     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-//       <View style={[ContainerStyles.productsContainerSeparator]}></View>
-//       <View style={{flexDirection: 'row'}}>
-//         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
-//           Summer Deals
-//         </Text>
-//         <MaterialCommunityIcons
-//           name="fire"
-//           size={wp('8%')}
-//           style={IconStyles.fireIcon2}
-//         />
-//       </View>
-//       <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
-//         Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
-//       </Text>
-
-//       <FlatList
-//         data={allSummerDealCards}
-//         // scrollEnabled={false} // Disable the scroll behavior
-//         renderItem={({item}) => {
-//           return <DealCard navigation={navigation} item={item} />;
-//         }}
-//       />
-//     </SafeAreaView>
-//   );
-// };
-
-// const BreakfastDeals = ({navigation}) => {
-//   const [allBreakfastDealCards, setAllBreakfastDealCards] = useState([
-//     {
-//       uri: require('../../assets/Images/paratha.jpeg'),
-//       title: 'Breakfat Deal 1',
-//       description: '2 parathay, 1 omelette, 1 sweet egg',
-//       price: '530.00',
-//     },
-//     {
-//       uri: require('../../assets/Images/paratha2.jpeg'),
-//       title: 'Breakfast Deal 2',
-//       description: '2 parathay , 1 omelette,2 Shami kabab',
-//       price: '690.00',
-//     },
-//     {
-//       uri: require('../../assets/Images/paratha3.webp'),
-//       title: 'Breakfast deal 3',
-//       description: '2 parathay, 1 omelette, 1 sweet egg',
-//       price: '780.00',
-//     },
-//   ]);
-//   return (
-//     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-//       <View style={[ContainerStyles.productsContainerSeparator]}></View>
-//       <View style={{flexDirection: 'row'}}>
-//         <Text style={[TextStyles.cartTextStyle, {marginLeft: wp('4%')}]}>
-//           Breakfast Deals
-//         </Text>
-//       </View>
-//       <Text style={[TextStyles.dealPriceText, {maxWidth: wp('90%')}]}>
-//         Amazing Dishes Use Voucher HC75 for 75 Rupees Discount
-//       </Text>
-
-//       <FlatList
-//         data={allBreakfastDealCards}
-//         // scrollEnabled={false} // Disable the scroll behavior
-//         renderItem={({item}) => {
-//           return <DealCard navigation={navigation} item={item} />;
-//         }}
-//       />
-//     </SafeAreaView>
-//   );
-// };
 const Products = ({ navigation, route }) => {
   const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants} = useContext(AppContext);
   const [cartProducts, setCartProducts] = useState([]);
@@ -231,30 +139,37 @@ const Products = ({ navigation, route }) => {
   const { restaurantImage, restaurantName, imageDeliveryTime, restaurant_id } = route.params;
 
 
-  const updateTotalQuantity = async () => {
-    try {
-      const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      setCartProducts(response.data);
-      const newTotalQuantity = response.data.reduce((total, product) => total + product.qty, 0);
-      setTotalQuantity(newTotalQuantity);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
+  // ...
 
-  const updateTotalAmount = async () => {
-    try {
-      const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      setCartProducts(response.data);
-        const newTotalAmount = response.data.reduce((acc, product) => {
-          return acc + parseFloat(product.pricePerProduct) * product.qty;
-        }, 0);
-        
-        setTotalAmount(newTotalAmount);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
+const updateTotalQuantity = async () => {
+  try {
+    const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+    const filteredProducts = response.data.filter(product => product.isPurchased === 0);
+    setCartProducts(filteredProducts);
+    const newTotalQuantity = filteredProducts.reduce((total, product) => total + product.qty, 0);
+    setTotalQuantity(newTotalQuantity);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+const updateTotalAmount = async () => {
+  try {
+    const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+    const filteredProducts = response.data.filter(product => product.isPurchased === 0);
+    setCartProducts(filteredProducts);
+    const newTotalAmount = filteredProducts.reduce((acc, product) => {
+      return acc + parseFloat(product.pricePerProduct) * product.qty;
+    }, 0);
+    
+    setTotalAmount(newTotalAmount);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+// ...
+
   useFocusEffect(
     React.useCallback(() => {
       updateTotalQuantity();
@@ -288,8 +203,6 @@ const Products = ({ navigation, route }) => {
         </View>
         <Popular navigation={navigation} restaurant_id={restaurant_id} restaurantName={restaurantName} />
         <SpecialDeals navigation={navigation} restaurant_id={restaurant_id} restaurantName={restaurantName} updateTotalQuantity={updateTotalQuantity} updateTotalAmount={updateTotalAmount} />
-        {/* <SummerDeals navigation={navigation} />
-        <BreakfastDeals navigation={navigation} /> */}
       </ScrollView>
       {selectedFoodFeature === 'Full Price Food' && selectedRestaurants == 'Restaurants' && (
       <TouchableOpacity

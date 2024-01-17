@@ -31,8 +31,9 @@ const DealCard = ({ navigation, item,updateTotalQuantity,updateTotalAmount,resta
   const addCartProducts = async () => {
     // Fetch the current cart details to check if it already contains items
     try {
-      const cartResponse = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      const existingCartItems = cartResponse.data;
+      const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+      const existingCartItems = response.data.filter(product => product.isPurchased === 0);
+   
   
       // Check if the cart is not empty
       if (existingCartItems.length > 0) {

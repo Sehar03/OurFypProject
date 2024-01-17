@@ -54,9 +54,8 @@ const SingleProductDetail = ({ navigation, route }) => {
 
   const addCartProducts = async() => {
     try {
-      const cartResponse = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      const existingCartItems = cartResponse.data;
-  
+      const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+      const existingCartItems = response.data.filter(product => product.isPurchased === 0);  
       // Check if the cart is not empty
       if (existingCartItems.length > 0) {
         // Check if the restaurant_id of the existing items matches the current product's restaurant_id
@@ -92,8 +91,6 @@ const SingleProductDetail = ({ navigation, route }) => {
         storeRestaurantId(restaurant_id);
         storeRestaurantName(restaurantName)
         alert("Product is added into Cart");
-        updateTotalQuantity();
-        updateTotalAmount();
       } else {
         alert("Something went wrong");
       }
