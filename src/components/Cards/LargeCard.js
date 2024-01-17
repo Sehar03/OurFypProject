@@ -35,11 +35,14 @@ const LargeCard = ({ navigation,searchText }, props) => {
     viewAllRestaurants();
   }, []);
 
+  const filteredRestaurants = allResturantsCards.filter((item) =>
+  item.restaurantName && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+);
 
   
-  const filteredRestaurants = allResturantsCards.filter((item) =>
-    item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // const filteredRestaurants = allResturantsCards.filter((item) =>
+  //   item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  // );
 
   return (
     <View>

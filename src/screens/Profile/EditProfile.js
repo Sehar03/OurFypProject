@@ -59,9 +59,18 @@ const EditProfile = ({ route, navigation }) => {
           name: data.updatedUser.name,
           profileImage: data.updatedUser.profileImage,
           phoneNumber: data.updatedUser.phoneNumber,
+          addresses: data.updatedUser.addresses,
+
         });
 
-        await AsyncStorage.setItem('user', JSON.stringify(data));
+        await AsyncStorage.setItem('user', JSON.stringify({  userId: data.updatedUser._id,
+          email: data.updatedUser.email,
+          password: data.updatedUser.password,
+          name: data.updatedUser.name,
+          profileImage: data.updatedUser.profileImage,
+          phoneNumber: data.updatedUser.phoneNumber,
+          addresses: data.updatedUser.addresses,
+}));
         navigation.navigate('Profile');
       } else {
         console.log('Error in response: ', data);
