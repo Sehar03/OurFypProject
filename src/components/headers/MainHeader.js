@@ -14,13 +14,12 @@ const MainHeader = ({ navigation, item }) => {
   const { currentUser, baseUrl, selectedFoodFeature,restaurant_id, selectedRestaurants } = useContext(AppContext)
   const [cartProducts, setCartProducts] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  console.log("restaurant_id",restaurant_id)
   const updateTotalQuantity = async () => {
     try {
-      const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      setCartProducts(response.data);
-      const newTotalQuantity = response.data.reduce((total, product) => total + product.qty, 0);
-      console.log("New Total Quantity:", newTotalQuantity);
+      const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+      const filteredProducts = response.data.filter(product => product.isPurchased === 0);
+      setCartProducts(filteredProducts);
+      const newTotalQuantity = filteredProducts.reduce((total, product) => total + product.qty, 0);
       setTotalQuantity(newTotalQuantity);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -28,7 +27,6 @@ const MainHeader = ({ navigation, item }) => {
   };
   useFocusEffect(
     React.useCallback(() => {
-      console.log("Calling updateTotalQuantity");
       updateTotalQuantity();  // Check if this is being called
     }, [currentUser.userId]),
   );

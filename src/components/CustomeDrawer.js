@@ -135,16 +135,16 @@ const handleLogout = async () => {
           </View>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={{paddingVertical: 15}}
           onPress={() => {
-            navigation.navigate('Orders');
+            navigation.navigate('TrackOrderStatus');
           }}>
           <View style={[ContainerStyles.TwoitemsCenter]}>
             <Ionicons name="settings-outline" size={22} />
-            <Text style={[TextStyles.mediumTextStyle]}>Orders</Text>
+            <Text style={[TextStyles.mediumTextStyle]}>TrackOrderStatus</Text>
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
 
 

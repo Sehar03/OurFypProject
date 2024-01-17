@@ -14,22 +14,26 @@ import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 const Cart = ({ navigation,route }) => {
-  const{restaurant_id} = route.params
+  const { restaurant_id } = route.params
   const { baseUrl, currentUser } = useContext(AppContext);
   const [myCart, setMyCart] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
 
+
   const viewAllCartProducts = async () => {
     try {
       const response = await axios.post(
-        `${baseUrl}/viewAllCartsProduct/${currentUser.userId}`,
+        `${baseUrl}/viewAllCartProducts/${currentUser.userId}`,
       );
-      setMyCart(response.data);
-      setIsCartEmpty(response.data.length === 0);
+      const filteredCart = response.data.filter(product => product.isPurchased === 0);
+      setMyCart(filteredCart);
+      
+      setIsCartEmpty(filteredCart.length === 0);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
   };
+  
   useFocusEffect(
     React.useCallback(() => {
       viewAllCartProducts();

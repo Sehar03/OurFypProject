@@ -3,24 +3,19 @@ import {
   SafeAreaView,
   FlatList,
   Text,
-  TextInput,
   View,
   ScrollView,
-  TouchableOpacity,
   BackHandler,
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
-import TabScreensHeader from '../../components/headers/TabScreensHeader';
-import { Neomorph } from 'react-native-neomorph-shadows';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import LottieView from 'lottie-react-native';
 import AppContext from '../../Context/AppContext';
-import BackButtonHeader from '../../components/headers/BackButtonHeader';
 import CartHeader from '../../components/headers/CartHeader';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import  {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,44 +23,46 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const YourOrder = ({ navigation, route }) => {
   const { restaurantName, currentUser, baseUrl } = useContext(AppContext);
-  const [cartProducts, setCartProducts] = useState([])
+  const [currentOrder, setCurrentOrder] = useState([])
   const { orderId, deliveryAddress, subtotal, deliveryFee, total } = route.params;
 
 
 
-  const viewAllCartProducts = async () => {
+  const viewCurrentOrder = async () => {
     try {
-      const response = await axios.post(`${baseUrl}/viewAllCartsProduct/${currentUser.userId}`);
-      setCartProducts(response.data);
-      console.log(response.data)
+      const response = await axios.post(`${baseUrl}/viewCurrentOrder/${orderId}`);
+      const orderWithId = response.data.find(order => order.orderId === orderId);
+      setCurrentOrder(orderWithId)
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('Error fetching Order:', error);
     }
   };
   useFocusEffect(
     React.useCallback(() => {
-      viewAllCartProducts();
-    }, [currentUser.userId]),
+      viewCurrentOrder();
+    }, [orderId]),
+
   );
+  console.log("currentOrder",currentOrder)
+  // const viewAllCartProducts = async () => {
+  //   try {
+  //     const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
+  //     const filteredCart = response.data.filter(product => product.isPurchased === 1);
+  //     setCartProducts(filteredCart);
+  //   } catch (error) {
+  //     console.error('Error fetching products:', error);
+  //   }
+  // };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     viewAllCartProducts();
+  //   }, [currentUser.userId]),
+  // );
+
 
   
-  
-  const clearCart = async () => {
-    try {
-      const response = await axios.delete(`${baseUrl}/clearCart/${currentUser.userId}`);
-      console.log('Delete Cart Response:', response.data); 
-      if (response.data.success) {
-        console.log(response.data)
-      } else {
-        alert('Something went wrong');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
+
   const handleBackButtonPress = () => {
-    clearCart();
     navigation.navigate('FullPriceHomeScreen');
     return true; // Prevent default behavior (exit the app)
   };
@@ -282,8 +279,7 @@ const YourOrder = ({ navigation, route }) => {
             </Text>
           </View> */}
           <FlatList
-            data={cartProducts}
-            keyExtractor={(item, index) => index.toString()}
+            data={currentOrder.products}
             renderItem={({ item }) => (
               <View
                 style={{
