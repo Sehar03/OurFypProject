@@ -52,12 +52,13 @@ const ImageStyles = StyleSheet.create({
     borderWidth: 4,
   },
   scheduleImage: {
-    width: wp('32'),
-    height:hp('15'),
-    marginLeft: wp('10'),
-    marginTop: hp('1.6'),
+    width: wp('28'),
+    height:hp('14'),
+    marginLeft: wp('2.3'),
+    marginTop: hp('1.8'),
     borderRadius: wp('2'),
-    borderWidth: 4,
+    borderWidth: 1,
+    borderColor:AppColors.background2
   },
   smallSquareBoxImage: {
     width: wp('25%'),
@@ -71,6 +72,13 @@ const ImageStyles = StyleSheet.create({
     marginTop: hp('1'),
     borderRadius: hp('1%'),
   },
+  orderImage:{
+    width: wp('24'),
+    height: hp('11'),
+    marginLeft: wp('3'),
+    marginTop: hp('2'),
+    borderRadius: wp('2'),
+  }
 });
 
 export default ImageStyles;

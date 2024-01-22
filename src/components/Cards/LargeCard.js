@@ -24,14 +24,13 @@ import Geocoder from 'react-native-geocoding';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const LargeCard = ({navigation, searchText}) => {
-  const {baseUrl, storeSelectedRestaurants, currentUser} =
-    useContext(AppContext);
+const LargeCard = ({ navigation,searchText }, props) => {
+  const { baseUrl, storeSelectedRestaurants,storeRestaurantFcmToken,storeRestaurantAddress,storeRestaurantId,storeRestaurantName,storeRestaurantImage} = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
-  const [loading, setLoading] = useState(true);
+   const [loading, setLoading] = useState(true);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
- 
+
   useEffect(() => {
     const viewAllRestaurants = async () => {
       try {
@@ -161,7 +160,27 @@ const LargeCard = ({navigation, searchText}) => {
             style={{width: 100, height: 100, marginTop: hp('10')}}
           />
           <Text>Loading Restaurants</Text>
-        </View>
+=======
+  
+//   const filteredRestaurants = allResturantsCards.filter((item) =>
+//   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+// );
+
+
+  return (
+    <View>
+    {loading ? (
+     <View style={ { padding: 20,alignSelf:"center"}}>
+     <LottieView
+       source={require('../../assets/animations/Loading.json')}
+       autoPlay
+       loop
+       style={{ width: 100, height: 100,marginTop:hp('10') }}
+     />
+     <Text>Loading Restaurants</Text>
+   </View>
+  
+
       ) : (
         <View>
           <Text
@@ -171,7 +190,6 @@ const LargeCard = ({navigation, searchText}) => {
             ]}>
             All Restaurants
           </Text>
-
           <FlatList
             data={filteredRestaurants}
             Vertical
@@ -196,6 +214,12 @@ const LargeCard = ({navigation, searchText}) => {
                     style={{alignItems: 'center'}}
                     onPress={() => {
                       storeSelectedRestaurants('Restaurants'),
+                           storeRestaurantAddress(item.restaurantAddress),
+            storeRestaurantId(item._id)
+            storeRestaurantName(item.restaurantName)
+            storeRestaurantFcmToken(item.fcmToken)
+            storeRestaurantImage(item.restaurantImage)
+
                         navigation.navigate('Products', {
                           restaurant_id: item._id,
                           restaurantImage: baseUrl + item.restaurantImage,

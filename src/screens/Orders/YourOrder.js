@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   BackHandler,
+  TouchableOpacity,
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import {
@@ -19,6 +20,9 @@ import  {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import ContainerStyles from '../../assets/Styles/ContainerStyles';
+import TextStyles from '../../assets/Styles/TextStyles';
+import { Neomorph } from 'react-native-neomorph-shadows';
 
 
 const YourOrder = ({ navigation, route }) => {
@@ -418,9 +422,48 @@ const YourOrder = ({ navigation, route }) => {
           <Text style={{marginRight:wp('40'),marginTop:hp('0.23')}}> Cash on Delivery</Text>
           <Text style={{marginRight:wp('3.5')}}>Rs. {total}</Text>
           </View>
-                    </View>
+          </View>
+          </ScrollView>
+          <View style={{backgroundColor:AppColors.white}}>
+          <TouchableOpacity onPress={()=>{
+        navigation.navigate('TrackOrderStatus',{
+          orderId:orderId
+        })
+      }}>
+      <Neomorph
+              darkShadowColor="white"
+              lightShadowColor="white"
+              swapShadows // <- change zIndex of each shadow color
+              style={{
+                shadowRadius: 2,
+                backgroundColor: AppColors.primary,
+                borderRadius: wp('1.3'),
+                height: hp('6.2%'),
+                width: wp('94%'),
+                marginVertical: hp('1.4%'),
+                shadowOpacity: 0.2,
+                marginLeft: wp('3'),
+                marginRight: wp('4'),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+            style={{
+              color: AppColors.white,
+              fontFamily: 'Poppins-SemiBold',
+              fontSize: hp('2.1'),
+            }}>
+            Track Order Status
+          </Text>
+        </Neomorph>
+      </TouchableOpacity>
+      </View>
+       
+      
+                   
+                    
 
-      </ScrollView>
+      
     </SafeAreaView>
   );
 };

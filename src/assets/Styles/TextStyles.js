@@ -249,6 +249,13 @@ const TextStyles = StyleSheet.create({
     alignSelf:"center",
    marginTop: hp('1.5%'),
   },
+  orderText:{
+    color: AppColors.black,
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: hp('2.5'),
+    marginLeft: wp('4'),
+    marginTop: hp('4'),
+  }
 });
 
 export default TextStyles;

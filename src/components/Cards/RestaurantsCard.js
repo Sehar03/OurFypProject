@@ -13,13 +13,16 @@ import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import AppContext from '../../Context/AppContext';
 const RestaurantsCard = ({item,navigation,route},props) => {
-  const { storeSelectedRestaurants,baseUrl} = useContext(AppContext);
+  const { storeSelectedRestaurants,baseUrl,storeRestaurantId,storeRestaurantAddress,storeRestaurantName,storeRestaurantFcmToken} = useContext(AppContext);
   return (
     <SafeAreaView
     style={{flex: 1, backgroundColor: AppColors.white,}}>
     <TouchableOpacity style={{alignItems:"center"}} onPress={()=>{
       storeSelectedRestaurants('Restaurants'),
-      
+      storeRestaurantId(item._id)
+      storeRestaurantAddress(item.restaurantAddress),
+      storeRestaurantName(item.restaurantName)
+      storeRestaurantFcmToken(item.fcmToken)
       navigation.navigate('Products',{
       restaurantImage: baseUrl+ item.restaurantImage,
       restaurantName:item.restaurantName,

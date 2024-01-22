@@ -12,7 +12,7 @@ import Modal from 'react-native-modal';
 import SingleProductDetail from '../../screens/Products/SingleProductDetail';
 import AppContext from '../../Context/AppContext';
 
-const PopularFoodCard = ({navigation, item,restaurant_id,restaurantName}) => {
+const PopularFoodCard = ({navigation, item,restaurant_id,restaurantName,restaurantImage}) => {
 
   const{baseUrl} = useContext(AppContext);
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +36,8 @@ const PopularFoodCard = ({navigation, item,restaurant_id,restaurantName}) => {
           productImage: baseUrl+item.productImage,
           productName: item.productName,
           productPrice: item.productPrice,
-          productDescription:item.productDescription
+          productDescription:item.productDescription,
+          restaurantImage:restaurantImage,
         });
       }}>
       <Neomorph

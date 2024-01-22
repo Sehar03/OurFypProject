@@ -17,7 +17,7 @@ const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginTop: hp('1.4%'),
   },
-
+  
   EditNameNeomorphContainer: {
     width: wp('87%'),
     height: hp('7%'),
@@ -84,12 +84,21 @@ const ContainerStyles = StyleSheet.create({
 
   touchableOpacityNeomorphContainer: {
     marginTop: hp('3%'),
-
     shadowRadius: 6,
     backgroundColor: AppColors.primary,
     borderRadius: wp('3%'),
     height: hp('6%'),
     width: wp('80%'),
+    marginVertical: hp('1.4%'),
+    shadowOpacity: 0.3,
+  },
+  touchableOpacitySmallNeomorphContainer: {
+    marginTop: hp('1.5%'),
+    shadowRadius: 6,
+    backgroundColor: AppColors.primary,
+    borderRadius: wp('15'),
+    height: hp('6%'),
+    width: wp('33%'),
     marginVertical: hp('1.4%'),
     shadowOpacity: 0.3,
   },
@@ -270,6 +279,7 @@ const ContainerStyles = StyleSheet.create({
   },
   singleProductTouchableOpacityNeomorphContainer: {
     marginTop: hp('2%'),
+    marginBottom:hp('1'),
     shadowRadius: 6,
     backgroundColor: AppColors.primary,
     borderRadius: wp('3%'),
@@ -480,6 +490,29 @@ const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginLeft: wp('15'),
   },
+  ScheduleCardNeomorph:{
+    width: wp('95%'),
+    height: hp('25%'),
+    borderRadius: wp('2'),
+    shadowRadius: 2,
+    backgroundColor: AppColors.white,
+    shadowOpacity: 0.3,
+  },
+
+  orderNeomorph:
+    {
+      height: hp('15'),
+      width: wp('94'),
+      borderRadius: wp('1.3%'),
+      shadowRadius: 2.2,
+      backgroundColor: AppColors.white,
+      marginVertical: hp('1%'),
+      shadowOpacity: 0.3,
+      marginTop: hp('2%'),
+      paddingBottom: hp('3'),
+      flex: 1,
+    },
+  
   
 });
 

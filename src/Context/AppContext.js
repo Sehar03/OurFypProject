@@ -21,7 +21,11 @@ export const AppProvider = ({children}) => {
   const [categoryName, setCategoryName] = useState('');
   const [restaurant_id, setRestaurantId] = useState(''); 
   const [restaurantName, setRestaurantName] = useState(''); 
- 
+  const [restaurantAddress, setRestaurantAddress] = useState(''); 
+  const [restaurantImage, setRestaurantImage] = useState(''); 
+  const [restaurantFcmToken, setRestaurantFcmToken] = useState(''); 
+  const [restaurantImage, setRestaurantImage] = useState('');
+  
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
   };
@@ -89,6 +93,16 @@ setDonorAddress(val);
   const storeRestaurantName = (val) => {
     setRestaurantName(val);
   };
+  const storeRestaurantAddress = (val)=>{
+    setRestaurantAddress(val)
+  };
+  const storeRestaurantFcmToken =(val)=>{
+    setRestaurantFcmToken(val)
+  };
+  const storeRestaurantImage = (val)=>{
+    setRestaurantImage(val)
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -111,6 +125,9 @@ setDonorAddress(val);
         donorAddress,
         restaurant_id,
         restaurantName,
+        restaurantAddress,
+        restaurantImage,
+        restaurantFcmToken,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,
         storeSelectedRestaurants,
@@ -131,7 +148,10 @@ setDonorAddress(val);
         storeSelectedScreenForAddress,
         storeSelectedDonationState,
         storeRestaurantId,
-        storeRestaurantName
+        storeRestaurantName,
+        storeRestaurantAddress,
+        storeRestaurantImage,
+        storeRestaurantFcmToken,
       }}>
       {children}
     </AppContext.Provider>
