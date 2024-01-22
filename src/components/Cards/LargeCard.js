@@ -16,7 +16,7 @@ import axios from 'axios';
 import LottieView from 'lottie-react-native';
 
 const LargeCard = ({ navigation,searchText }, props) => {
-  const { baseUrl, storeSelectedRestaurants,storeRestaurantFcmToken,storeRestaurantAddress,storeRestaurantId,storeRestaurantName} = useContext(AppContext);
+  const { baseUrl, storeSelectedRestaurants,storeRestaurantFcmToken,storeRestaurantAddress,storeRestaurantId,storeRestaurantName,storeRestaurantImage} = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
    const [loading, setLoading] = useState(true);
 
@@ -35,11 +35,15 @@ const LargeCard = ({ navigation,searchText }, props) => {
     viewAllRestaurants();
   }, []);
 
+  const filteredRestaurants = allResturantsCards.filter((item) =>
+  item.restaurantName && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+);
 
   
 //   const filteredRestaurants = allResturantsCards.filter((item) =>
 //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
 // );
+
 
   return (
     <View>
@@ -70,6 +74,8 @@ const LargeCard = ({ navigation,searchText }, props) => {
             storeRestaurantId(item._id)
             storeRestaurantName(item.restaurantName)
             storeRestaurantFcmToken(item.fcmToken)
+            storeRestaurantImage(item.restaurantImage)
+
             navigation.navigate('Products', {
               restaurant_id: item._id,
               restaurantImage:baseUrl+item.restaurantImage,

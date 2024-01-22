@@ -16,10 +16,35 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
 import {Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
+import AppContext from '../../Context/AppContext';
+import Octicons from 'react-native-vector-icons/Octicons';
+import IconStyles from '../../assets/Styles/IconStyles';
 
 const OrderDetail = ({navigation, route, item}) => {
+const {orderId} = route.params;
+const[viewSingleOrder,setViewSingleOrder] = useState([]);
+const { baseUrl, currentUser } = useContext(AppContext);
 
+const ViewSingleOrder = async () => {
+  try {
+    const response = await axios.post(`${baseUrl}/viewSingleOrder/${orderId}`);
+setViewSingleOrder(response.data);
+console.log('response',response.data)
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+useFocusEffect(
+  React.useCallback(() => {
+    ViewSingleOrder();
+  }, [orderId]),
+);
+
+
+
+console.log('orderId',orderId);
     const truncateText = (text, maxLength) => {
         if (text.length > maxLength) {
           return text.substring(0, maxLength) + '...';
@@ -36,9 +61,10 @@ const OrderDetail = ({navigation, route, item}) => {
         backgroundColor="transparent"
         translucent={true}
       />
-
+{viewSingleOrder.map((item) => (
+  <>
       <ImageBackground
-        source={require('../../assets/Images/biryani5.jpeg')}
+        source={{uri:baseUrl+item.restaurantImage}}
         style={{height: hp('40%'), width: wp('100%')}}>
         <ProductsBackButton navigation={navigation} />
 
@@ -56,14 +82,30 @@ const OrderDetail = ({navigation, route, item}) => {
       </ImageBackground>
       <View style={{alignItems:"center"}}>
 
-      <Text style={{fontFamily:"Poppins-SemiBold",fontSize:hp('2.2'),color:AppColors.black}}>Order #v3ds-bq6a</Text>
-      <Text style={{fontFamily:"Poppins-Regular",fontSize:hp('1.8'),color:AppColors.black}}>Delivered on 28 Sep 19:05</Text>
+      <Text style={{fontFamily:"Poppins-SemiBold",fontSize:hp('2.2'),color:AppColors.black}}>Order #{orderId}</Text>
+      <Text style={{fontFamily:"Poppins-Regular",fontSize:hp('1.8'),color:AppColors.black}}>Delivered on { item.orderDateTime}</Text>
       </View>
       <View style={{marginLeft:wp('8'),marginTop:hp('3'),marginRight:wp('7')}}>
-        <Text style={{fontFamily:"Poppins-Regular"}}>Order from</Text>
-        <Text style={{fontFamily:"Poppins-SemiBold",fontSize:hp('2.2'),color:AppColors.primary}}>Happy Biryani & Fast Food</Text>
-        <Text style={{fontFamily:"Poppins-Regular",marginTop:hp('2')}}>Delivered to</Text>
-        <Text style={{fontFamily:"Poppins-Regular",color:AppColors.black,fontSize:hp('2')}}>Sharjah Swimming Pool Bazar no 1, street no 9, Gujranwala</Text>
+        <View style={{flexDirection:"row", alignItems: 'center'}}>
+        <Octicons
+                  name="location"
+                  size={20}
+                  color={AppColors.primary}
+                  style={{color:AppColors.primary}}
+                />
+        <Text style={{fontFamily:"Poppins-Regular",marginHorizontal:wp('2')}}>Order from</Text>
+        </View>
+        <Text style={{fontFamily:"Poppins-SemiBold",fontSize:hp('2.2'),color:AppColors.primary,marginHorizontal:wp('6')}}>{item.restaurantName}</Text>
+        <View style={{flexDirection:"row"}}>
+        <Octicons
+                  name="location"
+                  size={20}
+                  color={AppColors.primary}
+                  style={{color:AppColors.Gray,marginTop:hp('2')}}
+                />
+        <Text style={{fontFamily:"Poppins-Regular",marginTop:hp('2'),marginHorizontal:wp('3')}}>Delivered to</Text>
+        </View>
+        <Text style={{fontFamily:"Poppins-Regular",color:AppColors.black,fontSize:hp('2'),marginHorizontal:wp('6')}}>{item.deliveryAddress}</Text>
       </View>
       <View
             style={{
@@ -72,7 +114,9 @@ const OrderDetail = ({navigation, route, item}) => {
               borderBottomWidth: hp('1'),
               borderColor: AppColors.background2,
             }}></View>
-      <View
+    {item.products && item.products.map((product, index) => (
+          <View
+            key={index}
             style={{
               flexDirection: 'row',
               marginTop: hp('1.5'),
@@ -80,51 +124,32 @@ const OrderDetail = ({navigation, route, item}) => {
               marginLeft: wp('8'),
               marginRight: wp('7'),
               marginTop: hp('3'),
-            }}>
+            }}
+          >
             <Text
               style={{
                 fontFamily: 'Poppins-SemiBold',
                 color: AppColors.black,
                 fontSize: hp('2'),
-              }}>
-              {truncateText('1x  Cream Bhallay', 30)}
+              }}
+            >
+              {truncateText(`${product.qty} x ${product.productName}`, 30)}
             </Text>
             <Text
               style={{
                 fontFamily: 'Poppins-Regular',
                 color: AppColors.black,
                 fontSize: hp('1.9'),
-              }}>
-              Rs. 300
+              }}
+            >
+              Rs. {product.productPrice}
             </Text>
           </View>
+        ))}
+      
+  
 
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: hp('1.5'),
-              justifyContent: 'space-between',
-              marginLeft: wp('8'),
-              marginRight: wp('7'),
-              marginTop: hp('1'),
-            }}>
-            <Text
-              style={{
-                fontFamily: 'Poppins-SemiBold',
-                color: AppColors.black,
-                fontSize: hp('2'),
-              }}>
-              {truncateText('1x  Double Egg Burger', 30)}
-            </Text>
-            <Text
-              style={{
-                fontFamily: 'Poppins-Regular',
-                color: AppColors.black,
-                fontSize: hp('1.9'),
-              }}>
-              Rs. 230
-            </Text>
-          </View>
+         
           <View
             style={{
               marginTop: hp('2'),
@@ -153,7 +178,9 @@ const OrderDetail = ({navigation, route, item}) => {
                 fontSize: hp('1.9'),
                 color: AppColors.black,
               }}>
-              Rs. 530
+                  {item.
+totalAmount-item.
+deliveryFee}
             </Text>
           </View>
           <View
@@ -169,7 +196,7 @@ const OrderDetail = ({navigation, route, item}) => {
                 fontFamily: 'Poppins-Regular',
                 fontSize: hp('2'),
               }}>
-              Plateform Fee
+              Delivery Fee
             </Text>
             <Text
               style={{
@@ -177,7 +204,7 @@ const OrderDetail = ({navigation, route, item}) => {
                 fontSize: hp('1.8'),
                 color: AppColors.black,
               }}>
-              Rs. 08
+              Rs. 20
             </Text>
           </View>
           <View
@@ -202,7 +229,7 @@ const OrderDetail = ({navigation, route, item}) => {
                 fontSize: hp('1.9'),
                 color: AppColors.black,
               }}>
-              Rs. 538
+              {item.totalAmount}
             </Text>
           </View>
           <View
@@ -243,12 +270,17 @@ const OrderDetail = ({navigation, route, item}) => {
                 style={{
                   fontFamily: 'Poppins-Regular',
                   color: AppColors.black,
-                  marginLeft: wp('25'),
+                  marginLeft: wp('26'),
                   fontSize: hp('2'),
                 }}>
-                Rs. 650
+                 Rs. {item.totalAmount}
               </Text>
             </View>
+            
+</>
+            
+))}
+
           </ScrollView>
     </SafeAreaView>
   );

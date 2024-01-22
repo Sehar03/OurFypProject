@@ -72,6 +72,13 @@ const ImageStyles = StyleSheet.create({
     marginTop: hp('1'),
     borderRadius: hp('1%'),
   },
+  orderImage:{
+    width: wp('24'),
+    height: hp('11'),
+    marginLeft: wp('3'),
+    marginTop: hp('2'),
+    borderRadius: wp('2'),
+  }
 });
 
 export default ImageStyles;
