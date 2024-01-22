@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import AppContext from '../../Context/AppContext';
 import AppColors from '../../assets/colors/AppColors';
@@ -34,10 +34,11 @@ const stepIndicatorStyles = {
   currentStepLabelColor: 'green',
 };
 
-const TrackOrderStatus = ({ navigation }) => {
+const TrackOrderStatus = ({ navigation,route}) => {
   const { baseUrl } = useContext(AppContext);
+  const {orderId} = route.params;
+  console.log('orderId',orderId)
   const [currentStep, setCurrentStep] = useState(0);
-  const orderId = 'wWcqDtaE';
 
   const intervalRef = useRef(null);
 
@@ -50,8 +51,10 @@ const TrackOrderStatus = ({ navigation }) => {
         const statusToStep = {
           'New Order': 0,
           'Ongoing Order': 1,
-          'Order is Preparing': 2,
-          'Order is Delivered': 3,
+          'Order Preparing': 2,
+          'Order On the way':3,
+          'Order Delivered': 4
+          
         };
 
         setCurrentStep(statusToStep[response.data[0].status]);
@@ -70,17 +73,25 @@ const TrackOrderStatus = ({ navigation }) => {
     };
   }, [orderId, baseUrl]);
 
-  const stepLabels = ['Order is Placed', 'Order is Accepted', 'Order is Preparing', 'Order is Delivered'];
+  const stepLabels = ['Order Placed', 'Order Accepted', 'Order Preparing','Order On the way','Order Delivered'];
 
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <CartHeader navigation={navigation} item="     Track Order Status" />
+      <Image source={require('../../assets/Images/track.jpg')} style={{height:hp(25),width:wp('70'),marginLeft:wp('15')}} />
+      <View style={{flexDirection:'column'}}>
+      <Text style={{alignSelf:'center',fontSize:hp('2.3'),color:AppColors.black,fontFamily:"Poppins-SemiBold"}}>OrderId:</Text>
+      <View style={{alignSelf:'center',backgroundColor:AppColors.background,height:hp(2.8),width:wp(22),borderRadius:80}}>
+      <Text style={{alignSelf:'center',fontSize:wp('3'),marginTop:hp('0.3')}}>{orderId}</Text>
+      </View>
+      </View>
       <View style={styles.container}>
+        
         <View style={styles.stepIndicator}>
           <StepIndicator
             customStyles={stepIndicatorStyles}
-            stepCount={4}
+            stepCount={5}
             direction="vertical"
             currentPosition={currentStep}
             labels={stepLabels}
@@ -114,7 +125,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 100,
   }
- 
+           
 });
-
 export default TrackOrderStatus;

@@ -11,7 +11,6 @@ import AppContext from '../../Context/AppContext';
 
 const Home = ({ navigation }) => {
   const {storeSelectedFoodFeature,currentUser,updateCurrentUser} = useContext(AppContext);
-
   return (
       <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
         <DrawerHeader navigation={navigation} />

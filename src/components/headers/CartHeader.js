@@ -26,7 +26,7 @@ const CartHeader = ({ item, navigation }) => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('FullPriceHomeScreen');
+          navigation.goBack();
         }}>
         <AntDesign name="close" size={wp('6')} style={{ color: AppColors.primary, marginTop: hp('3%'), marginLeft: wp('5%') }} />
       </TouchableOpacity>

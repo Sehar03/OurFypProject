@@ -37,6 +37,7 @@ const Splash = ({navigation}) => {
             profileImage: parsedData.profileImage,
             phoneNumber: parsedData.phoneNumber,
             addresses: parsedData.addresses,
+            fcmToken:parsedData.fcmToken
           });
           // Navigate to the home screen
           navigation.navigate('Home');

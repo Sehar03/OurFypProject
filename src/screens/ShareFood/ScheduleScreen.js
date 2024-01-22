@@ -1,13 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {SafeAreaView,FlatList,Text} from 'react-native';
+import {SafeAreaView,FlatList,Text, View} from 'react-native';
+import AppColors from '../../assets/colors/AppColors';
+import AppContext from '../../Context/AppContext';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import ProfileHeader from '../../components/headers/ProfileHeader';
-import TextStyles from '../../assets/Styles/TextStyles';
-import AppColors from '../../assets/colors/AppColors';
-import AppContext from '../../Context/AppContext';
 import ScheduleScreenCard from '../../components/Cards/ScheduleScreenCard';
 import TabBarStyles from '../../assets/Styles/TabBarStyles';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -28,7 +26,6 @@ const MySharedFood = ({navigation}) => {
         `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
       );
       setMySchedule(response.data);
-      console.log('sjfljsljfljljflkj',response.data)
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -41,25 +38,30 @@ const MySharedFood = ({navigation}) => {
 
  
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+    <SafeAreaView style={{flex: 1,backgroundColor: AppColors.white}}>
       <FlatList
         data={mySchedule}
         renderItem={({item}) => {
-          return ( <ScheduleScreenCard navigation={navigation} item={item} setMySchedule={setMySchedule}/>
-            
+          return ( <ScheduleScreenCard navigation={navigation} item={item} setMySchedule={setMySchedule} />
+          
           );
+          
         }}
       />
+      
     </SafeAreaView>
   );
 };
 const SharedFood = ({navigation}) => {
-  const { baseUrl} = useContext(AppContext);
+  const { baseUrl,currentUser} = useContext(AppContext);
   const [allSharedFood,setAllSharedFood] = useState([]);
   
   const viewAllSharedFoodProducts = async () => {
     try {
-      const response = await axios.post(`${baseUrl}/viewAllSharedFoodProducts`);
+      const response = await axios.post(
+
+        `${baseUrl}/viewAllSharedFoodProducts/${currentUser.userId}`,
+      );
       setAllSharedFood(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -90,7 +92,6 @@ const ScheduleScreen = ({navigation}) => {
   <Tab.Navigator 
    initialRouteName="MySharedFood"// Set the initial route based on categoryName
     screenOptions={TabBarStyles.customTabBar}>
-
     <Tab.Screen name="MySharedFood" component={MySharedFood} />
     <Tab.Screen name="SharedFood" component={SharedFood} />
 

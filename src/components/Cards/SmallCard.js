@@ -30,9 +30,9 @@ const SmallCard = ({ navigation, searchText }) => {
 
 
 
-  const filteredCategories = allCategories.filter((item) =>
-    item.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+//   const filteredCategories = allCategories.filter((item) =>
+//   item.title && searchText && item.title.toLowerCase().includes(searchText.toLowerCase())
+// );
 
   return (
     <View>
@@ -56,7 +56,7 @@ const SmallCard = ({ navigation, searchText }) => {
 
 
           <FlatList
-            data={filteredCategories}
+            data={allCategories}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -81,7 +81,7 @@ const SmallCard = ({ navigation, searchText }) => {
               </TouchableOpacity>
             )}
           />
-          {filteredCategories.length === 0 && !loading && (
+          {allCategories.length === 0 && !loading && (
         <Text style={{ textAlign: 'center', marginTop: 10 }}>
           No Categories available.
         </Text>
