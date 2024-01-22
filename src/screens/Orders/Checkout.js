@@ -28,7 +28,8 @@ import randomstring from 'randomstring';
 import moment from 'moment';
 
 const Checkout = ({ navigation, route }) => {
-  const { currentUser, baseUrl } = useContext(AppContext);
+  const { currentUser, baseUrl,restaurantName, restaurantImage } = useContext(AppContext);
+  console.log('restaurant',restaurantImage)
   const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] = useState(false);
@@ -64,8 +65,11 @@ const Checkout = ({ navigation, route }) => {
     formData.append("customerName", currentUser.name);
     formData.append("customerPhoneNumber", mobileNumber);
     formData.append("customerEmail", currentUser.email);
+    formData.append("customerProfile",currentUser.profileImage)
     formData.append("orderId",orderId);
     formData.append("orderDateTime", orderDateTime);
+    formData.append("restaurantName",restaurantName);
+    formData.append("restaurantImage",restaurantImage)
     if (deliveryAddress && deliveryAddress.length > 0) {
       const firstAddress = deliveryAddress[0];
       formData.append("deliveryAddress", firstAddress.formattedAddress);

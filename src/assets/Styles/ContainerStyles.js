@@ -480,6 +480,20 @@ const ContainerStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     marginLeft: wp('15'),
   },
+  orderNeomorph:
+    {
+      height: hp('15'),
+      width: wp('94'),
+      borderRadius: wp('1.3%'),
+      shadowRadius: 2.2,
+      backgroundColor: AppColors.white,
+      marginVertical: hp('1%'),
+      shadowOpacity: 0.3,
+      marginTop: hp('2%'),
+      paddingBottom: hp('3'),
+      flex: 1,
+    },
+  
   
 });
 

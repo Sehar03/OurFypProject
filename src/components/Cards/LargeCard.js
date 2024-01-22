@@ -16,7 +16,7 @@ import axios from 'axios';
 import LottieView from 'lottie-react-native';
 
 const LargeCard = ({ navigation,searchText }, props) => {
-  const { baseUrl, storeSelectedRestaurants, currentUser } = useContext(AppContext);
+  const { baseUrl, storeSelectedRestaurants, currentUser,storeRestaurantName,storeRestaurantImage } = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -66,6 +66,8 @@ const LargeCard = ({ navigation,searchText }, props) => {
           style={{ flex: 1, backgroundColor: AppColors.white, }}>
           <TouchableOpacity style={{ alignItems: "center" }} onPress={() => {
             storeSelectedRestaurants('Restaurants'),
+            storeRestaurantImage(item.restaurantImage)
+            storeRestaurantName(item.restaurantName)
             navigation.navigate('Products', {
               restaurant_id: item._id,
               restaurantImage:baseUrl+item.restaurantImage,
