@@ -25,7 +25,6 @@ const Splash = ({navigation}) => {
         // Check for existing user data
         const userData = await AsyncStorage.getItem('user');
         console.log('user stored in AsyncStorage', userData);
-
         if (userData) {
           // Parse the stored data and update the user context
           const parsedData = JSON.parse(userData);
@@ -48,7 +47,6 @@ const Splash = ({navigation}) => {
         console.error('Error checking for user data:', error);
       }
     };
-
     checkForUserAndNavigate();
   }, []); // empty dependency array means it runs once when the component mounts
   console.log('user in splash', currentUser);
