@@ -7,7 +7,7 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
 const BackButtonHeader = ({navigation,title}) => {
   return (
-    <View style={{backgroundColor:AppColors.white,height:hp('8%'),width:wp('100%'),justifyContent:"center",marginTop:wp('3'),borderBottomWidth: hp('0.2'),
+    <View style={{backgroundColor:AppColors.white,height:hp('9%'),width:wp('100%'),justifyContent:"center",marginTop:wp('3'),borderBottomWidth: hp('0.2'),
     marginBottom: hp('1'),borderColor: AppColors.background2,
   }}>
       <StatusBar

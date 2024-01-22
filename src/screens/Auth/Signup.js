@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,14 +26,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import AppContext from '../../Context/AppContext';
+import messaging from "@react-native-firebase/messaging";
 
-const Signup = ({navigation}) => {
-  const {baseUrl, updateCurrentUser} = useContext(AppContext);
+
+const Signup = ({ navigation }) => {
+  const { baseUrl, updateCurrentUser } = useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
-
+  const [fcmToken, setFcmToken] = useState('');
   const [userNameError, setUserNameError] = useState('');
   const [userEmailError, setUserEmailError] = useState('');
   const [userPasswordError, setUserPasswordError] = useState('');
@@ -78,35 +80,21 @@ const Signup = ({navigation}) => {
     formData.append('name', userName);
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-
+    formData.append('fcmToken', fcmToken)
     axios({
       method: 'post',
       url: `${baseUrl}/signup`,
       data: formData,
-      headers: {'Content-Type': 'multipart/form-data'},
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then(function (response) {
         if (response.data.save == true) {
           // const userId=response.data.newUser._id;
           // console.log('userid',userId);
 
-          AsyncStorage.setItem(
-            'user',
-            JSON.stringify({
-              userId: response.data.newUser._id,
-              email: response.data.newUser.email,
-              password: response.data.newUser.password,
-              name: response.data.newUser.name,
-              addresses: response.data.newUser.addresses,
-            }),
-          );
-          updateCurrentUser({
-            userId: response.data.newUser._id,
-            email: response.data.newUser.email,
-            password: response.data.newUser.password,
-            name: response.data.newUser.name,
-            addresses: response.data.newUser.addresses,
-          });
+
+          AsyncStorage.setItem('user', JSON.stringify({ userId: response.data.newUser._id, email: response.data.newUser.email, password: response.data.newUser.password, name: response.data.newUser.name, addresses: response.data.newUser.addresses, fcmToken: response.data.newUser.fcmToken }));
+          updateCurrentUser({ userId: response.data.newUser._id, email: response.data.newUser.email, password: response.data.newUser.password, name: response.data.newUser.name, addresses: response.data.newUser.addresses, fcmToken: response.data.newUser.fcmToken })
 
           navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {
@@ -130,20 +118,33 @@ const Signup = ({navigation}) => {
   //     navigation.navigate('Signup');
   //   }
   // }, []);
-
+  useEffect(() => {
+    getDeviceToken();
+  }, []);
+  const getDeviceToken = async () => {
+    let token = await messaging().getToken();
+    setFcmToken(token)
+    console.log("This is Token:", token);
+  }
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <BackButtonHeader navigation={navigation} />
 
       <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: 'center' }}>
         <Neomorph
           darkShadowColor={AppColors.primary}
           lightShadowColor={AppColors.background}
           swapShadows // <- change zIndex of each shadow color
           style={ContainerStyles.inputFieldNeomorphContainer}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <SimpleLineIcons
               name="user"
               size={wp('5%')}
@@ -172,7 +173,7 @@ const Signup = ({navigation}) => {
           lightShadowColor={AppColors.background}
           swapShadows // <- change zIndex of each shadow color
           style={ContainerStyles.inputFieldNeomorphContainer}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Fontisto
               name="email"
               size={wp('5%')}
@@ -200,7 +201,7 @@ const Signup = ({navigation}) => {
           // inner // <- enable shadow inside of neomorph
           swapShadows // <- change zIndex of each shadow color
           style={ContainerStyles.inputFieldNeomorphContainer}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <SimpleLineIcons
               name="lock"
               size={wp('5%')}
@@ -222,7 +223,7 @@ const Signup = ({navigation}) => {
               <Feather
                 name={passwordVisible ? 'eye' : 'eye-off'}
                 size={wp('5%')}
-                style={[IconStyles.signupIcons, {color: 'grey', opacity: 0.7}]}
+                style={[IconStyles.signupIcons, { color: 'grey', opacity: 0.7 }]}
               />
             </TouchableOpacity>
           </View>
@@ -245,8 +246,8 @@ const Signup = ({navigation}) => {
             <Text style={TextStyles.whiteCenteredLable}>SIGN UP</Text>
           </Neomorph>
         </TouchableOpacity>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ fontFamily: 'Poppins-SemiBold' }}>
             Already have an account ?{' '}
           </Text>
           <TouchableOpacity

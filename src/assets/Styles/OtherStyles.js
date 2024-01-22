@@ -8,7 +8,7 @@ const OtherStyles = StyleSheet.create({
   text: {
     fontFamily: 'Poppins-Medium',
     color: AppColors.primary,
-    fontSize: hp('2'),
+    fontSize: hp('1.8'),
     resizeMode: 'cover',
   },
   // text2:{fontFamily:"poppins-SemiBold",color:AppColors.primary,fontSize:hp('2'),marginHorizontal:wp('8')},

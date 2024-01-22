@@ -17,7 +17,7 @@ import EditProfile from './src/screens/Profile/EditProfile';
 import Address from './src/screens/Addresses/Address';
 import AddAddress from './src/screens/Addresses/AddAddress';
 import SingleProductDetail from './src/screens/Products/SingleProductDetail';
-import FoodShareScreen from './src/screens/Food/FoodShareScreen';
+import FoodShareScreen from './src/screens/ShareFood/FoodShareScreen';
 import Products from './src/screens/Products/Products';
 import AfterSignup from './src/screens/Auth/AfterSignup';
 import ForgetPassword from './src/screens/Auth/ForgetPassword';
@@ -25,7 +25,7 @@ import DonateHome from './src/screens/DonateFood/DonateHome';
 import Donor from './src/screens/DonateFood/Donor';
 import Recipient from './src/screens/DonateFood/Recipient';
 import { AppProvider } from './src/Context/AppContext';
-import ScheduleScreen from './src/screens/Food/ScheduleScreen';
+import ScheduleScreen from './src/screens/ShareFood/ScheduleScreen';
 import Notification from './src/screens/Notification/Notification';
 import Orders from './src/screens/Orders/Orders';
 import OngoingOrder from './src/screens/Orders/OngoingOrder';
@@ -36,6 +36,9 @@ import { Alert } from 'react-native';
 import YourOrder from './src/screens/Orders/YourOrder';
 import OrderDetail from './src/screens/Orders/OrderDetail';
 import TrackOrderStatus from './src/screens/Orders/TrackOrderStatus';
+import SingleSharedFoodDetail from './src/screens/ShareFood/SingleSharedFoodDetail';
+import CheckOutReservation from './src/screens/ShareFood/CheckOutReservation';
+import ConfirmedReservation from './src/screens/ShareFood/ConfirmedReservation';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -76,6 +79,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Recipient" component={Recipient} />
       <Stack.Screen name="FoodShareScreen" component={FoodShareScreen} />
       <Stack.Screen name="ScheduleScreen" component={ScheduleScreen} />
+      <Stack.Screen name="SingleSharedFoodDetail" component={SingleSharedFoodDetail} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Orders" component={Orders} />
       <Stack.Screen name="OngoingOrder" component={OngoingOrder} />
@@ -84,6 +88,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="YourOrder" component={YourOrder} />
       <Stack.Screen name='OrderDetail' component={OrderDetail}/>
       <Stack.Screen name='TrackOrderStatus' component={TrackOrderStatus} />
+      <Stack.Screen name='CheckOutReservation' component={CheckOutReservation}/>
+      <Stack.Screen name='ConfirmedReservation' component={ConfirmedReservation}/>
     </Stack.Navigator>
   );
 };

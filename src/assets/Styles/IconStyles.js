@@ -8,7 +8,7 @@ const IconStyles = StyleSheet.create({
     signupIcons: {
 
         color: AppColors.primary,
-        margin: 15,
+        margin: 15.8,
     },
     drawerManuIcon: {
         color: "white",

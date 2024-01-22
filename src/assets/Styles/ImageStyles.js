@@ -52,12 +52,13 @@ const ImageStyles = StyleSheet.create({
     borderWidth: 4,
   },
   scheduleImage: {
-    width: wp('32'),
-    height:hp('15'),
-    marginLeft: wp('10'),
-    marginTop: hp('1.6'),
+    width: wp('28'),
+    height:hp('14'),
+    marginLeft: wp('2.3'),
+    marginTop: hp('1.8'),
     borderRadius: wp('2'),
-    borderWidth: 4,
+    borderWidth: 1,
+    borderColor:AppColors.background2
   },
   smallSquareBoxImage: {
     width: wp('25%'),

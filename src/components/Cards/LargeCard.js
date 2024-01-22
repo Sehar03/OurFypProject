@@ -16,9 +16,9 @@ import axios from 'axios';
 import LottieView from 'lottie-react-native';
 
 const LargeCard = ({ navigation,searchText }, props) => {
-  const { baseUrl, storeSelectedRestaurants, currentUser,storeRestaurantName,storeRestaurantImage } = useContext(AppContext);
+  const { baseUrl, storeSelectedRestaurants,storeRestaurantFcmToken,storeRestaurantAddress,storeRestaurantId,storeRestaurantName,storeRestaurantImage} = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
-  const [loading, setLoading] = useState(true);
+   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const viewAllRestaurants = async () => {
@@ -40,9 +40,10 @@ const LargeCard = ({ navigation,searchText }, props) => {
 );
 
   
-  // const filteredRestaurants = allResturantsCards.filter((item) =>
-  //   item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
-  // );
+//   const filteredRestaurants = allResturantsCards.filter((item) =>
+//   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+// );
+
 
   return (
     <View>
@@ -61,7 +62,7 @@ const LargeCard = ({ navigation,searchText }, props) => {
                 <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3'),fontSize:wp('6')  }]}>All Restaurants</Text>
 
     <FlatList
-      data={filteredRestaurants}
+      data={allResturantsCards}
       Vertical
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => (
@@ -69,8 +70,12 @@ const LargeCard = ({ navigation,searchText }, props) => {
           style={{ flex: 1, backgroundColor: AppColors.white, }}>
           <TouchableOpacity style={{ alignItems: "center" }} onPress={() => {
             storeSelectedRestaurants('Restaurants'),
-            storeRestaurantImage(item.restaurantImage)
+            storeRestaurantAddress(item.restaurantAddress),
+            storeRestaurantId(item._id)
             storeRestaurantName(item.restaurantName)
+            storeRestaurantFcmToken(item.fcmToken)
+            storeRestaurantImage(item.restaurantImage)
+
             navigation.navigate('Products', {
               restaurant_id: item._id,
               restaurantImage:baseUrl+item.restaurantImage,
@@ -104,7 +109,7 @@ const LargeCard = ({ navigation,searchText }, props) => {
 
       )}
     />
-     {filteredRestaurants.length === 0 && !loading && (
+     {allResturantsCards.length === 0 && !loading && (
         <Text style={{ textAlign: 'center', marginTop: 90 }}>
           No Restaurants available.
         </Text>

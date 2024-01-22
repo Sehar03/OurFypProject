@@ -122,7 +122,7 @@ const Login = ({navigation}) => {
           }
           AsyncStorage.setItem(
             'user',
-            JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber,addresses:response.data.loggedInUser.addresses}),
+            JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber,addresses:response.data.loggedInUser.addresses,fcmToken:response.data.loggedInUser.fcmToken}),
           );
           updateCurrentUser({
             userId:response.data.loggedInUser._id,
@@ -131,7 +131,8 @@ const Login = ({navigation}) => {
             name:response.data.loggedInUser.name,
             profileImage:response.data.loggedInUser.profileImage,
             phoneNumber:response.data.loggedInUser.phoneNumber,
-            addresses:response.data.loggedInUser.addresses
+            addresses:response.data.loggedInUser.addresses,
+            fcmToken:response.data.loggedInUser.fcmToken
           })
 
 
