@@ -142,10 +142,12 @@ const AddAddress = ({navigation}) => {
             console.log(error.code, error.message);
             if (error.code === 2) {
               Alert.alert('Please turn GPS On');
-              setLoading(false);
+              navigation.goBack();
+              // setLoading(false);
             } else if(error.code === 3) {
-              setLoading(false);
+              // setLoading(false);
               Alert.alert('Network Error,Please try again later');
+              navigation.goBack();
               if (selectedScreenForAddress == 'Donor') {
                 navigation.navigate('Donor');
               } else {
@@ -178,6 +180,8 @@ const AddAddress = ({navigation}) => {
           elaqa: elaqa,
           streetName: streetName,
           label: label,
+          latitude:mLat,
+          longitude:mLong
         },
       ];
 
