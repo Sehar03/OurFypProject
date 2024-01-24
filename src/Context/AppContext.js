@@ -23,7 +23,6 @@ export const AppProvider = ({children}) => {
   const [restaurantName, setRestaurantName] = useState(''); 
   const [restaurantAddress, setRestaurantAddress] = useState(''); 
   const [restaurantFcmToken, setRestaurantFcmToken] = useState(''); 
-  const [restaurantImage, setRestaurantImage] = useState('');
   
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
