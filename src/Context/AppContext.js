@@ -15,14 +15,13 @@ export const AppProvider = ({children}) => {
   const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
   const [donorAddress,setDonorAddress]=useState('');
-  const [baseUrl, setBaseUrl] = useState('http://192.168.0.126:8888');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.101:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
   const [restaurant_id, setRestaurantId] = useState(''); 
   const [restaurantName, setRestaurantName] = useState(''); 
   const [restaurantAddress, setRestaurantAddress] = useState(''); 
-  const [restaurantImage, setRestaurantImage] = useState(''); 
   const [restaurantFcmToken, setRestaurantFcmToken] = useState(''); 
   
   const storeUpdateCategoryName = (newCategoryName) => {
