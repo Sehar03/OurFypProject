@@ -48,8 +48,6 @@ const SingleSharedFoodDetail = ({ navigation, route }) => {
     viewSingleSharedFoodProduct();
   }, []);
 
-const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
-const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
@@ -117,16 +115,6 @@ const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
             </Text>
             </View>
             </View>     
-          
-          
-          
-          
-          
-          
-  
-          </>
-))}
-      </ScrollView>
       <View style={{alignSelf:"center"}}>
       <TouchableOpacity onPress={() => {
             navigation.navigate('CheckOutReservation',{
@@ -144,6 +132,10 @@ const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
             </Neomorph>
           </TouchableOpacity>
           </View>
+
+                 </>
+                 ))}
+                 </ScrollView>
     </SafeAreaView>
   );
 };
