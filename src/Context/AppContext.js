@@ -15,7 +15,7 @@ export const AppProvider = ({children}) => {
   const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
   const [donorAddress,setDonorAddress]=useState('');
-  const [baseUrl, setBaseUrl] = useState('http://192.168.0.102:8888');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.105:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
@@ -24,7 +24,6 @@ export const AppProvider = ({children}) => {
   const [restaurantAddress, setRestaurantAddress] = useState(''); 
   const [restaurantImage, setRestaurantImage] = useState(''); 
   const [restaurantFcmToken, setRestaurantFcmToken] = useState(''); 
-  const [restaurantImage, setRestaurantImage] = useState('');
   
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
