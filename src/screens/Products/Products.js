@@ -198,7 +198,8 @@ const updateTotalAmount = async () => {
             style={IconStyles.productsIcon}
           />
           <Text style={[TextStyles.productsLeftText]}>
-            Delivery : {imageDeliveryTime}{' '}
+            Delivery : 35 min 
+            {/* {imageDeliveryTime}{' '} */}
           </Text>
         </View>
         <Popular navigation={navigation} restaurant_id={restaurant_id} restaurantName={restaurantName} />
