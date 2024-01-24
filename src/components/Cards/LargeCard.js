@@ -24,10 +24,18 @@ import Geocoder from 'react-native-geocoding';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const LargeCard = ({ navigation,searchText }, props) => {
-  const { baseUrl, storeSelectedRestaurants,storeRestaurantFcmToken,storeRestaurantAddress,storeRestaurantId,storeRestaurantName,storeRestaurantImage} = useContext(AppContext);
+const LargeCard = ({navigation, searchText}, props) => {
+  const {
+    baseUrl,
+    storeSelectedRestaurants,
+    storeRestaurantFcmToken,
+    storeRestaurantAddress,
+    storeRestaurantId,
+    storeRestaurantName,
+    storeRestaurantImage,
+  } = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
-   const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
 
@@ -46,10 +54,13 @@ const LargeCard = ({ navigation,searchText }, props) => {
     viewAllRestaurants();
   }, []);
 
+  console.log('allResturantsCards:', allResturantsCards);
+
   const filteredRestaurants = allResturantsCards.filter(
     item =>
+      item &&
       item.restaurantName &&
-      item.restaurantName.toLowerCase().includes(searchText.toLowerCase()),
+      item.restaurantName.toLowerCase()?.includes(searchText?.toLowerCase()),
   );
 
   useEffect(() => {
@@ -149,6 +160,10 @@ const LargeCard = ({ navigation,searchText }, props) => {
   //   }
   // }, [latitude, longitude, filteredRestaurants]);
 
+  //   const filteredRestaurants = allResturantsCards.filter((item) =>
+  //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  // );
+
   return (
     <View>
       {loading ? (
@@ -160,27 +175,7 @@ const LargeCard = ({ navigation,searchText }, props) => {
             style={{width: 100, height: 100, marginTop: hp('10')}}
           />
           <Text>Loading Restaurants</Text>
-=======
-  
-//   const filteredRestaurants = allResturantsCards.filter((item) =>
-//   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
-// );
-
-
-  return (
-    <View>
-    {loading ? (
-     <View style={ { padding: 20,alignSelf:"center"}}>
-     <LottieView
-       source={require('../../assets/animations/Loading.json')}
-       autoPlay
-       loop
-       style={{ width: 100, height: 100,marginTop:hp('10') }}
-     />
-     <Text>Loading Restaurants</Text>
-   </View>
-  
-
+        </View>
       ) : (
         <View>
           <Text
@@ -214,20 +209,20 @@ const LargeCard = ({ navigation,searchText }, props) => {
                     style={{alignItems: 'center'}}
                     onPress={() => {
                       storeSelectedRestaurants('Restaurants'),
-                           storeRestaurantAddress(item.restaurantAddress),
-            storeRestaurantId(item._id)
-            storeRestaurantName(item.restaurantName)
-            storeRestaurantFcmToken(item.fcmToken)
-            storeRestaurantImage(item.restaurantImage)
+                        storeRestaurantAddress(item.restaurantAddress),
+                        storeRestaurantId(item._id);
+                      storeRestaurantName(item.restaurantName);
+                      storeRestaurantFcmToken(item.fcmToken);
+                      storeRestaurantImage(item.restaurantImage);
 
-                        navigation.navigate('Products', {
-                          restaurant_id: item._id,
-                          restaurantImage: baseUrl + item.restaurantImage,
-                          restaurantName: item.restaurantName,
-                          distance: distance,
-                          deliveryTime: estimatedDeliveryTime,
-                          deliveryCharges: charges, // Pass delivery charges to the next screen
-                        });
+                      navigation.navigate('Products', {
+                        restaurant_id: item._id,
+                        restaurantImage: baseUrl + item.restaurantImage,
+                        restaurantName: item.restaurantName,
+                        distance: distance,
+                        deliveryTime: estimatedDeliveryTime,
+                        deliveryCharges: charges, // Pass delivery charges to the next screen
+                      });
                     }}>
                     <ImageBackground
                       source={{uri: baseUrl + item.restaurantImage}}
@@ -260,7 +255,7 @@ const LargeCard = ({ navigation,searchText }, props) => {
                     }}>
                     $$ . Fast Food
                   </Text>
-                  <View style={{flexDirection: 'row',width:wp('100'),}}>
+                  <View style={{flexDirection: 'row', width: wp('100')}}>
                     <MaterialIcons
                       name="access-time"
                       size={wp('4%')}
@@ -287,20 +282,20 @@ const LargeCard = ({ navigation,searchText }, props) => {
                         fontSize: wp('2.8'),
                         color: AppColors.black,
                       }}>
-                      Rs. {charges} 
+                      Rs. {charges}
                     </Text>
-                    <View style={{width:wp('55')}}>
-                    <Text
-                      style={{
-                        marginLeft: wp('1.5%'),
-                        fontFamily: 'Poppins-Regular',
-                        fontSize: wp('2.8'),
-                        color: AppColors.black,
-                        alignSelf:"flex-end",
-                        textAlign:"right"
-                      }}>
-                       {distance.km.toFixed()} km away
-                    </Text>
+                    <View style={{width: wp('55')}}>
+                      <Text
+                        style={{
+                          marginLeft: wp('1.5%'),
+                          fontFamily: 'Poppins-Regular',
+                          fontSize: wp('2.8'),
+                          color: AppColors.black,
+                          alignSelf: 'flex-end',
+                          textAlign: 'right',
+                        }}>
+                        {distance.km.toFixed()} km away
+                      </Text>
                     </View>
                   </View>
                 </View>
