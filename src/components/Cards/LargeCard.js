@@ -24,8 +24,16 @@ import Geocoder from 'react-native-geocoding';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const LargeCard = ({ navigation, searchText }, props) => {
-  const { baseUrl, storeSelectedRestaurants, storeRestaurantFcmToken, storeRestaurantAddress, storeRestaurantId, storeRestaurantName, storeRestaurantImage } = useContext(AppContext);
+const LargeCard = ({navigation, searchText}, props) => {
+  const {
+    baseUrl,
+    storeSelectedRestaurants,
+    storeRestaurantFcmToken,
+    storeRestaurantAddress,
+    storeRestaurantId,
+    storeRestaurantName,
+    storeRestaurantImage,
+  } = useContext(AppContext);
   const [allResturantsCards, setAllResturantsCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [latitude, setLatitude] = useState();
@@ -46,11 +54,22 @@ const LargeCard = ({ navigation, searchText }, props) => {
     viewAllRestaurants();
   }, []);
 
+
+//   console.log('allResturantsCards:', allResturantsCards);
+
+//   const filteredRestaurants = allResturantsCards.filter(
+//     item =>
+//       item &&
+//       item.restaurantName &&
+//       item.restaurantName.toLowerCase()?.includes(searchText?.toLowerCase()),
+//   );
+
   // const filteredRestaurants = allResturantsCards.filter(
   //   item =>
   //     item.restaurantName &&
   //     item.restaurantName.toLowerCase().includes(searchText.toLowerCase()),
   // );
+
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -150,6 +169,10 @@ const LargeCard = ({ navigation, searchText }, props) => {
   // }, [latitude, longitude, filteredRestaurants]);
 
 
+  //   const filteredRestaurants = allResturantsCards.filter((item) =>
+  //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  // );
+
   return (
     <View>
       {loading ? (
@@ -162,7 +185,6 @@ const LargeCard = ({ navigation, searchText }, props) => {
           />
           <Text>Loading Restaurants</Text>
         </View>
-
 
       ) : (
         <View>
@@ -198,10 +220,12 @@ const LargeCard = ({ navigation, searchText }, props) => {
                     onPress={() => {
                         storeSelectedRestaurants('Restaurants'),
                         storeRestaurantAddress(item.restaurantAddress),
-                        storeRestaurantId(item._id)
-                        storeRestaurantName(item.restaurantName)
-                        storeRestaurantFcmToken(item.fcmToken)
-                        storeRestaurantImage(item.restaurantImage)
+                        storeRestaurantId(item._id);
+                      storeRestaurantName(item.restaurantName);
+                      storeRestaurantFcmToken(item.fcmToken);
+                      storeRestaurantImage(item.restaurantImage);
+
+
 
                       navigation.navigate('Products', {
                         restaurant_id: item._id,
@@ -243,6 +267,7 @@ const LargeCard = ({ navigation, searchText }, props) => {
                     }}>
                     $$ . Fast Food
                   </Text>
+
                   <View style={{ flexDirection: 'row', width: wp('100'), }}>
                     <MaterialIcons
                       name="access-time"
@@ -272,7 +297,8 @@ const LargeCard = ({ navigation, searchText }, props) => {
                       }}>
                       Rs. {charges}
                     </Text>
-                    <View style={{ width: wp('55') }}>
+                    <View style={{width: wp('55')}}>
+
                       <Text
                         style={{
                           marginLeft: wp('1.5%'),
