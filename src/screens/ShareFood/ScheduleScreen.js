@@ -25,7 +25,8 @@ const MySharedFood = ({navigation}) => {
 
         `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
       );
-      setMySchedule(response.data);
+      const pendingReservation = response.data.filter(order => order.status === 'Pending');
+      setMySchedule(pendingReservation);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -62,7 +63,8 @@ const SharedFood = ({navigation}) => {
 
         `${baseUrl}/viewAllSharedFoodProducts/${currentUser.userId}`,
       );
-      setAllSharedFood(response.data);
+      const pendingReservation = response.data.filter(order => order.status === 'Pending');
+      setAllSharedFood(pendingReservation);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -85,16 +87,89 @@ const SharedFood = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+
+
+const ConfirmedShareFood = ({navigation}) => {
+  const { baseUrl,currentUser} = useContext(AppContext);
+  const [allSharedFood,setAllSharedFood] = useState([]);
+  
+  const ConfirmedShareFood = async () => {
+    try {
+      const response = await axios.post(
+
+        `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
+      );
+      const pendingReservation = response.data.filter(order => order.status === 'Ongoing');
+      setAllSharedFood(pendingReservation);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    ConfirmedShareFood();
+  }, []);
+
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      <FlatList
+        data={allSharedFood}
+        renderItem={({item}) => {
+          return ( <SharedFoodCard  navigation={navigation}  item={item} />
+            
+          );
+        }}
+      />
+    </SafeAreaView>
+  );
+};
+
+  const CompletedShareFood = ({navigation}) => {
+    const { baseUrl,currentUser} = useContext(AppContext);
+    const [allSharedFood,setAllSharedFood] = useState([]);
+    
+    const CompletedShareFood = async () => {
+      try {
+        const response = await axios.post(
+  
+          `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
+        );
+        const completedReservation = response.data.filter(order => order.status === 'Completed');
+        setAllSharedFood(completedReservation);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+  
+    useEffect(() => {
+      CompletedShareFood();
+    }, []);
+ 
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+      <FlatList
+        data={allSharedFood}
+        renderItem={({item}) => {
+          return ( <SharedFoodCard  navigation={navigation}  item={item} />
+            
+          );
+        }}
+      />
+    </SafeAreaView>
+  );
+};
 const ScheduleScreen = ({navigation}) => {
   return(
   <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-  <TabScreensHeader  navigation={navigation} />
+  <TabScreensHeader  navigation={navigation}  title ="Share Food"/>
   <Tab.Navigator 
    initialRouteName="MySharedFood"// Set the initial route based on categoryName
     screenOptions={TabBarStyles.customTabBar}>
-    <Tab.Screen name="MySharedFood" component={MySharedFood} />
+    <Tab.Screen name="MyFood" component={MySharedFood} />
     <Tab.Screen name="SharedFood" component={SharedFood} />
-
+    <Tab.Screen name="ConfirmedFood" component={ConfirmedShareFood} />
+    <Tab.Screen name="Completed" component={CompletedShareFood} />
   </Tab.Navigator>
 </SafeAreaView>
   )

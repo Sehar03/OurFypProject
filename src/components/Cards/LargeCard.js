@@ -54,6 +54,7 @@ const LargeCard = ({navigation, searchText}, props) => {
     viewAllRestaurants();
   }, []);
 
+
 //   console.log('allResturantsCards:', allResturantsCards);
 
 //   const filteredRestaurants = allResturantsCards.filter(

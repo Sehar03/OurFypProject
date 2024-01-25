@@ -24,7 +24,6 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
-
 import IconStyles from '../../assets/Styles/IconStyles';
 
 const CheckOutReservation = ({navigation, route}) => {
@@ -36,7 +35,6 @@ const CheckOutReservation = ({navigation, route}) => {
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [userName, setUserName] = useState(currentUser.name);
-  const [deliveryAddress, setDeliveryAddress] = useState(restaurantAddress);
 
   const viewSingleSharedFoodProduct = async () => {
     try {
@@ -56,10 +54,32 @@ const CheckOutReservation = ({navigation, route}) => {
 
   const updateSingleSharedFood = async sharedFood_id => {
     const formData = new FormData();
-    formData.append('requestReceiver_id', currentUser.userId);
-    formData.append('requestReceiverName', currentUser.name);
-    formData.append('requestReceiverPhoneNumber', currentUser.phoneNumber);
-    formData.append('status', 'Confirmed');
+    formData.append("requestReceiver_id", currentUser.userId);
+    formData.append("requestReceiverName", currentUser.name);
+    formData.append("requestReceiverPhoneNumber", currentUser.phoneNumber);
+    formData.append("status","Ongoing")
+    axios({
+      method: 'post',
+      url: `${baseUrl}/updateSingleSharedFood/${sharedFood_id}`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+
+      .then(function (response) {
+        if (response.data.message == true) {
+
+          console.log(response.data)
+
+        }
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+    // console.warn("Stop");
+
+  }
+
 
     try {
       const response = await axios.post(
@@ -201,12 +221,10 @@ const CheckOutReservation = ({navigation, route}) => {
                     <TouchableOpacity
                       onPress={() => {
                         // Use Linking to open the device's map application with the specified location (delivery address)
-                        const addressForMap =
-                          encodeURIComponent(deliveryAddress);
-                        Linking.openURL(
-                          `https://www.google.com/maps/search/?api=1&query=${addressForMap}`,
-                        );
-                      }}>
+                        const addressForMap = encodeURIComponent(restaurantAddress);
+                        Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${addressForMap}`);
+                      }}
+                    >
                       <MaterialCommunityIcons
                         name="navigation-variant-outline"
                         size={23}
