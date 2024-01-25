@@ -39,6 +39,7 @@ import TrackOrderStatus from './src/screens/Orders/TrackOrderStatus';
 import SingleSharedFoodDetail from './src/screens/ShareFood/SingleSharedFoodDetail';
 import CheckOutReservation from './src/screens/ShareFood/CheckOutReservation';
 import ConfirmedReservation from './src/screens/ShareFood/ConfirmedReservation';
+import ChatWithPartner from './src/screens/ShareFood/ChatWithPartner';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -90,6 +91,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name='TrackOrderStatus' component={TrackOrderStatus} />
       <Stack.Screen name='CheckOutReservation' component={CheckOutReservation}/>
       <Stack.Screen name='ConfirmedReservation' component={ConfirmedReservation}/>
+      <Stack.Screen name='ChatWithPartner' component={ChatWithPartner}/>
+
     </Stack.Navigator>
   );
 };
