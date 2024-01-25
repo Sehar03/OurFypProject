@@ -27,7 +27,6 @@ const SharedFoodCard = ({ item, setMySchedule,navigation }) => {
     }
     return text;
   };
-  console.log("item", item)
 
   return (
     <View style={[{alignSelf:"center", marginTop: hp('1'),marginBottom:hp('1') }]}>

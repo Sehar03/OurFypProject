@@ -20,28 +20,10 @@ import IconStyles from '../../assets/Styles/IconStyles';
 const ScheduleScreenCard = ({ item, setMySchedule }) => {
   const { baseUrl, currentUser } = useContext(AppContext)
 
-  const viewAllShareFoodProducts = async () => {
-    try {
-      const response = await axios.post(
-
-        `${baseUrl}/viewAllShareFoodProducts/${currentUser.userId}`,
-      );
-      setMySchedule(response.data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-  useFocusEffect(
-    React.useCallback(() => {
-      viewAllShareFoodProducts();
-    }, [currentUser.userId]),
-  );
 
   const deleteShareFoodProduct = async delId => {
     try {
       const response = await axios.delete(`${baseUrl}/deleteShareFoodProduct/${delId}`);
-      console.log('Delete Product Response:', response.data);
-
       if (response.data.success) {
         viewAllShareFoodProducts();
       } else {
