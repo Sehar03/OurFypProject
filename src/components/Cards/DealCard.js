@@ -18,6 +18,7 @@ import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import randomstring from 'randomstring';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 const DealCard = ({ navigation, item, updateTotalQuantity, updateTotalAmount}) => {
   const flatListRef = useRef(null);
@@ -98,12 +99,42 @@ console.log('restaurantAddress',restaurantAddress)
     if (!selectedDate) {
       return false;
     }
+    const generateRandomString = (length) => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+    
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+    
+      return result;
+    };
+    
+    // Example usage:
+    const reservationId = generateRandomString(6); // Generates a fixed-length random string with 6 characters
+    console.log(reservationId);
+    
 
     const formData = new FormData();
+    const Addresses = [
+      {
+        formattedAddress: restaurantAddress[0].formattedAddress,
+        locality: restaurantAddress[0].locality,
+        elaqa: restaurantAddress[0].elaqa,
+        streetName: restaurantAddress[0].streetName,
+        label: restaurantAddress[0].label,
+        latitude: restaurantAddress[0].latitude,
+        longitude: restaurantAddress[0].longitude
+      },
+    ];
+    
+    
     formData.append("productName", item.foodDealTitle);
     formData.append("productPrice", item.foodDealPrice);
     formData.append("productPricePerPerson", item.foodDealPrice / 2);
     formData.append("productDescription", item.foodDealDescription);
+    formData.append("reservationId",reservationId)
     formData.append("productSelectedDate", moment(selectedDate).format('MMM DD, YYYY'));
     formData.append("productSelectedTime", selectedHour === 12 ? '12:00 AM' : `${selectedHour}:00 PM`)
     formData.append("productImage", {
@@ -113,7 +144,7 @@ console.log('restaurantAddress',restaurantAddress)
     });
     formData.append("restaurant_id", restaurant_id);
     formData.append("restaurantName",restaurantName);
-    formData.append("restaurantAddress",JSON.stringify(restaurantAddress));    
+    formData.append("restaurantAddress",JSON.stringify(Addresses));    
     formData.append("requestSender_id",currentUser.userId);
     formData.append("requestSenderName",currentUser.name);
     formData.append("requestSenderPhoneNumber",currentUser.phoneNumber)

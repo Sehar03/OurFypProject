@@ -15,7 +15,7 @@ export const AppProvider = ({children}) => {
   const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
   const [donorAddress,setDonorAddress]=useState('');
-  const [baseUrl, setBaseUrl] = useState('http://192.168.0.105:8888');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.104:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
@@ -83,7 +83,7 @@ export const AppProvider = ({children}) => {
     setSelectedDonationState(obj);
   };
   const storeDonorAddress=(val)=>{
-setDonorAddress(val);
+    setDonorAddress(val);
   };
   const storeRestaurantId = (val) => {
     setRestaurantId(val);
