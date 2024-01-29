@@ -27,6 +27,9 @@ import IconStyles from '../../assets/Styles/IconStyles';
 
 const ConfirmedReservation = ({navigation, route}) => {
   const {restaurantName, currentUser, baseUrl} = useContext(AppContext);
+  const {reservationId} = route.params;
+ 
+
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
@@ -79,26 +82,33 @@ const ConfirmedReservation = ({navigation, route}) => {
               fontFamily: 'Poppins-Regular',
               fontSize: hp('1.8'),
             }}>
-            afjkls38
+            {reservationId}
           </Text>
         </View>
         <TouchableOpacity
-        onPress={()=>{
-          navigation.navigate('ChatWithPartner')
-        }}
-  style={{
-    backgroundColor: AppColors.primary,
-    paddingVertical: hp('2'),
-    paddingHorizontal: wp('5'),
-    borderRadius: wp('2'),
-    marginTop: hp('3'),
-    alignItems: 'center',
-  }}
->
-  <Text style={{color: AppColors.white, fontFamily: 'Poppins-Bold', fontSize: hp('2')}}>
-    Chat with your Partner
-  </Text>
-</TouchableOpacity>
+          onPress={() => {
+            navigation.navigate('ChatWithPartner',{
+              reservationId:reservationId
+            });
+          }}
+          style={{
+            backgroundColor: AppColors.primary,
+            paddingVertical: hp('2'),
+            paddingHorizontal: wp('5'),
+            borderRadius: wp('2'),
+            marginTop: hp('3'),
+            alignItems: 'center',
+          }}>
+            
+          <Text
+            style={{
+              color: AppColors.white,
+              fontFamily: 'Poppins-Bold',
+              fontSize: hp('2'),
+            }}>
+            Chat with your Partner
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

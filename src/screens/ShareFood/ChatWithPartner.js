@@ -7,11 +7,38 @@ import AppColors from '../../assets/colors/AppColors';
 import AppContext from '../../Context/AppContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileHeader from '../../components/headers/ProfileHeader';
+import {useFocusEffect} from '@react-navigation/native';
+import axios from 'axios';
 
 const ChatWithPartner = ({navigation, route}) => {
   const [messages, setMessages] = useState([]);
-  const {currentUser} = useContext(AppContext);
+  const {currentUser, baseUrl,} = useContext(AppContext);
+  const {reservationId} =route.params;
+  console.log('kdfkdhjfh', reservationId);
+  const [newReservation, setNewReservation] = useState([]);
+const [requestReceiverId,setRequestReceiverId]=useState('');
+  const viewSingleReservation = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/viewSingleReservation/${reservationId}`,
+      );
+      setNewReservation(response.data);
+      setRequestReceiverId(response.data[0].requestReceiver_id);
+      console.log('requestReceiverId',response.data[0].requestReceiver_id)
+      console.log('singleReservation', response.data);
+    } catch (error) {
+      console.error('Error fetching  reservation:', error);
+    }
+  };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      viewSingleReservation();
+    }, []),
+  );
+  useEffect(() => {
+    viewSingleReservation();
+  }, []);
   useEffect(() => {
     const querySnapShot = firestore()
       .collection('chats')
@@ -36,13 +63,13 @@ const ChatWithPartner = ({navigation, route}) => {
       unsubscribe();
     };
   }, []);
-
   const onSend = messageArray => {
+    console.log('req',requestReceiverId)
     const msg = messageArray[0];
     const myMsg = {
       ...msg,
       senderId: currentUser.userId,
-      recieverId: '65806f4bf2656a1c4ef4adcb',
+      recieverId: requestReceiverId,
     };
 
     setMessages(previousMessages => {
@@ -78,6 +105,7 @@ const ChatWithPartner = ({navigation, route}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
       <ProfileHeader navigation={navigation} item="Chat" />
+
       <GiftedChat
         messages={messages}
         onSend={messageArray => onSend(messageArray)}
