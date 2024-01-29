@@ -16,21 +16,20 @@ const ChatWithPartner = ({navigation, route}) => {
   const {reservationId} =route.params;
   console.log('kdfkdhjfh', reservationId);
   const [newReservation, setNewReservation] = useState([]);
-const [requestReceiverId,setRequestReceiverId]=useState('');
   const viewSingleReservation = async () => {
     try {
       const response = await axios.post(
         `${baseUrl}/viewSingleReservation/${reservationId}`,
       );
-      setNewReservation(response.data);
-      setRequestReceiverId(response.data[0].requestReceiver_id);
-      console.log('requestReceiverId',response.data[0].requestReceiver_id)
-      console.log('singleReservation', response.data);
+      setNewReservation(response.data[0]);
+  
+      console.log('singleReservation', response.data[0]);
     } catch (error) {
       console.error('Error fetching  reservation:', error);
     }
   };
 
+  {console.log('////////////',newReservation.requestReceiver_id)}
   useFocusEffect(
     React.useCallback(() => {
       viewSingleReservation();
@@ -64,12 +63,11 @@ const [requestReceiverId,setRequestReceiverId]=useState('');
     };
   }, []);
   const onSend = messageArray => {
-    console.log('req',requestReceiverId)
     const msg = messageArray[0];
     const myMsg = {
       ...msg,
       senderId: currentUser.userId,
-      recieverId: requestReceiverId,
+      recieverId: newReservation.requestReceiver_id,
     };
 
     setMessages(previousMessages => {

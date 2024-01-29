@@ -149,7 +149,7 @@ const SharedFoodCard = ({ item, navigation, currentOrderRoute }) => {
           </View>
         </View>
 
-        <View style={{ flexDirection: "row", marginLeft: wp('1'), marginTop: hp('2'),flex:1 }}>
+        <View style={{ flexDirection: "row", marginTop: hp('2'),flex:1 }}>
           <FontAwesome name="calendar" size={20} style={[IconStyles.signupIcons, { marginTop: 0 }]} />
           <Text
             style={{
@@ -158,7 +158,7 @@ const SharedFoodCard = ({ item, navigation, currentOrderRoute }) => {
             }}>
             Date:  {item.productSelectedDate}
           </Text>
-          <View style={{ flexDirection: "row", marginLeft: wp('3') }}>
+          <View style={{ flexDirection: "row", flex:1 }}>
             <Ionicons name="time-outline" size={20} style={[IconStyles.signupIcons, { marginTop: hp('0') }]} />
             <Text
               style={{

@@ -106,7 +106,7 @@ const SingleSharedFoodDetail = ({ navigation, route }) => {
                 }}>
                 Date:  {item.productSelectedDate}
               </Text>
-              <View style={{ flexDirection: "row", marginLeft: wp('3') }}>
+              <View style={{ flexDirection: "row",flex:1 }}>
                 <Ionicons name="time-outline" size={20} style={[IconStyles.signupIcons, { marginTop: hp('0') }]} />
                 <Text
                   style={{
@@ -137,7 +137,7 @@ const SingleSharedFoodDetail = ({ navigation, route }) => {
                    
        
       </ScrollView>
-      {currentOrderRoute === "SharedFood" ?(
+      {currentOrderRoute === "Shared" ?(
         <View style={{ alignSelf: "center" }}>
         <TouchableOpacity onPress={() => {
           navigation.navigate('CheckOutReservation', {
