@@ -24,6 +24,7 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
+
 import IconStyles from '../../assets/Styles/IconStyles';
 
 
@@ -35,7 +36,7 @@ const CheckOutReservation = ({ navigation, route }) => {
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [userName, setUserName] = useState(currentUser.name);
-  // const [deliveryAddress, setDeliveryAddress] = useState(restaurantAddress);
+  const [deliveryAddress, setDeliveryAddress] = useState(restaurantAddress);
 
 
 
@@ -60,26 +61,19 @@ const CheckOutReservation = ({ navigation, route }) => {
 
 
 
-
   const updateSingleSharedFood = async (sharedFood_id) => {
-
     const formData = new FormData();
     formData.append("requestReceiver_id", currentUser.userId);
     formData.append("requestReceiverName", currentUser.name);
     formData.append("requestReceiverPhoneNumber", currentUser.phoneNumber);
-    formData.append("status","Ongoing")
-    axios({
-      method: 'post',
-      url: `${baseUrl}/updateSingleSharedFood/${sharedFood_id}`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-
-      .then(function (response) {
-        if (response.data.message == true) {
-
-          console.log(response.data)
-
+    formData.append("status", "Confirmed");
+  
+    try {
+      const response = await axios.post(
+        `${baseUrl}/updateSingleSharedFood/${sharedFood_id}`,
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
         }
       })
       .catch(function (response) {
@@ -88,7 +82,8 @@ const CheckOutReservation = ({ navigation, route }) => {
       });
     // console.warn("Stop");
 
-  }
+    }
+
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -745,6 +740,11 @@ const CheckOutReservation = ({ navigation, route }) => {
               if (sharedFood.length > 0) {
                 const sharedFood_id = sharedFood[0]._id; // Assuming you want the ID from the first item
                 updateSingleSharedFood(sharedFood_id);
+                navigation.navigate('ConfirmedReservation',{
+                  reservationId:item.reservationId
+                });
+
+                
               }
             }}
           >
