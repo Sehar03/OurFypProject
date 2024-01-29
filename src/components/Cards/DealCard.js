@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { FlatList, Image, StyleSheet, TextInput } from 'react-native';
-import { Text, TouchableOpacity, View, Modal } from 'react-native';
+import React, { useContext,useRef, useState } from 'react';
+import { FlatList, Image, StyleSheet, TextInput, Text, TouchableOpacity, View, Modal } from 'react-native';
 import TextStyles from '../../assets/Styles/TextStyles';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import {
@@ -19,6 +18,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import randomstring from 'randomstring';
+
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 const DealCard = ({ navigation, item, updateTotalQuantity, updateTotalAmount}) => {
   const flatListRef = useRef(null);
@@ -32,7 +32,6 @@ const DealCard = ({ navigation, item, updateTotalQuantity, updateTotalAmount}) =
     restaurant_id
   } = useContext(AppContext);
   const [dateError, setDateError] = useState('')
-console.log('restaurantAddress',restaurantAddress)
 
   const addCartProducts = async () => {
     // Fetch the current cart details to check if it already contains items
@@ -113,7 +112,6 @@ console.log('restaurantAddress',restaurantAddress)
     
     // Example usage:
     const reservationId = generateRandomString(6); // Generates a fixed-length random string with 6 characters
-    console.log(reservationId);
     
 
     const formData = new FormData();
@@ -149,8 +147,6 @@ console.log('restaurantAddress',restaurantAddress)
     formData.append("requestSenderName",currentUser.name);
     formData.append("requestSenderPhoneNumber",currentUser.phoneNumber)
 
- 
-    console.log(formData);
     axios({
       method: "post",
       url: `${baseUrl}/addShareFoodProducts`,
@@ -169,14 +165,6 @@ console.log('restaurantAddress',restaurantAddress)
         console.log(error);
       });
   };
-
-
-
-  const [isAddedIntoSchedule, setIsAddedIntoSchedule] = useState('');
-  const [isAddedIntoCart, setIsAddedIntoCart] = useState('');
-  let navigateToScreen = ''; // Declare the variable
-  let DesiredText = ''; // Declare the variable
-  let AddItem = ''; // Declare the variable
 
   if (
     selectedFoodFeature === 'Full Price Food' &&
@@ -271,16 +259,7 @@ console.log('restaurantAddress',restaurantAddress)
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
-            productId: item._id,
-            restaurant_id: restaurant_id,
-            productImage: baseUrl + item.foodDealImage,
-            productName: item.foodDealTitle,
-            productPrice: item.foodDealPrice,
-            productDescription: item.foodDealDescription,
-            productPricePerPerson: item.foodDealPrice / 2,
-            productDescription: item.foodDealDescription,
-            productSelectedDateAndTime: selectedDate ? selectedDate.toString() : null
-
+            foodDealId: item._id,
           });
         }}>
         <Text style={[TextStyles.leftText, { marginTop: hp('2%') }]}>
@@ -294,16 +273,7 @@ console.log('restaurantAddress',restaurantAddress)
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('SingleProductDetail', {
-            productId: item._id,
-            restaurant_id: restaurant_id,
-            productImage: baseUrl + item.foodDealImage,
-            productName: item.foodDealTitle,
-            productPrice: item.foodDealPrice,
-            productDescription: item.foodDealDescription,
-            productPricePerPerson: item.foodDealPrice / 2,
-            productDescription: item.foodDealDescription,
-            productSelectedDateAndTime: selectedDate ? selectedDate.toString() : null
-
+            foodDealId: item._id,
           });
         }}>
         <View style={{ position: 'absolute', left: wp('70%'), bottom: hp('0%') }}>

@@ -42,7 +42,7 @@ const TabScreensHeader = ({navigation, title}) => {
           }}
         />
       </TouchableOpacity>
-      <Text style={[TextStyles.backButtonTitle]}>{title}</Text>
+      <Text style={[TextStyles.backButtonTitle,{marginTop:hp('0')}]}>{title}</Text>
     </View>
   );
 };
