@@ -1,109 +1,109 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {SafeAreaView, TouchableOpacity, View, Text} from 'react-native';
-import {Bubble, GiftedChat} from 'react-native-gifted-chat';
+import React, { useState, useEffect, useContext } from 'react';
+import { SafeAreaView, TouchableOpacity } from 'react-native';
+import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import your icon library
-import AppColors from '../../assets/colors/AppColors';
-import AppContext from '../../Context/AppContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileHeader from '../../components/headers/ProfileHeader';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
+import AppColors from '../../assets/colors/AppColors';
+import AppContext from '../../Context/AppContext';
 
-const ChatWithPartner = ({navigation, route}) => {
+const ChatWithPartner = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
-  const {currentUser, baseUrl,} = useContext(AppContext);
-  const {reservationId} =route.params;
-  console.log('kdfkdhjfh', reservationId);
-  const [newReservation, setNewReservation] = useState([]);
+  const { currentUser, baseUrl } = useContext(AppContext);
+  const { reservationId } = route.params;
+  const [newReservation, setNewReservation] = useState(null);
+
   const viewSingleReservation = async () => {
     try {
       const response = await axios.post(
-        `${baseUrl}/viewSingleReservation/${reservationId}`,
+        `${baseUrl}/viewSingleReservation/${reservationId}`
       );
-      setNewReservation(response.data[0]);
-  
-      console.log('singleReservation', response.data[0]);
+      if (response.data && response.data.length > 0) {
+        setNewReservation(response.data[0]);
+        console.log('singleReservation', response.data[0]);
+      } else {
+        console.error('No data found for reservation:', reservationId);
+      }
     } catch (error) {
-      console.error('Error fetching  reservation:', error);
+      console.error('Error fetching reservation:', error);
     }
   };
 
-  {console.log('////////////',newReservation.requestReceiver_id)}
   useFocusEffect(
     React.useCallback(() => {
       viewSingleReservation();
-    }, []),
+    }, [])
   );
+
   useEffect(() => {
-    viewSingleReservation();
-  }, []);
-  useEffect(() => {
-    const querySnapShot = firestore()
-      .collection('chats')
-      .doc('123456789')
-      .collection('messages')
-      .orderBy('createdAt', 'desc');
+    if (newReservation) {
+      const senderId = newReservation.requestSender_id;
+      const receiverId = newReservation.requestReceiver_id;
 
-    const unsubscribe = querySnapShot.onSnapshot(snapShot => {
-      const allMessages = snapShot.docs.map(snap => {
-        const createdAt = snap.data().createdAt?.toDate() || new Date(); // Handle null case
-        return {
-          ...snap.data(),
-          createdAt,
-        };
-      });
+      const chatId = [senderId, receiverId].sort().join('_');
 
-      setMessages(allMessages);
-    });
+      const unsubscribe = firestore()
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(snapshot => {
+          const allMessages = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              ...data,
+              createdAt: data.createdAt?.toDate() || new Date(),
+            };
+          });
 
-    return () => {
-      // Cleanup the subscription when the component unmounts
-      unsubscribe();
-    };
-  }, []);
-  const onSend = messageArray => {
+          setMessages(allMessages);
+        });
+
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [newReservation]);
+
+  const onSend = async messageArray => {
     const msg = messageArray[0];
+
     const myMsg = {
       ...msg,
-      senderId: currentUser.userId,
-      recieverId: newReservation.requestReceiver_id,
+      senderId: newReservation.requestSender_id,
+      receiverId: newReservation.requestReceiver_id,
+      createdAt: new Date(),
     };
 
-    setMessages(previousMessages => {
-      // Append the new message
-      const updatedMessages = GiftedChat.append(previousMessages, myMsg);
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, myMsg)
+    );
 
-      // Sort the messages by createdAt in descending order
-      const sortedMessages = updatedMessages.sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-      );
+    const chatId = [newReservation.requestSender_id, newReservation.requestReceiver_id]
+      .sort()
+      .join('_');
 
-      return sortedMessages;
-    });
-
-    firestore()
+    await firestore()
       .collection('chats')
-      .doc('123456789')
+      .doc(chatId)
       .collection('messages')
-      .add({
-        ...myMsg,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      });
+      .add(myMsg);
   };
 
   const renderSend = props => (
     <TouchableOpacity
-      onPress={() => props.onSend({text: props.text.trim()}, true)}
-      style={{marginRight: 10, marginBottom: 5}}>
+      onPress={() => props.onSend({ text: props.text.trim() }, true)}
+      style={{ marginRight: 10, marginBottom: 5 }}
+    >
       <Ionicons name="send-sharp" size={25} color={'#4682B4'} />
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <ProfileHeader navigation={navigation} item="Chat" />
-
       <GiftedChat
         messages={messages}
         onSend={messageArray => onSend(messageArray)}
