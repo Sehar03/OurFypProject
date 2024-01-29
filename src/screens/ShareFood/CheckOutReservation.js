@@ -75,14 +75,15 @@ const CheckOutReservation = ({ navigation, route }) => {
         {
           headers: { 'Content-Type': 'multipart/form-data' },
         }
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
-    // console.warn("Stop");
-
+      );
+      if (response.data.message === true) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      // Handle the error
+      console.error('Error:', error);
     }
+  };
 
 
   const truncateText = (text, maxLength) => {
