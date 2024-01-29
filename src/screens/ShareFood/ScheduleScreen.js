@@ -278,8 +278,8 @@ const ScheduleScreen = ({ navigation }) => {
         initialRouteName="MyFood"// Set the initial route based on categoryName
         screenOptions={TabBarStyles.customTabBar}>
         <Tab.Screen name="MyFood" component={MySharedFood} />
-        <Tab.Screen name="SharedFood" component={SharedFood} />
-        <Tab.Screen name="ConfirmedFood" component={ConfirmedShareFood} />
+        <Tab.Screen name="Shared" component={SharedFood} />
+        <Tab.Screen name="Confirmed" component={ConfirmedShareFood} />
         <Tab.Screen name="Completed" component={CompletedShareFood} />
       </Tab.Navigator>
     </SafeAreaView>
