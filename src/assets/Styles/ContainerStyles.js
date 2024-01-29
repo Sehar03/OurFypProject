@@ -507,7 +507,7 @@ const ContainerStyles = StyleSheet.create({
 
   orderNeomorph:
     {
-      height: hp('15'),
+      height: hp('16'),
       width: wp('94'),
       borderRadius: wp('1.3%'),
       shadowRadius: 2.2,
