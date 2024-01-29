@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -10,7 +10,7 @@ import {
   Linking,
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import { Neomorph } from 'react-native-neomorph-shadows';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -24,21 +24,29 @@ import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
+
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const CheckOutReservation = ({navigation, route}) => {
-  const {currentUser, baseUrl, restaurantFcmToken, restaurantAddress} =
-    useContext(AppContext);
-  const {productId} = route.params;
+
+const CheckOutReservation = ({ navigation, route }) => {
+  const { currentUser, baseUrl, restaurantFcmToken, restaurantAddress } = useContext(AppContext);
+  const { productId } = route.params;
   const [sharedFood, setShareFood] = useState([]);
   const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [userName, setUserName] = useState(currentUser.name);
+  const [deliveryAddress, setDeliveryAddress] = useState(restaurantAddress);
+
+
+
+
+
 
   const viewSingleSharedFoodProduct = async () => {
     try {
       const response = await axios.post(
+
         `${baseUrl}/viewSingleSharedFoodProduct/${productId}`,
       );
       setShareFood(response.data);
@@ -52,44 +60,24 @@ const CheckOutReservation = ({navigation, route}) => {
     viewSingleSharedFoodProduct();
   }, []);
 
-  const updateSingleSharedFood = async sharedFood_id => {
+
+
+  const updateSingleSharedFood = async (sharedFood_id) => {
     const formData = new FormData();
     formData.append("requestReceiver_id", currentUser.userId);
     formData.append("requestReceiverName", currentUser.name);
     formData.append("requestReceiverPhoneNumber", currentUser.phoneNumber);
-    formData.append("status","Ongoing")
-    axios({
-      method: 'post',
-      url: `${baseUrl}/updateSingleSharedFood/${sharedFood_id}`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-
-      .then(function (response) {
-        if (response.data.message == true) {
-
-          console.log(response.data)
-
-        }
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
-    // console.warn("Stop");
-
-  }
-
-
+    formData.append("status", "Confirmed");
+  
     try {
       const response = await axios.post(
         `${baseUrl}/updateSingleSharedFood/${sharedFood_id}`,
         formData,
         {
-          headers: {'Content-Type': 'multipart/form-data'},
-        },
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }
       );
-
+  
       if (response.data.message === true) {
         console.log(response.data);
       }
@@ -98,6 +86,15 @@ const CheckOutReservation = ({navigation, route}) => {
       console.error('Error:', error);
     }
   };
+  
+
+
+
+
+
+
+
+
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -106,13 +103,14 @@ const CheckOutReservation = ({navigation, route}) => {
     return text;
   };
 
+
   return (
-    <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: AppColors.white, flex: 1 }}>
       <BackButtonHeader navigation={navigation} title="CheckOut" />
-      {sharedFood.map(item => (
+      {sharedFood.map((item) => (
         <>
           <ScrollView>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -129,17 +127,15 @@ const CheckOutReservation = ({navigation, route}) => {
                   paddingBottom: hp('3'),
                   flex: 1,
                 }}>
+
+
                 <View>
-                  <View style={{flexDirection: 'row'}}>
+                  <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity>
                       <Ionicons
                         name="restaurant-outline"
                         size={wp('4.5')}
-                        style={{
-                          marginTop: hp('2.2'),
-                          color: AppColors.primary,
-                          marginLeft: wp('3.5'),
-                        }}
+                        style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
                       />
                     </TouchableOpacity>
                     <Text
@@ -162,24 +158,24 @@ const CheckOutReservation = ({navigation, route}) => {
                       marginBottom: hp('1'),
                       borderColor: AppColors.background2,
                     }}></View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{width: wp('90'), height: hp('2.5')}}>
-                      <Text
-                        style={{
-                          marginLeft: wp('3.5'),
-                        }}>
-                        {truncateText('Baba Freed Barger Point', 45)}
+                  <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    <View style={{ width: wp('90'), height: hp('2.5') }}>
+                      <Text style={{
+                        marginLeft: wp('3.5'),
+                      }}>
+                        {truncateText("Baba Freed Barger Point", 45)}
                       </Text>
+
                     </View>
+
+
                   </View>
+
                 </View>
+
               </Neomorph>
             </View>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -196,17 +192,15 @@ const CheckOutReservation = ({navigation, route}) => {
                   paddingBottom: hp('3'),
                   flex: 1,
                 }}>
+
+
                 <View>
-                  <View style={{flexDirection: 'row'}}>
+                  <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity>
                       <Octicons
                         name="location"
                         size={wp('4.5')}
-                        style={{
-                          marginTop: hp('2.2'),
-                          color: AppColors.primary,
-                          marginLeft: wp('3.5'),
-                        }}
+                        style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
                       />
                     </TouchableOpacity>
                     <Text
@@ -221,18 +215,14 @@ const CheckOutReservation = ({navigation, route}) => {
                     <TouchableOpacity
                       onPress={() => {
                         // Use Linking to open the device's map application with the specified location (delivery address)
-                        const addressForMap = encodeURIComponent(restaurantAddress);
+                        const addressForMap = encodeURIComponent(deliveryAddress);
                         Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${addressForMap}`);
                       }}
                     >
                       <MaterialCommunityIcons
                         name="navigation-variant-outline"
                         size={23}
-                        style={{
-                          marginTop: hp('2'),
-                          color: AppColors.primary,
-                          marginLeft: wp('39'),
-                        }}
+                        style={{ marginTop: hp('2'), color: AppColors.primary, marginLeft: wp('39') }}
                       />
                     </TouchableOpacity>
                   </View>
@@ -246,27 +236,25 @@ const CheckOutReservation = ({navigation, route}) => {
                       marginBottom: hp('1'),
                       borderColor: AppColors.background2,
                     }}></View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <View style={{width: wp('90'), height: hp('6.5')}}>
-                      <Text
-                        style={{
-                          marginLeft: wp('3.5'),
-                        }}>
-                        {deliveryAddress && deliveryAddress.length > 0
-                          ? deliveryAddress[0].formattedAddress
-                          : ''}
+                  <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    <View style={{ width: wp('90'), height: hp('6.5') }}>
+                      <Text style={{
+                        marginLeft: wp('3.5'),
+                      }}>
+                        {deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
                       </Text>
+
                     </View>
+
+
                   </View>
+
                 </View>
+
               </Neomorph>
             </View>
 
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -285,16 +273,12 @@ const CheckOutReservation = ({navigation, route}) => {
                 }}>
                 {isEditingUserName ? (
                   <View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: "row" }}>
                       <TouchableOpacity>
                         <FontAwesome
                           name="phone"
                           size={wp('4.5')}
-                          style={{
-                            marginTop: hp('2.3'),
-                            color: AppColors.primary,
-                            marginLeft: wp('3.5'),
-                          }}
+                          style={{ marginTop: hp('2.3'), color: AppColors.primary, marginLeft: wp('3.5') }}
                         />
                       </TouchableOpacity>
                       <Text
@@ -315,11 +299,8 @@ const CheckOutReservation = ({navigation, route}) => {
                         borderBottomWidth: hp('0.2'),
                         borderColor: AppColors.background2,
                       }}></View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
                       <TextInput
                         style={{
                           height: 40,
@@ -328,36 +309,29 @@ const CheckOutReservation = ({navigation, route}) => {
                           padding: 8,
                           fontSize: 16,
                         }}
-                        autoFocus // Auto focus the TextInput when editing starts
+                        autoFocus  // Auto focus the TextInput when editing starts
                         selectionColor={AppColors.primary}
                         value={userName}
                         onChangeText={text => setUserName(text)}
                       />
-                      <TouchableOpacity
-                        onPress={() =>
-                          setIsEditingUserName(!isEditingUserName)
-                        }>
+                      <TouchableOpacity onPress={() => setIsEditingUserName(!isEditingUserName)}>
                         <MaterialIcons
                           name={isEditingUserName ? 'done' : 'edit'}
                           size={20}
                           color={AppColors.primary}
-                          style={{marginRight: wp('2'), marginTop: hp('1.4')}}
+                          style={{ marginRight: wp('2'), marginTop: hp('1.4') }}
                         />
                       </TouchableOpacity>
                     </View>
                   </View>
                 ) : (
                   <View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: "row" }}>
                       <TouchableOpacity>
                         <Octicons
                           name="person"
                           size={wp('4.5')}
-                          style={{
-                            marginTop: hp('2.2'),
-                            color: AppColors.primary,
-                            marginLeft: wp('3.5'),
-                          }}
+                          style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
                         />
                       </TouchableOpacity>
                       <Text
@@ -379,26 +353,16 @@ const CheckOutReservation = ({navigation, route}) => {
                         marginBottom: hp('1'),
                         borderColor: AppColors.background2,
                       }}></View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          marginLeft: wp('3.5'),
-                        }}>
-                        {userName}
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() =>
-                          setIsEditingUserName(!isEditingUserName)
-                        }>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                      <Text style={{
+                        marginLeft: wp('3.5'),
+                      }}>{userName}</Text>
+                      <TouchableOpacity onPress={() => setIsEditingUserName(!isEditingUserName)}>
                         <MaterialIcons
                           name={isEditingUserName ? 'done' : 'edit'}
                           size={20}
                           color={AppColors.primary}
-                          style={{marginRight: wp('2'), marginTop: hp('0')}}
+                          style={{ marginRight: wp('2'), marginTop: hp('0') }}
                         />
                       </TouchableOpacity>
                     </View>
@@ -406,10 +370,11 @@ const CheckOutReservation = ({navigation, route}) => {
                 )}
 
                 {/* Add a button to toggle between editing and displaying mode */}
+
               </Neomorph>
             </View>
 
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -428,16 +393,12 @@ const CheckOutReservation = ({navigation, route}) => {
                 }}>
                 {isEditingMobileNumber ? (
                   <View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: "row" }}>
                       <TouchableOpacity>
                         <FontAwesome
                           name="phone"
                           size={wp('4.5')}
-                          style={{
-                            marginTop: hp('2.3'),
-                            color: AppColors.primary,
-                            marginLeft: wp('3.5'),
-                          }}
+                          style={{ marginTop: hp('2.3'), color: AppColors.primary, marginLeft: wp('3.5') }}
                         />
                       </TouchableOpacity>
                       <Text
@@ -458,11 +419,8 @@ const CheckOutReservation = ({navigation, route}) => {
                         borderBottomWidth: hp('0.2'),
                         borderColor: AppColors.background2,
                       }}></View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
                       <TextInput
                         style={{
                           height: 40,
@@ -471,36 +429,29 @@ const CheckOutReservation = ({navigation, route}) => {
                           padding: 8,
                           fontSize: 16,
                         }}
-                        autoFocus // Auto focus the TextInput when editing starts
+                        autoFocus  // Auto focus the TextInput when editing starts
                         selectionColor={AppColors.primary}
                         value={item.requestSenderPhoneNumber}
                         onChangeText={text => setMobileNumber(text)}
                       />
-                      <TouchableOpacity
-                        onPress={() =>
-                          setIsEditingMobileNumber(!isEditingMobileNumber)
-                        }>
+                      <TouchableOpacity onPress={() => setIsEditingMobileNumber(!isEditingMobileNumber)}>
                         <MaterialIcons
                           name={isEditingMobileNumber ? 'done' : 'edit'}
                           size={20}
                           color={AppColors.primary}
-                          style={{marginRight: wp('2'), marginTop: hp('1.4')}}
+                          style={{ marginRight: wp('2'), marginTop: hp('1.4') }}
                         />
                       </TouchableOpacity>
                     </View>
                   </View>
                 ) : (
                   <View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: "row" }}>
                       <TouchableOpacity>
                         <FontAwesome
                           name="phone"
                           size={wp('4.5')}
-                          style={{
-                            marginTop: hp('2.2'),
-                            color: AppColors.primary,
-                            marginLeft: wp('3.5'),
-                          }}
+                          style={{ marginTop: hp('2.2'), color: AppColors.primary, marginLeft: wp('3.5') }}
                         />
                       </TouchableOpacity>
                       <Text
@@ -522,26 +473,16 @@ const CheckOutReservation = ({navigation, route}) => {
                         marginBottom: hp('1'),
                         borderColor: AppColors.background2,
                       }}></View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          marginLeft: wp('3.5'),
-                        }}>
-                        {mobileNumber}
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() =>
-                          setIsEditingMobileNumber(!isEditingMobileNumber)
-                        }>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                      <Text style={{
+                        marginLeft: wp('3.5'),
+                      }}>{mobileNumber}</Text>
+                      <TouchableOpacity onPress={() => setIsEditingMobileNumber(!isEditingMobileNumber)}>
                         <MaterialIcons
                           name={isEditingMobileNumber ? 'done' : 'edit'}
                           size={20}
                           color={AppColors.primary}
-                          style={{marginRight: wp('2'), marginTop: hp('0')}}
+                          style={{ marginRight: wp('2'), marginTop: hp('0') }}
                         />
                       </TouchableOpacity>
                     </View>
@@ -549,25 +490,28 @@ const CheckOutReservation = ({navigation, route}) => {
                 )}
 
                 {/* Add a button to toggle between editing and displaying mode */}
+
               </Neomorph>
             </View>
 
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <View
-                style={{
-                  width: wp(95),
-                  marginBottom: hp('1.5'),
-                  borderWidth: 2,
-                  borderColor: AppColors.background2,
-                  borderRadius: 5,
-                  marginTop: hp('1.4%'),
-                }}>
-                <View style={{flexDirection: 'row', width: wp('100%')}}>
+
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+
+
+              <View style={{
+                width: wp(95),
+                marginBottom: hp('1.5'),
+                borderWidth: 2,
+                borderColor: AppColors.background2,
+                borderRadius: 5,
+                marginTop: hp('1.4%'),
+              }}>
+                <View style={{ flexDirection: 'row', width: wp('100%') }}>
                   <Entypo
                     name="text-document"
                     size={24}
                     color={AppColors.primary}
-                    style={{marginLeft: wp('4'), marginTop: hp('3')}}
+                    style={{ marginLeft: wp('4'), marginTop: hp('3') }}
                   />
 
                   <Text
@@ -580,11 +524,12 @@ const CheckOutReservation = ({navigation, route}) => {
                     }}>
                     Order Summary
                   </Text>
+
                 </View>
                 <FlatList
                   data={sharedFood}
                   keyExtractor={(item, index) => index.toString()}
-                  renderItem={({item}) => (
+                  renderItem={({ item }) => (
                     <View
                       style={{
                         flexDirection: 'row',
@@ -620,40 +565,29 @@ const CheckOutReservation = ({navigation, route}) => {
                     borderTopWidth: hp('0.2'),
                     borderColor: AppColors.background2,
                   }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      marginLeft: wp('2'),
-                      marginTop: hp('2'),
-                    }}>
-                    <FontAwesome
-                      name="calendar"
-                      size={20}
-                      style={[IconStyles.signupIcons, {marginTop: 0}]}
-                    />
+                  <View style={{ flexDirection: "row", marginLeft: wp('2'), marginTop: hp('2') }}>
+                    <FontAwesome name="calendar" size={20} style={[IconStyles.signupIcons, { marginTop: 0 }]} />
                     <Text
                       style={{
                         color: AppColors.black,
                         fontFamily: 'Poppins-SemiBold',
                       }}>
-                      Date: {item.productSelectedDate}
+                      Date:  {item.productSelectedDate}
                     </Text>
-                    <View style={{flexDirection: 'row', marginLeft: wp('3')}}>
-                      <Ionicons
-                        name="time-outline"
-                        size={20}
-                        style={[IconStyles.signupIcons, {marginTop: hp('0')}]}
-                      />
+                    <View style={{ flexDirection: "row", marginLeft: wp('3') }}>
+                      <Ionicons name="time-outline" size={20} style={[IconStyles.signupIcons, { marginTop: hp('0') }]} />
                       <Text
                         style={{
                           color: AppColors.black,
                           fontFamily: 'Poppins-SemiBold',
                         }}>
-                        Time: {item.productSelectedTime}
+                        Time:  {item.productSelectedTime}
                       </Text>
                     </View>
                   </View>
                 </View>
+
+
 
                 {/* <View
               style={{
@@ -679,14 +613,10 @@ const CheckOutReservation = ({navigation, route}) => {
               </Text>
             </View> */}
               </View>
+
             </View>
 
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: hp('1.2'),
-              }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('1.2') }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -702,18 +632,19 @@ const CheckOutReservation = ({navigation, route}) => {
                   marginTop: hp('0%'),
                   flex: 1,
                 }}>
+
                 <View
                   style={{
                     flexDirection: 'row',
                     width: wp('90%'),
                     marginTop: hp('1.5'),
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-between'
                   }}>
                   <Ionicons
                     name="pricetag-outline"
                     size={20}
                     color={AppColors.primary}
-                    style={{marginLeft: wp('4')}}
+                    style={{ marginLeft: wp('4') }}
                   />
                   <Text
                     style={{
@@ -736,7 +667,9 @@ const CheckOutReservation = ({navigation, route}) => {
               </Neomorph>
             </View>
 
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+
+
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Neomorph
                 darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
@@ -753,12 +686,12 @@ const CheckOutReservation = ({navigation, route}) => {
                   paddingBottom: hp('3'),
                   flex: 1,
                 }}>
-                <View style={{flexDirection: 'row', width: wp('100%')}}>
+                <View style={{ flexDirection: 'row', width: wp('100%') }}>
                   <MaterialIcons
                     name="payment"
                     size={24}
                     color={AppColors.primary}
-                    style={{marginLeft: wp('4'), marginTop: hp('3')}}
+                    style={{ marginLeft: wp('4'), marginTop: hp('3') }}
                   />
                   <Text
                     style={{
@@ -776,13 +709,13 @@ const CheckOutReservation = ({navigation, route}) => {
                     flexDirection: 'row',
                     width: wp('90%'),
                     marginTop: hp('1.5'),
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-between'
                   }}>
                   <MaterialCommunityIcons
                     name="cash"
                     size={24}
                     color={AppColors.Gray}
-                    style={{marginLeft: wp('4')}}
+                    style={{ marginLeft: wp('4') }}
                   />
                   <Text
                     style={{
@@ -805,8 +738,13 @@ const CheckOutReservation = ({navigation, route}) => {
               </Neomorph>
             </View>
 
-            <View style={{height: hp('1')}}></View>
+            <View style={{ height: hp('1') }}>
+
+            </View>
+
           </ScrollView>
+
+
 
           <TouchableOpacity
             onPress={() => {
@@ -814,11 +752,15 @@ const CheckOutReservation = ({navigation, route}) => {
                 const sharedFood_id = sharedFood[0]._id; // Assuming you want the ID from the first item
 
                 updateSingleSharedFood(sharedFood_id);
-                navigation.navigate('ConfirmedReservation', {
-                  reservationId,
+                navigation.navigate('ConfirmedReservation',{
+                  reservationId:item.reservationId
                 });
+
+                
               }
-            }}>
+            }}
+          >
+
             <Neomorph
               // darkShadowColor={AppColors.primary}
               lightShadowColor={AppColors.background}
