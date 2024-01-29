@@ -28,14 +28,14 @@ import IconStyles from '../../assets/Styles/IconStyles';
 
 
 const CheckOutReservation = ({ navigation, route }) => {
-  const { currentUser, baseUrl, restaurantFcmToken, restaurantAddress } = useContext(AppContext);
+  const { currentUser, baseUrl, restaurantFcmToken} = useContext(AppContext);
   const { productId } = route.params;
   const [sharedFood, setShareFood] = useState([]);
   const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
   const [isEditingUserName, setIsEditingUserName] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [userName, setUserName] = useState(currentUser.name);
-
+  // const [deliveryAddress, setDeliveryAddress] = useState(restaurantAddress);
 
 
 
@@ -89,15 +89,6 @@ const CheckOutReservation = ({ navigation, route }) => {
     // console.warn("Stop");
 
   }
-
-
-
-
-
-
-
-
-
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -166,7 +157,7 @@ const CheckOutReservation = ({ navigation, route }) => {
                       <Text style={{
                         marginLeft: wp('3.5'),
                       }}>
-                        {truncateText("Baba Freed Barger Point", 45)}
+                        {truncateText(item.restaurantName, 45)}
                       </Text>
 
                     </View>
@@ -218,7 +209,7 @@ const CheckOutReservation = ({ navigation, route }) => {
                     <TouchableOpacity
                       onPress={() => {
                         // Use Linking to open the device's map application with the specified location (delivery address)
-                        const addressForMap = encodeURIComponent(restaurantAddress);
+                        const addressForMap = encodeURIComponent(item.restaurantAddress && item.restaurantAddress.length > 0 ? item.restaurantAddress[0].formattedAddress : '');
                         Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${addressForMap}`);
                       }}
                     >
@@ -244,7 +235,7 @@ const CheckOutReservation = ({ navigation, route }) => {
                       <Text style={{
                         marginLeft: wp('3.5'),
                       }}>
-                        {deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
+                        {item.restaurantAddress && item.restaurantAddress.length > 0 ? item.restaurantAddress[0].formattedAddress : ''}
                       </Text>
 
                     </View>
@@ -735,7 +726,7 @@ const CheckOutReservation = ({ navigation, route }) => {
                       color: AppColors.black,
                       fontSize: hp('2'),
                     }}>
-                    {item.productPricePerPerson}
+                    Rs. {item.productPricePerPerson}
                   </Text>
                 </View>
               </Neomorph>
@@ -753,7 +744,6 @@ const CheckOutReservation = ({ navigation, route }) => {
             onPress={() => {
               if (sharedFood.length > 0) {
                 const sharedFood_id = sharedFood[0]._id; // Assuming you want the ID from the first item
-
                 updateSingleSharedFood(sharedFood_id);
               }
             }}
@@ -793,4 +783,4 @@ const CheckOutReservation = ({ navigation, route }) => {
   );
 };
 
-export default CheckOutReservation;
+export default CheckOutReservation; 

@@ -67,7 +67,7 @@ const TextStyles = StyleSheet.create({
     position: 'absolute',
     fontSize:wp('4.5'),
     left: wp('38%'),
-    top: hp('4.4'),
+    top: hp('3'),
     fontFamily: 'Poppins-SemiBold',
     color: 'black',
   },
@@ -255,6 +255,15 @@ const TextStyles = StyleSheet.create({
     fontSize: hp('2.5'),
     marginLeft: wp('4'),
     marginTop: hp('4'),
+  },
+  messageStyle:{
+    flex:1,
+    alignSelf:"center",
+    textAlign:"justify",
+    marginLeft:hp('0.8'),
+    marginRight:wp('4'),
+    fontFamily:"Poppins-Regular", 
+    letterSpacing: -0.2,
   }
 });
 

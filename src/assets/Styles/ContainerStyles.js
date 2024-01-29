@@ -7,6 +7,12 @@ import {
 import AppColors from '../colors/AppColors';
 
 const ContainerStyles = StyleSheet.create({
+  centerView:{
+    flex:1,
+    justifyContent:"center",
+    alignItems:"center",
+},
+
   inputFieldNeomorphContainer: {
     width: wp('80%'),
     height: hp('7%'),
@@ -491,8 +497,8 @@ const ContainerStyles = StyleSheet.create({
     marginLeft: wp('15'),
   },
   ScheduleCardNeomorph:{
-    width: wp('95%'),
-    height: hp('25%'),
+    width: wp('95'),
+    height: hp('30'),
     borderRadius: wp('2'),
     shadowRadius: 2,
     backgroundColor: AppColors.white,

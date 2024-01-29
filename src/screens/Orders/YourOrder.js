@@ -16,7 +16,7 @@ import {
 import LottieView from 'lottie-react-native';
 import AppContext from '../../Context/AppContext';
 import CartHeader from '../../components/headers/CartHeader';
-import  {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -47,7 +47,7 @@ const YourOrder = ({ navigation, route }) => {
     }, [orderId]),
 
   );
-  console.log("currentOrder",currentOrder)
+  console.log("currentOrder", currentOrder)
   // const viewAllCartProducts = async () => {
   //   try {
   //     const response = await axios.post(`${baseUrl}/viewAllCartProducts/${currentUser.userId}`);
@@ -64,7 +64,7 @@ const YourOrder = ({ navigation, route }) => {
   // );
 
 
-  
+
 
   const handleBackButtonPress = () => {
     navigation.navigate('FullPriceHomeScreen');
@@ -180,23 +180,23 @@ const YourOrder = ({ navigation, route }) => {
               }}>
               Order number:
             </Text>
-            <View style={{backgroundColor:AppColors.background,height:hp(3.2),width:wp(26),borderRadius:80,justifyContent:'space-between',alignItems:"center",flexDirection:"row"}}>
-            <AntDesign 
-            name="exclamationcircle"
-            size={13}
-            color={AppColors.Gray}
-            style={{ marginLeft: wp('2') }}
-            />
-            <Text
-              style={{
-                fontFamily: 'Poppins-SemiBold',
-                color: AppColors.black,
-                fontSize: hp('1.7'),
-                marginRight:wp('1.4'),
-                marginTop:hp('0.2')
-              }}>
-              {orderId}
-            </Text>
+            <View style={{ backgroundColor: AppColors.background, height: hp(3.2), width: wp(26), borderRadius: 80, justifyContent: 'space-between', alignItems: "center", flexDirection: "row" }}>
+              <AntDesign
+                name="exclamationcircle"
+                size={13}
+                color={AppColors.Gray}
+                style={{ marginLeft: wp('2') }}
+              />
+              <Text
+                style={{
+                  fontFamily: 'Poppins-SemiBold',
+                  color: AppColors.black,
+                  fontSize: hp('1.7'),
+                  marginRight: wp('1.4'),
+                  marginTop: hp('0.2')
+                }}>
+                {orderId}
+              </Text>
             </View>
           </View>
           <View
@@ -407,63 +407,63 @@ const YourOrder = ({ navigation, route }) => {
             fontFamily: 'Poppins-SemiBold',
             color: AppColors.black,
             fontSize: hp('2.2'),
-            marginLeft:wp('4'),
-            marginTop:hp('2')
+            marginLeft: wp('4'),
+            marginTop: hp('2')
           }}
           >Paid with
           </Text>
-          <View style={{flexDirection:'row',justifyContent:'space-between',paddingBottom:hp('1')}}>
-          <MaterialCommunityIcons
-                name="cash"
-                size={24}
-                color={AppColors.Gray}
-                style={{ marginLeft: wp('4') }}
-              />
-          <Text style={{marginRight:wp('40'),marginTop:hp('0.23')}}> Cash on Delivery</Text>
-          <Text style={{marginRight:wp('3.5')}}>Rs. {total}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: hp('1') }}>
+            <MaterialCommunityIcons
+              name="cash"
+              size={24}
+              color={AppColors.Gray}
+              style={{ marginLeft: wp('4') }}
+            />
+            <Text style={{ marginRight: wp('40'), marginTop: hp('0.23') }}> Cash on Delivery</Text>
+            <Text style={{ marginRight: wp('3.5') }}>Rs. {total}</Text>
           </View>
-          </View>
-          </ScrollView>
-          <View style={{backgroundColor:AppColors.white}}>
-          <TouchableOpacity onPress={()=>{
-        navigation.navigate('TrackOrderStatus',{
-          orderId:orderId
-        })
-      }}>
-      <Neomorph
-              darkShadowColor="white"
-              lightShadowColor="white"
-              swapShadows // <- change zIndex of each shadow color
-              style={{
-                shadowRadius: 2,
-                backgroundColor: AppColors.primary,
-                borderRadius: wp('1.3'),
-                height: hp('6.2%'),
-                width: wp('94%'),
-                marginVertical: hp('1.4%'),
-                shadowOpacity: 0.2,
-                marginLeft: wp('3'),
-                marginRight: wp('4'),
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
+        </View>
+      </ScrollView>
+      <View style={{ backgroundColor: AppColors.white }}>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('TrackOrderStatus', {
+            orderId: orderId
+          })
+        }}>
+          <Neomorph
+            darkShadowColor="white"
+            lightShadowColor="white"
+            swapShadows // <- change zIndex of each shadow color
             style={{
-              color: AppColors.white,
-              fontFamily: 'Poppins-SemiBold',
-              fontSize: hp('2.1'),
+              shadowRadius: 2,
+              backgroundColor: AppColors.primary,
+              borderRadius: wp('1.3'),
+              height: hp('6.2%'),
+              width: wp('94%'),
+              marginVertical: hp('1.4%'),
+              shadowOpacity: 0.2,
+              marginLeft: wp('3'),
+              marginRight: wp('4'),
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            Track Order Status
-          </Text>
-        </Neomorph>
-      </TouchableOpacity>
+            <Text
+              style={{
+                color: AppColors.white,
+                fontFamily: 'Poppins-SemiBold',
+                fontSize: hp('2.1'),
+              }}>
+              Track Order Status
+            </Text>
+          </Neomorph>
+        </TouchableOpacity>
       </View>
-       
-      
-                   
-                    
 
-      
+
+
+
+
+
     </SafeAreaView>
   );
 };
