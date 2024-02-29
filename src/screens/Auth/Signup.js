@@ -80,7 +80,8 @@ const Signup = ({ navigation }) => {
     formData.append('name', userName);
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-    formData.append('fcmToken', fcmToken)
+    formData.append('fcmToken', fcmToken);
+
     axios({
       method: 'post',
       url: `${baseUrl}/signup`,
@@ -89,27 +90,28 @@ const Signup = ({ navigation }) => {
     })
       .then(function (response) {
         if (response.data.save == true) {
-          // const userId=response.data.newUser._id;
-          // console.log('userid',userId);
+          const token = response.data.token; // Get the JWT token from the response
+          AsyncStorage.setItem('token', token); // Store the token locally
 
-
-          AsyncStorage.setItem('user', JSON.stringify({ userId: response.data.newUser._id, email: response.data.newUser.email, password: response.data.newUser.password, name: response.data.newUser.name, addresses: response.data.newUser.addresses, fcmToken: response.data.newUser.fcmToken }));
-          updateCurrentUser({ userId: response.data.newUser._id, email: response.data.newUser.email, password: response.data.newUser.password, name: response.data.newUser.name, addresses: response.data.newUser.addresses, fcmToken: response.data.newUser.fcmToken })
+          updateCurrentUser({ 
+            userId: response.data.newUser._id, 
+            email: response.data.newUser.email, 
+            password: response.data.newUser.password, 
+            name: response.data.newUser.name, 
+            addresses: response.data.newUser.addresses, 
+            fcmToken: response.data.newUser.fcmToken 
+          });
 
           navigation.navigate('AfterSignup');
         } else if (response.data.save == false) {
-          // setUserEmailError("A user With the same email already exists.");
-          // alert('A user with this Email Address Already Exists');
           setUserEmailError('A user with this Email Address Already Exists');
         } else {
           alert('Account cannot be created! Please try again later.');
         }
       })
       .catch(function (response) {
-        //handle error
         console.log(response);
       });
-    // console.warn("Stop");
   };
 
   // useEffect(() => {
