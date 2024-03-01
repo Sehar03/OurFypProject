@@ -29,7 +29,7 @@ import ScheduleScreen from './src/screens/ShareFood/ScheduleScreen';
 import Notification from './src/screens/Notification/Notification';
 import Orders from './src/screens/Orders/Orders';
 import OngoingOrder from './src/screens/Orders/OngoingOrder';
-import Setting from './src/screens/Setting';
+import Setting from './src/screens/Setting/Setting';
 import Checkout from './src/screens/Orders/Checkout';
 import messaging from '@react-native-firebase/messaging';
 import { Alert } from 'react-native';
@@ -40,6 +40,8 @@ import SingleSharedFoodDetail from './src/screens/ShareFood/SingleSharedFoodDeta
 import CheckOutReservation from './src/screens/ShareFood/CheckOutReservation';
 import ConfirmedReservation from './src/screens/ShareFood/ConfirmedReservation';
 import ChatWithPartner from './src/screens/ShareFood/ChatWithPartner';
+import PrivacyPolicy from './src/screens/Setting/PrivacyPolicy';
+import TermsOfUse from './src/screens/Setting/TermsOfUse';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -92,6 +94,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name='CheckOutReservation' component={CheckOutReservation}/>
       <Stack.Screen name='ConfirmedReservation' component={ConfirmedReservation}/>
       <Stack.Screen name='ChatWithPartner' component={ChatWithPartner}/>
+      <Stack.Screen name='PrivacyPolicy' component={PrivacyPolicy} />
+      <Stack.Screen name='TermsOfUse' component={TermsOfUse} />
 
     </Stack.Navigator>
   );

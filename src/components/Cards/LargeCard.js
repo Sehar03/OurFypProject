@@ -54,22 +54,7 @@ const LargeCard = ({navigation, searchText}, props) => {
     viewAllRestaurants();
   }, []);
 
-
-//   console.log('allResturantsCards:', allResturantsCards);
-
-//   const filteredRestaurants = allResturantsCards.filter(
-//     item =>
-//       item &&
-//       item.restaurantName &&
-//       item.restaurantName.toLowerCase()?.includes(searchText?.toLowerCase()),
-//   );
-
-  // const filteredRestaurants = allResturantsCards.filter(
-  //   item =>
-  //     item.restaurantName &&
-  //     item.restaurantName.toLowerCase().includes(searchText.toLowerCase()),
-  // );
-
+  
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -146,6 +131,38 @@ const LargeCard = ({navigation, searchText}, props) => {
     return charges;
   };
 
+  // useEffect(() => {
+  //   if (latitude && longitude && filteredRestaurants.length > 0) {
+  //     const firstRestaurant = filteredRestaurants[0];
+  //     const restaurantLatitude = firstRestaurant.restaurantAddress[0].latitude;
+  //     const restaurantLongitude =
+  //       firstRestaurant.restaurantAddress[0].longitude;
+  //     const distance = calculateDistance(
+  //       latitude,
+  //       longitude,
+  //       restaurantLatitude,
+  //       restaurantLongitude,
+  //     );
+
+  //     // Calculate delivery charges
+  //     const charges = calculateDeliveryCharges(distance);
+
+  //     // Update delivery time based on the calculated distance
+  //     const estimatedDeliveryTime = calculateDeliveryTime(distance);
+  //     setDeliveryTime(estimatedDeliveryTime);
+  //   }
+  // }, [latitude, longitude, filteredRestaurants]);
+
+
+  //   const filteredRestaurants = allResturantsCards.filter((item) =>
+  //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  // );
+
+const filteredRestaurants = allResturantsCards.filter((item) =>
+  item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+);
+
+
  
   return (
     <View>
@@ -170,7 +187,7 @@ const LargeCard = ({navigation, searchText}, props) => {
             All Restaurants
           </Text>
           <FlatList
-            data={allResturantsCards}
+            data={filteredRestaurants}
             Vertical
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -291,7 +308,7 @@ const LargeCard = ({navigation, searchText}, props) => {
               );
             }}
           />
-          {allResturantsCards.length === 0 && !loading && (
+          {filteredRestaurants.length === 0 && !loading && (
             <Text style={{ textAlign: 'center', marginTop: 90 }}>
               No Restaurants available.
             </Text>

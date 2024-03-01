@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import LottieView from 'lottie-react-native';
 import AppContext from '../../Context/AppContext';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,7 +33,7 @@ const ConfirmedReservation = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <CartHeader navigation={navigation} />
+      <CloseHeader navigation={navigation} />
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <View
           style={{

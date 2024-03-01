@@ -7,6 +7,7 @@ import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
+import AppColors from '../../assets/colors/AppColors';
 
 const SmallCard = ({ navigation, searchText }) => {
   const { storeSelectedSubCategoryFeature, baseUrl, storeUpdateCategoryName } = useContext(AppContext);
@@ -28,11 +29,9 @@ const SmallCard = ({ navigation, searchText }) => {
     viewAllCategories();
   }, [baseUrl]);
 
-
-
-//   const filteredCategories = allCategories.filter((item) =>
-//   item.title && searchText && item.title.toLowerCase().includes(searchText.toLowerCase())
-// );
+  const filteredCategories = allCategories.filter((item) =>
+    item.title.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <View>
@@ -56,7 +55,7 @@ const SmallCard = ({ navigation, searchText }) => {
 
 
           <FlatList
-            data={allCategories}
+            data={filteredCategories}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -70,18 +69,18 @@ const SmallCard = ({ navigation, searchText }) => {
                 });
               }}>
                 <Neomorph
-                  darkShadowColor="#A9B7C0"
-                  lightShadowColor="#F5F9FA"
+                  darkShadowColor={AppColors.primary}
+                  lightShadowColor={AppColors.background}
                   swapShadows
                   style={ContainerStyles.smallCategoriesNeomorphStyle}
                 >
-                  <Image source={{ uri: baseUrl + item.categoryImage }} style={{ height: hp('10'), width: wp('30'), marginTop: hp('2'), marginLeft: wp('0') }} />
+                  <Image source={{ uri: baseUrl + item.categoryImage }} style={{ height: hp('9.8'), width: wp('26'), marginTop: hp('2')}} />
                 </Neomorph>
                 <Text style={[TextStyles.smallText, { marginTop: 7 }]}>{item.title}</Text>
               </TouchableOpacity>
             )}
           />
-          {allCategories.length === 0 && !loading && (
+          {filteredCategories.length === 0 && !loading && (
         <Text style={{ textAlign: 'center', marginTop: 10 }}>
           No Categories available.
         </Text>

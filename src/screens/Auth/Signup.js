@@ -137,8 +137,9 @@ const Signup = ({ navigation }) => {
     return unsubscribe;
   }, []);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <BackButtonHeader navigation={navigation} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
+      <View style={{marginTop:hp('10'),backgroundColor:AppColors.white}}></View>
+      {/* <BackButtonHeader navigation={navigation} /> */}
 
       <Text style={[TextStyles.leftHeading]}>Sign Up</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import DrawerHeader from '../components/headers/DrawerHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import {
@@ -25,12 +25,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconStyles from '../assets/Styles/IconStyles';
 import TextStyles from '../assets/Styles/TextStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppContext from '../Context/AppContext';
 
 const Setting = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {updateCustomerAfterSignup} =useContext(AppContext)
-
 
   const OpenModal = () => {
     setIsModalVisible(true);
@@ -43,7 +40,7 @@ const Setting = ({navigation}) => {
     try {
       // Clear user data from AsyncStorage
       await AsyncStorage.removeItem('user');
-      updateCustomerAfterSignup(true);
+  
       // Navigate to the login screen
       navigation.navigate('Login');
       closeModal();

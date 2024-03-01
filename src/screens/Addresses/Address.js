@@ -18,7 +18,6 @@ import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import TextStyles from '../../assets/Styles/TextStyles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AppContext from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -26,6 +25,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
+import LottieView from 'lottie-react-native';
+import BackButtonHeader from '../../components/headers/BackButtonHeader';
 
 const Address = ({ navigation }) => {
   //
@@ -151,18 +152,18 @@ const Address = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
       <ScrollView>
-        <ProfileHeader navigation={navigation} item="Address" />
+        <BackButtonHeader navigation={navigation} item="   Address" />
 
         {currentUser.addresses.length > 0 ? (
           currentUser.addresses.map((address, index) => (
             <View
               key={index}
               style={{
-                borderBottomWidth: wp('0.4'),
+                borderBottomWidth: wp('0.5'),
                 borderColor: AppColors.background2,
               }}>
-              <View style={{ flexDirection: 'row', width: wp('100%') }}>
-                {/* <View style={{marginLeft:wp('3'),marginRight:wp('3')}}> */}
+              <View style={{ flexDirection: 'row', width: wp('100%')}}>
+                <View style={{justifyContent:"space-between",flex:1}}>
                 {address.label === "Work" ? (<Fontisto
                   name="laptop"
                   size={20}
@@ -173,21 +174,23 @@ const Address = ({ navigation }) => {
                   size={20}
                   color={AppColors.primary}
                   style={[IconStyles.LocationIcon]}
-                />) : <FontAwesome
-                  name="home"
+                />) : <Ionicons
+                  name="home-outline"
                   size={20}
                   color={AppColors.primary}
                   style={[IconStyles.LocationIcon]}
-                />}
-                {/* </View> */}
-                <View style={{ width: wp('77'), alignItems: 'flex-start' }}>
+                />
+                }
+                </View>
+                <View style={{ width: wp('77'), alignItems: 'flex-start'}}>
                   <Text
                     numberOfLines={5}
                     style={{
                       fontFamily: 'Poppins-SemiBold',
                       color: AppColors.black,
-                      marginTop: hp('2'),
+                      marginTop: hp('1.5'),
                       marginLeft: wp('1.8'),
+                     
                     }}>
                     {address.formattedAddress}
                   </Text>
@@ -209,23 +212,20 @@ const Address = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text style={{ marginLeft: wp('12') }}>{address.locality} </Text>
-              {/*  */}
+              <Text style={{ marginLeft: wp('14'), marginBottom:hp('2') }}>{address.locality} </Text>
+             
             </View>
           ))
         ) : (
-          <View
-            style={{
-              borderBottomWidth: wp('0.4'),
-              borderColor: AppColors.background2,
-              alignItems: 'center',
-              paddingVertical: hp('2'),
-            }}>
-            <Text
-              style={{ fontFamily: 'Poppins-SemiBold', color: AppColors.black }}>
-              No addresses found.
-            </Text>
-          </View>
+          <View style={[ContainerStyles.centerView,{marginTop:hp('25')}]}>
+          <LottieView
+            source={require('../../assets/animations/Location.json')}
+            autoPlay
+            loop
+            style={{ width: 150, height: 150 }}
+          />
+          <Text style={{fontSize:wp('3')}}>No Address Found</Text>
+        </View>
         )}
       </ScrollView>
       <TouchableOpacity

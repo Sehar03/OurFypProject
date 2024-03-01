@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { SafeAreaView, View, Image, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import { Neomorph } from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -90,7 +90,7 @@ const Cart = ({ navigation,route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <CartHeader navigation={navigation} item="Cart" />
+      <CloseHeader navigation={navigation} item="             Cart" />
       <ScrollView>
         {isCartEmpty ? (
           <View style={{
