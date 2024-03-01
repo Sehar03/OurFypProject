@@ -38,7 +38,7 @@ import moment from 'moment';
 const SingleProductDetail = ({ navigation, route }) => {
   const flatListRef = useRef(null);
   const { currentUser, baseUrl, selectedFoodFeature, selectedRestaurants, storeRestaurantId, storeRestaurantName, restaurantAddress, restaurant_id, restaurantName } = useContext(AppContext)
-  const { productId,foodDealId } = route.params;
+  const { productId, foodDealId } = route.params;
   const [currentProduct, setCurrentProduct] = useState([]);
   const [currentFoodDeal, setCurrentFoodDeal] = useState([]);
 
@@ -66,7 +66,7 @@ const SingleProductDetail = ({ navigation, route }) => {
     try {
       const response = await axios.post(
         `${baseUrl}/viewCurrentFoodDeal/${foodDealId}`);
-        setCurrentFoodDeal(response.data)
+      setCurrentFoodDeal(response.data)
       console.log('item', response.data)
     } catch (error) {
       console.error('Error in View Product:', error);
@@ -80,7 +80,7 @@ const SingleProductDetail = ({ navigation, route }) => {
       }
     }, [foodDealId]), // Dependency array to re-run the effect when productId changes
   );
-  
+
   const [dateError, setDateError] = useState('')
   const [specialInstructions, setSpecialInstructions] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
@@ -108,17 +108,37 @@ const SingleProductDetail = ({ navigation, route }) => {
         }
       }
       const formData = new FormData();
-      formData.append("customer_id", currentUser.userId)
-      formData.append("productId", productId)
-      formData.append("restaurant_id", restaurant_id);
-      formData.append("productName", productName);
-      formData.append("productPrice", productPrice);
-      formData.append("pricePerProduct", productPrice);
-      formData.append("productImage", {
-        uri: productImage,
-        name: "productImage.jpg",
-        type: "image/jpg",
-      });
+      if (productId) {
+        currentProduct.map((item) => {
+          formData.append("customer_id", currentUser.userId)
+          formData.append("productId", productId)
+          formData.append("restaurant_id", restaurant_id);
+          formData.append("productName", item.productName);
+          formData.append("productPrice", item.productPrice);
+          formData.append("pricePerProduct", item.productPrice);
+          formData.append("productImage", {
+            uri: baseUrl + item.productImage,
+            name: "productImage.jpg",
+            type: "image/jpg",
+          });
+        })
+      }
+      else {
+        currentFoodDeal.map((item) => {
+          formData.append("customer_id", currentUser.userId);
+          formData.append("productId", foodDealId);
+          formData.append("restaurant_id", restaurant_id);
+          formData.append("productName", item.foodDealTitle);
+          formData.append("productPrice", item.foodDealPrice);
+          formData.append("pricePerProduct", item.foodDealPrice);
+          formData.append("productImage", {
+            uri: baseUrl + item.foodDealImage,
+            name: "foodDealImage.jpg",
+            type: "image/jpg",
+          });
+        }
+        )
+      }
 
       axios({
         method: "post",
@@ -138,8 +158,8 @@ const SingleProductDetail = ({ navigation, route }) => {
         .catch((error) => {
           console.log(error);
         });
-
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error fetching cart details:', error);
     }
   };
@@ -174,23 +194,23 @@ const SingleProductDetail = ({ navigation, route }) => {
       },
     ];
     const formData = new FormData();
-    if(productId){
-      
-        currentProduct.map((item) => {
-          formData.append("productName", item.productName);
-          formData.append("productPrice", item.productPrice);
-          formData.append("productPricePerPerson", item.productPrice / 2);
-          formData.append("productDescription", item.productDescription);
-          formData.append("productImage", {
-            uri: baseUrl + item.productImage,
-            name: "productImage.jpg",
-            type: "image/jpg",
-          });
-        })
-      
-    }
-    else{
+    if (productId) {
+
       currentProduct.map((item) => {
+        formData.append("productName", item.productName);
+        formData.append("productPrice", item.productPrice);
+        formData.append("productPricePerPerson", item.productPrice / 2);
+        formData.append("productDescription", item.productDescription);
+        formData.append("productImage", {
+          uri: baseUrl + item.productImage,
+          name: "productImage.jpg",
+          type: "image/jpg",
+        });
+      })
+
+    }
+    else {
+      currentFoodDeal.map((item) => {
         formData.append("productName", item.foodDealTitle);
         formData.append("productPrice", item.foodDealPrice);
         formData.append("productPricePerPerson", item.foodDealPrice / 2);
@@ -201,7 +221,7 @@ const SingleProductDetail = ({ navigation, route }) => {
           type: "image/jpg",
         });
       })
-  }
+    }
     formData.append("reservationId", reservationId)
     formData.append("productSelectedDate", moment(selectedDate).format('MMM DD, YYYY'));
     formData.append("productSelectedTime", selectedHour === 12 ? '12:00 AM' : `${selectedHour}:00 PM`)
@@ -308,7 +328,7 @@ const SingleProductDetail = ({ navigation, route }) => {
         {currentProduct.map((item) => (
           <>
             <ImageBackground
-              source={{ uri: baseUrl+ item.productImage }}
+              source={{ uri: baseUrl + item.productImage }}
               style={{ height: hp('40%'), width: wp('100%') }}>
               <ProductsBackButton navigation={navigation} />
               <View
@@ -340,61 +360,61 @@ const SingleProductDetail = ({ navigation, route }) => {
             </View>
 
             <View>
-          <Text style={[TextStyles.leftMediumText, { fontSize: hp('2') }]}>Special instructions</Text>
-          <Text style={{
-            textAlign: 'justify', // You can use 'left' if you want strict left alignment
-            paddingRight: 16, // Adjust the padding as per your design
-            paddingLeft: 16,
-          }}>Please let us know if you are allergic to anything or if we need to avoid anything</Text>
-          <PaperTextInput
-            label="e.g. no mayo"
-            placeholderTextColor={AppColors.logInBorder}
-            value={specialInstructions}
-            onChangeText={text => {
-              setSpecialInstructions(text);
-            }} mode="outlined" // You can also use "flat"
-            multiline={true} // Enable multiline
-            style={[TextFieldStyles.instructionInputField]}
-            theme={{
-              colors: {
-                primary: AppColors.Gray, // Change this color to your desired outline color
-              },
-            }}
-          />
-        </View>
-        
-        <View style={[ContainerStyles.cartButtonContainer]}>
+              <Text style={[TextStyles.leftMediumText, { fontSize: hp('2') }]}>Special instructions</Text>
+              <Text style={{
+                textAlign: 'justify', // You can use 'left' if you want strict left alignment
+                paddingRight: 16, // Adjust the padding as per your design
+                paddingLeft: 16,
+              }}>Please let us know if you are allergic to anything or if we need to avoid anything</Text>
+              <PaperTextInput
+                label="e.g. no mayo"
+                placeholderTextColor={AppColors.logInBorder}
+                value={specialInstructions}
+                onChangeText={text => {
+                  setSpecialInstructions(text);
+                }} mode="outlined" // You can also use "flat"
+                multiline={true} // Enable multiline
+                style={[TextFieldStyles.instructionInputField]}
+                theme={{
+                  colors: {
+                    primary: AppColors.Gray, // Change this color to your desired outline color
+                  },
+                }}
+              />
+            </View>
 
-          <TouchableOpacity onPress={() => {
-            if (selectedFoodFeature === 'Full Price Food' &&
-              selectedRestaurants == 'Restaurants') {
-              addCartProducts();
-            }
-            else {
-              openModal()
-            }
-          }}>
-            <Neomorph
-              darkShadowColor="white"
-              lightShadowColor="white"
-              swapShadows // <- change zIndex of each shadow color
-              style={
-                ContainerStyles.singleProductTouchableOpacityNeomorphContainer
-              }>
-              <Text style={[TextStyles.whiteCenteredLable3]}>{AddItem}</Text>
-            </Neomorph>
-          </TouchableOpacity>
+            <View style={[ContainerStyles.cartButtonContainer]}>
+
+              <TouchableOpacity onPress={() => {
+                if (selectedFoodFeature === 'Full Price Food' &&
+                  selectedRestaurants == 'Restaurants') {
+                  addCartProducts();
+                }
+                else {
+                  openModal()
+                }
+              }}>
+                <Neomorph
+                  darkShadowColor="white"
+                  lightShadowColor="white"
+                  swapShadows // <- change zIndex of each shadow color
+                  style={
+                    ContainerStyles.singleProductTouchableOpacityNeomorphContainer
+                  }>
+                  <Text style={[TextStyles.whiteCenteredLable3]}>{AddItem}</Text>
+                </Neomorph>
+              </TouchableOpacity>
 
 
-        </View>
+            </View>
 
 
           </>
         ))}
-       {currentFoodDeal.map((item) => (
+        {currentFoodDeal.map((item) => (
           <>
             <ImageBackground
-              source={{ uri: baseUrl+ item.foodDealImage }}
+              source={{ uri: baseUrl + item.foodDealImage }}
               style={{ height: hp('40%'), width: wp('100%') }}>
               <ProductsBackButton navigation={navigation} />
               <View
@@ -426,60 +446,60 @@ const SingleProductDetail = ({ navigation, route }) => {
             </View>
 
             <View>
-          <Text style={[TextStyles.leftMediumText, { fontSize: hp('2') }]}>Special instructions</Text>
-          <Text style={{
-            textAlign: 'justify', // You can use 'left' if you want strict left alignment
-            paddingRight: 16, // Adjust the padding as per your design
-            paddingLeft: 16,
-          }}>Please let us know if you are allergic to anything or if we need to avoid anything</Text>
-          <PaperTextInput
-            label="e.g. no mayo"
-            placeholderTextColor={AppColors.logInBorder}
-            value={specialInstructions}
-            onChangeText={text => {
-              setSpecialInstructions(text);
-            }} mode="outlined" // You can also use "flat"
-            multiline={true} // Enable multiline
-            style={[TextFieldStyles.instructionInputField]}
-            theme={{
-              colors: {
-                primary: AppColors.Gray, // Change this color to your desired outline color
-              },
-            }}
-          />
-        </View>
-        
-        <View style={[ContainerStyles.cartButtonContainer]}>
+              <Text style={[TextStyles.leftMediumText, { fontSize: hp('2') }]}>Special instructions</Text>
+              <Text style={{
+                textAlign: 'justify', // You can use 'left' if you want strict left alignment
+                paddingRight: 16, // Adjust the padding as per your design
+                paddingLeft: 16,
+              }}>Please let us know if you are allergic to anything or if we need to avoid anything</Text>
+              <PaperTextInput
+                label="e.g. no mayo"
+                placeholderTextColor={AppColors.logInBorder}
+                value={specialInstructions}
+                onChangeText={text => {
+                  setSpecialInstructions(text);
+                }} mode="outlined" // You can also use "flat"
+                multiline={true} // Enable multiline
+                style={[TextFieldStyles.instructionInputField]}
+                theme={{
+                  colors: {
+                    primary: AppColors.Gray, // Change this color to your desired outline color
+                  },
+                }}
+              />
+            </View>
 
-          <TouchableOpacity onPress={() => {
-            if (selectedFoodFeature === 'Full Price Food' &&
-              selectedRestaurants == 'Restaurants') {
-              addCartProducts();
-            }
-            else {
-              openModal()
-            }
-          }}>
-            <Neomorph
-              darkShadowColor="white"
-              lightShadowColor="white"
-              swapShadows // <- change zIndex of each shadow color
-              style={
-                ContainerStyles.singleProductTouchableOpacityNeomorphContainer
-              }>
-              <Text style={[TextStyles.whiteCenteredLable3]}>{AddItem}</Text>
-            </Neomorph>
-          </TouchableOpacity>
+            <View style={[ContainerStyles.cartButtonContainer]}>
+
+              <TouchableOpacity onPress={() => {
+                if (selectedFoodFeature === 'Full Price Food' &&
+                  selectedRestaurants == 'Restaurants') {
+                  addCartProducts();
+                }
+                else {
+                  openModal()
+                }
+              }}>
+                <Neomorph
+                  darkShadowColor="white"
+                  lightShadowColor="white"
+                  swapShadows // <- change zIndex of each shadow color
+                  style={
+                    ContainerStyles.singleProductTouchableOpacityNeomorphContainer
+                  }>
+                  <Text style={[TextStyles.whiteCenteredLable3]}>{AddItem}</Text>
+                </Neomorph>
+              </TouchableOpacity>
 
 
-        </View>
+            </View>
 
 
           </>
         ))}
 
 
-        
+
 
 
 
