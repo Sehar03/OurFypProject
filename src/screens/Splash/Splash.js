@@ -16,7 +16,8 @@ import AppContext from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
-  const {updateCurrentUser, currentUser} = useContext(AppContext);
+  const {updateCurrentUser, currentUser, customerAfterSignup,updateCustomerAfterSignup} =
+    useContext(AppContext);
 
   // auto login and navigate to the home screen
   useEffect(() => {
@@ -25,7 +26,24 @@ const Splash = ({navigation}) => {
         // Check for existing user data
         const userData = await AsyncStorage.getItem('user');
         console.log('user stored in AsyncStorage', userData);
-        if (userData) {
+        const parsedData = JSON.parse(userData);
+
+        if (userData && parsedData.customerAfterSignup == true) {
+          // Parse the stored data and update the user context
+          updateCurrentUser({
+            userId: parsedData.userId,
+            email: parsedData.email,
+            password: parsedData.password,
+            name: parsedData.name,
+            profileImage: parsedData.profileImage,
+            phoneNumber: parsedData.phoneNumber,
+            addresses: parsedData.addresses,
+            fcmToken: parsedData.fcmToken,
+          });
+          updateCustomerAfterSignup(true);
+          // Navigate to the home screen
+          navigation.navigate('Home');
+        } else if (userData && parsedData.customerAfterSignup == false) {
           // Parse the stored data and update the user context
           const parsedData = JSON.parse(userData);
           updateCurrentUser({
@@ -36,11 +54,12 @@ const Splash = ({navigation}) => {
             profileImage: parsedData.profileImage,
             phoneNumber: parsedData.phoneNumber,
             addresses: parsedData.addresses,
-            fcmToken:parsedData.fcmToken
+            fcmToken: parsedData.fcmToken,
           });
           // Navigate to the home screen
-          navigation.navigate('Home');
-        } else {
+          navigation.navigate('AfterSignup');
+        } else if (!userData) {
+          updateCustomerAfterSignup(true);
           navigation.navigate('Login');
         }
       } catch (error) {
@@ -50,6 +69,7 @@ const Splash = ({navigation}) => {
     checkForUserAndNavigate();
   }, []); // empty dependency array means it runs once when the component mounts
   console.log('user in splash', currentUser);
+  console.log('customerAfterSignup status',customerAfterSignup)
 
   return (
     <SafeAreaView

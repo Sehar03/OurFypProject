@@ -15,7 +15,7 @@ export const AppProvider = ({children}) => {
   const [selectedDonationState, setSelectedDonationState] = useState({});
   const [loggedInUser, setLoggedInUser] = useState({});
   const [donorAddress,setDonorAddress]=useState('');
-  const [baseUrl, setBaseUrl] = useState('http://192.168.0.105:8888');
+  const [baseUrl, setBaseUrl] = useState('http://192.168.0.102:8888');
   const [currentUser, setCurrentUser] = useState({});
   const [selectedImageUri, setSelectedImageUri] = useState('');
   const [categoryName, setCategoryName] = useState('');
@@ -24,6 +24,7 @@ export const AppProvider = ({children}) => {
   const [restaurantAddress, setRestaurantAddress] = useState(''); 
   const [restaurantFcmToken, setRestaurantFcmToken] = useState(''); 
   const [restaurantImage,setRestaurantImage]=useState('')
+  const [customerAfterSignup,setCustomerAfterSignup]=useState(false);
   const storeUpdateCategoryName = (newCategoryName) => {
     setCategoryName(newCategoryName);
   };
@@ -101,6 +102,11 @@ export const AppProvider = ({children}) => {
     setRestaurantImage(val)
   };
 
+  const updateCustomerAfterSignup = (val)=>{
+    setCustomerAfterSignup(val)
+  };
+
+
   return (
     <AppContext.Provider
       value={{
@@ -126,6 +132,7 @@ export const AppProvider = ({children}) => {
         restaurantAddress,
         restaurantImage,
         restaurantFcmToken,
+        customerAfterSignup,
         storeSelectedSubCategoryFeature,
         storeSelectedFoodFeature,
         storeSelectedRestaurants,
@@ -150,6 +157,7 @@ export const AppProvider = ({children}) => {
         storeRestaurantAddress,
         storeRestaurantImage,
         storeRestaurantFcmToken,
+        updateCustomerAfterSignup
       }}>
       {children}
     </AppContext.Provider>

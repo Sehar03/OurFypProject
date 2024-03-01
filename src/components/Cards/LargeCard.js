@@ -91,7 +91,7 @@ const LargeCard = ({navigation, searchText}, props) => {
         if (error.PERMISSION_DENIED) {
           Alert.alert(
             'Denied!',
-            'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings\n2. Scroll down to LINCS_APP\n3. Select LINCS_APP and allow Location.\n4. To keep yourself up-to-date with new deals, please turn on notification too.',
+            'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings \n2. To keep yourself up-to-date with new deals, please turn on notification too.',
           );
         }
       },
@@ -146,33 +146,7 @@ const LargeCard = ({navigation, searchText}, props) => {
     return charges;
   };
 
-  // useEffect(() => {
-  //   if (latitude && longitude && filteredRestaurants.length > 0) {
-  //     const firstRestaurant = filteredRestaurants[0];
-  //     const restaurantLatitude = firstRestaurant.restaurantAddress[0].latitude;
-  //     const restaurantLongitude =
-  //       firstRestaurant.restaurantAddress[0].longitude;
-  //     const distance = calculateDistance(
-  //       latitude,
-  //       longitude,
-  //       restaurantLatitude,
-  //       restaurantLongitude,
-  //     );
-
-  //     // Calculate delivery charges
-  //     const charges = calculateDeliveryCharges(distance);
-
-  //     // Update delivery time based on the calculated distance
-  //     const estimatedDeliveryTime = calculateDeliveryTime(distance);
-  //     setDeliveryTime(estimatedDeliveryTime);
-  //   }
-  // }, [latitude, longitude, filteredRestaurants]);
-
-
-  //   const filteredRestaurants = allResturantsCards.filter((item) =>
-  //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
-  // );
-
+ 
   return (
     <View>
       {loading ? (
@@ -200,8 +174,9 @@ const LargeCard = ({navigation, searchText}, props) => {
             Vertical
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
-              const restaurantLatitude = item.restaurantAddress[0].latitude;
-              const restaurantLongitude = item.restaurantAddress[0].longitude;
+              const restaurantLatitude = item.restaurantAddress?.[0]?.latitude ?? "";
+              const restaurantLongitude = item.restaurantAddress?.[0]?.longitude ?? "";
+              
               const distance = calculateDistance(
                 latitude,
                 longitude,
@@ -256,7 +231,7 @@ const LargeCard = ({navigation, searchText}, props) => {
                     </ImageBackground>
                   </TouchableOpacity>
                   <Text style={[TextStyles.leftText, { marginTop: hp('3') }]}>
-                    {item.restaurantName} - {item.restaurantAddress[0].elaqa}
+                    {item.restaurantName} - {item.restaurantAddress[0]?.elaqa?? ""}
                   </Text>
                   <Text
                     style={{

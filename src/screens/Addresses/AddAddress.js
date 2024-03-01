@@ -225,6 +225,7 @@ const AddAddress = ({navigation}) => {
             profileImage: data.registeredUser.profileImage,
             phoneNumber: data.registeredUser.phoneNumber,
             addresses: data.registeredUser.addresses,
+            customerAfterSignup:true
           }),
         );
         navigation.navigate('Address');
