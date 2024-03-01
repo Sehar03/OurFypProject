@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import DrawerHeader from '../components/headers/DrawerHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import {
   Image,
@@ -15,15 +14,14 @@ import {
   StyleSheet,
 
 } from 'react-native';
-import AppColors from '../assets/colors/AppColors';
+import AppColors from '../../assets/colors/AppColors';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import ProfileHeader from '../components/headers/ProfileHeader';
+import ProfileHeader from '../../components/headers/ProfileHeader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import IconStyles from '../assets/Styles/IconStyles';
-import TextStyles from '../assets/Styles/TextStyles';
+import TextStyles from '../../assets/Styles/TextStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Setting = ({navigation}) => {
