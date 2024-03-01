@@ -30,7 +30,7 @@ import messaging from "@react-native-firebase/messaging";
 
 
 const Signup = ({ navigation }) => {
-  const { baseUrl, updateCurrentUser } = useContext(AppContext);
+  const { baseUrl, updateCurrentUser ,customerAfterSignup} = useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -90,9 +90,11 @@ const Signup = ({ navigation }) => {
     })
       .then(function (response) {
         if (response.data.save == true) {
-          const token = response.data.token; // Get the JWT token from the response
-          AsyncStorage.setItem('token', token); // Store the token locally
-
+          
+          AsyncStorage.setItem(
+            'user',
+            JSON.stringify({userId:response.data.newUser._id,email:response.data.newUser.email,password:response.data.newUser.password,name:response.data.newUser.name,customerAfterSignup:false}),
+          );
           updateCurrentUser({ 
             userId: response.data.newUser._id, 
             email: response.data.newUser.email, 

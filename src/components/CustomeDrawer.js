@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomeDrawer = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-const {baseUrl,currentUser,updateCurrentUser}=useContext(AppContext)
+const {baseUrl,currentUser,updateCurrentUser,updateCustomerAfterSignup}=useContext(AppContext)
   const OpenModal = () => {
     setIsModalVisible(true);
   };
@@ -43,7 +43,7 @@ const handleLogout = async () => {
   try {
     // Clear user data from AsyncStorage
     await AsyncStorage.removeItem('user');
-
+updateCustomerAfterSignup(true);
     // Navigate to the login screen
     navigation.navigate('Login');
     closeModal();
