@@ -27,7 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Profile = ({navigation}) => {
-  const {storeSelectedImageUri, selectedImageUri, currentUser, baseUrl,updateCurrentUser} =
+  const {storeSelectedImageUri, selectedImageUri, currentUser, baseUrl,updateCurrentUser,updateCustomerAfterSignup} =
     useContext(AppContext);
   // const [userName, setUserName] = useState('Toqeer Fatima');
   // const [userEmail, setUserEmail] = useState('toqeerfatima@gmail.com');
@@ -93,6 +93,7 @@ const Profile = ({navigation}) => {
 
     const data = await response.json();
     if (data.message === 'Data saved successfully') {
+      updateCustomerAfterSignup(true);
       updateCurrentUser({
         userId: data.updatedUser._id,
         email: data.updatedUser.email,
@@ -109,7 +110,8 @@ const Profile = ({navigation}) => {
         name: data.updatedUser.name,
         profileImage: data.updatedUser.profileImage,
         phoneNumber: data.updatedUser.phoneNumber,
-        addresses: data.updatedUser.addresses,}));
+        addresses: data.updatedUser.addresses,
+      customerAfterSignup: true}));
       navigation.navigate('Profile');
     } else {
       console.log('Error in response: ', data);

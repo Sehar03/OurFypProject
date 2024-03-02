@@ -76,7 +76,7 @@ const LargeCard = ({navigation, searchText}, props) => {
         if (error.PERMISSION_DENIED) {
           Alert.alert(
             'Denied!',
-            'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings\n2. Scroll down to LINCS_APP\n3. Select LINCS_APP and allow Location.\n4. To keep yourself up-to-date with new deals, please turn on notification too.',
+            'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings \n2. To keep yourself up-to-date with new deals, please turn on notification too.',
           );
         }
       },
@@ -163,6 +163,7 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
 );
 
 
+ 
   return (
     <View>
       {loading ? (
@@ -190,8 +191,9 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
             Vertical
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
-              const restaurantLatitude = item.restaurantAddress[0].latitude;
-              const restaurantLongitude = item.restaurantAddress[0].longitude;
+              const restaurantLatitude = item.restaurantAddress?.[0]?.latitude ?? "";
+              const restaurantLongitude = item.restaurantAddress?.[0]?.longitude ?? "";
+              
               const distance = calculateDistance(
                 latitude,
                 longitude,
@@ -246,7 +248,7 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
                     </ImageBackground>
                   </TouchableOpacity>
                   <Text style={[TextStyles.leftText, { marginTop: hp('3') }]}>
-                    {item.restaurantName} - {item.restaurantAddress[0].elaqa}
+                    {item.restaurantName} - {item.restaurantAddress[0]?.elaqa?? ""}
                   </Text>
                   <Text
                     style={{

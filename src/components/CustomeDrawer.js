@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomeDrawer = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { baseUrl, currentUser, updateCurrentUser } = useContext(AppContext)
+  const { baseUrl, currentUser, updateCurrentUser,updateCustomerAfterSignup } = useContext(AppContext)
   const OpenModal = () => {
     setIsModalVisible(true);
   };
@@ -22,6 +22,35 @@ const CustomeDrawer = props => {
   };
 
   const navigation = useNavigation();
+// {console.log('current user hai k nai',currentUser)}
+
+// useEffect(() => {
+//   // Check for existing user data
+  
+//         updateCurrentUser({
+//           userId: currentUser.userId,
+//           email: currentUser.email,
+//           password: currentUser.password,
+//           name: currentUser.name,
+//           profileImage: currentUser.profileImage,
+//           phoneNumber: currentUser.phoneNumber,
+//         });
+  
+ 
+// }, []);
+
+const handleLogout = async () => {
+  try {
+    // Clear user data from AsyncStorage
+    await AsyncStorage.removeItem('user');
+updateCustomerAfterSignup(true);
+    // Navigate to the login screen
+    navigation.navigate('Login');
+    closeModal();
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+};
  
   const handleLogout = async () => {
     try {

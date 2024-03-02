@@ -12,7 +12,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BackButtonHeader from '../../components/headers/BackButtonHeader';
 const EditProfile = ({ route, navigation }) => {
-  const { currentUser, updateCurrentUser, baseUrl } = useContext(AppContext);
+  const { currentUser, updateCurrentUser, baseUrl,updateCustomerAfterSignup } = useContext(AppContext);
   const [userName, setUserName] = useState(currentUser.name);
   const [userEmail, setUserEmail] = useState(currentUser.email);
   const [userMobileNumber, setUserMobileNumber] = useState(currentUser.phoneNumber);
@@ -83,6 +83,7 @@ const EditProfile = ({ route, navigation }) => {
 
       const data = await response.json();
       if (data.message === 'Data saved successfully') {
+        updateCustomerAfterSignup(true);
         updateCurrentUser({
           userId: data.updatedUser._id,
           email: data.updatedUser.email,
@@ -102,7 +103,8 @@ const EditProfile = ({ route, navigation }) => {
           profileImage: data.updatedUser.profileImage,
           phoneNumber: data.updatedUser.phoneNumber,
           addresses: data.updatedUser.addresses,
-        }));
+          customerAfterSignup:true
+}));
         navigation.navigate('Profile');
       } else {
         console.log('Error in response: ', data);

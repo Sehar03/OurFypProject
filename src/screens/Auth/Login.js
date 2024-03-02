@@ -27,7 +27,12 @@ import AppContext from '../../Context/AppContext';
 
 const Login = ({navigation}) => {
   // states
-  const {baseUrl,updateCurrentUser,storeSelected}=useContext(AppContext);
+  const {
+    baseUrl,
+    updateCurrentUser,
+    customerAfterSignup,
+    updateCustomerAfterSignup,
+  } = useContext(AppContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -35,38 +40,6 @@ const Login = ({navigation}) => {
   const [loginCheckDone, setLoginCheckDone] = useState(false);
   const [userEmailError, setUserEmailError] = useState('');
   const [userPasswordError, setUserPasswordError] = useState('');
-
-// auto login
-  // useEffect(() => {
-  //   // Check for existing user data
-  //   const checkForUser = async () => {
-  //     try {
-  //       const userData = await AsyncStorage.getItem('user');
-  //       console.log('user stored in asyncStorage',userData)
-  //       if (userData) {
-  //         // Parse the stored data and update the user context
-  //         const parsedData = JSON.parse(userData);
-  //         updateCurrentUser({
-  //           userId: parsedData._id,
-  //           email: parsedData.email,
-  //           password: parsedData.password,
-  //           name: parsedData.name,
-  //           profileImage: parsedData.profileImage,
-  //           phoneNumber: parsedData.phoneNumber,
-  //         });
-  //         // Navigate to the home screen
-  //         navigation.navigate('Home');
-  //         console.log('parsed data',parsedData)
-
-  //       }
-  //     } catch (error) {
-  //       console.error('Error checking for user data:', error);
-  //     }
-  //   };
-
-  //   checkForUser();
-  //   updateCurrentUser();
-  // }, []);
 
   // functions
   const isEmailValid = userEmail => {
@@ -101,7 +74,7 @@ const Login = ({navigation}) => {
     const formData = new FormData();
     formData.append('email', userEmail);
     formData.append('password', userPassword);
-  
+
     axios({
       method: 'post',
       url: `${baseUrl}/login`,
@@ -109,10 +82,9 @@ const Login = ({navigation}) => {
       headers: {'Content-Type': 'multipart/form-data'},
     })
       .then(function (response) {
-        if (response.data.match == true) {
-
+        if (response.data.match == true && customerAfterSignup == true) {
           const loggedInUser = response.data.loggedInUser;
-  
+          updateCustomerAfterSignup(true);
           // Check user status before allowing login
           if (loggedInUser.status === 1) {
             AsyncStorage.setItem('user', JSON.stringify(loggedInUser));
@@ -122,23 +94,38 @@ const Login = ({navigation}) => {
           }
           AsyncStorage.setItem(
             'user',
-            JSON.stringify({userId:response.data.loggedInUser._id,email:response.data.loggedInUser.email,password:response.data.loggedInUser.password,name:response.data.loggedInUser.name,profileImage:response.data.loggedInUser.profileImage,phoneNumber:response.data.loggedInUser.phoneNumber,addresses:response.data.loggedInUser.addresses,fcmToken:response.data.loggedInUser.fcmToken}),
+            JSON.stringify({
+              userId: response.data.loggedInUser._id,
+              email: response.data.loggedInUser.email,
+              password: response.data.loggedInUser.password,
+              name: response.data.loggedInUser.name,
+              profileImage: response.data.loggedInUser.profileImage,
+              phoneNumber: response.data.loggedInUser.phoneNumber,
+              addresses: response.data.loggedInUser.addresses,
+              fcmToken: response.data.loggedInUser.fcmToken,
+              customerAfterSignup: true,
+            }),
           );
           updateCurrentUser({
-            userId:response.data.loggedInUser._id,
-            email:response.data.loggedInUser.email,
-            password:response.data.loggedInUser.password,
-            name:response.data.loggedInUser.name,
-            profileImage:response.data.loggedInUser.profileImage,
-            phoneNumber:response.data.loggedInUser.phoneNumber,
-            addresses:response.data.loggedInUser.addresses,
-            fcmToken:response.data.loggedInUser.fcmToken
-          })
+            userId: response.data.loggedInUser._id,
+            email: response.data.loggedInUser.email,
+            password: response.data.loggedInUser.password,
+            name: response.data.loggedInUser.name,
+            profileImage: response.data.loggedInUser.profileImage,
+            phoneNumber: response.data.loggedInUser.phoneNumber,
+            addresses: response.data.loggedInUser.addresses,
+            fcmToken: response.data.loggedInUser.fcmToken,
+          });
 
-
-          navigation.navigate('Home'); 
+          navigation.navigate('Home');
+        } else if (
+          response.data.match == true &&
+          customerAfterSignup == false
+        ) {
+          alert('Firstly complete the registration process');
+          navigation.navigate('AfterSignup');
         } else {
-          alert('No User found with this email and password'); 
+          alert('No User found with this email and password');
         }
       })
       .catch(function (response) {
@@ -146,7 +133,6 @@ const Login = ({navigation}) => {
         console.log(response);
       });
   };
-  
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
@@ -179,8 +165,8 @@ const Login = ({navigation}) => {
             />
           </View>
           {userEmailError ? (
-              <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
-            ) : null}
+            <Text style={[TextStyles.errorText]}>{userEmailError}</Text>
+          ) : null}
         </Neomorph>
 
         <Neomorph
@@ -205,30 +191,29 @@ const Login = ({navigation}) => {
                 setUserPasswordError('');
               }}
             />
-             <TouchableOpacity
-                onPress={() => setPasswordVisible(!passwordVisible)}>
-                <Feather
-                  name={passwordVisible ? 'eye' : 'eye-off'}
-                  size={wp('5%')}
-                  style={[
-                    IconStyles.signupIcons,
-                    {color: 'grey', opacity: 0.7},
-                  ]}
-                />
-              </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setPasswordVisible(!passwordVisible)}>
+              <Feather
+                name={passwordVisible ? 'eye' : 'eye-off'}
+                size={wp('5%')}
+                style={[IconStyles.signupIcons, {color: 'grey', opacity: 0.7}]}
+              />
+            </TouchableOpacity>
           </View>
           {userPasswordError ? (
-              <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
-            ) : null}
+            <Text style={[TextStyles.errorText]}>{userPasswordError}</Text>
+          ) : null}
         </Neomorph>
 
         <TouchableOpacity
           style={{marginLeft: wp('42%')}}
           onPress={() => {
             // resetPassword();
-            navigation.navigate('ForgetPassword')
+            navigation.navigate('ForgetPassword');
           }}>
-          <Text style={{fontFamily: 'Poppins-SemiBold'}}>Forgot Password ?</Text>
+          <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+            Forgot Password ?
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

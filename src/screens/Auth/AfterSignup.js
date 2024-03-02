@@ -41,6 +41,8 @@ const AfterSignup = ({navigation}) => {
     storeSelectedImageUri,
     selectedImageUri,
     updateCurrentUser,
+    updateCustomerAfterSignup,
+    customerAfterSignup
   } = useContext(AppContext);
   const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
   const [secondSecurityAnswer, setSecondSecurityAnswer] = useState('');
@@ -142,6 +144,8 @@ const AfterSignup = ({navigation}) => {
 
       const data = await response.json();
       if (data.message === 'Data saved successfully') {
+        updateCustomerAfterSignup(true);
+
         updateCurrentUser({
           userId: data.registeredUser._id,
           email: data.registeredUser.email,
@@ -161,8 +165,10 @@ const AfterSignup = ({navigation}) => {
           profileImage: data.registeredUser.profileImage,
           phoneNumber: data.registeredUser.phoneNumber,
           addresses:data.registeredUser.addresses,
+          customerAfterSignup: true
         }));
         navigation.navigate('Home');
+
       } else {
         console.log('Error in response: ', data);
       }

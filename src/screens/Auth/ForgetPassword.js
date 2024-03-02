@@ -32,7 +32,7 @@ import AppContext from '../../Context/AppContext';
 
 const ForgetPassword = ({navigation}) => {
   // states
-  const {baseUrl, updateCurrentUser} = useContext(AppContext);
+  const {baseUrl, updateCurrentUser,updateCustomerAfterSignup} = useContext(AppContext);
   const [userEmail, setUserEmail] = useState('');
 
   const [firstSecurityAnswer, setFirstSecurityAnswer] = useState('');
@@ -98,6 +98,7 @@ const ForgetPassword = ({navigation}) => {
       .then(data => {
         console.log('res aya after matching', data);
         if (data.matched === true) {
+          updateCustomerAfterSignup(true);
           setToggleState(0);
         } else {
           alert('Please enter the right answers');
@@ -122,6 +123,7 @@ const ForgetPassword = ({navigation}) => {
         .then(data => {
           console.log('res aya after changing', data);
           if (data.login === true) {
+            updateCustomerAfterSignup(true);
             let res = data.updated;
             AsyncStorage.setItem(
               'user',
@@ -132,6 +134,8 @@ const ForgetPassword = ({navigation}) => {
                 name: res.name,
                 profileImage: res.profileImage,
                 phoneNumber: res.phoneNumber,
+                addresses:res.addresses,
+                customerAfterSignup:true
               }),
             );
             updateCurrentUser({
@@ -141,6 +145,7 @@ const ForgetPassword = ({navigation}) => {
               name: res.name,
               profileImage: res.profileImage,
               phoneNumber: res.phoneNumber,
+              addresses:res.addresses,
             });
             navigation.replace('Home');
           } else {
