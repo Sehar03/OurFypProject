@@ -241,6 +241,7 @@ const SingleProductDetail = ({ navigation, route }) => {
       .then((response) => {
         if (response.data.added) {
           alert("Product is added into Schedule");
+          closeModal(); 
         } else {
 
           alert("Some thing went wrong");

@@ -51,8 +51,20 @@ const RestaurantsCard = ({item,navigation,route},props) => {
         </View> */}
       </ImageBackground>
     </TouchableOpacity>
-    <Text style={[TextStyles.leftText]}>{item.restaurantName}</Text>
-    <Text style={{marginLeft:wp('4%'),fontFamily:"Poppins-Regular"}}>$ . {item.category}</Text>
+    <Text style={[TextStyles.leftText, { marginTop: hp('3') }]}>
+                    {item.restaurantName} - {item.restaurantAddress[0]?.elaqa ?? ""}
+                  </Text>
+                  {/* <Text
+                    style={{
+                      marginLeft: wp('4%'),
+                      fontFamily: 'Poppins-Medium',
+                      fontSize: wp('2.8'),
+                      color: AppColors.primary,
+                      marginBottom: hp('1.5')
+                    }}>
+                    $$ . Fast Food
+                  </Text> */}
+
     <View style={{flexDirection:"row"}}>
     <MaterialCommunityIcons
             name="bike"

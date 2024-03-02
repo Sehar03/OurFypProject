@@ -242,7 +242,7 @@ const SharedFoodCard = ({item, navigation, currentOrderRoute}) => {
     <MaterialIcons
       name="chat"
       size={20}
-      style={[IconStyles.signupIcons, { marginTop: hp('0.5'), color: AppColors.goldenYellow }]}
+      style={{marginTop: hp('0.5'),marginLeft:wp('15'), color: AppColors.goldenYellow }}
     />
   </TouchableOpacity>
 ) : null}
