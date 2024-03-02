@@ -24,7 +24,7 @@ import Geocoder from 'react-native-geocoding';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const LargeCard = ({navigation, searchText}, props) => {
+const LargeCard = ({ navigation, searchText }, props) => {
   const {
     baseUrl,
     storeSelectedRestaurants,
@@ -54,82 +54,82 @@ const LargeCard = ({navigation, searchText}, props) => {
     viewAllRestaurants();
   }, []);
 
-  
 
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      info => {
-        setLatitude(info.coords.latitude);
-        setLongitude(info.coords.longitude);
 
-        Geocoder.init('AIzaSyB1BMfNjd-6DlS7RUWSzfokIF0XeSMzHzY');
-        Geocoder.from(info.coords.latitude, info.coords.longitude)
-          .then(json => {
-            console.log(json.results[0].formatted_address);
-            console.log(json.results[0].address_components[6].long_name);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      },
-      error => {
-        if (error.PERMISSION_DENIED) {
-          Alert.alert(
-            'Denied!',
-            'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings \n2. To keep yourself up-to-date with new deals, please turn on notification too.',
-          );
-        }
-      },
-    );
-  }, []);
+  // useEffect(() => {
+  //   Geolocation.getCurrentPosition(
+  //     info => {
+  //       setLatitude(info.coords.latitude);
+  //       setLongitude(info.coords.longitude);
 
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2 - lat1); // deg2rad below
-    const dLon = deg2rad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-      Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distanceKm = R * c; // Distance in km
-    const distanceMeters = distanceKm * 1000; // Distance in meters
-    return { km: distanceKm, meters: distanceMeters };
-  };
+  //       Geocoder.init('AIzaSyB1BMfNjd-6DlS7RUWSzfokIF0XeSMzHzY');
+  //       Geocoder.from(info.coords.latitude, info.coords.longitude)
+  //         .then(json => {
+  //           console.log(json.results[0].formatted_address);
+  //           console.log(json.results[0].address_components[6].long_name);
+  //         })
+  //         .catch(error => {
+  //           console.log(error);
+  //         });
+  //     },
+  //     error => {
+  //       if (error.PERMISSION_DENIED) {
+  //         Alert.alert(
+  //           'Denied!',
+  //           'We are displaying deals available in your area. To show available deals near you, please enable location by...\n1. Go to settings \n2. To keep yourself up-to-date with new deals, please turn on notification too.',
+  //         );
+  //       }
+  //     },
+  //   );
+  // }, []);
 
-  const deg2rad = deg => {
-    return deg * (Math.PI / 180);
-  };
+  // const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  //   const R = 6371; // Radius of the earth in km
+  //   const dLat = deg2rad(lat2 - lat1); // deg2rad below
+  //   const dLon = deg2rad(lon2 - lon1);
+  //   const a =
+  //     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+  //     Math.cos(deg2rad(lat1)) *
+  //     Math.cos(deg2rad(lat2)) *
+  //     Math.sin(dLon / 2) *
+  //     Math.sin(dLon / 2);
+  //   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  //   const distanceKm = R * c; // Distance in km
+  //   const distanceMeters = distanceKm * 1000; // Distance in meters
+  //   return { km: distanceKm, meters: distanceMeters };
+  // };
+
+  // const deg2rad = deg => {
+  //   return deg * (Math.PI / 180);
+  // };
 
   // Calculate delivery time based on distance
-  const calculateDeliveryTime = distance => {
-    // Assuming an average speed for delivery in km/h
-    const averageSpeed = 20; // Adjust this value based on your context
-    const estimatedTime = distance.km / averageSpeed; // Time in hours
-    const deliveryTimeInMinutes = Math.round(estimatedTime * 60); // Convert time to minutes
+  // const calculateDeliveryTime = distance => {
+  //   // Assuming an average speed for delivery in km/h
+  //   const averageSpeed = 20; // Adjust this value based on your context
+  //   const estimatedTime = distance.km / averageSpeed; // Time in hours
+  //   const deliveryTimeInMinutes = Math.round(estimatedTime * 60); // Convert time to minutes
 
-    // Calculate hours and remaining minutes
-    const hours = Math.floor(deliveryTimeInMinutes / 60);
-    const remainingMinutes = deliveryTimeInMinutes % 60;
+  //   // Calculate hours and remaining minutes
+  //   const hours = Math.floor(deliveryTimeInMinutes / 60);
+  //   const remainingMinutes = deliveryTimeInMinutes % 60;
 
-    // Format the result
-    if (hours > 0 && remainingMinutes > 0) {
-      return `${hours} hr ${remainingMinutes} min`;
-    } else if (hours > 0) {
-      return `${hours} hr`;
-    } else {
-      return `${remainingMinutes} min`;
-    }
-  };
+  //   // Format the result
+  //   if (hours > 0 && remainingMinutes > 0) {
+  //     return `${hours} hr ${remainingMinutes} min`;
+  //   } else if (hours > 0) {
+  //     return `${hours} hr`;
+  //   } else {
+  //     return `${remainingMinutes} min`;
+  //   }
+  // };
 
   // Calculate delivery charges based on distance
-  const calculateDeliveryCharges = distance => {
-    // Calculate delivery charges based on the cost per meter
-    const charges = Math.round(distance.meters * 0.02);
-    return charges;
-  };
+  // const calculateDeliveryCharges = distance => {
+  //   // Calculate delivery charges based on the cost per meter
+  //   const charges = Math.round(distance.meters * 0.02);
+  //   return charges;
+  // };
 
   // useEffect(() => {
   //   if (latitude && longitude && filteredRestaurants.length > 0) {
@@ -158,12 +158,12 @@ const LargeCard = ({navigation, searchText}, props) => {
   //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
   // );
 
-const filteredRestaurants = allResturantsCards.filter((item) =>
-  item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
-);
+  const filteredRestaurants = allResturantsCards.filter((item) =>
+    item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
 
- 
+
   return (
     <View>
       {loading ? (
@@ -182,7 +182,7 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
           <Text
             style={[
               TextStyles.primaryText,
-              { textAlign: 'left', marginLeft: wp('3'), fontSize: wp('6') },
+              { textAlign: 'left', marginLeft: wp('3.5'), fontSize: wp('6') },
             ]}>
             All Restaurants
           </Text>
@@ -191,28 +191,28 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
             Vertical
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
-              const restaurantLatitude = item.restaurantAddress?.[0]?.latitude ?? "";
-              const restaurantLongitude = item.restaurantAddress?.[0]?.longitude ?? "";
-              
-              const distance = calculateDistance(
-                latitude,
-                longitude,
-                restaurantLatitude,
-                restaurantLongitude,
-              );
+              // const restaurantLatitude = item.restaurantAddress?.[0]?.latitude ?? "";
+              // const restaurantLongitude = item.restaurantAddress?.[0]?.longitude ?? "";
 
-              // Calculate delivery charges
-              const charges = calculateDeliveryCharges(distance);
-              const estimatedDeliveryTime = calculateDeliveryTime(distance);
+              // const distance = calculateDistance(
+              //   latitude,
+              //   longitude,
+              //   restaurantLatitude,
+              //   restaurantLongitude,
+              // );
+
+              // // Calculate delivery charges
+              // const charges = calculateDeliveryCharges(distance);
+              // const estimatedDeliveryTime = calculateDeliveryTime(distance);
 
               return (
                 <View style={{ flex: 1, backgroundColor: AppColors.white }}>
                   <TouchableOpacity
                     style={{ alignItems: 'center' }}
                     onPress={() => {
-                        storeSelectedRestaurants('Restaurants'),
-                        storeRestaurantAddress(item.restaurantAddress),
-                        storeRestaurantId(item._id);
+                      storeSelectedRestaurants('Restaurants'),
+                      storeRestaurantAddress(item.restaurantAddress),
+                      storeRestaurantId(item._id);
                       storeRestaurantName(item.restaurantName);
                       storeRestaurantFcmToken(item.fcmToken);
                       storeRestaurantImage(item.restaurantImage);
@@ -223,9 +223,9 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
                         restaurant_id: item._id,
                         restaurantImage: baseUrl + item.restaurantImage,
                         restaurantName: item.restaurantName,
-                        distance: distance,
-                        deliveryTime: estimatedDeliveryTime,
-                        deliveryCharges: charges, // Pass delivery charges to the next screen
+                        // distance: distance,
+                        // deliveryTime: estimatedDeliveryTime,
+                        // deliveryCharges: charges, // Pass delivery charges to the next screen
                       });
                     }}>
                     <ImageBackground
@@ -248,18 +248,27 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
                     </ImageBackground>
                   </TouchableOpacity>
                   <Text style={[TextStyles.leftText, { marginTop: hp('3') }]}>
-                    {item.restaurantName} - {item.restaurantAddress[0]?.elaqa?? ""}
+                    {item.restaurantName} - {item.restaurantAddress[0]?.elaqa ?? ""}
                   </Text>
-                  <Text
+                  <View style={{flexDirection:"row"}}>
+    <MaterialCommunityIcons
+            name="bike"
+            size={wp('5%')}
+            style={{marginLeft:wp('4%'),color:AppColors.primary}}
+          />
+<Text style={{color:AppColors.primary,fontFamily:"Poppins-Regular"}}> Free dlivery</Text>
+    </View>
+                  {/* <Text
                     style={{
                       marginLeft: wp('4%'),
-                      fontFamily: 'Poppins-Regular',
+                      fontFamily: 'Poppins-Medium',
                       fontSize: wp('2.8'),
-                      color: AppColors.black,
+                      color: AppColors.primary,
+                      marginBottom: hp('1.5')
                     }}>
                     $$ . Fast Food
-                  </Text>
-
+                  </Text> */}
+                  {/* 
                   <View style={{ flexDirection: 'row', width: wp('100'), }}>
                     <MaterialIcons
                       name="access-time"
@@ -303,7 +312,8 @@ const filteredRestaurants = allResturantsCards.filter((item) =>
                         {distance.km.toFixed()} km away
                       </Text>
                     </View>
-                  </View>
+                  </View> */}
+
                 </View>
               );
             }}

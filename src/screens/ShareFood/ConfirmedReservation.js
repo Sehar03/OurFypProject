@@ -104,7 +104,7 @@ const ConfirmedReservation = ({navigation, route}) => {
             style={{
               color: AppColors.white,
               fontFamily: 'Poppins-Bold',
-              fontSize: hp('2'),
+              fontSize: hp('1.2'),
             }}>
             Chat with your Partner
           </Text>

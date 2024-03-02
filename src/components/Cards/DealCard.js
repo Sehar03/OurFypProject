@@ -156,6 +156,7 @@ const DealCard = ({ navigation, item, updateTotalQuantity, updateTotalAmount}) =
       .then((response) => {
         if (response.data.added) {
           alert("Product is added into Schedule");
+          closeModal(); 
         } else {
 
           alert("Some thing went wrong");

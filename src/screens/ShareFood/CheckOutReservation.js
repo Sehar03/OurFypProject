@@ -85,7 +85,7 @@ const CheckOutReservation = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{backgroundColor: AppColors.white, flex: 1}}>
-      <BackButtonHeader navigation={navigation} title="CheckOut" />
+      <BackButtonHeader navigation={navigation} item="  CheckOut" />
       {sharedFood.map(item => (
         <>
           <ScrollView>

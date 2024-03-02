@@ -198,6 +198,20 @@ const ConfirmedShareFood = ({ navigation }) => {
           <Text>No food sharing has been confirmed Yet</Text>
         </View>
       ) : (
+        <View style={{alignSelf:"center",marginTop:hp(1)}}>
+        <Neomorph
+        darkShadowColor={AppColors.primary}
+        lightShadowColor={AppColors.background}
+        swapShadows // <- change zIndex of each shadow color
+        style={[
+          ContainerStyles.ScheduleCardNeomorph,
+          { overflow: 'hidden',height:hp(10)},
+        ]}>
+       <View style={{flexDirection:"row",marginTop:hp('1.6')}}>
+       <AntDesign name="message1" size={20} style={[IconStyles.messageIcon]} />
+        <Text style={[TextStyles.messageStyle]}>This is a confirmed shared food that someone has verified as the food shared by you.</Text>
+        </View>
+        </Neomorph>
         <FlatList
           data={yourConfirmedFood}
           renderItem={({ item }) => {
@@ -210,6 +224,7 @@ const ConfirmedShareFood = ({ navigation }) => {
             );
           }}
         />
+        </View>
       )
       }
     </SafeAreaView>

@@ -50,17 +50,18 @@ const ChatWithPartner = ({ navigation, route }) => {
         .collection('messages')
         .orderBy('createdAt', 'desc')
         .onSnapshot(snapshot => {
-          const allMessages = snapshot.docs.map(doc => {
-            const data = doc.data();
-            return {
-              ...data,
-              createdAt: data.createdAt?.toDate() || new Date(),
-            };
-          });
-
-          setMessages(allMessages);
+          if (snapshot) { // Check if snapshot is not null
+            const allMessages = snapshot.docs.map(doc => {
+              const data = doc.data();
+              return {
+                ...data,
+                createdAt: data.createdAt?.toDate() || new Date(),
+              };
+            });
+  
+            setMessages(allMessages);
+          }
         });
-
       return () => {
         unsubscribe();
       };
