@@ -8,7 +8,7 @@ import AppColors from '../../assets/colors/AppColors';
 import TextStyles from '../../assets/Styles/TextStyles';
 
 
-const CartHeader = ({ item, navigation }) => {
+const CloseHeader = ({ item, navigation }) => {
   
   return (
     <View style={{
@@ -21,18 +21,17 @@ const CartHeader = ({ item, navigation }) => {
       <StatusBar
         barStyle="dark-content"
         backgroundColor="white"
-        translucent={true}
       />
 
       <TouchableOpacity
         onPress={() => {
-          navigation.goBack();
+          navigation.navigate('Home')
         }}>
-        <AntDesign name="close" size={wp('6')} style={{ color: AppColors.primary, marginTop: hp('3%'), marginLeft: wp('5%') }} />
+        <AntDesign name="close" size={wp('6')} style={{ color: AppColors.primary, marginTop: hp('3%'), marginLeft: wp('5') }} />
       </TouchableOpacity>
-      <Text style={[TextStyles.cartTextStyle]}>{item}</Text>
+      <Text style={[TextStyles.headerTextStyle,{marginLeft:wp('14')}]}>{item}</Text>
     </View>
   );
 };
-export default CartHeader;
+export default CloseHeader;
 

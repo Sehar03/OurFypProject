@@ -11,7 +11,7 @@ import {
     Image,
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import {
     widthPercentageToDP as wp,

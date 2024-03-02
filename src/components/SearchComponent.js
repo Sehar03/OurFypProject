@@ -28,7 +28,7 @@ const SearchComponent = ({ onSearch }) => {
           <View style={[ContainerStyles.TwoitemsCenter]}>
             <AntDesign
               name="search1"
-              size={wp('6%')}
+              size={wp('4.5')}
               style={IconStyles.signupIcons}
             />
             <TextInput

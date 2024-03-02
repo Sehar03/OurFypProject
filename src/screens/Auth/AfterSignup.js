@@ -191,10 +191,10 @@ const AfterSignup = ({navigation}) => {
             }}
           />
           <View style={[ContainerStyles.cameraIconView]}>
-            <MaterialIcons name="camera-alt" size={23} color="white" />
+            <MaterialIcons name="camera-alt" size={23} color={AppColors.primary} />
           </View>
           {profileImageError ? (
-              <Text style={[TextStyles.errorText,{marginLeft:wp('15')}]}>{profileImageError}</Text>
+              <Text style={[TextStyles.errorText,{marginLeft:wp('30')}]}>{profileImageError}</Text>
             ) : null}
         </TouchableOpacity>
         <View style={{alignItems: 'center', marginTop: hp('5')}}>

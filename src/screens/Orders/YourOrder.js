@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import LottieView from 'lottie-react-native';
 import AppContext from '../../Context/AppContext';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -94,7 +94,7 @@ const YourOrder = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ backgroundColor: AppColors.white }}>
-        <CartHeader navigation={navigation} item="               Your Order" />
+        <CloseHeader navigation={navigation} item="       Your Order"/>
 
       </View>
       <ScrollView>
@@ -180,7 +180,7 @@ const YourOrder = ({ navigation, route }) => {
               }}>
               Order number:
             </Text>
-            <View style={{ backgroundColor: AppColors.background, height: hp(3.2), width: wp(26), borderRadius: 80, justifyContent: 'space-between', alignItems: "center", flexDirection: "row" }}>
+            <View style={{ backgroundColor: AppColors.background, height: hp(3.2), width: wp(23), borderRadius: 80, justifyContent: 'space-between', alignItems: "center", flexDirection: "row" }}>
               <AntDesign
                 name="exclamationcircle"
                 size={13}

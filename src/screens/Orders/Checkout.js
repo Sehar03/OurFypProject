@@ -28,7 +28,7 @@ import randomstring from 'randomstring';
 import moment from 'moment';
 
 const Checkout = ({ navigation, route }) => {
-  const { currentUser, baseUrl,restaurantName, restaurantImage,restaurantFcmToken } = useContext(AppContext);
+  const { currentUser, baseUrl, restaurantName, restaurantImage, restaurantFcmToken } = useContext(AppContext);
   const [isEditingMobileNumber, setIsEditingMobileNumber] = useState(false);
   const [mobileNumber, setMobileNumber] = useState(currentUser.phoneNumber);
   const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] = useState(false);
@@ -36,7 +36,7 @@ const Checkout = ({ navigation, route }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const { subtotal, deliveryFee, total, restaurant_id } = route.params;
 
-  
+
 
 
   const updateCartStatus = () => {
@@ -55,19 +55,33 @@ const Checkout = ({ navigation, route }) => {
 
   const addOrder = () => {
 
-    const orderId = randomstring.generate(8);
+    if (!deliveryAddress || deliveryAddress.length === 0 || !deliveryAddress[0].formattedAddress) {
+      alert("Please provide a valid delivery address before placing the order.");
+      return;
+    }
+    const orderId = randomstring.generate({
+      length: 6,
+      charset: 'alphanumeric',
+      capitalization: 'uppercase',
+    });
+
+    const mobileNumberRegex = /^(\+92|0)(3[0-9]{9})$/; // Regex for a valid 11-digit Pakistani mobile number
+    if (!mobileNumberRegex.test(mobileNumber)) {
+      alert("Please enter a valid Pakistani mobile number.");
+      return;
+    }
     // const orderDateTime = moment().format('DD MMM hh:mm A');
-    const orderDateTime = moment().format('DD MMM HH:mm'); 
+    const orderDateTime = moment().format('DD MMM HH:mm');
     const formData = new FormData();
     formData.append("customer_id", currentUser.userId);
     formData.append("customerName", currentUser.name);
     formData.append("customerPhoneNumber", mobileNumber);
     formData.append("customerEmail", currentUser.email);
-    formData.append("customerProfile",currentUser.profileImage)
-    formData.append("orderId",orderId);
+    formData.append("customerProfile", currentUser.profileImage)
+    formData.append("orderId", orderId);
     formData.append("orderDateTime", orderDateTime);
-    formData.append("restaurantName",restaurantName);
-    formData.append("restaurantImage",restaurantImage)
+    formData.append("restaurantName", restaurantName);
+    formData.append("restaurantImage", restaurantImage)
     if (deliveryAddress && deliveryAddress.length > 0) {
       const firstAddress = deliveryAddress[0];
       formData.append("deliveryAddress", firstAddress.formattedAddress);
@@ -90,16 +104,16 @@ const Checkout = ({ navigation, route }) => {
     })
       .then((response) => {
         if (response.data.added) {
-           updateCartStatus();
-           triggerNotification();
+          updateCartStatus();
+          triggerNotification();
           alert("Order is placed");
-          navigation.navigate('YourOrder',{
-            deliveryAddress:deliveryAddress,
-            productsArray:productsArray,
-            subtotal:subtotal,
-            deliveryFee:deliveryFee,
-            total:total,
-            orderId:orderId
+          navigation.navigate('YourOrder', {
+            deliveryAddress: deliveryAddress,
+            productsArray: productsArray,
+            subtotal: subtotal,
+            deliveryFee: deliveryFee,
+            total: total,
+            orderId: orderId
 
           })
         } else {
@@ -131,7 +145,7 @@ const Checkout = ({ navigation, route }) => {
   const triggerNotification = async () => {
     try {
       const response = await axios.post(`${baseUrl}/triggerNotification/${restaurantFcmToken}`);
-      console.log("hjhjhjhjh",response.data)
+      console.log("hjhjhjhjh", response.data)
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -153,7 +167,7 @@ const Checkout = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: AppColors.white, flex: 1 }}>
-      <BackButtonHeader navigation={navigation} title="CheckOut" />
+      <BackButtonHeader navigation={navigation} item="  CheckOut" />
       <ScrollView>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Neomorph
@@ -172,7 +186,7 @@ const Checkout = ({ navigation, route }) => {
               paddingBottom: hp('3'),
               flex: 1,
             }}>
-             
+
             {isEditingDeliveryAddress ? (
               <View>
                 <View style={{ flexDirection: "row" }}>
@@ -204,15 +218,15 @@ const Checkout = ({ navigation, route }) => {
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                   <View style={{ width: wp('85'), height: hp('20') }}>
                     <TextInput
-                       style={{
+                      style={{
                         height: 40,
-                        marginLeft:wp(3.2),
+                        marginLeft: wp(3.2),
                         marginBottom: 10,
                         padding: 8,
                         fontSize: 16,
                       }}
                       autoFocus  // Auto focus the TextInput when editing starts
-                    selectionColor={AppColors.primary}
+                      selectionColor={AppColors.primary}
                       value={deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
                       onChangeText={(text) => handleDeliveryAddressChange(text)}
                     />
@@ -247,7 +261,7 @@ const Checkout = ({ navigation, route }) => {
                     Delivery Address
                   </Text>
                 </View>
-                
+
                 <View
                   style={{
                     flex: 1,
@@ -258,15 +272,15 @@ const Checkout = ({ navigation, route }) => {
                     borderColor: AppColors.background2,
                   }}></View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <View style={{ width: wp('83'),height:hp('6.5') }}>
+                  <View style={{ width: wp('83'), height: hp('6.5') }}>
                     <Text style={{
                       marginLeft: wp('3.5'),
                     }}>
                       {deliveryAddress && deliveryAddress.length > 0 ? deliveryAddress[0].formattedAddress : ''}
                     </Text>
-                   
+
                   </View>
-                  
+
                   <TouchableOpacity onPress={() => setIsEditingDeliveryAddress(!isEditingDeliveryAddress)}>
                     <MaterialIcons
                       name={isEditingDeliveryAddress ? 'done' : 'edit'}
@@ -275,7 +289,7 @@ const Checkout = ({ navigation, route }) => {
                     />
                   </TouchableOpacity>
                 </View>
-              
+
               </View>
             )}
           </Neomorph>
@@ -332,7 +346,7 @@ const Checkout = ({ navigation, route }) => {
                   <TextInput
                     style={{
                       height: 40,
-                      marginLeft:wp(3.2),
+                      marginLeft: wp(3.2),
                       marginBottom: 10,
                       padding: 8,
                       fontSize: 16,
@@ -473,14 +487,14 @@ const Checkout = ({ navigation, route }) => {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
 
-         <View style={{
-          width: wp(95),
-          marginBottom: hp('1.5'),
-          borderWidth: 2,
-          borderColor: AppColors.background2,
-          borderRadius: 5,
-          marginTop: hp('1.4%'),
-         }}>
+          <View style={{
+            width: wp(95),
+            marginBottom: hp('1.5'),
+            borderWidth: 2,
+            borderColor: AppColors.background2,
+            borderRadius: 5,
+            marginTop: hp('1.4%'),
+          }}>
             <View style={{ flexDirection: 'row', width: wp('100%') }}>
               <Entypo
                 name="text-document"

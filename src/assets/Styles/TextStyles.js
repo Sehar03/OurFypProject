@@ -16,7 +16,6 @@ const TextStyles = StyleSheet.create({
   },
   whiteCenteredLable: {
     color: AppColors.white,
-    // fontWeight: '600',
     fontFamily: 'Poppins-SemiBold',
     fontSize: hp('2.5%'),
     textAlign: 'center',
@@ -26,8 +25,8 @@ const TextStyles = StyleSheet.create({
     color: 'white',
     fontSize: hp('3'),
     marginLeft: wp('17'),
-    // marginTop: hp('2'),
-    fontFamily:"Poppins-Medium"
+    marginTop: hp('2'),
+    fontFamily:"Poppins-SemiBold"
   },
   primaryText: {
     color: 'black',
@@ -66,8 +65,8 @@ const TextStyles = StyleSheet.create({
   backButtonTitle: {
     position: 'absolute',
     fontSize:wp('4.5'),
-    left: wp('38%'),
-    top: hp('3'),
+    left: wp('35'),
+    top: hp('4.5'),
     fontFamily: 'Poppins-SemiBold',
     color: 'black',
   },
@@ -141,6 +140,13 @@ const TextStyles = StyleSheet.create({
     marginLeft: wp('8%'),
     fontFamily: 'Poppins-SemiBold',
     marginTop: hp('2.4%'),
+  },
+  headerTextStyle:{
+    color: 'black',
+    fontSize: hp('2.7'),
+    fontFamily: 'Poppins-SemiBold',
+    marginTop: hp('2.5'),
+    marginLeft: wp('29'),
   },
   text3: {
     fontFamily: 'Poppins-SemiBold',

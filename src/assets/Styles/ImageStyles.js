@@ -23,10 +23,10 @@ const ImageStyles = StyleSheet.create({
     marginTop: hp(12),
   },
   logoImageStyle: {
-    height: hp('11.5'),
-    width: wp('23'),
-    borderRadius: 40,
-    marginBottom: hp('2'),
+    height: hp('14'),
+    width: wp('28'),
+    borderRadius: 100,
+    marginBottom: hp('1'),
     marginTop: hp('8'),
   },
   advertiseImageStyle: {

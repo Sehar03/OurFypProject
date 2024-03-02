@@ -54,22 +54,7 @@ const LargeCard = ({navigation, searchText}, props) => {
     viewAllRestaurants();
   }, []);
 
-
-//   console.log('allResturantsCards:', allResturantsCards);
-
-//   const filteredRestaurants = allResturantsCards.filter(
-//     item =>
-//       item &&
-//       item.restaurantName &&
-//       item.restaurantName.toLowerCase()?.includes(searchText?.toLowerCase()),
-//   );
-
-  // const filteredRestaurants = allResturantsCards.filter(
-  //   item =>
-  //     item.restaurantName &&
-  //     item.restaurantName.toLowerCase().includes(searchText.toLowerCase()),
-  // );
-
+  
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -173,6 +158,11 @@ const LargeCard = ({navigation, searchText}, props) => {
   //   item.restaurantName && searchText && item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
   // );
 
+const filteredRestaurants = allResturantsCards.filter((item) =>
+  item.restaurantName.toLowerCase().includes(searchText.toLowerCase())
+);
+
+
   return (
     <View>
       {loading ? (
@@ -196,7 +186,7 @@ const LargeCard = ({navigation, searchText}, props) => {
             All Restaurants
           </Text>
           <FlatList
-            data={allResturantsCards}
+            data={filteredRestaurants}
             Vertical
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -316,7 +306,7 @@ const LargeCard = ({navigation, searchText}, props) => {
               );
             }}
           />
-          {allResturantsCards.length === 0 && !loading && (
+          {filteredRestaurants.length === 0 && !loading && (
             <Text style={{ textAlign: 'center', marginTop: 90 }}>
               No Restaurants available.
             </Text>

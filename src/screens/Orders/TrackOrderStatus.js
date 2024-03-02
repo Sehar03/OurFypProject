@@ -4,7 +4,7 @@ import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity, Image
 import StepIndicator from 'react-native-step-indicator';
 import AppContext from '../../Context/AppContext';
 import AppColors from '../../assets/colors/AppColors';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import TextStyles from '../../assets/Styles/TextStyles';
 import { Neomorph } from 'react-native-neomorph-shadows';
@@ -78,7 +78,7 @@ const TrackOrderStatus = ({ navigation,route}) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <CartHeader navigation={navigation} item="     Track Order Status" />
+      <CloseHeader navigation={navigation} item="Track Order Status" />
       <Image source={require('../../assets/Images/track.jpg')} style={{height:hp(25),width:wp('70'),marginLeft:wp('15')}} />
       <View style={{flexDirection:'column'}}>
       <Text style={{alignSelf:'center',fontSize:hp('2.3'),color:AppColors.black,fontFamily:"Poppins-SemiBold"}}>OrderId:</Text>

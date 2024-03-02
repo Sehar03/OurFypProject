@@ -12,20 +12,19 @@ import SearchComponent from '../../components/SearchComponent';
 import AppColors from '../../assets/colors/AppColors';
 
   const FullPriceHomeScreen = ({ navigation }) => {
-    // const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState('');
   
-    // const handleSearch = (text) => {
-    //   setSearchText(text);
-    // };
+    const handleSearch = (text) => {
+      setSearchText(text);
+    };
+
   return (
     <SafeAreaView style={{ backgroundColor: AppColors.white,flex:1 }}>
       <MainHeader navigation={navigation} item="Full Price Food" />
       <ScrollView>
-        <SearchComponent />
-        {/* <AdvertiseCard navigation={navigation} /> */}
-        {/* <Text style={[TextStyles.primaryText, { textAlign: "left", marginLeft: wp('3'),fontSize:wp('6') }]}>Food For You</Text> */}
-        <SmallCard  navigation={navigation} />
-          <LargeCard navigation={navigation} />
+        <SearchComponent onSearch={handleSearch} />
+        <SmallCard navigation={navigation} searchText={searchText} />
+        <LargeCard navigation={navigation} searchText={searchText} />
       </ScrollView>
     </SafeAreaView>
   )

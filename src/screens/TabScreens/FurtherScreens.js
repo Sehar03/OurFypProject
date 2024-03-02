@@ -305,10 +305,11 @@ const FurtherScreens = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <TabScreensHeader title={categoryName} navigation={navigation} />
+   <TabScreensHeader item={`    ${categoryName}`} navigation={navigation} />
       <Tab.Navigator
         initialRouteName={categoryName}
         scrollEnabled={true}
+        swipeEnabled={false}
         screenOptions={TabBarStyles.customTabBar}
       >
         <Tab.Screen

@@ -8,7 +8,7 @@ import {
   _ScrollView,
   Text,
 } from 'react-native';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppColors from '../../assets/colors/AppColors';
 import {
@@ -24,6 +24,7 @@ import TextFieldStyles from '../../assets/Styles/TextFieldStyles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import AppContext from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Profile = ({navigation}) => {
   const {storeSelectedImageUri, selectedImageUri, currentUser, baseUrl,updateCurrentUser} =
@@ -120,22 +121,15 @@ const Profile = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <CartHeader navigation={navigation} item="Profile" />
-      <View style={{justifyContent: 'center'}}>
+      <CloseHeader navigation={navigation} item="Profile" />
+      <View style={{justifyContent: 'center',marginTop: hp('4')}}>
         <TouchableOpacity onPress={()=>{openGallery();
         }}>
           <Image
           source={{uri: baseUrl+currentUser.profileImage}}
-            // source={
-            //   selectedImageUri === ''
-            //     ? {uri: baseUrl+currentUser.profileImage}
-            //     // require('../../assets/Images/defaultProfile.jpg') 
-            //     :  {uri: baseUrl+currentUser.profileImage}
-            //     // require('../../assets/Images/defaultProfile.jpg')
-            // }
             style={{
-              height: hp('17%'),
-              width: wp('35%'),
+              height: hp('17'),
+              width: wp('33'),
               borderRadius: 100,
               alignSelf: 'center',
               // marginBottom: 7,
@@ -143,7 +137,7 @@ const Profile = ({navigation}) => {
           />
           {console.log('fetched profile image ',baseUrl+currentUser.profileImage)}
           <View style={[ContainerStyles.cameraIconView]}>
-            <MaterialIcons name="camera-alt" size={23} color="white" />
+            <Ionicons name="camera-sharp" size={23} color={AppColors.primary} />
           </View>
         </TouchableOpacity>
         <View style={{marginTop: hp('4'), alignItems: 'center'}}>
@@ -152,16 +146,16 @@ const Profile = ({navigation}) => {
               navigation.navigate('EditProfile', {item: 'Name'});
             }}>
             <Neomorph
-              darkShadowColor={AppColors.Gray}
-              lightShadowColor={AppColors.darkgray}
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.background}
               swapShadows // <- change zIndex of each shadow color
               style={ContainerStyles.profileInputFieldContainer}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row' , justifyContent: 'space-between' }}>
                 <Text style={[TextFieldStyles.profileInputField]}>Name</Text>
                 <View style={{marginLeft: wp('1')}}>
                   <MaterialIcons
                     name="edit"
-                    size={25}
+                    size={22}
                     color={AppColors.primary}
                     style={[IconStyles.editIcon]}
                   />
@@ -176,31 +170,31 @@ const Profile = ({navigation}) => {
         </View>
 
         <View style={{marginTop: hp('4'), alignItems: 'center'}}>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate('EditProfile', {item: 'Email'});
-            }}> */}
+            }}> 
             <Neomorph
-              darkShadowColor={AppColors.Gray}
-              lightShadowColor={AppColors.darkgray}
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.background}
               swapShadows // <- change zIndex of each shadow color
               style={ContainerStyles.profileInputFieldContainer}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row',justifyContent: 'space-between' }}>
                 <Text style={[TextFieldStyles.profileInputField]}>Email</Text>
-                {/* <View style={{marginLeft: wp('2')}}>
+                <View style={{marginLeft: wp('2')}}>
                   <MaterialIcons
                     name="edit"
-                    size={25}
+                    size={22}
                     color={AppColors.primary}
                     style={[IconStyles.editIcon]}
                   />
-                </View> */}
+                </View> 
               </View>
               <Text style={[TextFieldStyles.profileInputFieldText]}>
                 {currentUser.email}
               </Text>
             </Neomorph>
-          {/* </TouchableOpacity> */}
+          </TouchableOpacity> 
         </View>
 
         <View style={{marginTop: hp('4'), alignItems: 'center'}}>
@@ -209,15 +203,15 @@ const Profile = ({navigation}) => {
               navigation.navigate('EditProfile', {item: 'MobileNumber'});
             }}>
             <Neomorph
-              darkShadowColor={AppColors.Gray}
-              lightShadowColor={AppColors.darkgray}
+             darkShadowColor={AppColors.primary}
+             lightShadowColor={AppColors.background}
               swapShadows // <- change zIndex of each shadow color
               style={ContainerStyles.profileInputFieldContainer}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row',justifyContent: 'space-between' }}>
                 <Text style={[TextFieldStyles.profileInputField]}>Mobile</Text>
                 <MaterialIcons
                   name="edit"
-                  size={25}
+                  size={22}
                   color={AppColors.primary}
                   style={[IconStyles.editIcon, {marginRight: wp('2')}]}
                 />

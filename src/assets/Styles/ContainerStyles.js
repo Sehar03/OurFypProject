@@ -39,7 +39,7 @@ const ContainerStyles = StyleSheet.create({
     marginTop: hp('1.1%'),
   },
 
-  profileInputFieldContainer: {
+  profileInputFieldContainer1: {
     shadowRadius: 2,
     shadowOpacity: 0.15,
     borderRadius: 10,
@@ -73,11 +73,11 @@ const ContainerStyles = StyleSheet.create({
 
   profileInputFieldContainer: {
     shadowRadius: 4,
-    shadowOpacity: 0.15,
-    borderRadius: 10,
-    backgroundColor: 'white',
-    width: hp('43'),
-    height: hp('12'),
+    shadowOpacity: 0.3,
+    borderRadius: 9,
+    backgroundColor:AppColors.white,
+    width: hp('40'),
+    height: hp('11'),
   },
   NeomorphContainer: {
     shadowRadius: 4,
@@ -461,10 +461,11 @@ const ContainerStyles = StyleSheet.create({
   cameraIconView: {
     height: hp('6'),
     width: wp('12'),
-    backgroundColor: AppColors.charcol,
+    backgroundColor: AppColors.lightGray,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: hp('3'),
+    borderColor: AppColors.primary,
     marginLeft: wp('58'),
     marginTop: hp('-6'),
   },

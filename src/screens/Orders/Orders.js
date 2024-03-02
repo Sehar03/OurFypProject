@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
-import CartHeader from '../../components/headers/CartHeader';
+import CloseHeader from '../../components/headers/CloseHeader';
 import ImageStyles from '../../assets/Styles/ImageStyles';
 import {
   widthPercentageToDP as wp,
@@ -29,6 +29,7 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import ProfileHeader from '../../components/headers/ProfileHeader';
 import OrderCard from '../../components/Cards/OrderCard';
+import TabScreensHeader from '../../components/headers/TabScreensHeader';
 const Tab = createMaterialTopTabNavigator();
 
 
@@ -180,7 +181,7 @@ const PastOrders = ({ navigation }) => {
 const Orders = ({ navigation }) => {
   return (
     <SafeAreaView style={{ backgroundColor: AppColors.white, flex: 1 }}>
-      <ProfileHeader navigation={navigation} item="Our Order's" />
+      <TabScreensHeader navigation={navigation} item="Our Order's" />
       <Tab.Navigator screenOptions={TabBarStyles.customTabBar}>
         <Tab.Screen name="ActiveOrders" component={ActiveOrders} />
         <Tab.Screen name="PastOrders" component={PastOrders} />

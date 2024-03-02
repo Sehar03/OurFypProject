@@ -150,7 +150,9 @@ const Login = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: AppColors.white}}>
-      <BackButtonHeader navigation={navigation} />
+      {/* <BackButtonHeader navigation={navigation} /> */}
+      <View style={{marginTop:hp('11'),backgroundColor:AppColors.white}}></View>
+
       <Text style={TextStyles.leftHeading}>Log In</Text>
       {/* ye view mai ne neomorhp ko center krny k liye diya hai */}
       <View style={{alignItems: 'center'}}>

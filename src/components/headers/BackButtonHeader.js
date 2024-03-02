@@ -5,7 +5,7 @@ import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native
 import AppColors from '../../assets/colors/AppColors';
 import TextStyles from '../../assets/Styles/TextStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
-const BackButtonHeader = ({navigation,title}) => {
+const BackButtonHeader = ({navigation,item}) => {
   return (
     <View style={{backgroundColor:AppColors.white,height:hp('9%'),width:wp('100%'),justifyContent:"center",marginTop:wp('3'),borderBottomWidth: hp('0.2'),
     marginBottom: hp('1'),borderColor: AppColors.background2,
@@ -21,7 +21,7 @@ const BackButtonHeader = ({navigation,title}) => {
           }}>
           <AntDesign name="arrowleft" size={wp('6%')} style={[IconStyles.arrowLeftIcon]} />
       </TouchableOpacity>
-      <Text style={[TextStyles.backButtonTitle]}>{title}</Text>
+      <Text style={[TextStyles.backButtonTitle]}>{item}</Text>
     </View>
   );
 };

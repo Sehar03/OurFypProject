@@ -8,6 +8,7 @@ import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import { widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import IconStyles from '../../assets/Styles/IconStyles';
+import BackButtonHeader from '../../components/headers/BackButtonHeader';
 
 
 const notificationsData = [
@@ -44,7 +45,7 @@ const Notification = ({navigation}) => {
 
   return (
 <SafeAreaView style={{flex:1,backgroundColor:AppColors.white}}>
-    <ProfileHeader navigation={navigation} item="Notification" /> 
+    <BackButtonHeader navigation={navigation} item=" Notification" /> 
 
       <FlatList
         data={notificationsData}

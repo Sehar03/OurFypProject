@@ -12,15 +12,15 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import ContainerStyles from '../../assets/Styles/ContainerStyles';
 import IconStyles from '../../assets/Styles/IconStyles';
 
-const TabScreensHeader = ({navigation, title}) => {
+const TabScreensHeader = ({navigation, item}) => {
   return (
     <View
       style={{
         backgroundColor: AppColors.white,
         height: hp('8%'),
         width: wp('100%'),
-        justifyContent: 'center',
-        marginTop: hp('3'),
+        flexDirection: "row", 
+        marginTop:hp('3.5')
       }}>
       {/* <View style={{marginTop:hp('4')}}> */}
       <StatusBar
@@ -37,12 +37,12 @@ const TabScreensHeader = ({navigation, title}) => {
           size={wp('6%')}
           style={{
             color: AppColors.primary,
-            marginTop: hp('1%'),
-            marginLeft: wp('6%'),
+            marginTop: hp('2.7'),
+            marginLeft: wp('6'),
           }}
         />
       </TouchableOpacity>
-      <Text style={[TextStyles.backButtonTitle,{marginTop:hp('0')}]}>{title}</Text>
+      <Text style={[TextStyles.backButtonTitle,{top:hp('2.5')}]}>{item}</Text>
     </View>
   );
 };

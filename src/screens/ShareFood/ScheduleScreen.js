@@ -273,7 +273,7 @@ const CompletedShareFood = ({ navigation }) => {
 const ScheduleScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: AppColors.white }}>
-      <TabScreensHeader navigation={navigation} title="Share Food" />
+      <TabScreensHeader navigation={navigation} item="Share Food" />
       <Tab.Navigator
         initialRouteName="MyFood"// Set the initial route based on categoryName
         screenOptions={TabBarStyles.customTabBar}>

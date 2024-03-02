@@ -10,30 +10,61 @@ import TextStyles from '../../assets/Styles/TextStyles';
 import AppContext from '../../Context/AppContext';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BackButtonHeader from '../../components/headers/BackButtonHeader';
 const EditProfile = ({ route, navigation }) => {
-  const {currentUser,updateCurrentUser,baseUrl}=useContext(AppContext);
+  const { currentUser, updateCurrentUser, baseUrl } = useContext(AppContext);
   const [userName, setUserName] = useState(currentUser.name);
   const [userEmail, setUserEmail] = useState(currentUser.email);
   const [userMobileNumber, setUserMobileNumber] = useState(currentUser.phoneNumber);
-  const [customerProfileImage, setCustomerProfileImage] = useState('');
-
+  const [userNameError, setUserNameError] = useState('');
+  const [userEmailError, setUserEmailError] = useState('');
+  const [userMobileNumberError, setUserMobileNumberError] = useState('');
   const { item } = route.params;
-  const updateCustomerProfile = async () => {
-    try {
-      const formData = new FormData();
-      // formData.append('profileImage', {
-      //   uri: customerProfileImage.uri,
-      //   type: customerProfileImage.type,
-      //   name: customerProfileImage.fileName,
-      // });
 
-   
+  const isEmailValid = userEmail => {
+    const emailPattern = /\S+@\S+\.\S+/;
+    return emailPattern.test(userEmail);
+  };
+  const isValidPhoneNumber = userMobileNumber => {
+    const regex = /^(\+92|0)(3[0-9]{9})$/;
+    return regex.test(userMobileNumber);
+  };
+
+  const updateCustomerProfile = async () => {
+
+    try {
+      if (!userName) {
+        setUserNameError('Please Enter name.');
+      }
+      if (!userEmail) {
+        setUserEmailError('Please enter your email address.');
+      } else if (!isEmailValid(userEmail)) {
+        setUserEmailError('Please enter a valid email address.');
+      }
+      if (!userMobileNumber) {
+        setUserMobileNumberError('Please Enter your phone number.');
+      } else if (!isValidPhoneNumber(userMobileNumber)) {
+        setUserMobileNumberError('Invalid Phone Number');
+      }
+
+      if (
+        !userName ||
+        !userEmail ||
+        !isEmailValid(userEmail) ||
+        !isValidPhoneNumber(userMobileNumber)
+
+      ) {
+        return false;
+      }
+
+
+      const formData = new FormData();
+
 
       console.log('id from context to update profile', currentUser.userId);
       formData.append('_id', currentUser.userId);
       formData.append('customerName', userName);
-      // formData.append('customerEmail', userEmail);
-
+      formData.append('customerEmail', userEmail);
       formData.append('customerPhoneNumber', userMobileNumber);
 
       const response = await fetch(`${baseUrl}/updateCustomerProfile`, {
@@ -45,7 +76,7 @@ const EditProfile = ({ route, navigation }) => {
       });
 
       if (!response.ok) {
-        console.error(`HTTP error! Status: ${response.status}`);
+        setUserEmailError('This email is already Exist')
         console.log(await response.text());
         return;
       }
@@ -63,14 +94,15 @@ const EditProfile = ({ route, navigation }) => {
 
         });
 
-        await AsyncStorage.setItem('user', JSON.stringify({  userId: data.updatedUser._id,
+        await AsyncStorage.setItem('user', JSON.stringify({
+          userId: data.updatedUser._id,
           email: data.updatedUser.email,
           password: data.updatedUser.password,
           name: data.updatedUser.name,
           profileImage: data.updatedUser.profileImage,
           phoneNumber: data.updatedUser.phoneNumber,
           addresses: data.updatedUser.addresses,
-}));
+        }));
         navigation.navigate('Profile');
       } else {
         console.log('Error in response: ', data);
@@ -84,7 +116,7 @@ const EditProfile = ({ route, navigation }) => {
       <ScrollView>
         {item == 'Name' ? (
           <View>
-            <ProfileHeader navigation={navigation} item="Name" />
+            <BackButtonHeader navigation={navigation} item="      Name" />
             <Text
               style={[TextStyles.simpleText2]}>
               This is how we'll address you
@@ -96,7 +128,7 @@ const EditProfile = ({ route, navigation }) => {
             </Text>
             <View style={{}}>
               <Neomorph
-                darkShadowColor={AppColors.Gray}
+                darkShadowColor={AppColors.primary}
                 lightShadowColor={AppColors.background}
                 // inner // <- enable shadow inside of neomorph
                 swapShadows // <- change zIndex of each shadow color
@@ -107,83 +139,85 @@ const EditProfile = ({ route, navigation }) => {
                   value={userName}
                   onChangeText={text => {
                     setUserName(text);
+                    setUserNameError('')
                   }}
                 />
               </Neomorph>
+              {userNameError ? (
+                <Text style={[TextStyles.errorText, { marginLeft: wp('7'), marginTop: hp('0') }]}>{userNameError}</Text>
+              ) : null}
             </View>
-          
+
           </View>
-        // ) : (
-        //   [
-        //     item == 'Email' ? (
-        //       <View>
-        //         <ProfileHeader navigation={navigation} item="Email" />
-        //         <Text
-        //           style={TextStyles.simpleText2}>
-        //           Make sure we can reach you at your new email
-        //         </Text>
-        //         <Text
-        //           style={TextFieldStyles.profileInputField2}>
-        //           {' '}
-        //           Email{' '}
-        //         </Text>
-        //         <Neomorph
-        //           darkShadowColor={AppColors.Gray}
-        //           lightShadowColor={AppColors.background}
-        //           // inner // <- enable shadow inside of neomorph
-        //           swapShadows // <- change zIndex of each shadow color
-        //           style={ContainerStyles.EditNameNeomorphContainer}>
-        //           <TextInput
-        //             //  placeholder="Enter First name"
-        //             style={[TextFieldStyles.inputFieldEdit]}
-        //             value={userEmail}
-        //             onChangeText={text => {
-        //               setUserEmail(text);
-        //             }}
-        //           />
-        //         </Neomorph>
-        //       </View>
-            ) : (
-              <View>
-                <ProfileHeader navigation={navigation} item="Mobile Number" />
-                <Text
-                  style={[TextStyles.simpleText2, { marginRight: wp('6') }]}>
-                  If you change to a new number, we'll take you through a
-                  verification process at checkout the next time you order
-                </Text>
-                <Text
-                  style={[TextFieldStyles.profileInputField2]}>
-                  {' '}
-                  Mobile number{' '}
-                </Text>
-                <Neomorph
-                  darkShadowColor={AppColors.Gray}
-                  lightShadowColor={AppColors.background}
-                  // inner // <- enable shadow inside of neomorph
-                  swapShadows // <- change zIndex of each shadow color
-                  style={ContainerStyles.EditNameNeomorphContainer}>
-                  <TextInput
-                    //  placeholder="Enter First name"
-                    style={[TextFieldStyles.inputFieldEdit]}
-                    value={userMobileNumber}
-                    onChangeText={text => {
-                      setUserMobileNumber(text);
-                    }}
-                  />
-                </Neomorph>
-              </View>
-            // ),
-          // ]
+        ) : item == 'Email' ? (
+          <View>
+            <BackButtonHeader navigation={navigation} item="       Email" />
+            <Text
+              style={TextStyles.simpleText2}>
+              Make sure we can reach you at your new email
+            </Text>
+            <Text
+              style={TextFieldStyles.profileInputField2}>
+              {' '}
+              Email{' '}
+            </Text>
+            <Neomorph
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.background}
+              // inner // <- enable shadow inside of neomorph
+              swapShadows // <- change zIndex of each shadow color
+              style={ContainerStyles.EditNameNeomorphContainer}>
+              <TextInput
+                //  placeholder="Enter First name"
+                style={[TextFieldStyles.inputFieldEdit]}
+                value={userEmail}
+                onChangeText={text => {
+                  setUserEmail(text);
+                  setUserEmailError('')
+                }}
+              />
+            </Neomorph>
+            {userEmailError ? (
+              <Text style={[TextStyles.errorText, { marginLeft: wp('7'), marginTop: hp('0') }]}>{userEmailError}</Text>
+            ) : null}
+          </View>
+        ) : (
+          <View>
+            <BackButtonHeader navigation={navigation} item="     Number" />
+            <Text
+              style={[TextStyles.simpleText2, { marginRight: wp('6') }]}>
+              Edit your contact number
+
+            </Text>
+            <Text
+              style={[TextFieldStyles.profileInputField2]}>
+              {' '}
+              Mobile number{' '}
+            </Text>
+            <Neomorph
+              darkShadowColor={AppColors.primary}
+              lightShadowColor={AppColors.background}
+              // inner // <- enable shadow inside of neomorph
+              swapShadows // <- change zIndex of each shadow color
+              style={ContainerStyles.EditNameNeomorphContainer}>
+              <TextInput
+                //  placeholder="Enter First name"
+                style={[TextFieldStyles.inputFieldEdit]}
+                value={userMobileNumber}
+                onChangeText={text => {
+                  setUserMobileNumber(text);
+                  setUserMobileNumberError('')
+                }}
+              />
+            </Neomorph>
+            {userMobileNumberError ? (
+                <Text style={[TextStyles.errorText, { marginLeft: wp('7'), marginTop: hp('0') }]}>{userMobileNumberError}</Text>
+              ) : null}
+          </View>
         )}
-        {/* :
-    //   [item=='Mobile Number'?<View>
-    // <ProfileHeader navigation={navigation} item ="Name"/>
-    //   </View> */}
+
       </ScrollView>
       <TouchableOpacity onPress={updateCustomerProfile}
-      // onPress={() => {
-      //   navigation.navigate('Profile')
-      // }}
       >
         <Neomorph
           // darkShadowColor={AppColors.primary}
