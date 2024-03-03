@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, ImageBackground, StatusBar, Text, View} from 'react-native';
+import {BackHandler, FlatList, ImageBackground, StatusBar, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native';
 import AppColors from '../../assets/colors/AppColors';
 import ProductsBackButton from '../../components/headers/ProductsBackButton';
@@ -15,7 +15,23 @@ const Recipient = ({route, navigation}) => {
   const {donatedData, selectedDonationState, baseUrl, currentUser} =
     useContext(AppContext);
   const [donationData, setDonationData] = useState([]);
+  const handleBackButtonPress = () => {
+    navigation.navigate('DonateHome');
+    return true; // Prevent default behavior (exit the app)
+  };
 
+  useEffect(() => {
+    // Add a listener for the back button press
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButtonPress
+    );
+
+    // Cleanup function to remove the listener when the component is unmounted
+    return () => {
+      backHandler.remove();
+};
+},[]);
   useEffect(() => {
     // Fetch donation data for the current user from MongoDB
     const fetchDonationData = async () => {
