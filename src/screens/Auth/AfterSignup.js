@@ -94,17 +94,17 @@ const AfterSignup = ({navigation}) => {
       } else if (!isValidPhoneNumber(customerPhoneNumber)) {
         setPhoneNoError('Invalid Phone Number');
       }
-      if (!firstSecurityAnswer) {
+      if (!firstSecurityAnswer.trim()) {
         setFirstSecurityAnswerError('*Required field');
       }
-      if (!secondSecurityAnswer) {
+      if (!secondSecurityAnswer.trim()) {
         setSecondSecurityAnswerError('*Required field');
       }
       if (!selectedImageUri||
         !customerPhoneNumber ||
         !isValidPhoneNumber(customerPhoneNumber) ||
-        !firstSecurityAnswer ||
-        !secondSecurityAnswer
+        !firstSecurityAnswer.trim() ||
+        !secondSecurityAnswer.trim()
       ) {
         return false;
       }

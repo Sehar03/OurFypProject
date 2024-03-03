@@ -43,7 +43,7 @@ const Signup = ({ navigation }) => {
   //FUNCTIONS
 
   const isEmailValid = userEmail => {
-    const emailPattern = /\S+@\S+\.\S+/;
+    const emailPattern = /\S+@gmail\.com$/;
     return emailPattern.test(userEmail);
   };
 
@@ -51,7 +51,7 @@ const Signup = ({ navigation }) => {
     return userPassword.length >= 8; // Minimum password length of 8 characters
   };
   const userRegister = () => {
-    if (!userName) {
+    if (!userName.trim()) {
       setUserNameError('Please enter your name.');
     }
 
@@ -60,18 +60,20 @@ const Signup = ({ navigation }) => {
     } else if (!isEmailValid(userEmail)) {
       setUserEmailError('Please enter a valid email address.');
     }
-    if (!userPassword) {
+   
+    if (!userPassword.trim()) {
       setUserPasswordError('Please enter your password.');
-    } else if (!isPasswordValid(userPassword)) {
-      setUserPasswordError('Password must be at least 8 characters long.');
+    } else if (!isPasswordValid(userPassword) || userPassword.includes(' ')) {
+      setUserPasswordError('Password must be at least 8 characters long and should not contain spaces.');
     }
 
     if (
-      !userName ||
+      !userName.trim() ||
       !userEmail ||
-      !userPassword ||
+      !userPassword.trim()||
       !isEmailValid(userEmail) ||
-      !isPasswordValid(userPassword)
+      !isPasswordValid(userPassword) ||
+      /\s/.test(userPassword)
     ) {
       return false;
     }

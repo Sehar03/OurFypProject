@@ -84,7 +84,7 @@ const CustomeDrawer = props => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ paddingVertical: 15 }}
             onPress={() => {
               navigation.navigate('Notification');
@@ -93,7 +93,7 @@ const CustomeDrawer = props => {
               <Ionicons color={AppColors.primary} name="notifications-outline" size={22} />
               <Text style={[TextStyles.mediumTextStyle]}>Notify</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
 
 
