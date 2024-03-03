@@ -44,11 +44,11 @@ const Donor = ({navigation, route}) => {
     currentUser,
   } = useContext(AppContext);
   const {address} = route.params || ''; // Provide a default empty object if route.params is undefined
-  const [donorName, setDonorName] = useState('');
+  const [donorName, setDonorName] = useState(currentUser.name);
   const [foodDetails, setFoodDetails] = useState('');
   // const [distributionLocation, setDistributionLocation] = useState('');
   const [distributionDateTime, setDistributionDateTime] = useState('');
-  const [donorPhoneNumber, setDonorPhoneNumber] = useState('');
+  const [donorPhoneNumber, setDonorPhoneNumber] = useState(currentUser.phoneNumber);
   const [isModalVisible, setModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [donorNameError, setDonorNameError] = useState('');
@@ -73,7 +73,7 @@ const Donor = ({navigation, route}) => {
   const saveDonationDetails = async () => {
     try {
       //validations
-      if (!donorName) {
+      if (!donorName.trim()) {
         setDonorNameError('*Required field');
       }
       if (!donorPhoneNumber) {
@@ -92,7 +92,7 @@ const Donor = ({navigation, route}) => {
         setDistributionDateTimeError('Please select date and time');
       }
       if (
-        !donorName ||
+        !donorName.trim() ||
         !donorPhoneNumber ||
         !isValidPhoneNumber(donorPhoneNumber) ||
         !foodDetails ||
@@ -296,11 +296,13 @@ const Donor = ({navigation, route}) => {
                     TextFieldStyles.inputField,
                     {marginLeft: wp('3.5'), color: AppColors.black},
                   ]}
+                  
                   value={
                     address?.substring(0, 25) +
                     (address?.length > 25 ? '...' : '')
                   }
                   editable={false}
+                  
                 />
               </View>
               {addressError ? (

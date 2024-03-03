@@ -15,7 +15,7 @@ const DonationCard = ({navigation, item}) => {
         darkShadowColor={AppColors.primary}
         lightShadowColor={AppColors.darkgray}
         swapShadows // <- change zIndex of each shadow color
-        style={[ContainerStyles.recipientNeomorphContainer,{ height: hp('32%')}]}>
+        style={[ContainerStyles.recipientNeomorphContainer,{ height: hp('36%')}]}>
         <View style={{flexDirection: 'row'}}>
           <Text style={[TextStyles.leftText, {color: 'purple'}]}>
             Donor Name :{' '}
